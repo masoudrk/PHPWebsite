@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fa" ng-app="myApp">
 <style>
 </style>
@@ -41,35 +41,11 @@
                               </li>
                           </ul>
                       </li>
-                      <li><a href='#'>درباره ما</a></li>
-                      <li><a href='#'>تماس با ما</a></li>
+                      <li><a href='#'>درباره ما<div class="glyphicon glyphicon-globe" style="margin-left:8px;line-height:0"></div></a></li>
+                      <li><a href='#'>تماس با ما<div class="glyphicon glyphicon-earphone" style="margin-left:8px;line-height:0"></div></a></li>
                   </ul>
               </div>
           </div>
-        <!--<div class="">
-            <div class="pull-right">
-                <div class="navbar-header menu-item">
-                    <a class="navbar-brand ">درباره ما
-                        <span class="glyphicon glyphicon-globe link"></span>
-                    </a>
-                </div>
-                <div class="navbar-header menu-item ">
-                    <a class="navbar-brand " >ارتباط با ما
-                        <span class="glyphicon glyphicon-earphone link"></span>
-                    </a>
-                </div>
-                <div class="navbar-header menu-item">
-                    <a class="navbar-brand">موضوعات
-                        <span class="glyphicon glyphicon-list link"></span>
-                    </a>
-                </div>
-                <div class="navbar-header menu-item ">
-                    <a class="navbar-brand"> خانه
-                        <span class="glyphicon glyphicon-home link"></span>
-                    </a>
-                </div>
-            </div>
-        </div>-->
       </div>
     </div>
     <div >
@@ -84,13 +60,14 @@
   <!-- Libs -->
 <script src="js/jquery.js" type="text/javascript"></script>
 <script src="js/menubar.js"></script>
-<script src="js/angular.min.js"></script>
-<script src="js/angular-route.min.js"></script>
-<script src="js/angular-animate.min.js" ></script>
+<script src="Scripts/angular.min.js"></script>
+<script src="Scripts/angular-route.min.js"></script>
+<script src="Scripts/angular-animate.min.js" ></script>
 <script src="js/toaster.js"></script>
 <script src="app/app.js"></script>
 <script src="app/data.js"></script>
 <script src="app/directives.js"></script>
+<script src="app/SlideShow.js"></script>
 <script src="app/authCtrl.js"></script>
 <script src="partials/Main/MainCtrl.js"></script>
 <script src="partials/Main/MainService.js"></script>
