@@ -53,12 +53,15 @@ app.config(['$routeProvider',
                 if (nextUrl == '/post' && !$rootScope.post) {
                     $location.path("/");
                 }
-                //if (results.uid) {
-                //    $rootScope.authenticated = true;
-                //    $rootScope.uid = results.uid;
-                //    $rootScope.name = results.name;
-                //    $rootScope.email = results.email;
-                //} else {
+
+                if (results.UserID) {
+                    $rootScope.authenticated = true;
+                    $rootScope.user = {};
+                    $rootScope.user.UserID = results.UserID;
+                    $rootScope.user.lastName = results.LastName;
+                    $rootScope.user.firstName = results.FirstName;
+                } 
+                //else {
                 //    var nextUrl = next.$$route.originalPath;
                 //    if (nextUrl == '/signup' || nextUrl == '/login') {
 

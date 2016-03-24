@@ -37,5 +37,18 @@ app.factory("Data", ['$http' ,'$rootScope' , 'toaster',
             });
         };
 
+        obj.authUser = function (user) {
+            $rootScope.authenticated = true;
+            $rootScope.user = {};
+            $rootScope.user.UserID = user.UserID;
+            $rootScope.user.lastName = user.LastName;
+            $rootScope.user.firstName = user.FirstName;
+        }
+
+        obj.unAuthUser = function () {
+            $rootScope.authenticated = false;
+            $rootScope.user = {};
+        }
+
         return obj;
 }]);

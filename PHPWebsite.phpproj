@@ -126,6 +126,7 @@
     <Content Include="js\ui-bootstrap-tpls-1.2.5.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.min.js" />
     <Content Include="packages.config" />
+    <Content Include="partials\SignupTemplate.html" />
     <Content Include="partials\LoginTemplate.html" />
     <Content Include="partials\Main\MainService.js" />
     <Content Include="partials\Main\MainCtrl.js" />

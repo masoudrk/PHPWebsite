@@ -8,18 +8,6 @@ app.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $location
     $scope.subject = {};
     $scope.subject.bases = [];
 
-
-    Data.get('session').then(function (results) {
-        if (results.uid) {
-            user = results;
-            console.log("Authorized");
-        } else {
-            user = results;
-            console.log("No Auth");
-        }
-    });
-
-
     $scope.getAllPosts = function () {
         MainService.getAllPosts()
            .then(function (result) {

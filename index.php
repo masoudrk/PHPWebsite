@@ -40,8 +40,10 @@
                       </li>
                       <li><a href='#'>درباره ما<div class="glyphicon glyphicon-globe" style="margin-left:8px;line-height:0"></div></a></li>
                       <li><a href='#'>تماس با ما<div class="glyphicon glyphicon-earphone" style="margin-left:8px;line-height:0"></div></a></li>
-
-                      <li><a ng-click="openLoginModal()">ورود کاربر<div class="glyphicon glyphicon-user" style="margin-left:8px;line-height:0"></div></a></li>
+                      
+                      <li><a ng-click="openLoginModal()">ورود<div class="glyphicon glyphicon-user" style="margin-left:8px;line-height:0"></div></a></li>
+                      <li><a ng-click="openSignupModal()">ثبت نام<div class="glyphicon glyphicon-user" style="margin-left:8px;line-height:0"></div></a></li>
+                      <li ng-if="authenticated"><a  ng-click="logout()">خروج<div class="glyphicon glyphicon-user" style="margin-left:8px;line-height:0"></div></a></li>
                   </ul>
               </div>
           </div>
