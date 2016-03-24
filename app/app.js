@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster' ,'ngProgress' ,'ui.bootstrap']); 
 
 app.config(['$routeProvider',
   function ($routeProvider) {
@@ -29,14 +29,30 @@ app.config(['$routeProvider',
                 controller: 'MainCtrl',
                 role: '0'
             })
+            .when('/post', {
+                title: 'Post',
+                templateUrl: 'partials/Post/Post.html'
+            })
             .otherwise({
                 redirectTo: '/'
             });
   }])
-    .run(function ($rootScope, $location, Data) {
+    .run(function ($rootScope, $location, Data, ngProgressFactory) {
+
+        $rootScope.progressbar = ngProgressFactory.createInstance();
+
+        $rootScope.$on("$routeChangeSuccess", function () {
+            Data.setBusy(false);
+        });
+
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
+            Data.setBusy(true);
             $rootScope.authenticated = false;
             Data.get('session').then(function (results) {
+                var nextUrl = next.$$route.originalPath;
+                if (nextUrl == '/post' && !$rootScope.post) {
+                    $location.path("/");
+                }
                 //if (results.uid) {
                 //    $rootScope.authenticated = true;
                 //    $rootScope.uid = results.uid;

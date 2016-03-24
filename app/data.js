@@ -1,12 +1,21 @@
-app.factory("Data", ['$http', 'toaster',
-    function ($http, toaster) { // This service connects to our REST API
+app.factory("Data", ['$http' ,'$rootScope' , 'toaster', 
+    function ($http, $rootScope, toaster) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
 
         var obj = {};
+
+        obj.setBusy = function (en) {
+            if(en)
+                $rootScope.progressbar.start();
+            else
+                $rootScope.progressbar.complete();
+        };
+
         obj.toast = function (data) {
             toaster.pop(data.status, "", data.message, 10000, 'trustedHtml');
         }
+
         obj.get = function (q) {
             return $http.get(serviceBase + q).then(function (results) {
                 return results.data;

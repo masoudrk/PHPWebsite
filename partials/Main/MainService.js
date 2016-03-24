@@ -15,5 +15,16 @@ app.factory("MainService", ['$http', 'toaster',
             });
         };
 
+        obj.getAllBaseSubjects = function (q) {
+            return $http.get(serviceBase + "getAllBaseSubjects").then(function (results) {
+                return results.data;
+            });
+        };
+        obj.getAllSubjects = function (q) {
+            return $http.get(serviceBase + "getAllSubjects").then(function (results) {
+                return results.data;
+            });
+        };
+
         return obj;
 }]);

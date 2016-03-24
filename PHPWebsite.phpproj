@@ -91,6 +91,7 @@
     <Folder Include="content\" />
     <Folder Include="partials" />
     <Folder Include="partials\Main\" />
+    <Folder Include="partials\Post\" />
     <Folder Include="Scripts\" />
     <Folder Include="Scripts\i18n\" />
   </ItemGroup>
@@ -102,9 +103,16 @@
     <Content Include="content\img\img3.jpg" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\menubar-styles.css" />
+    <Content Include="css\ngProgress.css" />
+    <Content Include="DefaultCtrl.js" />
     <Content Include="fonts\BYekan.eot" />
     <Content Include="fonts\BYekan.ttf" />
     <Content Include="fonts\BYekan.woff" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -113,10 +121,17 @@
     <Content Include="js\jquery.js" />
     <Content Include="js\main.js" />
     <Content Include="js\menubar.js" />
+    <Content Include="js\ngprogress.js" />
+    <Content Include="js\ngprogress.min.js" />
+    <Content Include="js\ui-bootstrap-tpls-1.2.5.js" />
+    <Content Include="js\ui-bootstrap-tpls-1.2.5.min.js" />
     <Content Include="packages.config" />
+    <Content Include="partials\LoginTemplate.html" />
     <Content Include="partials\Main\MainService.js" />
     <Content Include="partials\Main\MainCtrl.js" />
     <Content Include="partials\Main\Main.html" />
+    <Content Include="partials\Post\Post.html" />
+    <Content Include="partials\Post\PostCtrl.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-animate.min.js.map" />

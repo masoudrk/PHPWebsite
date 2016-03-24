@@ -1,18 +1,13 @@
 app.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data, MainService) {
 
+    $rootScope.progressbar.start();
+
     $scope.user = {};
     $scope.posts = [];
 
-    $scope.images = [{
-        src: 'content/img/img1.jpg',
-        title: 'Pic 1'
-    }, {
-        src: 'content/img/img3.jpg',
-        title: 'Pic 3'
-    }, {
-        src: 'content/img/img2.jpg',
-        title: 'Pic 2'
-    }];
+    $scope.subject = {};
+    $scope.subject.bases = [];
+
 
     Data.get('session').then(function (results) {
         if (results.uid) {
@@ -26,10 +21,25 @@ app.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $location
 
 
     $scope.getAllPosts = function () {
-         MainService.getAllPosts()
-            .then(function(result) {
-                $scope.posts = result;
-             });
+        MainService.getAllPosts()
+           .then(function (result) {
+               $scope.posts = result;
+           });
     }
+
     $scope.getAllPosts();
+
+    $scope.postClicked = function (post) {
+        Data.toast({ message: 'hellio', status: 'info' });
+        $location.path("/post");
+        $rootScope.post = post;
+        //toaster.pop({
+        //    type: 'error',
+        //    title: 'Title text',
+        //    body: 'Body text',
+        //    showCloseButton: true,
+        //    closeHtml: '<button>Close</button>'
+        //});
+    }
+
 });
