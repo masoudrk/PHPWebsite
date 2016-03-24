@@ -29,5 +29,3 @@ app.directive('passwordMatch', [function () {
         }
     };
 }]);
-
-;

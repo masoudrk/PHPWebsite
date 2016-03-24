@@ -10,11 +10,13 @@
 </div>-->
 <style>
     .slider {
-        height: 400px;
+        height: 500px;
         background-color: gray;
     }
     .posts {
         background-color: wheat;
+        margin-left: 0;
+        margin-right: 0;
     }
     .post {
         height: 250px;
@@ -25,14 +27,13 @@
 <div class="page-content">
     <div class="row">
         <div class="space-6"></div>
-        <div class="col-sm-12">
-            <slide-show class="row col-md-12 slider" style="background-color: gray" images="images">
+        <div class="col-sm-12 no-padding">
+            <slide-show class="row col-md-12 slider no-padding" images="images"></slide-show>
 
-            </slide-show>
-
-            <div class="row col-md-12 posts">
+            <div class="row posts col-md-12 no-padding">
                 <div class="col-lg-3" ng-repeat="post in posts">
                     <div class="post">
+                        {{post["1"]}}
                     </div>
                 </div>
             </div>

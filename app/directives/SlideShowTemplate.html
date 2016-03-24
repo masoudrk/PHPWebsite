@@ -13,9 +13,13 @@
       left: 0;
       box-shadow: 0px 0px 15px #999;
     }
+    .slide img{
+        width: 100%;
+        height: auto;
+    }
     .arrows {
       position: absolute;
-      top: 10px;
+      top: 250px;
       right: 20px;
     }
     .arrows img {
@@ -47,7 +51,7 @@
 </style>
 <div class="slider">
     <div class="slide" ng-repeat="image in images" ng-show="image.visible">
-        <img ng-src="{{image.src}}" />
+        <img ng-src="{{image.src}}"  />
     </div>
     <div class="arrows">
         <a href="" ng-click="prev()">

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>AngularJS Authentication App</title>
+    <title></title>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.css" rel="stylesheet">
@@ -15,8 +15,8 @@
     <link href="css/menubar-styles.css" rel="stylesheet">
 </head>
 
-  <body ng-cloak="">
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: rgba(245, 245, 245, 0.59);border:none">
+  <body >
+    <div id="top-menubar" class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: rgba(245, 245, 245, 0.59);border:none">
       <div class="container">
           <div class="row col-md-12 no-padding">
               <div id='cssmenu' class="align-right">
@@ -48,8 +48,8 @@
           </div>
       </div>
     </div>
-    <div >
-      <div class="container" style="margin-top:2px">
+    <div style="margin-top:-51px" >
+      <div class="container">
 
         <div data-ng-view="" id="ng-view" class="slide-animation"></div>
 
@@ -60,6 +60,7 @@
   <!-- Libs -->
 <script src="js/jquery.js" type="text/javascript"></script>
 <script src="js/menubar.js"></script>
+<script src="js/main.js" ></script>
 <script src="Scripts/angular.min.js"></script>
 <script src="Scripts/angular-route.min.js"></script>
 <script src="Scripts/angular-animate.min.js" ></script>
@@ -67,7 +68,7 @@
 <script src="app/app.js"></script>
 <script src="app/data.js"></script>
 <script src="app/directives.js"></script>
-<script src="app/SlideShow.js"></script>
+<script src="app/directives/SlideShow.js"></script>
 <script src="app/authCtrl.js"></script>
 <script src="partials/Main/MainCtrl.js"></script>
 <script src="partials/Main/MainService.js"></script>

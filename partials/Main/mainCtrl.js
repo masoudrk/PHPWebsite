@@ -7,6 +7,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $location
         src: 'content/img/img1.jpg',
         title: 'Pic 1'
     }, {
+        src: 'content/img/img3.jpg',
+        title: 'Pic 3'
+    }, {
         src: 'content/img/img2.jpg',
         title: 'Pic 2'
     }];

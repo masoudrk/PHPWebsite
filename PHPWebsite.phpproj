@@ -99,6 +99,7 @@
     <Content Include="app\directives\SlideShowTemplate.html" />
     <Content Include="content\img\img1.jpg" />
     <Content Include="content\img\img2.jpg" />
+    <Content Include="content\img\img3.jpg" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\menubar-styles.css" />
     <Content Include="fonts\BYekan.eot" />
@@ -110,6 +111,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="js\angular.js" />
     <Content Include="js\jquery.js" />
+    <Content Include="js\main.js" />
     <Content Include="js\menubar.js" />
     <Content Include="packages.config" />
     <Content Include="partials\Main\MainService.js" />
