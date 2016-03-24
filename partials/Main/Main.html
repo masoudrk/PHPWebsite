@@ -10,14 +10,25 @@
 </div>-->
 <style>
     .posts {
-        background-color: wheat;
         margin-left: 0;
         margin-right: 0;
     }
     .post {
-        height: 250px;
+        height: 350px;
         background-color: gray;
         margin: 10px
+    }
+    .post > .post-header{
+        height: 50%;
+        background-color: gray;
+    }
+    .post > .post-middle{
+        height: 20%;
+        background-color: white;
+    }
+    .post > .post-footer{
+        height: 30%;
+        background-color: white;
     }
 </style>
 <div class="page-content">
@@ -26,9 +37,20 @@
         <div class="col-sm-12 no-padding">
 
             <div class="row posts col-md-12 no-padding">
-                <div class="col-lg-3" ng-repeat="post in posts">
-                    <div class="post" ng-click="postClicked(post);">
-                        {{post["1"]}}
+                <div class="col-lg-3 no-padding" ng-repeat="post in posts">
+                    <div class="post">
+                        <div class="post-header">
+                             {{post.Title}}
+                        </div>
+                        <div class="post-middle">
+                             {{post.Content}}
+                        </div>
+                        <div class="post-footer">
+                            <span ng-repeat="a in post.Authors">{{a.FullName}}</span>
+                            <div>
+                                <button class="btn btn-success yekan-font" ng-click="postMore(post);">ادامه</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

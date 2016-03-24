@@ -22,8 +22,18 @@ class DbHandler {
      */
     public function getRecords($query) {
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
-        $result = $r->fetch_all(); 
+        $result = array();
+        while($res = $r->fetch_assoc()){
+            $result[] = $res;
+        }
         return $result;
+    }
+    /**
+     * Fetching records
+     */
+    public function makeQuery($query) {
+        $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+        return $r;
     }
     /**
      * Creating new record

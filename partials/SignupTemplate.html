@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-5 control-label no-padding-right" for="address">Username</label>
+            <label class="col-sm-5 control-label no-padding-right" for="address">نام کاربری</label>
             <div class="col-sm-7">
                 <span class="block input-icon input-icon-right">
                     <input type="text" class="form-control" placeholder="Address" ng-model="signup.username" />
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-5 control-label no-padding-right" for="name">First Name</label>
+            <label class="col-sm-5 control-label no-padding-right" for="name">نام</label>
             <div class="col-sm-7">
                 <span class="block input-icon input-icon-right">
                     <input type="text" class="form-control" placeholder="Name" ng-model="signup.firstName" />
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-5 control-label no-padding-right" for="phone">Last Name</label>
+            <label class="col-sm-5 control-label no-padding-right" for="phone">نام خانوادگی</label>
             <div class="col-sm-7">
                 <span class="block input-icon input-icon-right">
                     <input type="text" class="form-control" placeholder="Phone" name="phone" ng-model="signup.lastName" />
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-5 control-label no-padding-right" for="password">Password</label>
+            <label class="col-sm-5 control-label no-padding-right" for="password">رمز عبور</label>
             <div class="col-sm-7">
                 <span class="block input-icon input-icon-right">
                     <input type="password" class="form-control" name="password" placeholder="Password" ng-model="signup.password" required />
@@ -46,12 +46,12 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-5 control-label no-padding-right" for="password2">Confirm Password</label>
+            <label class="col-sm-5 control-label no-padding-right" for="password2">تایید رمز عبور</label>
             <div class="col-sm-7">
                 <span class="block input-icon input-icon-right">
                     <input type="password" class="form-control" name="password2" placeholder="Password Again" ng-model="signup.password2" password-match="signup.password" required />
                     <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.required"> Enter password again.</small>
-                    <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.passwordNoMatch && !signupForm.password2.$error.required"> Password do not match.</small>
+                    <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.passwordNoMatch && !signupForm.password2.$error.required"> رمز با تاییدیه یکسان نیست.</small>
                 </span>
             </div>
         </div>
@@ -63,7 +63,6 @@
                 </button>
             </div>
         </div>
-        </fieldset>
         <span class="lbl col-sm-5"> </span>
         <div class="col-sm-7">
             Already have an account? <a href="#/login">SignIn</a>

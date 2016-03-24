@@ -6,24 +6,26 @@
       position: relative;
       padding: 5px;
       margin: auto;
+      overflow:hidden;
     }
     .slide {
       position: absolute;
       top: 0;
       left: 0;
-      box-shadow: 0px 0px 15px #999;
     }
     .slide img{
         width: 100%;
         height: auto;
     }
     .arrows {
+        cursor: pointer;
       position: absolute;
-      top: 250px;
-      right: 20px;
+      top: 220px;
+        color: rgba(255, 255, 255, 0.5);
+        padding: 5px
     }
-    .arrows img {
-      height: 32px;
+    .arrows:hover {
+      color: rgba(255, 255, 255, 0.8)
     }
     h1 {
       text-align: center;
@@ -53,12 +55,10 @@
     <div class="slide" ng-repeat="image in images" ng-show="image.visible">
         <img ng-src="{{image.src}}"  />
     </div>
-    <div class="arrows">
-        <a href="" ng-click="prev()">
-            <span src="img/left-arrow.png"> قبلی</span>
-        </a>
-        <a href="" ng-click="next()">
-            <span src="img/right-arrow.png" >بعدی</span>
-        </a>
+    <div>
+        <span class="arrows fa fa-chevron-circle-left fa-4x " ng-click="prev()" style="left: 20px">
+        </span>
+        <span class="arrows fa fa-chevron-circle-right fa-4x " ng-click="next()" style="right: 20px;">
+        </span>
     </div>
 </div>

@@ -2,7 +2,22 @@
 
 $app->get('/getAllPosts', function() use ($app)  {
     $db = new DbHandler();
-    $result = $db -> getRecords("SELECT * FROM `post`");
+    $r = $db->makeQuery("SELECT * FROM `post`");
+    $result = array();
+    while($res = $r->fetch_assoc()){
+    
+        $authorsQ = $db->makeQuery("SELECT admin.ID as AdminID , concat(FirstName , ' ' ,LastName) as FullName FROM post_author 
+                                        Left Join admin on admin.ID = post_author.AdminID
+                                        Left Join user on user.ID = admin.UserID
+                                        where PostID=".$res["ID"]);
+        $authors = array();
+        while($resAuthor = $authorsQ->fetch_assoc()){
+            $authors[] = $resAuthor;
+        }
+
+        $res["Authors"] = $authors;
+        $result[] = $res;
+    }
     echoResponse(200, $result);
 });
 

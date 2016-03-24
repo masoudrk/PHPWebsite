@@ -17,10 +17,11 @@ app.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $location
 
     $scope.getAllPosts();
 
-    $scope.postClicked = function (post) {
-        Data.toast({ message: 'hellio', status: 'info' });
+    $scope.postMore = function (post) {
+        //Data.toast({ message: 'hellio', status: 'info' });
         $location.path("/post");
         $rootScope.post = post;
+        Data.scrollTo(500);
         //toaster.pop({
         //    type: 'error',
         //    title: 'Title text',

@@ -31,9 +31,9 @@
                           <a href='#'>موضوعات</a>
                           <ul>
                               <li class='has-sub' ng-repeat="s in subject.bases">
-                                  <a href='#'>{{s["1"]}}</a>
+                                  <a href='#'>{{s.Title}}</a>
                                   <ul>
-                                      <li><a href='#' ng-repeat="sub in s.sub">{{sub["1"]}}</a></li>
+                                      <li><a href='#' ng-repeat="sub in s.sub">{{sub.Title}}</a></li>
                                   </ul>
                               </li>
                           </ul>
@@ -41,8 +41,8 @@
                       <li><a href='#'>درباره ما<div class="glyphicon glyphicon-globe" style="margin-left:8px;line-height:0"></div></a></li>
                       <li><a href='#'>تماس با ما<div class="glyphicon glyphicon-earphone" style="margin-left:8px;line-height:0"></div></a></li>
                       
-                      <li><a ng-click="openLoginModal()">ورود<div class="glyphicon glyphicon-user" style="margin-left:8px;line-height:0"></div></a></li>
-                      <li><a ng-click="openSignupModal()">ثبت نام<div class="glyphicon glyphicon-user" style="margin-left:8px;line-height:0"></div></a></li>
+                      <li ng-if="!authenticated"><a ng-click="openLoginModal()">ورود<div class="glyphicon glyphicon-user" style="margin-left:8px;line-height:0"></div></a></li>
+                      <li ng-if="!authenticated"><a ng-click="openSignupModal()">ثبت نام<div class="glyphicon glyphicon-user" style="margin-left:8px;line-height:0"></div></a></li>
                       <li ng-if="authenticated"><a  ng-click="logout()">خروج<div class="glyphicon glyphicon-user" style="margin-left:8px;line-height:0"></div></a></li>
                   </ul>
               </div>
@@ -50,12 +50,14 @@
       </div>
     </div>
     <div style="margin-top:-51px" >
-      <div class="container">
         <slide-show class="col-md-12 slider no-padding" images="images"></slide-show>
+        <div class="container">
 
         <div data-ng-view="" id="ng-view" class="slide-animation"></div>
-
-      </div>
+        
+        </div>
+        <div class="site-footer col-md-12 no-padding">
+        </div>
     </div>
     </body>
   <toaster-container toaster-options="{'time-out': 10000}"></toaster-container>
