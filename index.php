@@ -30,10 +30,10 @@
                       <li class='active has-sub'>
                           <a href='#'>موضوعات</a>
                           <ul>
-                              <li class='has-sub' ng-repeat="s in subject.bases">
+                              <li class='has-sub' ng-repeat="s in subjects">
                                   <a href='#'>{{s.Title}}</a>
                                   <ul>
-                                      <li><a href='#' ng-repeat="sub in s.sub">{{sub.Title}}</a></li>
+                                      <li><a href='#' ng-repeat="child in s.childs">{{child.Title}}</a></li>
                                   </ul>
                               </li>
                           </ul>

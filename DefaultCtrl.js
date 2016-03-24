@@ -11,37 +11,16 @@
 
     $scope.user = undefined;
 
-    $scope.subject = {};
-    $scope.subject.bases = [];
-    $scope.subject.sub = [];
-
-    $scope.getAllBaseSubjects = function () {
-        $rootScope.progressbar.start();
-        MainService.getAllBaseSubjects()
-           .then(function (result) {
-               $scope.subject.bases = result;
-               $scope.getAllSubjects();
-           });
-    }
+    $scope.subjects = [];
 
     $scope.getAllSubjects = function () {
         MainService.getAllSubjects()
            .then(function (result) {
-                var bases = $scope.subject.bases;
-                for (var i = 0; i < bases.length; i++) {
-                    $scope.subject.bases[i].sub = [];
-                    for (var j = 0; j < result.length; j++) {
-                        var b = bases[i];
-                        var s = result[j];
-                        if (b.ID == s.ParentID)
-                           $scope.subject.bases[i].sub.push(s);
-                   } 
-                }
-                $rootScope.progressbar.start();
-           });
+                $scope.subjects = result;
+            });
     }
 
-    $scope.getAllBaseSubjects();
+    $scope.getAllSubjects();
 
     $scope.openLoginModal = function () {
 

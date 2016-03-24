@@ -29,7 +29,20 @@ $app->get('/getAllBaseSubjects', function() use ($app)  {
 
 $app->get('/getAllSubjects', function() use ($app)  {
     $db = new DbHandler();
-    $result = $db -> getRecords("SELECT * FROM `subject` WHERE ParentID is not null");
+    $r = $db -> makeQuery("SELECT * FROM `subject` WHERE ParentID is null");
+    
+    $result = array();
+    while($res = $r->fetch_assoc()){
+    
+        $childsQ = $db->makeQuery("SELECT * FROM subject where ParentID=".$res["ID"]);
+        $childs = array();
+        while($child = $childsQ->fetch_assoc()){
+            $childs[] = $child;
+        }
+
+        $res["childs"] = $childs;
+        $result[] = $res;
+    }
     echoResponse(200, $result);
 });
 
