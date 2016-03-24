@@ -11,9 +11,30 @@
 <style>
     .post-single-container {
         background-color: white;
-        height: 1000px
+        height: 500px
     }
-     
+    
+    .post-single-container>.top {
+        margin-top: 10px;
+        height: 200px;
+    }
+
+    .post-single-container>.middle {
+        margin-top: 10px;
+    }
+    
+    .post-single-container>.top >.post-single-detail {
+        height: 200px;
+    }
+
+    .post-single-container>.top >.post-single-image {
+        height: 200px;
+        overflow: hidden
+    }
+    
+.splitter {
+    border-bottom: 1px solid #ccc;
+}
 </style>
 <div class="page-content" ng-controller="PostCtrl">
     <div class="">
@@ -21,7 +42,23 @@
         <div class="col-sm-12 no-padding">
 
             <div class="post-single-container col-md-12 no-padding">
-                {{post["0"]}} ,             {{post["1"]}} ,             {{post["2"]}} , 
+                <div class="col-md-12 top ">
+                    <div class="col-md-6 post-single-detail">
+                        <div class="col-md-12 splitter">{{post.Title}}</div>
+                        <div class="col-md-12 splitter">{{post.WriteDate}}</div>
+                        <div class="col-md-12 splitter">
+                            <span ng-repeat="a in post.Authors">{{a.FullName}}&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 post-single-image">
+                        <div class="col-md-12">
+                            <img ng-src="{{post.Image}}" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 middle">
+                    {{post.Content}}
+                </div>
             </div>           
         </div>
     </div>
