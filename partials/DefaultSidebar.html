@@ -1,0 +1,39 @@
+﻿<div class="sidebar-right">
+    <div class="header text-right">
+        <span class="yekan-font" style="position: relative; top: -6px; margin-right: 5px">موضوعات</span>
+        <span class="fa fa-book fa-2x"></span>
+    </div>
+    <div class="content">
+        <ul>
+            <li>
+                <a class="yekan-font text-right" href="#home">
+                    <label>خانه</label>
+                    <div class="fa fa-home"></div>
+                </a>
+            </li>
+            <li>
+                <a class="yekan-font text-right" href="#home">
+                    <label>موضوعات</label>
+                    <div class="fa fa-list"></div>
+                </a>
+                <ul>
+                    <li ng-repeat="s in subjects">
+                        <a class="yekan-font text-right" href="#home">
+                            <label>{{s.Title}}</label>
+                            <div class="fa fa-circle" style="font-size: 10px"></div>
+                        </a>
+                        <ul>
+                            <li ng-repeat="c in s.childs">
+                                <a class="yekan-font text-right" href="#home">
+                                    <label>{{c.Title}}</label>
+                                    <div class="fa fa-circle" style="font-size: 10px"></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+

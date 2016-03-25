@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa" ng-app="myApp">
+<html lang="fa" ng-app1="myApp">
 <style>
     .slider {
         height: 500px;
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/ngProgress.css">
 </head>
 
-  <body ng-controller="DefaultCtrl">
+  <body >
     <div id="top-menubar" class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: rgba(245, 245, 245, 0.59);border:none">
       <div class="container">
           <div class="row col-md-12 no-padding">
@@ -55,6 +55,11 @@
 
         <div data-ng-view="" id="ng-view" class="slide-animation"></div>
         
+            <div ui-view="viewContent" class="col-md-9"></div>
+            <div ui-view="viewSidebar" class="col-md-3"></div>
+    <!-- Also a way to navigate -->
+<!--    <a ui-sref="route1">Route 1</a>
+    <a ui-sref="route2">Route 2</a>-->
         </div>
         <div class="site-footer col-md-12 no-padding">
         </div>
@@ -63,26 +68,32 @@
   <toaster-container toaster-options="{'time-out': 10000}"></toaster-container>
 
   <!-- Libs -->
-<script src="js/jquery.js" type="text/javascript"></script>
-<script src="js/menubar.js"></script>
-<script src="js/main.js" ></script>
-<script src="Scripts/angular.js"></script>
+  
+<!--<script src="Scripts/angular.js"></script>
 <script src="Scripts/angular-route.min.js"></script>
 <script src="Scripts/angular-animate.min.js" ></script>
-<script src="app/app.js"></script>
+<script src="Scripts/angular-ui-router.js"></script>
 <script src="js/toaster.js"></script>
 <script src="js/ngprogress.js"></script>
+<script src="js/ui-bootstrap-tpls-1.2.5.js"></script>-->
 
-<script src="js/ui-bootstrap-tpls-1.2.5.js"></script>
+<!-- jqurey libs -->
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/menubar.js"></script>
+<script src="defaultPage.js" ></script>
+<!--
+<script src="app/app.js"></script>
 
 <script src="app/data.js"></script>
 <script src="app/directives.js"></script>
 <script src="app/directives/SlideShow.js"></script>
 <script src="app/authCtrl.js"></script>
 <script src="partials/Main/MainCtrl.js"></script>
-<script src="partials/Post/PostCtrl.js"></script>
 <script src="partials/Main/MainService.js"></script>
-<script src="DefaultCtrl.js"></script>
+<script src="partials/Post/PostCtrl.js"></script>
+<script src="partials/Admin/AdminCtrl.js"></script>
+<script src="DefaultCtrl.js"></script>-->
 
+<script src="Scripts/require.js" data-main="app/main.js"></script>
 </html>
 

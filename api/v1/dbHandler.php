@@ -70,6 +70,9 @@ public function getSession(){
     $sess = array();
     if(isset($_SESSION['UserID']))
     {
+        if(isset($_SESSION['AdminID']))
+            $sess["AdminID"] = $_SESSION['AdminID'];
+
         $sess["UserID"] = $_SESSION['UserID'];
         $sess["LastName"] = $_SESSION['LastName'];
         $sess["FirstName"] = $_SESSION['FirstName'];
@@ -88,6 +91,7 @@ public function destroySession(){
     }
     if(isSet($_SESSION['UserID']))
     {
+        unset($_SESSION['AdminID']);
         unset($_SESSION['UserID']);
         unset($_SESSION['LastName']);
         unset($_SESSION['FirstName']);

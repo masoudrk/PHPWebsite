@@ -6,6 +6,49 @@
        url('../fonts/BYekan.woff') format('woff'), /* Pretty Modern Browsers */
        url('../fonts/BYekan.ttf')  format('truetype') /* Safari, Android, iOS */
 }
+    .sidebar-right {
+         background-color: #fff;
+         margin: 10px 0 10px 0;
+         
+     }
+    
+    .sidebar-right > .header{
+         background-color: #4CAF50;
+        color: #fff;
+        padding: 10px;
+         font-size: 15px
+     }
+    
+    .sidebar-right > .content{
+        padding: 15px 0 15px 15px;
+     }
+
+    .sidebar-right ul {
+        list-style-type: none;
+        padding-right: 15px;
+    }
+    
+    .sidebar-right li a {
+        display: block;
+        color: #777;
+        text-decoration: none;
+        font-size: 15px
+    }
+
+    .sidebar-right li a div{
+        font-size: 22px;
+    }
+
+    .sidebar-right li a label{
+        position: relative;
+        top: -3px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .sidebar-right li a:hover {
+        color: #4CAF50;
+    }
 
 .no-padding{
     padding : 0 !important;
@@ -13,6 +56,11 @@
 
 .yekan-font {
     font-family: 'Yekan', Tahoma;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    font-weight: 700;
 }
 
 body{
@@ -93,4 +141,8 @@ padding-bottom: 10px;*/
 .site-footer {
     height: 300px;
     background-color: rgb(20,20,20);
+}
+
+.link {
+    cursor: pointer;
 }

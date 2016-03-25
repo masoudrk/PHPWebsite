@@ -1,34 +1,40 @@
-app.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data, MainService) {
+'use strict';
+define(['app/app'], function (app) {
 
-    $rootScope.progressbar.start();
+    app.controller('MainCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data, MainService) {
 
-    $scope.user = {};
-    $scope.posts = [];
+        $rootScope.progressbar.start();
 
-    $scope.subject = {};
-    $scope.subject.bases = [];
+        $scope.user = {};
+        $scope.posts = [];
 
-    $scope.getAllPosts = function () {
-        MainService.getAllPosts()
-           .then(function (result) {
-               $scope.posts = result;
-           });
-    }
+        $scope.subject = {};
+        $scope.subject.bases = [];
 
-    $scope.getAllPosts();
+        $scope.getAllPosts = function () {
+            MainService.getAllPosts()
+                .then(function (result) {
+                    $scope.posts = result;
+                });
+        }
 
-    $scope.postMore = function (post) {
-        //Data.toast({ message: 'hellio', status: 'info' });
-        $location.path("/post");
-        $rootScope.post = post;
-        Data.scrollTo(500);
-        //toaster.pop({
-        //    type: 'error',
-        //    title: 'Title text',
-        //    body: 'Body text',
-        //    showCloseButton: true,
-        //    closeHtml: '<button>Close</button>'
-        //});
-    }
+        $scope.getAllPosts();
 
+        $scope.postMore = function (post) {
+            //Data.toast({ message: 'hellio', status: 'info' });
+            $location.path("/post");
+            $rootScope.post = post;
+            Data.scrollTo(500);
+            //toaster.pop({
+            //    type: 'error',
+            //    title: 'Title text',
+            //    body: 'Body text',
+            //    showCloseButton: true,
+            //    closeHtml: '<button>Close</button>'
+            //});
+        }
+
+    });
+
+    
 });

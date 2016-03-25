@@ -22,20 +22,31 @@ $app->post('/login', function() use ($app) {
     $user = $db->getOneRecord("select ID,LastName,FirstName,Email,Password,Username from user where Username='$email' or Email='$email'");
     if ($user != NULL) {
         if(passwordHash::check_password($user['Password'],$password)){
-        $response['Status'] = "success";
-        $response['Message'] = 'Logged in successfully.';
-        $response['UserID'] = $user['ID'];
-        $response['LastName'] = $user['LastName'];
-        $response['FirstName'] = $user['FirstName'];
-        $response['Username'] = $user['Username'];
-        $response['Email'] = $user['Email'];
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        $_SESSION['UserID'] = $user['ID'];
-        $_SESSION['Email'] = $email;
-        $_SESSION['LastName'] = $user['LastName'];
-        $_SESSION['FirstName'] = $user['FirstName'];
+            $response['Status'] = "success";
+            $response['Message'] = 'Logged in successfully.';
+            $response['UserID'] = $user['ID'];
+            $response['LastName'] = $user['LastName'];
+            $response['FirstName'] = $user['FirstName'];
+            $response['Username'] = $user['Username'];
+            $response['Email'] = $user['Email'];
+
+            $IsAdmin=false;
+            $admin = $db->getOneRecord("select * from admin where UserID=".$response['UserID']);
+            if($admin){
+                $response['AdminID'] = $admin["ID"];
+                $IsAdmin=true;
+            }
+
+            if (!isset($_SESSION)) {
+                session_start();
+            }
+            if($IsAdmin){
+                $_SESSION['AdminID'] = $admin['ID'];
+            }
+            $_SESSION['UserID'] = $user['ID'];
+            $_SESSION['Email'] = $email;
+            $_SESSION['LastName'] = $user['LastName'];
+            $_SESSION['FirstName'] = $user['FirstName'];
         } else {
             $response['Status'] = "error";
             $response['Message'] = 'Login failed. Incorrect credentials';

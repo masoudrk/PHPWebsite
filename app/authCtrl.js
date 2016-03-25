@@ -14,6 +14,9 @@
                 //$location.path('dashboard');
                 $uibModalInstance.close(results);
             }
+
+            if (results.AdminID)
+                $location.path("/admin");
         });
     };
     $scope.signup = {email:'',password:'',name:'',phone:'',address:''};
