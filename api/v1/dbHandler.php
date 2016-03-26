@@ -63,6 +63,16 @@ class DbHandler {
             return NULL;
         }
     }
+    public function deleteFromTable($table_name , $where) {
+        
+        $query = "DELETE FROM ".$table_name." WHERE ".$where;
+        $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+
+        if ($r) {
+            return $r;
+        }
+        return NULL;
+    }
 public function getSession(){
     if (!isset($_SESSION)) {
         session_start();

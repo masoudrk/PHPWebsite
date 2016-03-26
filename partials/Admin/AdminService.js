@@ -10,6 +10,15 @@ angular.module('myApp').factory("AdminService", ['$http','Data',
             return $http.post(serviceBase + "savePost", post).then(function (results) {
                 Data.setBusy(false);
                 return results.data;
+            },
+            function (err) {
+                Data.setBusy(false);
+                return null;
+            });
+        };
+        obj.deletePost = function (ID) {
+            return $http.post(serviceBase + "deletePost", ID).then(function (results) {
+                return results.data;
             });
         };
 

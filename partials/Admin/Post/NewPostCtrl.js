@@ -11,9 +11,16 @@
             postContent: ($scope.postContent) ? $scope.postContent : "",
             postBrief: ($scope.postBrief) ? $scope.postBrief : "",
             authors: $scope.authors,
-            subjects:$scope.subjects
+            subjects: $scope.subjects,
+            releaseDate: $scope.releaseDate
         };
-        AdminService.saveNewPost(post);
+        AdminService.saveNewPost(post).then(function(res) {
+            if (res) {
+                Data.toast({ status: 'success', message: 'پست با موفقیت ثبت شد!' });
+            } else {
+                Data.toast({ status: 'error', message: 'مشکل در ثبت پست ، لطفا دوباره امتحان کنید.' });
+            }
+        });
     }
 
     $scope.getAllSubjects = function () {

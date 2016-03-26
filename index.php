@@ -14,6 +14,8 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="css/ADM-dateTimePicker.css " rel="stylesheet">
+
     <link href="css/font-awesome.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/toaster.css" rel="stylesheet">
@@ -61,6 +63,11 @@
 <script src='js/editor/textAngular-sanitize.min.js'></script>
 <script src='js/editor/textAngular.min.js'></script>
 <script src='js/editor/textAngular-sanitize.min.js'></script>
+
+<script type="text/javascript" src="js/moment.js"></script>
+<script type="text/javascript" src="js/moment-jalaali.js"></script>
+<script type="text/javascript" src="js/angular-confirm.min.js"></script>
+<script type="text/javascript" src="js/ADM-dateTimePicker.js"></script>
 
 </html>
 

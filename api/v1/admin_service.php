@@ -5,15 +5,15 @@ $app->post('/savePost', function() use ($app) {
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
     
-    $tabble_name = "post";
-    $column_names = array( 'Title','Content');
-
     $object = (object) [
         'Title' => $rObj->title,
         'Content' => $rObj -> postContent,
-        'BriefContent' => $rObj -> postBrief
+        'BriefContent' => $rObj -> postBrief,
+        'ReleaseDate' => $rObj -> releaseDate,
     ];
     
+    $tabble_name = "post";
+    $column_names = array( 'Title','Content','BriefContent','ReleaseDate');
     $result = $db->insertIntoTable($object, $column_names, $tabble_name);
     
     foreach ($rObj->subjects as $value) {
@@ -32,6 +32,15 @@ $app->post('/savePost', function() use ($app) {
         $db->insertIntoTable($a, array( 'PostID','AdminID'), 'post_author');
     }
     
+    echoResponse(200, $result);
+});
+
+
+$app->post('/deletePost', function() use ($app) {
+    $response = array();
+    $rObj = json_decode($app->request->getBody());
+    $db = new DbHandler();
+    $result = $db->deleteFromTable('post','ID='.$rObj);
     echoResponse(200, $result);
 });
 

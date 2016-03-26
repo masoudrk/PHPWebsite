@@ -6,6 +6,18 @@
        url('../fonts/BYekan.woff') format('woff'), /* Pretty Modern Browsers */
        url('../fonts/BYekan.ttf')  format('truetype') /* Safari, Android, iOS */
 }
+.green {
+    color: #4caf50;
+}
+.red {
+    color: #b22222;
+}
+.fa-group-mid {
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 2px;
+}
+
     .sidebar-right {
          background-color: #fff;
          margin: 0;

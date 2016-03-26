@@ -1,8 +1,14 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'textAngular']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'textAngular', 'angular-confirm', 'ADM-dateTimePicker']);
 
 app.config([
-    '$stateProvider', '$urlRouterProvider','$ocLazyLoadProvider',
-    function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
+    '$stateProvider', '$urlRouterProvider','$ocLazyLoadProvider','ADMdtpProvider',
+    function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, ADMdtp) {
+        ADMdtp.setOptions({
+            calType: 'gregorian',
+            format: 'YYYY/MM/DD hh:mm',
+            default: 'today',
+        });
+
         $ocLazyLoadProvider.config({
             debug: true,
             events: true
@@ -105,6 +111,24 @@ app.config([
                             'app/MultiSelectDropDown/CheckboxDropDown.js']);
                     }]
                 }
+            })
+            .state("admin_root.all_posts", {
+                url: "/all_posts",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/Post/AllPosts.html",
+                        controller: 'AllPostsCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Post/AllPostsCtrl.js']);
+                    }]
+                }
             });
 
         $urlRouterProvider.otherwise("/");
@@ -147,4 +171,11 @@ app.config([
             }
         });
     });
+});
+
+app.filter('jalaliDate', function () {
+    return function (inputDate, format) {
+        var date = moment(inputDate);
+        return date.fromNow() + " " + date.format(format);
+    }
 });

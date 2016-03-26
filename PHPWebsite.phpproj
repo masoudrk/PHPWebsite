@@ -111,6 +111,8 @@
     <Content Include="content\img\img1.jpg" />
     <Content Include="content\img\img2.jpg" />
     <Content Include="content\img\img3.jpg" />
+    <Content Include="css\ADM-dateTimePicker.css" />
+    <Content Include="css\ADM-dateTimePicker.min.css" />
     <Content Include="css\bootstrap-rtl.min.css" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\menubar-styles.css" />
@@ -130,6 +132,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="js\ADM-dateTimePicker.js" />
+    <Content Include="js\ADM-dateTimePicker.min.js" />
+    <Content Include="js\angular-confirm.js" />
+    <Content Include="js\angular-confirm.min.js" />
     <Content Include="js\angular.js" />
     <Content Include="js\editor\textAngular-rangy.min.js" />
     <Content Include="js\editor\textAngular-sanitize.js" />
@@ -139,8 +145,12 @@
     <Content Include="js\jquery.js" />
     <Content Include="defaultPage.js" />
     <Content Include="js\menubar.js" />
+    <Content Include="js\moment-jalaali.js" />
+    <Content Include="js\moment.js" />
     <Content Include="js\ngprogress.js" />
     <Content Include="js\ngprogress.min.js" />
+    <Content Include="js\persian-datepicker-tpls.js" />
+    <Content Include="js\persiandate.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.min.js" />
     <Content Include="packages.config" />
@@ -148,6 +158,8 @@
     <Content Include="partials\Admin\AdminCtrl.js" />
     <Content Include="partials\Admin\AdminRoot.html" />
     <Content Include="partials\Admin\AdminService.js" />
+    <Content Include="partials\Admin\Post\AllPosts.html" />
+    <Content Include="partials\Admin\Post\AllPostsCtrl.js" />
     <Content Include="partials\Admin\Post\NewPostCtrl.js" />
     <Content Include="partials\Admin\Post\NewPost.html" />
     <Content Include="partials\Admin\Sidebar.html" />
