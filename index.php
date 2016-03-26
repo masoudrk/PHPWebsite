@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--<script src="Scripts/require.js" data-main="app/main.js"></script>-->
 <html lang="fa">
 <style>
     .slider {
@@ -14,6 +13,7 @@
     <title></title>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
     <link href="css/font-awesome.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/toaster.css" rel="stylesheet">
@@ -56,7 +56,11 @@
 <script src="partials/Main/MainService.js"></script>
 <script src="DefaultCtrl.js"></script>-->
 
-
+<link rel='stylesheet' href='css/textAngular.css'>
+<script src='js/editor/textAngular-rangy.min.js'></script>
+<script src='js/editor/textAngular-sanitize.min.js'></script>
+<script src='js/editor/textAngular.min.js'></script>
+<script src='js/editor/textAngular-sanitize.min.js'></script>
 
 </html>
 

@@ -56,7 +56,8 @@
     <Compile Include="api\v1\index.php" />
     <Compile Include="api\v1\passwordHash.php" />
     <Compile Include="api\config.php" />
-    <Compile Include="api\v1\service.php" />
+    <Compile Include="api\v1\admin_service.php" />
+    <Compile Include="api\v1\default_service.php" />
     <Compile Include="app\app.js" />
     <Compile Include="app\authCtrl.js" />
     <Compile Include="app\data.js" />
@@ -89,6 +90,7 @@
     <Folder Include="js" />
     <Folder Include="fonts\" />
     <Folder Include="content\" />
+    <Folder Include="js\editor\" />
     <Folder Include="partials" />
     <Folder Include="partials\Admin\Post\" />
     <Folder Include="partials\Main\" />
@@ -102,13 +104,14 @@
   <ItemGroup>
     <Content Include="app\directives\SlideShow.js" />
     <Content Include="app\directives\SlideShowTemplate.html" />
-    <Content Include="app\main.js" />
     <Content Include="content\img\img1.jpg" />
     <Content Include="content\img\img2.jpg" />
     <Content Include="content\img\img3.jpg" />
+    <Content Include="css\bootstrap-rtl.min.css" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\menubar-styles.css" />
     <Content Include="css\ngProgress.css" />
+    <Content Include="css\textAngular.css" />
     <Content Include="DefaultCtrl.js" />
     <Content Include="fonts\BYekan.eot" />
     <Content Include="fonts\BYekan.ttf" />
@@ -124,6 +127,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="js\angular.js" />
+    <Content Include="js\angularjs-dropdown-multiselect.min.js" />
+    <Content Include="js\editor\textAngular-rangy.min.js" />
+    <Content Include="js\editor\textAngular-sanitize.js" />
+    <Content Include="js\editor\textAngular-sanitize.min.js" />
+    <Content Include="js\editor\textAngular.js" />
+    <Content Include="js\editor\textAngular.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="defaultPage.js" />
     <Content Include="js\menubar.js" />
@@ -136,6 +145,7 @@
     <Content Include="partials\Admin\AdminDashboard.html" />
     <Content Include="partials\Admin\AdminCtrl.js" />
     <Content Include="partials\Admin\AdminRoot.html" />
+    <Content Include="partials\Admin\AdminService.js" />
     <Content Include="partials\Admin\Post\NewPostCtrl.js" />
     <Content Include="partials\Admin\Post\NewPost.html" />
     <Content Include="partials\Admin\Sidebar.html" />

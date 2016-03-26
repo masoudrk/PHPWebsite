@@ -40,4 +40,5 @@ $app->get('/getAllSubjects', function() use ($app)  {
     echoResponse(200, $result);
 });
 
+
 ?>

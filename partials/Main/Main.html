@@ -34,8 +34,7 @@
                         <div class="post-header">
                              {{post.Title}}
                         </div>
-                        <div class="post-middle">
-                             {{post.Content}}
+                        <div class="post-middle" ng-bind-html="post.Content">
                         </div>
                         <div class="post-footer">
                             <span ng-repeat="a in post.Authors">{{a.FullName}}</span>
