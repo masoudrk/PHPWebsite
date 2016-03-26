@@ -38,6 +38,7 @@
                         </div>
                         <div class="post-footer">
                             <span ng-repeat="a in post.Authors">{{a.FullName}}</span>
+                            <span ng-repeat="s in post.Subjects">{{s.Title}}</span>
                             <div>
                                 <button class="btn btn-success yekan-font" ng-click="postMore(post);">ادامه</button>
                             </div>

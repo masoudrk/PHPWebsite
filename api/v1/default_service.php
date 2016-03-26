@@ -14,8 +14,17 @@ $app->get('/getAllPosts', function() use ($app)  {
         while($resAuthor = $authorsQ->fetch_assoc()){
             $authors[] = $resAuthor;
         }
-
         $res["Authors"] = $authors;
+        
+        $subjectsQ = $db->makeQuery("SELECT * FROM post_subject 
+                                        Left Join subject on subject.ID = post_subject.SubjectID
+                                        where PostID=".$res["ID"]);
+        $subjects = array();
+        while($resSubject = $subjectsQ->fetch_assoc()){
+            $subjects[] = $resSubject;
+        }
+        $res["Subjects"] = $subjects;
+
         $result[] = $res;
     }
     echoResponse(200, $result);

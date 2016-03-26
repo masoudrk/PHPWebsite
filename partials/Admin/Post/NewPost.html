@@ -32,18 +32,28 @@
                     <label class="col-sm-2 control-label no-padding-right yekan-font" for="email">سر تیتر</label>
                 </div>
                 <div class="form-group">
-                    <div class="dropdown col-sm-10">
-                        <button class="btn btn-primary dropdown-toggle yekan-font pull-right" type="button" data-toggle="dropdown">
-                            انتخاب نشده
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">HTML</a></li>
-                            <li><a href="#">CSS</a></li>
-                            <li><a href="#">JavaScript</a></li>
-                        </ul>
-                    </div>
+                    <multi-select-drop-down class="col-sm-5 col-md-offset-5"
+                                            items="subjects"
+                                            selected-list="selectSubjects"
+                                            ng-button-text="subjectButtonText"
+                                            multi-select-mode="true"
+                                            radio-button-behaviour="false"
+                                            max-button-titles-show="3"
+                                            title-feild-name="'Title'">
+                    </multi-select-drop-down>
                     <label class="col-sm-2 control-label no-padding-right yekan-font" for="email">موضوع</label>
+                </div>
+                <div class="form-group">
+                    <multi-select-drop-down class="col-sm-5 col-md-offset-5"
+                                            items="authors"
+                                            selected-list="selectAuthors"
+                                            ng-button-text="subjectButtonText"
+                                            multi-select-mode="true"
+                                            radio-button-behaviour="false"
+                                            max-button-titles-show="2"
+                                            title-feild-name="'FullName'">
+                    </multi-select-drop-down>
+                    <label class="col-sm-2 control-label no-padding-right yekan-font" for="email">نویسندگان</label>
                 </div>
                 <div class="form-group ">
                     <span class="col-sm-12 control-label no-padding-right yekan-font" for="email">: خلاصه مطلب</span>

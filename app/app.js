@@ -64,7 +64,8 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/AdminCtrl.js',
-                            'partials/Admin/AdminService.js']);
+                            'partials/Admin/AdminService.js',
+                            'partials/Main/MainService.js']);
                     }]
                 }
             })
@@ -99,7 +100,9 @@ app.config([
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                        return $ocLazyLoad.load('partials/Admin/Post/NewPostCtrl.js');
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Post/NewPostCtrl.js',
+                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
                     }]
                 }
             });

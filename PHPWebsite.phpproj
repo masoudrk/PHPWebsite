@@ -85,6 +85,8 @@
     <Folder Include="api" />
     <Folder Include="app" />
     <Folder Include="app\directives\" />
+    <Folder Include="app\MultiSelectDropDown\" />
+    <Folder Include="app\MultiSelectDropDown\Template\" />
     <Folder Include="content\img\" />
     <Folder Include="css" />
     <Folder Include="js" />
@@ -104,6 +106,8 @@
   <ItemGroup>
     <Content Include="app\directives\SlideShow.js" />
     <Content Include="app\directives\SlideShowTemplate.html" />
+    <Content Include="app\MultiSelectDropDown\CheckboxDropDown.js" />
+    <Content Include="app\MultiSelectDropDown\Template\MultiSelectTemplate.html" />
     <Content Include="content\img\img1.jpg" />
     <Content Include="content\img\img2.jpg" />
     <Content Include="content\img\img3.jpg" />
@@ -158,7 +162,6 @@
     <Content Include="partials\Main\Main.html" />
     <Content Include="partials\Post\Post.html" />
     <Content Include="partials\Post\PostCtrl.js" />
-    <Content Include="Scripts\angular-amd.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-animate.min.js.map" />
@@ -195,7 +198,6 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angularAMD.js" />
     <Content Include="Scripts\domReady.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\i18n\angular-locale_en.js" />
