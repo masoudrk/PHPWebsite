@@ -137,6 +137,7 @@
     <Content Include="js\angular-confirm.js" />
     <Content Include="js\angular-confirm.min.js" />
     <Content Include="js\angular.js" />
+    <Content Include="js\AutoPagination.js" />
     <Content Include="js\editor\textAngular-rangy.min.js" />
     <Content Include="js\editor\textAngular-sanitize.js" />
     <Content Include="js\editor\textAngular-sanitize.min.js" />

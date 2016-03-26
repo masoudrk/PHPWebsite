@@ -4,9 +4,9 @@ app.config([
     '$stateProvider', '$urlRouterProvider','$ocLazyLoadProvider','ADMdtpProvider',
     function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, ADMdtp) {
         ADMdtp.setOptions({
-            calType: 'gregorian',
+            calType: 'jalali',
             format: 'YYYY/MM/DD hh:mm',
-            default: 'today',
+            default: 'today'
         });
 
         $ocLazyLoadProvider.config({

@@ -32,7 +32,7 @@
                 <div class="col-lg-3 no-padding" ng-repeat="post in posts">
                     <div class="post">
                         <div class="post-header">
-                             {{post.Title}}
+                            {{post.Title}}
                         </div>
                         <div class="post-middle" ng-bind-html="post.Content">
                         </div>
@@ -44,6 +44,19 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span8 text-center">
+
+                    <auto-paging page="1"
+                                 page-size="50"
+                                 service-name="Organization"
+                                 action-name="GetPaged"
+                                 data-params="{{pagingParams}}"
+                                 items="allBaseUnits"
+                                 style="">
+                    </auto-paging> 
                 </div>
             </div>
 

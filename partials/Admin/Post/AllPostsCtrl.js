@@ -19,7 +19,7 @@
 
     $scope.getAllPosts = function () {
         Data.setBusy(true);
-        MainService.getAllPosts().then(function (res) {
+        MainService.getAllPosts(1,3).then(function (res) {
             $scope.posts = res;
             Data.setBusy(false);
         });

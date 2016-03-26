@@ -15,6 +15,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <link href="css/ADM-dateTimePicker.css " rel="stylesheet">
+    <link rel='stylesheet' href='css/textAngular.css'>
 
     <link href="css/font-awesome.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
@@ -51,14 +52,7 @@
 <script src="app/directives.js"></script>
 <script src="app/directives/SlideShow.js"></script>
 <script src="app/authCtrl.js"></script>
-<!--
-<script src="partials/Main/MainCtrl.js"></script>
-<script src="partials/Post/PostCtrl.js"></script>
-<script src="partials/Admin/AdminCtrl.js"></script>
-<script src="partials/Main/MainService.js"></script>
-<script src="DefaultCtrl.js"></script>-->
 
-<link rel='stylesheet' href='css/textAngular.css'>
 <script src='js/editor/textAngular-rangy.min.js'></script>
 <script src='js/editor/textAngular-sanitize.min.js'></script>
 <script src='js/editor/textAngular.min.js'></script>
@@ -68,6 +62,7 @@
 <script type="text/javascript" src="js/moment-jalaali.js"></script>
 <script type="text/javascript" src="js/angular-confirm.min.js"></script>
 <script type="text/javascript" src="js/ADM-dateTimePicker.js"></script>
+<script type="text/javascript" src="js/AutoPagination.js"></script>
 
 </html>
 

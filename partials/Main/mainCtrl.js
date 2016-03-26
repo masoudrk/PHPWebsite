@@ -1,6 +1,11 @@
  
 angular.module('myApp').controller('MainCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data, MainService) {
 
+    $scope.pagingParams =
+    {
+        filter: "hey"
+    };
+
     $scope.user = {};
     $scope.posts = [];
 

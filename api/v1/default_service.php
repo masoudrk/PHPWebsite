@@ -1,8 +1,19 @@
 <?php
 
-$app->get('/getAllPosts', function() use ($app)  {
+$app->post('/getAllPosts', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+    $pageSize = 1000000;
+    $pageIndex = 0;
+    
+    if(isset($data->pageSize) && isset($data->pageIndex)){
+        $pageSize = $data->pageSize;
+        $pageIndex = $data->pageIndex;
+    }
+
+    $offset = $pageIndex * $pageSize;
+
     $db = new DbHandler();
-    $r = $db->makeQuery("SELECT * FROM `post`");
+    $r = $db->makeQuery("SELECT * FROM `post` LIMIT $offset, $pageSize");
     $result = array();
     while($res = $r->fetch_assoc()){
     
