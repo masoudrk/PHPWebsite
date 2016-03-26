@@ -8,10 +8,12 @@ angular.module('myApp').controller('MainCtrl', function ($scope, $rootScope, $ro
     $scope.subject.bases = [];
 
     $scope.getAllPosts = function () {
+        Data.setBusy(true);
         MainService.getAllPosts()
-            .then(function (result) {
-                $scope.posts = result;
-            });
+        .then(function (result) {
+            $scope.posts = result;
+            Data.setBusy(false);
+        });
     }
 
     $scope.getAllPosts();

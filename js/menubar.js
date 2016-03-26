@@ -86,7 +86,7 @@ if (foundActive === false) {
 
 defaultWidth = lineWidth = activeElement.width();
 
-defaultPosition = linePosition = activeElement.position().left;
+//defaultPosition = linePosition = activeElement.position().left;
 
 menuLine.css("width", lineWidth);
 menuLine.css("left", linePosition);
@@ -99,8 +99,8 @@ $("#cssmenu > ul > li").hover(function() {
   menuLine.css("left", linePosition);
 }, 
 function() {
-  menuLine.css("left", defaultPosition);
-  menuLine.css("width", defaultWidth);
+  //menuLine.css("left", defaultPosition);
+  //menuLine.css("width", defaultWidth);
 });
 
 });

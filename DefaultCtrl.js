@@ -14,10 +14,12 @@
 
     $scope.subjects = [];
 
-    $scope.getAllSubjects = function() {
+    $scope.getAllSubjects = function () {
+        Data.setBusy(true);
         MainService.getAllSubjects()
             .then(function(result) {
                 $scope.subjects = result;
+                Data.setBusy(false);
             });
     }
 

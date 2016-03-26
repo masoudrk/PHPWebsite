@@ -131,7 +131,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="js\angular.js" />
-    <Content Include="js\angularjs-dropdown-multiselect.min.js" />
     <Content Include="js\editor\textAngular-rangy.min.js" />
     <Content Include="js\editor\textAngular-sanitize.js" />
     <Content Include="js\editor\textAngular-sanitize.min.js" />
@@ -142,7 +141,6 @@
     <Content Include="js\menubar.js" />
     <Content Include="js\ngprogress.js" />
     <Content Include="js\ngprogress.min.js" />
-    <Content Include="js\routeResolver.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.min.js" />
     <Content Include="packages.config" />

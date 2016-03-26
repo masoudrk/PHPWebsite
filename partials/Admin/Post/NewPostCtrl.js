@@ -5,7 +5,7 @@
     $scope.subjects = [];
     $scope.authors = [];
 
-    $scope.saveNewPost = function() {
+    $scope.saveNewPost = function () {
         var post = {
             title: $scope.title,
             postContent: ($scope.postContent) ? $scope.postContent : "",
