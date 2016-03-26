@@ -12,7 +12,8 @@
             postBrief: ($scope.postBrief) ? $scope.postBrief : "",
             authors: $scope.authors,
             subjects: $scope.subjects,
-            releaseDate: $scope.releaseDate
+            releaseDate: $scope.releaseDateFull.gDate,
+            writeDate: $scope.writeDateFull.gDate
         };
         AdminService.saveNewPost(post).then(function(res) {
             if (res) {

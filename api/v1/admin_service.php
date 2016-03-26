@@ -10,10 +10,11 @@ $app->post('/savePost', function() use ($app) {
         'Content' => $rObj -> postContent,
         'BriefContent' => $rObj -> postBrief,
         'ReleaseDate' => $rObj -> releaseDate,
+        'WriteDate' => $rObj -> writeDate
     ];
     
     $tabble_name = "post";
-    $column_names = array( 'Title','Content','BriefContent','ReleaseDate');
+    $column_names = array( 'Title','Content','BriefContent','ReleaseDate','WriteDate');
     $result = $db->insertIntoTable($object, $column_names, $tabble_name);
     
     foreach ($rObj->subjects as $value) {
