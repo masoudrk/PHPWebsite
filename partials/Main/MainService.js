@@ -1,4 +1,4 @@
-app.factory("MainService", ['$http', 'toaster',
+angular.module('myApp').factory("MainService", ['$http', 'toaster',
     function ($http, toaster) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';

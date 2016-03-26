@@ -1,3 +1,3 @@
-app.controller('PostCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data, MainService) {
+angular.module('myApp').controller('PostCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data, MainService) {
 
 });

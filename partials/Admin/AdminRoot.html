@@ -1,0 +1,25 @@
+﻿<div id="top-menubar" class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+     style="background-color: #444;border:none">
+    <div class="container">
+        <div class="row col-md-12 no-padding">
+            <div id='cssmenu' class="align-right">
+                <ul>
+                    <li><a href='#/' class="yekan-font">نمایش سایت<div class="glyphicon glyphicon-home" style="margin-left:8px;line-height:0"></div></a></li>
+                    <li><a href='#/' class="yekan-font">اعلان ها<div class="glyphicon glyphicon-home" style="margin-left:8px;line-height:0"></div></a></li>
+
+                    <li ng-if="authenticated"><a ng-click="logout()">خروج<div class="glyphicon glyphicon-user" style="margin-left:8px;line-height:0"></div></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="container">
+        <div class="col-md-12 no-padding" style="margin-top: 10px">
+            <div class="col-md-9 no-padding">
+                <div ui-view="viewContent" style="margin-right: 10px"></div>
+            </div>
+            <div ui-view="viewSidebar" class="col-md-3 no-padding"></div>
+        </div>
+    </div>
+</div>

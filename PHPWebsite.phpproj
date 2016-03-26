@@ -90,11 +90,14 @@
     <Folder Include="fonts\" />
     <Folder Include="content\" />
     <Folder Include="partials" />
+    <Folder Include="partials\Admin\Post\" />
     <Folder Include="partials\Main\" />
     <Folder Include="partials\Admin\" />
     <Folder Include="partials\Post\" />
     <Folder Include="Scripts\" />
     <Folder Include="Scripts\i18n\" />
+    <Folder Include="Scripts\lazyLoad\" />
+    <Folder Include="Scripts\lazyLoad\modules\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\directives\SlideShow.js" />
@@ -130,10 +133,14 @@
     <Content Include="js\ui-bootstrap-tpls-1.2.5.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.min.js" />
     <Content Include="packages.config" />
-    <Content Include="partials\Admin\Admin.html" />
+    <Content Include="partials\Admin\AdminDashboard.html" />
     <Content Include="partials\Admin\AdminCtrl.js" />
+    <Content Include="partials\Admin\AdminRoot.html" />
+    <Content Include="partials\Admin\Post\NewPostCtrl.js" />
+    <Content Include="partials\Admin\Post\NewPost.html" />
     <Content Include="partials\Admin\Sidebar.html" />
     <Content Include="partials\DefaultSidebar.html" />
+    <Content Include="partials\HomeRoot.html" />
     <Content Include="partials\SignupTemplate.html" />
     <Content Include="partials\LoginTemplate.html" />
     <Content Include="partials\Main\MainService.js" />
@@ -185,6 +192,19 @@
     <Content Include="Scripts\i18n\angular-locale_fa-af.js" />
     <Content Include="Scripts\i18n\angular-locale_fa-ir.js" />
     <Content Include="Scripts\i18n\angular-locale_fa.js" />
+    <Content Include="Scripts\lazyLoad\modules\ocLazyLoad.core.js" />
+    <Content Include="Scripts\lazyLoad\modules\ocLazyLoad.directive.js" />
+    <Content Include="Scripts\lazyLoad\modules\ocLazyLoad.loaders.common.js" />
+    <Content Include="Scripts\lazyLoad\modules\ocLazyLoad.loaders.core.js" />
+    <Content Include="Scripts\lazyLoad\modules\ocLazyLoad.loaders.cssLoader.js" />
+    <Content Include="Scripts\lazyLoad\modules\ocLazyLoad.loaders.jsLoader.js" />
+    <Content Include="Scripts\lazyLoad\modules\ocLazyLoad.loaders.requireJSLoader.js" />
+    <Content Include="Scripts\lazyLoad\modules\ocLazyLoad.loaders.templatesLoader.js" />
+    <Content Include="Scripts\lazyLoad\modules\ocLazyLoad.polyfill.ie8.js" />
+    <Content Include="Scripts\lazyLoad\ocLazyLoad.js" />
+    <Content Include="Scripts\lazyLoad\ocLazyLoad.min.js" />
+    <Content Include="Scripts\lazyLoad\ocLazyLoad.require.js" />
+    <Content Include="Scripts\lazyLoad\ocLazyLoad.require.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\version.json" />
