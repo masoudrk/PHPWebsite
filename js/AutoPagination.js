@@ -43,16 +43,12 @@ angular.module('myApp').directive('autoPaging', function () {
         template: fieldTemplate,
 
         scope: {
-
-            //Service name is WebApi class service
-            serviceName: '@',
-
             //Action name is WebApi class method name , you can send method parameters with assign json string to params.
             actionName: '@',
 
             //This variable used for send custom and optional parameters to WebApi method.
-            params: '@',
-
+            params: '=',
+            ngControl: '=',
             //This variable defained for fetched items from database.
             items: '=',
 
@@ -80,52 +76,52 @@ angular.module('myApp').directive('autoPaging', function () {
             textTitleNext: '@',
             textTitlePrev: '@',
         },
-        controller: ['$scope', '$http', '$attrs', function ($scope, $http, $attrs) {
+        controller: ['$scope', '$http', 'Data', function ($scope, $http, Data) {
             $scope.items = [];
 
-            $scope.getItems = function (scope) {
+            $scope.getItems = function () {
                 $scope.items = [];
                 var data;
-
-                try {
-                    data = JSON.parse(scope.params);
-                } catch (e) {
+                if ($scope.params)
+                    data = $scope.params;
+                else
                     data = {};
-                    console.log(e.message);
-                }
+                data.pageIndex = $scope.page;
+                data.pageSize = $scope.pageSize;
 
-                data.pageIndex = scope.page;
-                data.pageSize = scope.pageSize;
+                Data.setBusy(true);
+                Data.scrollTo(0);
 
-                //abp.ui.setBusy(null, $http({
-                //    method: 'post',
-                //    url: BaseUrl + 'api/services/app/' + scope.serviceName + '/' + scope.actionName,
-                //    data: JSON.stringify(data)
-                //}).success(function (data) {
-                //    console.log(data);
-                //    if (data.result != null) {
-                //        scope.total = data.result.totalItems;
-                //        scope.items = data.result.items;
-                //    } else {
-                //        scope.total = 0;
-                //    }
-                //}));
+                return $http.post(Data.serviceBase + $scope.actionName, data)
+                .then(function (results) {
+                    $scope.items = results.data.Items;
+                    $scope.total = results.data.Total;
+                    Data.setBusy(false);
+                });
             }
+
+            $scope.$watch('[params]', function () {
+                $scope.getItems();
+            }, true);
         }]
 
     };
 
     function fieldLink(scope, el, attrs) {
 
-        scope.$watchCollection('[serviceName,actionName,params,page,pageSize]', function () {
-
-            scope.getItems(scope);
-            //scope.getTotal(scope);
+        scope.$watchCollection('[actionName,params,page,pageSize]', function () {
+            scope.getItems();
             build(scope, attrs);
         });
         scope.$watch('[total]', function () {
             build(scope, attrs);
         });
+
+        scope.internalControl = scope.ngControl || {};
+
+        scope.internalControl.update = function() {
+            scope.getItems();
+        }
     }
 
     function fieldTemplate(el, attrs) {

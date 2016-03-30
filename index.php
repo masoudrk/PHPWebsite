@@ -29,7 +29,7 @@
 </body>
 <toaster-container toaster-options="{'time-out': 10000}"></toaster-container>
 
-  <!-- Libs -->
+<!-- Libs -->
   
 <script src="Scripts/angular.js"></script>
 <script src="Scripts/angular-route.min.js"></script>

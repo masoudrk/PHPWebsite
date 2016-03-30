@@ -5,6 +5,7 @@ app.factory("Data", ['$http' ,'$rootScope' , 'toaster',
 
         var obj = {};
         obj.workers = 0;
+        obj.serviceBase = serviceBase;
 
         obj.setBusy = function (en) {
             if (en) {

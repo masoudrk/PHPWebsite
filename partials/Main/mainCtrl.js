@@ -12,16 +12,16 @@ angular.module('myApp').controller('MainCtrl', function ($scope, $rootScope, $ro
     $scope.subject = {};
     $scope.subject.bases = [];
 
-    $scope.getAllPosts = function () {
-        Data.setBusy(true);
-        MainService.getAllPosts()
-        .then(function (result) {
-            $scope.posts = result;
-            Data.setBusy(false);
-        });
-    }
+    //$scope.getAllPosts = function () {
+    //    Data.setBusy(true);
+    //    MainService.getAllPosts(3,10)
+    //    .then(function (result) {
+    //        $scope.posts = result.Items;
+    //        Data.setBusy(false);
+    //    });
+    //}
 
-    $scope.getAllPosts();
+    //$scope.getAllPosts();
 
     $scope.postMore = function (post) {
         //Data.toast({ message: 'hellio', status: 'info' });

@@ -1,8 +1,8 @@
 ﻿<style>
     .admin-container {
-        overflow-x: auto;
         background-color: white;
-        padding: 10px
+        padding: 10px;
+        margin-bottom: 10px
     }
 </style>
 <div class="page-content yekan-font">
@@ -31,6 +31,18 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="row">
+            <div class="span8 text-center">
+
+                <auto-paging page="1"
+                             page-size="20"
+                             action-name="getAllPosts"
+                             data-params="pagingParams"
+                             ng-control="pagingController"
+                             items="posts">
+                </auto-paging>
+            </div>
         </div>
     </div>
 </div>

@@ -1,10 +1,172 @@
-﻿<div class="sidebar-right">
-    <div class="header text-right">
+﻿<style>
+    ul.colorful-list {
+        position: relative;
+        background: #fff;
+        width: 250px;
+        margin: auto;
+        padding: 0;
+        list-style: none;
+        overflow: hidden;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .colorful-list li a {
+        padding-right: 20px;
+        height: 50px;
+        line-height: 50px;
+        display: block;
+        overflow: hidden;
+        position: relative;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 14px;
+        color: #686868;
+        background-color: white;
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+    }
+
+        .colorful-list li a:hover {
+            background: #efefef;
+        }
+
+        .colorful-list li a.profile {
+            border-right: 5px solid #008747;
+        }
+
+        .colorful-list li a.messages {
+            border-right: 5px solid #fecf54;
+        }
+
+        .colorful-list li a.settings {
+            border-right: 5px solid #cf2130;
+        }
+
+        .colorful-list li a.logout {
+            border-right: 5px solid #008b8b;
+        }
+
+    .colorful-list li:first-child a:hover, .form li:first-child a {
+        -webkit-border-radius: 5px 5px 0 0;
+        -moz-border-radius: 5px 5px 0 0;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .colorful-list li:last-child a:hover, .form li:last-child a {
+        -webkit-border-radius: 0 0 5px 5px;
+        -moz-border-radius: 0 0 5px 5px;
+        border-radius: 0 0 5px 5px;
+    }
+
+    .colorful-list li a:hover i {
+        color: #ea4f35;
+    }
+
+    .colorful-list i {
+        margin-left: 15px;
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+    }
+
+    .colorful-list em {
+        font-size: 10px;
+        background: #ea4f35;
+        padding: 3px 5px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        font-style: normal;
+        color: #fff;
+        margin-top: 17px;
+        margin-right: 15px;
+        line-height: 10px;
+        height: 10px;
+        float: right;
+    }
+
+    .colorful-list li.selected a {
+        background: #efefef;
+    }
+    
+    .sub-list-a {
+        background-color: transparent !important;
+    }
+    .sub-list {
+        border-right: 5px solid #fecf54;
+    }
+    .sub-list-a-a {
+        padding-right: 40px !important;
+    }
+    .sub-list-label {
+
+    }
+    .sub-list-a:hover {
+        background-color: transparent !important;
+    }
+</style>
+<ul class="colorful-list yekan-font">
+    <li>
+        <a class="profile text-right" href="#">
+            خانه
+            <i class="fa fa-home"></i>
+        </a>
+    </li>
+    <li class="selected text-right" slide-toggle="#subs">
+        <a class="messages">
+            موضوعات
+            <i class="fa fa-list"></i>
+        </a>
+        <div id="subs" class="sub-list slideable sidebar-right" easing="linear" duration="0.5s">
+            <ul style="padding-left: 0px;">
+                <li class="sub-list-li" ng-repeat="s in subjects">
+                    <a class="yekan-font text-right sub-list-a" href="#home">
+                        <label class="sub-list-label">{{s.Title}}</label>
+                        <div class="fa fa-angle-double-left" ></div>
+                    </a>
+                    <ul style="padding-left: 0px;">
+                        <li class="sub-list-li" ng-repeat="c in s.childs">
+                            <a class="yekan-font text-right sub-list-a sub-list-a-a" href="#home">
+                                <label class="sub-list-label">{{c.Title}}</label>
+                                <div class="fa fa-angle-left" style="font-size: "></div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </li>
+    <li>
+        <a class="settings text-right" href="#">
+            ورود
+            <i class="fa fa-user"></i>
+        </a>
+    </li>
+    <li>
+        <a class="logout text-right " href="#">
+            درباره
+            <i class="fa fa-info"></i>
+        </a>
+    </li>
+</ul>
+<div class="sidebar-right">
+
+    <!--<div class="header text-right">
         <span class="yekan-font" style="position: relative; top: -6px; margin-right: 5px">موضوعات</span>
         <span class="fa fa-book fa-2x"></span>
     </div>
     <div class="content">
+
         <ul>
+
             <li>
                 <a class="yekan-font text-right" href="#home">
                     <label>خانه</label>
@@ -34,6 +196,6 @@
                 </ul>
             </li>
         </ul>
-    </div>
+    </div>-->
 </div>
 

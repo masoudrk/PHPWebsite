@@ -9,13 +9,6 @@ angular.module('myApp').factory("MainService", ['$http', 'toaster',
             toaster.pop(data.status, "", data.message, 10000, 'trustedHtml');
         }
 
-        obj.getAllPosts = function (pageIndex,pageSize) {
-            return $http.post(serviceBase + "getAllPosts", { pageIndex: pageIndex, pageSize: pageSize })
-                .then(function (results) {
-                return results.data;
-            });
-        };
-
         obj.getAllBaseSubjects = function (q) {
             return $http.get(serviceBase + "getAllBaseSubjects").then(function (results) {
                 return results.data;

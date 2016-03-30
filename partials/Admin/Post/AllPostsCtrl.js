@@ -3,27 +3,18 @@
     $scope.subjectButtonText = "انتخاب نشده";
 
     $scope.posts = [];
+    $scope.pagingParams = {};
 
     $scope.deletePost = function (post) {
         Data.setBusy(true);
         AdminService.deletePost(post.ID).then(function (res) {
             Data.setBusy(false);
             if (res) {
-                $scope.getAllPosts();
+                $scope.pagingController.update();
                 Data.toast({ status: 'success', message: 'پست با موفقیت حذف شد!' });
             }
             else
                 Data.toast({ status: 'error', message: 'مشکل در حذف پست ، لطفا دوباره امتحان کنید.' });
         });
     }
-
-    $scope.getAllPosts = function () {
-        Data.setBusy(true);
-        MainService.getAllPosts(1,3).then(function (res) {
-            $scope.posts = res;
-            Data.setBusy(false);
-        });
-    }
-
-    $scope.getAllPosts();
 });

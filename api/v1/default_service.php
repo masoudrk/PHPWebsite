@@ -2,17 +2,24 @@
 
 $app->post('/getAllPosts', function() use ($app)  {
     $data = json_decode($app->request->getBody());
-    $pageSize = 1000000;
+    $pageSize = 20;
     $pageIndex = 0;
     
     if(isset($data->pageSize) && isset($data->pageIndex)){
         $pageSize = $data->pageSize;
         $pageIndex = $data->pageIndex;
     }
-
-    $offset = $pageIndex * $pageSize;
-
+    
     $db = new DbHandler();
+
+    $offset = ($pageIndex-1) * $pageSize;
+    $total = 0;
+
+    $resCount = $db->makeQuery("SELECT count(*) as Total FROM `post`");
+    while($res = $resCount->fetch_assoc()){
+        $total = $res["Total"];
+    }
+
     $r = $db->makeQuery("SELECT * FROM `post` LIMIT $offset, $pageSize");
     $result = array();
     while($res = $r->fetch_assoc()){
@@ -38,7 +45,15 @@ $app->post('/getAllPosts', function() use ($app)  {
 
         $result[] = $res;
     }
-    echoResponse(200, $result);
+
+    $data = (object)[
+            'Items' => $result,
+            'PageIndex' => $pageIndex,
+            'PageSize' => $pageSize,
+            'Total' => $total
+    ];
+
+    echoResponse(200, $data);
 });
 
 $app->get('/getAllSubjects', function() use ($app)  {
