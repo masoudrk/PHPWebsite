@@ -3,6 +3,7 @@
 class DbHandler {
 
     private $conn;
+    private $db;
 
     function __construct() {
         require_once 'dbConnect.php';
@@ -16,6 +17,16 @@ class DbHandler {
     public function getOneRecord($query) {
         $r = $this->conn->query($query.' LIMIT 1') or die($this->conn->error.__LINE__);
         return $result = $r->fetch_assoc();    
+    }
+    
+    public function beginTransaction() {
+        //$this->conn->beginTransaction();
+    }
+    public function rollbackTransaction() {
+       // $this->conn->rollback();
+    }
+    public function commitTransaction() {
+       // $this->conn->commit();
     }
     /**
      * Fetching records
@@ -73,7 +84,19 @@ class DbHandler {
         }
         return NULL;
     }
-public function getSession(){
+
+    public function updateRecord($table_name , $set , $where) {
+        
+        $query = "UPDATE ".$table_name." SET ".$set." WHERE ".$where;
+        $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+
+        if ($r) {
+            return $r;
+        }
+        return NULL;
+    }
+
+    public function getSession(){
     if (!isset($_SESSION)) {
         session_start();
     }

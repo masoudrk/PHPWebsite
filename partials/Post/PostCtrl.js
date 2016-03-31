@@ -1,4 +1,4 @@
-angular.module('myApp').controller('PostCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, $http, Data, PostService) {
+angular.module('myApp').controller('PostCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, Extention, PostService) {
 
     console.log($stateParams.id);
 

@@ -5,6 +5,8 @@ $app->post('/savePost', function() use ($app) {
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
     
+    $updateMode = isset($rObj->postID);
+
     $object = (object) [
         'Title' => $rObj->title,
         'Content' => $rObj -> postContent,
@@ -12,27 +14,48 @@ $app->post('/savePost', function() use ($app) {
         'ReleaseDate' => $rObj -> releaseDate,
         'WriteDate' => $rObj -> writeDate
     ];
-    
-    $tabble_name = "post";
-    $column_names = array( 'Title','Content','BriefContent','ReleaseDate','WriteDate');
-    $result = $db->insertIntoTable($object, $column_names, $tabble_name);
-    
-    foreach ($rObj->subjects as $value) {
-        $s = (object) [
-            'PostID' => $result,
-            'SubjectID' => $value -> ID
-        ];
-        $db->insertIntoTable($s, array( 'PostID','SubjectID'), 'post_subject');
-    }
 
-    foreach ($rObj->authors as $value) {
-        $a = (object) [
-            'PostID' => $result,
-            'AdminID' => $value -> AdminID
-        ];
-        $db->insertIntoTable($a, array( 'PostID','AdminID'), 'post_author');
-    }
+    try{
+
+        $db->beginTransaction();
+
+        $column_names = array( 'Title','Content','BriefContent','ReleaseDate','WriteDate');
+        $result = null;
+
+        if(!$updateMode){
+            $result = $db->insertIntoTable($object, $column_names, "post");
+        }else{
+                                        
+            $result = $db->updateRecord("post","`Title`='".$object->Title."' , `Content`='".$object->Content."' , `BriefContent`='".$object->BriefContent.
+                                         "' , `WriteDate`='".$object->WriteDate."' ,`ReleaseDate`='".$object->ReleaseDate."',`Image`='"."kk"."'" 
+                                        , "post.ID=".$rObj->postID);
+
+            $resDelS = $db->deleteFromTable("post_subject","PostID=".$rObj->postID);
+            $resDelA = $db->deleteFromTable("post_author","PostID=".$rObj->postID);
+        }
     
+        foreach ($rObj->subjects as $value) {
+            $s = (object) [
+                'PostID' => $result,
+                'SubjectID' => $value -> ID
+            ];
+            $db->insertIntoTable($s, array( 'PostID','SubjectID'), 'post_subject');
+        }
+
+        foreach ($rObj->authors as $value) {
+            $a = (object) [
+                'PostID' => $result,
+                'AdminID' => $value -> AdminID
+            ];
+            $db->insertIntoTable($a, array( 'PostID','AdminID'), 'post_author');
+        }
+
+        $db->commitTransaction();
+    } catch (Exception $e) {
+        $db->rollbackTransaction();
+        echoResponse(201, $e);
+        return;
+    }
     echoResponse(200, $result);
 });
 

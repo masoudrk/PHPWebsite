@@ -1,23 +1,15 @@
-﻿<!--<div class="breadcrumbs" id="breadcrumbs">
-    <ul class="breadcrumb">
-        <li>
-            <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="#">Home</a>
-        </li>
-        <li class="active">hi</li>
-
-    </ul>
-</div>-->
-<style>
-    .admin-container {
-        overflow-x: auto;
-        background-color: white;
-        padding: 10px
-    }
-</style>
-<div class="page-content">
-    <div class="admin-container">
-        <div class="col-sm-12 no-padding">
+﻿
+<div class="page-content yekan-font">
+    <div class="center-content-container">
+        <div class="header content-header-yellow">
+            <div class="row">
+                <div class="col-md-12 text-right content-header-mid">
+                    <span ng-bind="(editMode)?'ویرایش مطلب':'مطلب جدید'"></span>
+                    <i class="fa fa-plus"></i>
+                </div>
+            </div>
+        </div>
+        <div class="white-panel">
             <form name="loginForm" class="form-horizontal" role="form">
                 <div class="form-group text-right">
                     <div class="col-sm-10 ">
@@ -55,12 +47,12 @@
                 <div class="form-group ">
                     <span class="col-sm-12 control-label no-padding-right yekan-font" for="email">: خلاصه مطلب</span>
                 </div>
-                <div text-angular class="col-sm-12 form-group no-padding" ng-model="postBrief" style="direction: rtl;margin: 0"></div>
+                <div text-angular class="col-sm-12 form-group no-padding" ng-model="postBrief" style="direction: rtl; margin: 0"></div>
                 <div class="form-group ">
                     <span class="col-sm-12 control-label no-padding-right yekan-font" for="email">: ادامه مطلب</span>
                 </div>
 
-                <div text-angular class="col-sm-12 form-group no-padding" ng-model="postContent" style="direction: rtl;margin: 0"></div>
+                <div text-angular class="col-sm-12 form-group no-padding" ng-model="postContent" style="direction: rtl; margin: 0"></div>
 
                 <div class="form-group text-right">
                     <div class="col-sm-4 col-sm-offset-6" style="margin-top: 10px;">
@@ -75,10 +67,10 @@
                     <label class="col-sm-2 control-label no-padding-right yekan-font" for="email" style="margin-top: 10px;">تاریخ نوشته</label>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-success yekan-font" style=" margin-left: 15px" ng-click="saveNewPost()">ثبت پست جدید
+                    <button class="btn btn-success yekan-font" style="margin-left: 15px" ng-click="saveNewPost()">ثبت پست جدید
                     </button>
                 </div>
-                
+
             </form>
         </div>
     </div>

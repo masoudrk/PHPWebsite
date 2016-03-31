@@ -1,4 +1,4 @@
-app.factory("Data", ['$http' ,'$rootScope' , 'toaster', 
+app.factory("Extention", ['$http' ,'$rootScope' , 'toaster', 
     function ($http, $rootScope, toaster) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';

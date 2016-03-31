@@ -1,3 +1,3 @@
-angular.module('myApp').controller('AdminCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+angular.module('myApp').controller('AdminCtrl', function ($scope, $rootScope, $routeParams, $location, Extention) {
 
 });

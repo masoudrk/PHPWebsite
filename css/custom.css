@@ -1,4 +1,6 @@
-
+a {
+    text-decoration: none !important;
+}
 @font-face {
   font-family: 'Yekan';
   src: url('../fonts/BYekan.eot'); /* IE9 Compat Modes */
@@ -14,9 +16,15 @@
 .center-content-container > .header {
     background-color: white;
     margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
     padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+}
+
+.center-content-container > .white-panel {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
     border-radius: 4px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
 }
@@ -37,6 +45,20 @@
 .content-header-blue {
     border-right: solid 5px #008b8b;
     border-left: solid 5px #008b8b;
+}
+
+.content-header-large {
+    font-size: 22px;
+}
+.content-header-mid {
+    font-size: 17px;
+}
+.content-header-mid i{
+    position: relative;
+    top: 2.5px;
+}
+.content-header-small {
+    font-size: 14px;
 }
 
 .posts {

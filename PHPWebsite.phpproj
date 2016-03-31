@@ -95,6 +95,7 @@
     <Folder Include="js\editor\" />
     <Folder Include="partials" />
     <Folder Include="partials\Admin\Post\" />
+    <Folder Include="partials\About\" />
     <Folder Include="partials\Main\" />
     <Folder Include="partials\Admin\" />
     <Folder Include="partials\Category\" />
@@ -170,6 +171,9 @@
     <Content Include="partials\Category\Category.html" />
     <Content Include="partials\Category\CategoryCtrl.js" />
     <Content Include="partials\Category\CategoryService.js" />
+    <Content Include="partials\About\About.html" />
+    <Content Include="partials\About\AboutCtrl.js" />
+    <Content Include="partials\About\AboutService.js" />
     <Content Include="partials\Post\PostService.js" />
     <Content Include="partials\SignupTemplate.html" />
     <Content Include="partials\LoginTemplate.html" />

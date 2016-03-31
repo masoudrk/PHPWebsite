@@ -1,37 +1,49 @@
-﻿<div class="sidebar-right">
-    <div class="header text-right">
-        <span class="yekan-font" style="position: relative; top: -6px; margin-right: 5px">اقدامات</span>
-        <span class="fa fa-wrench fa-2x"></span>
-    </div>
-    <div class="content">
-        <ul>
-            <li>
-                <a class="yekan-font text-right" ui-sref="admin_root.dashboard">
-                    <label>داشبود</label>
-                    <div class="fa fa-list-alt"></div>
-                </a>
-            </li>
-            <li>
-                <a class="yekan-font text-right">
-                    <label>پست</label>
-                    <div class="fa fa-list-alt"></div>
-                </a>
-                <ul>
-                    <li>
-                        <a ui-sref="admin_root.new_post" class="yekan-font text-right">
-                            <label>جدید</label>
-                            <div class="fa fa-plus"></div>
-                        </a>
-                    </li>
-                    <li>
-                        <a ui-sref="admin_root.all_posts" class="yekan-font text-right">
-                            <label>نمایش همه</label>
-                            <div class="fa fa-list-ul"></div>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</div>
-
+﻿<ul class="colorful-list yekan-font">
+    <li>
+        <a class="profile text-right">
+            داشبورد
+            <i class="fa fa-inbox"></i>
+        </a>
+    </li>
+    <!--selected-->
+    <li id="PostManage" class="text-right"  slide-toggle="#subPostManage" >
+        <a class="messages">
+            مدیریت پست ها
+            <i class="fa fa-file-text"></i>
+        </a>
+        <div id="subPostManage" class="sub-list slideable sidebar-right" easing="linear" duration="0.15s">
+            <ul style="padding-left: 0px;">
+                <li class="sub-list-li">
+                    <a class="yekan-font text-right sub-list-a" ui-sref="admin_root.new_post({ id: '{{s.ID}}'})">
+                        <label class="sub-list-label">پست جدید</label>
+                        <div class="fa fa-plus"></div>
+                    </a>
+                </li>
+                <li class="sub-list-li">
+                    <a class="yekan-font text-right sub-list-a" ui-sref="admin_root.all_posts">
+                        <label class="sub-list-label">نمایش همه</label>
+                        <div class="fa fa-list"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+    <li>
+        <a class="settings text-right">
+            مدیریت نظرات
+            <i class="fa fa-comment"></i>
+        </a>
+    </li>
+    <li>
+        <a class="settings text-right">
+            مدیریت موضوعات
+            <i class="fa fa-comment"></i>
+        </a>
+    </li>
+    <li>
+        <a class="logout text-right ">
+            خروج
+            <i class="fa fa-info"></i>
+        </a>
+    </li>
+</ul>

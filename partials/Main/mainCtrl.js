@@ -1,5 +1,5 @@
  
-angular.module('myApp').controller('MainCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, $http, Data, MainService) {
+angular.module('myApp').controller('MainCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, $http, Extention, MainService) {
 
     $scope.pagingParams =
     {
@@ -16,7 +16,7 @@ angular.module('myApp').controller('MainCtrl', function ($scope, $rootScope, $ro
 
         $location.path("/post/" + post.ID);
         //$rootScope.post = post;
-        Data.scrollTo(500);
+        Extention.scrollTo(500);
 
         //$location.url("#/post/" + post.ID);
     }

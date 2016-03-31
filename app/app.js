@@ -45,6 +45,24 @@ app.config([
                     }]
                 }
             })
+            .state("home.about", {
+                url: "about",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/About/About.html",
+                        controller: 'AboutCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/DefaultSidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/About/AboutCtrl.js']);
+                    }]
+                }
+            })
             .state("home.post", {
                 url: "post/:id",
                 views: {
@@ -111,7 +129,7 @@ app.config([
                 }
             })
             .state("admin_root.new_post", {
-                url: "/new_post",
+                url: "/new_post/:id",
                 views: {
                     "viewContent": {
                         templateUrl: "partials/Admin/Post/NewPost.html",
@@ -125,6 +143,7 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Post/NewPostCtrl.js',
+                            'partials/Post/PostService.js',
                             'app/MultiSelectDropDown/CheckboxDropDown.js']);
                     }]
                 }
@@ -150,18 +169,18 @@ app.config([
 
         $urlRouterProvider.otherwise("/");
     }
-]).run(function($rootScope, $location, Data, ngProgressFactory) {
+]).run(function ($rootScope, $location, Extention, ngProgressFactory) {
     
     $rootScope.progressbar = ngProgressFactory.createInstance();
 
     $rootScope.$on("$stateChangeSuccess", function() {
-        Data.setBusy(false);
+        Extention.setBusy(false);
     });
 
     $rootScope.$on("$stateChangeStart", function (event, next, current) {
-        Data.setBusy(true);
+        Extention.setBusy(true);
         $rootScope.authenticated = false;
-        Data.get('session').then(function (results) {
+        Extention.get('session').then(function (results) {
 
             if (next.url == '/') {
                 $location.path("/home");

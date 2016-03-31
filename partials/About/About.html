@@ -1,0 +1,40 @@
+﻿
+<div class="page-content">
+    <div class="">
+        <div class="space-6"></div>
+        <div class="col-sm-12 no-padding">
+            <div class="row posts col-md-12 no-padding">
+                <div class="col-lg-3 no-padding" ng-repeat="post in posts">
+                    <div class="post">
+                        <div class="post-header">
+                            {{post.Title}}
+                        </div>
+                        <div class="post-middle" ng-bind-html="post.Content">
+                        </div>
+                        <div class="post-footer">
+                            <span ng-repeat="a in post.Authors">{{a.FullName}}</span>
+                            <span ng-repeat="s in post.Subjects">{{s.Title}}</span>
+                            <div>
+                                <button class="btn btn-success yekan-font" ng-click="postMore(post);">ادامه</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span8 text-center">
+
+                    <auto-paging page="1"
+                                 page-size="12"
+                                 action-name="getAllPosts"
+                                 data-params="pagingParams"
+                                 items="posts"
+                                 style="">
+                    </auto-paging> 
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

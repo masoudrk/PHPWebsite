@@ -1,15 +1,15 @@
-﻿app.controller('authCtrl', function ($scope, $rootScope, $routeParams, $uibModalInstance, $location, $http, Data , items) {
+﻿app.controller('authCtrl', function ($scope, $rootScope, $routeParams, $uibModalInstance, $location, $http, Extention , items) {
     //initially set those objects to null to avoid undefined error
     $scope.login = {};
     $scope.signup = {};
     $scope.doLogin = function (customer) {
-        Data.setBusy(true);
-        Data.post('login', {
+        Extention.setBusy(true);
+        Extention.post('login', {
             customer: customer
         }).then(function (results) {
-            Data.toast(results);
-            Data.setBusy(false);
-            Data.authUser(results);
+            Extention.toast(results);
+            Extention.setBusy(false);
+            Extention.authUser(results);
             if (results.Status == "success") {
                 //$location.path('dashboard');
                 $uibModalInstance.close(results);
@@ -21,24 +21,24 @@
     };
     $scope.signup = {email:'',password:'',name:'',phone:'',address:''};
     $scope.signUp = function (customer) {
-        Data.post('signUp', {
+        Extention.post('signUp', {
             customer: customer
         }).then(function (results) {
             if (results.status == "success") {
-                Data.toast({ status: "success", message: "ثبت نام با موفقیت انجام شد!" });
+                Extention.toast({ status: "success", message: "ثبت نام با موفقیت انجام شد!" });
                 //$location.path('dashboard');
             } else {
                 if(results.status == "error-exists")
-                    Data.toast({ status: "error", message: "کاربری با این مشخصات ثبت نام کرده است!" });
+                    Extention.toast({ status: "error", message: "کاربری با این مشخصات ثبت نام کرده است!" });
                 else
-                    Data.toast({ status: "error", message: "خطا ، لطفا دوباره تلاش کنید." });
+                    Extention.toast({ status: "error", message: "خطا ، لطفا دوباره تلاش کنید." });
             }
         });
     };
     //$scope.logout = function () {
-    //    Data.get('logout').then(function (results) {
-    //        Data.toast(results);
-    //        Data.unAuthUser();
+    //    Extention.get('logout').then(function (results) {
+    //        Extention.toast(results);
+    //        Extention.unAuthUser();
     //        //$location.path('login');
     //    });
     //}

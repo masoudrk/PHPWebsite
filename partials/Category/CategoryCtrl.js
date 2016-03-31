@@ -1,4 +1,4 @@
-angular.module('myApp').controller('CategoryCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, Data, CategoryService) {
+angular.module('myApp').controller('CategoryCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, Extention, CategoryService) {
 
     $scope.CatID = $stateParams.id;
     $scope.pagingParams = {

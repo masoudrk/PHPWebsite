@@ -1,4 +1,4 @@
-﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $rootScope, $routeParams, $location, $http, $uibModal, Data, MainService) {
+﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $rootScope, $routeParams, $location, $http, $uibModal, Extention, MainService) {
 
     $scope.images = [
         {
@@ -15,11 +15,11 @@
     $scope.subjects = [];
 
     $scope.getAllSubjects = function () {
-        Data.setBusy(true);
+        Extention.setBusy(true);
         MainService.getAllSubjects()
             .then(function(result) {
                 $scope.subjects = result;
-                Data.setBusy(false);
+                Extention.setBusy(false);
             });
     }
 
@@ -67,9 +67,9 @@
     };
 
     $scope.logout = function () {
-        Data.get('logout').then(function (results) {
-            Data.toast(results);
-            Data.unAuthUser();
+        Extention.get('logout').then(function (results) {
+            Extention.toast(results);
+            Extention.unAuthUser();
             //$location.path('login');
         });
     }

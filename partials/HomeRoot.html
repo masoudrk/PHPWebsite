@@ -9,9 +9,9 @@
                         <a href='#'>موضوعات</a>
                         <ul>
                             <li class='has-sub' ng-repeat="s in subjects">
-                                <a href='#'>{{s.Title}}</a>
+                                <a  ui-sref="home.cat({ id: '{{s.ID}}'})">{{s.Title}}</a>
                                 <ul>
-                                    <li><a href='#' ng-repeat="child in s.childs">{{child.Title}}</a></li>
+                                    <li><a  ui-sref="home.cat({ id: '{{child.ID}}'})" ng-repeat="child in s.childs">{{child.Title}}</a></li>
                                 </ul>
                             </li>
                         </ul>
