@@ -6,12 +6,71 @@
        url('../fonts/BYekan.woff') format('woff'), /* Pretty Modern Browsers */
        url('../fonts/BYekan.ttf')  format('truetype') /* Safari, Android, iOS */
 }
+.center-content-container {
+    min-height: 200px;
+    margin-left: 0;
+    margin-right: 0;
+}
+.center-content-container > .header {
+    background-color: white;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+}
+
+.content-header-yellow {
+    border-right: solid 5px #fecf54;
+    border-left: solid 5px #fecf54;
+}
+
+.content-header-green {
+    border-right: solid 5px #008747;
+    border-left: solid 5px #008747;
+}
+.content-header-red {
+    border-right: solid 5px #cf2130;
+    border-left: solid 5px #cf2130;
+}
+.content-header-blue {
+    border-right: solid 5px #008b8b;
+    border-left: solid 5px #008b8b;
+}
+
+.posts {
+    min-height: 200px;
+    margin-left: 0;
+    margin-right: 0;
+}
+.post {
+    height: 350px;
+    background-color: gray;
+    margin: 0 10px 10px 10px
+}
+.post > .post-header {
+    height: 50%;
+    background-color: gray;
+}
+.post > .post-middle {
+    height: 20%;
+    background-color: white;
+    overflow: hidden
+}
+.post > .post-footer {
+    height: 30%;
+    background-color: white;
+}
+
 .green {
     color: #4caf50;
 }
+
 .red {
     color: #b22222;
 }
+
 .fa-group-mid {
     font-size: 20px;
     cursor: pointer;
@@ -165,3 +224,119 @@ padding-bottom: 10px;*/
 .link {
     cursor: pointer;
 }
+
+/************************ sidebar ***************************/
+
+    ul.colorful-list {
+        position: relative;
+        background: #fff;
+        width: 250px;
+        margin: auto;
+        padding: 0;
+        list-style: none;
+        overflow: hidden;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .colorful-list li a {
+        padding-right: 20px;
+        height: 50px;
+        line-height: 50px;
+        display: block;
+        overflow: hidden;
+        position: relative;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 14px;
+        color: #686868;
+        background-color: white;
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+    }
+
+        .colorful-list li a:hover {
+            background: #efefef;
+        }
+
+        .colorful-list li a.profile {
+            border-right: 5px solid #008747;
+        }
+
+        .colorful-list li a.messages {
+            border-right: 5px solid #fecf54;
+        }
+
+        .colorful-list li a.settings {
+            border-right: 5px solid #cf2130;
+        }
+
+        .colorful-list li a.logout {
+            border-right: 5px solid #008b8b;
+        }
+
+    .colorful-list li:first-child a:hover, .form li:first-child a {
+        -webkit-border-radius: 5px 5px 0 0;
+        -moz-border-radius: 5px 5px 0 0;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .colorful-list li:last-child a:hover, .form li:last-child a {
+        -webkit-border-radius: 0 0 5px 5px;
+        -moz-border-radius: 0 0 5px 5px;
+        border-radius: 0 0 5px 5px;
+    }
+
+    .colorful-list li a:hover i {
+        color: #ea4f35;
+    }
+
+    .colorful-list i {
+        margin-left: 15px;
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+    }
+
+    .colorful-list em {
+        font-size: 10px;
+        background: #ea4f35;
+        padding: 3px 5px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        font-style: normal;
+        color: #fff;
+        margin-top: 17px;
+        margin-right: 15px;
+        line-height: 10px;
+        height: 10px;
+        float: right;
+    }
+
+    .colorful-list li.selected a {
+        background: #efefef;
+    }
+    
+    .sub-list-a {
+        background-color: transparent !important;
+    }
+    .sub-list {
+        border-right: 5px solid #fecf54;
+    }
+    .sub-list-a-a {
+        padding-right: 40px !important;
+    }
+    .sub-list-label {
+
+    }
+    .sub-list-a:hover {
+        background-color: transparent !important;
+    }

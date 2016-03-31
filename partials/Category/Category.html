@@ -1,5 +1,12 @@
-﻿
-<div class="page-content">
+﻿<div class="center-content-container">
+    <div class="header content-header-red">
+        <div class="row">
+            <div class="col-md-12 text-right fa-2x">
+                <span>{{category.Title}}</span>
+                <i class="fa fa-random"></i>
+            </div>
+        </div>
+    </div>
     <div class="">
         <div class="space-6"></div>
         <div class="col-sm-12 no-padding">
@@ -21,19 +28,18 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="span8 text-center">
 
-                    <auto-paging page="1"
-                                 page-size="12"
-                                 action-name="getAllPosts"
-                                 data-params="pagingParams"
-                                 items="posts"
-                                 style="">
-                    </auto-paging> 
-                </div>
-            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span8 text-center">
 
+            <auto-paging page="1"
+                         page-size="8"
+                         action-name="getAllPosts"
+                         data-params="pagingParams"
+                         items="posts">
+            </auto-paging>
         </div>
     </div>
 </div>

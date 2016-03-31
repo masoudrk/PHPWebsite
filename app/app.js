@@ -46,7 +46,7 @@ app.config([
                 }
             })
             .state("home.post", {
-                url: "post",
+                url: "post/:id",
                 views: {
                     "viewContent": {
                         templateUrl: "partials/Post/Post.html",
@@ -58,7 +58,24 @@ app.config([
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                        return $ocLazyLoad.load('partials/Post/PostCtrl.js');
+                        return $ocLazyLoad.load(['partials/Post/PostCtrl.js', 'partials/Post/PostService.js']);
+                    }]
+                }
+            })
+            .state("home.cat", {
+                url: "cat/:id",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Category/Category.html",
+                        controller: 'CategoryCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/DefaultSidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load(['partials/Category/CategoryCtrl.js', 'partials/Category/CategoryService.js']);
                     }]
                 }
             })

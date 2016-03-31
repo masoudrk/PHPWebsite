@@ -66,12 +66,13 @@
         });
     };
 
-    $scope.logout = function() {
-        Data.get('logout').then(function(results) {
+    $scope.logout = function () {
+        Data.get('logout').then(function (results) {
             Data.toast(results);
             Data.unAuthUser();
             //$location.path('login');
         });
     }
+
 
 });

@@ -97,6 +97,7 @@
     <Folder Include="partials\Admin\Post\" />
     <Folder Include="partials\Main\" />
     <Folder Include="partials\Admin\" />
+    <Folder Include="partials\Category\" />
     <Folder Include="partials\Post\" />
     <Folder Include="Scripts\" />
     <Folder Include="Scripts\i18n\" />
@@ -166,6 +167,10 @@
     <Content Include="partials\Admin\Sidebar.html" />
     <Content Include="partials\DefaultSidebar.html" />
     <Content Include="partials\HomeRoot.html" />
+    <Content Include="partials\Category\Category.html" />
+    <Content Include="partials\Category\CategoryCtrl.js" />
+    <Content Include="partials\Category\CategoryService.js" />
+    <Content Include="partials\Post\PostService.js" />
     <Content Include="partials\SignupTemplate.html" />
     <Content Include="partials\LoginTemplate.html" />
     <Content Include="partials\Main\MainService.js" />
