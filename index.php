@@ -14,6 +14,8 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="css/select.css" rel="stylesheet">
+
     <link href="css/ADM-dateTimePicker.css " rel="stylesheet">
     <link rel='stylesheet' href='css/textAngular.css'>
 
@@ -48,7 +50,7 @@
 <script src="js/ng-file-upload-shim.min.js"></script>
 <script src="js/ng-file-upload.min.js"></script>
 
-<script src="js/angular-imagefit.js"></script>
+<script src="js/select.min.js"></script>
 
 <script src="app/app.js"></script>
 

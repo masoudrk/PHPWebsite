@@ -1,14 +1,11 @@
 ﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $rootScope, $routeParams, $location, $http, $uibModal, Extention, MainService) {
 
-    $scope.images = [
-        {
-            src: 'content/img/img3.jpg',
-            title: 'Pic 1'
-        }, {
-            src: 'content/img/img1.jpg',
-            title: 'Pic 3'
-        }
-    ];
+    $scope.sliderController = {};
+
+    Extention.post('getAllSlides').then(function(res) {
+        $scope.slides = res.Items;
+        $scope.sliderController.update();
+    });
 
     $scope.user = undefined;
 

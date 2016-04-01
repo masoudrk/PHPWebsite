@@ -95,6 +95,10 @@
     <Folder Include="js\editor\" />
     <Folder Include="partials" />
     <Folder Include="partials\Admin\Gallery\" />
+    <Folder Include="partials\Admin\Setting\" />
+    <Folder Include="partials\Admin\Profile\" />
+    <Folder Include="partials\Admin\Users\" />
+    <Folder Include="partials\Admin\Slider\" />
     <Folder Include="partials\Admin\Subject\" />
     <Folder Include="partials\Admin\Post\" />
     <Folder Include="partials\About\" />
@@ -123,6 +127,8 @@
     <Content Include="css\font-awesome.css" />
     <Content Include="css\menubar-styles.css" />
     <Content Include="css\ngProgress.css" />
+    <Content Include="css\select.css" />
+    <Content Include="css\select.min.css" />
     <Content Include="css\textAngular.css" />
     <Content Include="DefaultCtrl.js" />
     <Content Include="fonts\BYekan.eot" />
@@ -163,6 +169,8 @@
     <Content Include="js\ngprogress.min.js" />
     <Content Include="js\persian-datepicker-tpls.js" />
     <Content Include="js\persiandate.js" />
+    <Content Include="js\select.js" />
+    <Content Include="js\select.min.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.min.js" />
     <Content Include="packages.config" />
@@ -172,6 +180,14 @@
     <Content Include="partials\Admin\AdminService.js" />
     <Content Include="partials\Admin\Gallery\Gallery.html" />
     <Content Include="partials\Admin\Gallery\GalleryCtrl.js" />
+    <Content Include="partials\Admin\Setting\SettingCtrl.js" />
+    <Content Include="partials\Admin\Setting\Setting.html" />
+    <Content Include="partials\Admin\Profile\Profile.html" />
+    <Content Include="partials\Admin\Profile\ProfileCtrl.js" />
+    <Content Include="partials\Admin\Users\UsersCtrl.js" />
+    <Content Include="partials\Admin\Users\Users.html" />
+    <Content Include="partials\Admin\Slider\Slider.html" />
+    <Content Include="partials\Admin\Slider\SliderCtrl.js" />
     <Content Include="partials\Admin\Subject\Subject.html" />
     <Content Include="partials\Admin\Subject\SubjectCtrl.js" />
     <Content Include="partials\Admin\Post\AllPosts.html" />

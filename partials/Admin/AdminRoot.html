@@ -4,10 +4,11 @@
         <div class="row col-md-12 no-padding">
             <div id='cssmenu' class="align-right">
                 <ul>
-                    <li><a ui-sref='home.home' class="yekan-font">نمایش سایت<div class="glyphicon glyphicon-home" style="margin-left:8px;line-height:0"></div></a></li>
-                    <li><a href='#/' class="yekan-font">اعلان ها<div class="glyphicon glyphicon-home" style="margin-left:8px;line-height:0"></div></a></li>
+                    <li><a ui-sref='home.home' class="yekan-font">نمایش سایت<div class="fa fa-home" style="margin-left:8px;line-height:0"></div></a></li>
+                    <li><a ui-sref='home.profile' class="yekan-font">پروفایل من<div class="fa fa-user" style="margin-left:8px;line-height:0"></div></a></li>
+                    <li><a ui-sref='home.home' class="yekan-font">اعلان ها<div class="fa fa-info" style="margin-left:8px;line-height:0"></div></a></li>
 
-                    <li ng-if="authenticated"><a ng-click="logout()">خروج<div class="glyphicon glyphicon-user" style="margin-left:8px;line-height:0"></div></a></li>
+                    <li><a ng-click="logout()">خروج<div class="fa fa-close" style="margin-left:8px;line-height:0"></div></a></li>
                 </ul>
             </div>
         </div>

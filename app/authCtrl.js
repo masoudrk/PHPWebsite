@@ -9,7 +9,8 @@
         }).then(function (results) {
             Extention.toast(results);
             Extention.setBusy(false);
-            Extention.authUser(results);
+            if (results.Status!="error")
+                Extention.authUser(results);
             if (results.Status == "success") {
                 //$location.path('dashboard');
                 $uibModalInstance.close(results);

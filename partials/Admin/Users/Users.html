@@ -1,0 +1,76 @@
+﻿
+
+<div class="center-content-container yekan-font">
+    <div class="header content-header-yellow">
+        <div class="row">
+            <div class="col-md-12 text-right content-header-mid">
+                <span>کاربران سایت</span>
+                <i class="fa fa-flag"></i>
+            </div>
+        </div>
+    </div>
+    <div class="white-panel">
+        <div class="col-sm-12 no-padding">
+            <table dir="rtl" class="table table-striped">
+                <thead>
+                <tr>
+                    <th class="text-right">نام کامل</th>
+                    <th class="text-right" style="width: 200px">نام کاربری</th>
+                    <th class="text-right" style="width: 150px">ایمیل</th>
+                    <th class="text-right" style="width: 300px">اختیارات</th>
+                    <th class="text-right" style="width: 105px"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="u in users">
+                    <td>{{u.FirstName}}&nbsp;{{u.LastName}}</td>
+                    <td>{{u.Username}}</td>
+                    <td>{{u.Email}}</td>
+                    <td>
+                        <ui-select dir="ltr" ng-model="u.Privilege"
+                                   theme="bootstrap"
+                                   ng-disabled="disabled"
+                                   reset-search-input="false"
+                                   style="width: 300px;">
+                            <ui-select-match placeholder="Select an Privilege">{{$select.selected.Privilege}}</ui-select-match>
+                            <ui-select-choices repeat="p in privileges track by $index"
+                                               refresh="refreshAddresses($select.search)"
+                                               refresh-delay="100">
+                                <div ng-bind-html="p.Privilege | highlight: $select.search"></div>
+                                <small>
+                                    Actions : {{p.Description}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </td>
+                    <td>
+                        <div>
+                            <a ng-click="changePrivilege(u)" confirm="آیا مطمئن هستید که میخواهید دسترسی کاربر '{{u.FirstName}}&nbsp;{{u.LastName}}' را تغییر دهید؟" class="fa fa-check fa-group-mid green"></a>
+                            <span class="fa fa-trash-o fa-group-mid red" ng-click="deleteUser(u)"  confirm="آیا مطمئن هستید که می خواهید کاربر {{p.ID}} را حذف کنید؟"></span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="span8 text-center">
+
+                <auto-paging page="1"
+                             page-size="20"
+                             action-name="getAllUsers"
+                             data-params="pagingParams"
+                             ng-control="pagingController"
+                             items="users">
+                </auto-paging>
+            </div>
+        </div>
+    </div>
+    <!--<script>
+        debugger
+        jQuery(document).ready(function ($) {
+            debugger
+            $("#PostManage").addClass('selected');
+        });
+    </script>-->
+</div>

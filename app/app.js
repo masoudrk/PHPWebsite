@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'textAngular', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'textAngular', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select']);
 //, 'angular-imagefit'
 app.config([
     '$stateProvider', '$urlRouterProvider','$ocLazyLoadProvider','ADMdtpProvider',
@@ -189,6 +189,82 @@ app.config([
                     }]
                 }
             })
+            .state("admin_root.users", {
+                url: "/users",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/Users/Users.html",
+                        controller: 'UsersCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Users/UsersCtrl.js',
+                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
+                    }]
+                }
+            })
+            .state("admin_root.setting", {
+                url: "/setting",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/Setting/Setting.html",
+                        controller: 'UsersCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Setting/SettingCtrl.js',
+                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
+                    }]
+                }
+            })
+            .state("admin_root.slider", {
+                url: "/slider",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/Slider/Slider.html",
+                        controller: 'SliderCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Slider/SliderCtrl.js',
+                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
+                    }]
+                }
+            })
+            .state("admin_root.profile", {
+                url: "/profile",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/Profile/Slider.html",
+                        controller: 'ProfileCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Profile/ProfileCtrl.js',
+                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
+                    }]
+                }
+            })
             .state("admin_root.all_posts", {
                 url: "/all_posts",
                 views: {
@@ -228,6 +304,11 @@ app.config([
                 return;
             }
 
+            if (next.url == '/admin') {
+                $state.go("admin_root.dashboard");
+                return;
+            }
+
             if (results.UserID) {
                 $rootScope.authenticated = true;
                 $rootScope.user = {};
@@ -244,8 +325,8 @@ app.config([
                 if (!results.AdminID)
                     $state.go("home.home");
                     //$location.path('/home');
-                else
-                    $state.go("admin_root.dashboard");
+                //elses
+                //    $state.go("admin_root.dashboard");
                     //$location.path('/admin/dashboard');
             }
         });

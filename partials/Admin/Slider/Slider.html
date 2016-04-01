@@ -1,0 +1,106 @@
+﻿
+
+<div class="center-content-container yekan-font">
+    <div class="header content-header-yellow">
+        <div class="row">
+            <div class="col-md-12 text-right content-header-mid">
+                <span>اسلایدر سایت</span>
+                <i class="fa fa-flag"></i>
+            </div>
+        </div>
+    </div>
+    <div class="white-panel">
+        <div class="row">
+            <div class="col-xs-12 form-group">
+                <div class="col-xs-3 image-single-cover">
+                    <img class="image-small" ng-if="image.FullPath" ng-src="{{image.FullPath}}" />
+                </div>
+                <div class="col-xs-6">
+                    <button class="pull-right btn btn-success" ng-click="openGalleryModal()">انتخاب</button>
+                </div>
+                <span class="col-xs-3 text-right">تصویر</span>
+            </div>
+            <div class="col-xs-12 form-group">
+                <div class="col-xs-9">
+                    <input class="col-xs-12 pull-right no-padding" ng-model="title"></input>
+                </div>
+                <span class="col-xs-3 text-right">سر تیتر</span>
+            </div>
+            <div class="col-xs-12 form-group">
+                <div class="col-xs-9">
+                    <input type="text" class="col-xs-12 pull-right no-padding" ng-model="content"></input>
+                </div>
+                <span class="col-xs-3 text-right">نوشته</span>
+            </div>
+            <div class="col-xs-12 form-group">
+                <div class="col-xs-9">
+                    <input class="col-xs-12 pull-right no-padding" ng-model="link"></input>
+                </div>
+                <span class="col-xs-3 text-right">لینک</span>
+            </div>
+            <div class="col-xs-12 form-group">
+                <span class="col-xs-3 text-right pull-right">اولویت</span>
+                <div class="col-xs-3 pull-right">
+                    <input type="number" class="col-xs-12 no-padding pull-right text-center" ng-model="order"></input>
+                </div>
+            </div>
+            <div class="col-xs-12 form-group">
+                <div class="col-xs-9">
+                    <button class="pull-left btn btn-primary" ng-click="saveSlide()">افزودن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="white-panel">
+        <div class="col-sm-12 no-padding">
+            <table dir="rtl" class="table table-striped">
+                <thead>
+                <tr>
+                    <th class="text-right">تصویر</th>
+                    <th class="text-right" style="width: 200px">اولویت</th>
+                    <th class="text-right" style="width: 150px">سر تیتر</th>
+                    <th class="text-right" style="width: 58px">لینک</th>
+                    <th class="text-right" style="width: 58px"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="s in slides">
+                    <td>
+                        <div class="image-single-cover">
+                            <img class="image-small" ng-src="{{s.FullPath}}" />
+                        </div>
+                    </td>
+                    <td>{{s.Order}}</td>
+                    <td>{{s.Title}}</td>
+                    <td>{{s.Link}}</td>
+                    <td>
+                        <div>
+                            <span class="fa fa-trash-o fa-group-mid red" ng-click="deleteSlide(s)"  confirm="آیا مطمئن هستید که می خواهید پست {{p.ID}} را حذف کنید؟"></span>
+                            <a class="fa fa-pencil fa-group-mid green"></a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="span8 text-center">
+
+                <auto-paging page="1"
+                             page-size="20"
+                             action-name="getAllSlides"
+                             data-params="pagingParams"
+                             ng-control="pagingController"
+                             items="slides">
+                </auto-paging>
+            </div>
+        </div>
+    </div>
+    <!--<script>
+        debugger
+        jQuery(document).ready(function ($) {
+            debugger
+            $("#PostManage").addClass('selected');
+        });
+    </script>-->
+</div>

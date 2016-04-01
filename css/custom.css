@@ -335,6 +335,22 @@ padding-bottom: 10px;*/
 .dd-search{
     padding: 5px
 }
+/*************************Image *****************************/
+.image-single-cover{
+    width: 150px;
+    object-fit: cover;
+    overflow: hidden
+}
+
+.image-single-cover > .image-large{
+    height: 250px
+}
+.image-single-cover > .image-mid{
+    height: 150px
+}
+.image-single-cover > .image-small{
+    height: 100px
+}
 /*************************gallery ***************************/
 .gallery {
     
@@ -454,9 +470,21 @@ padding-bottom: 10px;*/
         .colorful-list li a.carrot {
             border-right: 5px solid #e67e22;
         }
-
+        
         .colorful-list li a.wisteria {
             border-right: 5px solid #8e44ad;
+        }
+        .colorful-list li a.green-sea {
+            border-right: 5px solid #16a085;
+        }
+        .colorful-list li a.peter {
+            border-right: 5px solid #3498db;
+        }
+        .colorful-list li a.asphalt {
+            border-right: 5px solid #34495e;
+        }
+        .colorful-list li a.pumpkin {
+            border-right: 5px solid #d35400;
         }
 
     .colorful-list li:first-child a:hover, .form li:first-child a {

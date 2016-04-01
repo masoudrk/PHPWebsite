@@ -52,8 +52,8 @@
     }
 </style>
 <div class="slider">
-    <div class="slide" ng-repeat="image in images" ng-show="image.visible">
-        <img ng-src="{{image.src}}"  />
+    <div class="slide" ng-repeat="s in slides" ng-show="s.visible">
+        <img ng-src="{{s.FullPath}}"  />
     </div>
     <div>
         <span class="arrows fa fa-chevron-circle-left fa-4x " ng-click="prev()" style="left: 20px">
