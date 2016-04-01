@@ -1,5 +1,4 @@
- 
-angular.module('myApp').controller('MainCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, $http, Extention, MainService) {
+ angular.module('myApp').controller('AboutCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, Extention) {
 
 });
 

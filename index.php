@@ -29,8 +29,12 @@
 </body>
 <toaster-container toaster-options="{'time-out': 10000}"></toaster-container>
 
+<!-- jqurey libs -->
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/menubar.js"></script>
+<script src="defaultPage.js" ></script>
+
 <!-- Libs -->
-  
 <script src="Scripts/angular.js"></script>
 <script src="Scripts/angular-route.min.js"></script>
 <script src="Scripts/angular-animate.min.js" ></script>
@@ -39,11 +43,12 @@
 <script src="js/ngprogress.js"></script>
 <script src="js/ui-bootstrap-tpls-1.2.5.js"></script>
 
-<!-- jqurey libs -->
-<script src="js/jquery.js" type="text/javascript"></script>
-<script src="js/menubar.js"></script>
-<script src="defaultPage.js" ></script>
 <script src="Scripts/lazyLoad/ocLazyLoad.js" type="text/javascript" ></script>
+
+<script src="js/ng-file-upload-shim.min.js"></script>
+<script src="js/ng-file-upload.min.js"></script>
+
+<script src="js/angular-imagefit.js"></script>
 
 <script src="app/app.js"></script>
 

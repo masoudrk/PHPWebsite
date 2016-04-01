@@ -70,8 +70,6 @@
     <Compile Include="js\angular.min.js" />
     <Compile Include="js\toaster.js" />
     <Compile Include="partials\dashboard.html" />
-    <Compile Include="partials\login.html" />
-    <Compile Include="partials\signup.html" />
     <Compile Include="index.php" />
   </ItemGroup>
   <ItemGroup>
@@ -86,7 +84,6 @@
     <Folder Include="app" />
     <Folder Include="app\directives\" />
     <Folder Include="app\MultiSelectDropDown\" />
-    <Folder Include="app\MultiSelectDropDown\Template\" />
     <Folder Include="content\img\" />
     <Folder Include="css" />
     <Folder Include="js" />
@@ -94,6 +91,8 @@
     <Folder Include="content\" />
     <Folder Include="js\editor\" />
     <Folder Include="partials" />
+    <Folder Include="partials\Admin\Gallery\" />
+    <Folder Include="partials\Admin\Subject\" />
     <Folder Include="partials\Admin\Post\" />
     <Folder Include="partials\About\" />
     <Folder Include="partials\Main\" />
@@ -109,7 +108,7 @@
     <Content Include="app\directives\SlideShow.js" />
     <Content Include="app\directives\SlideShowTemplate.html" />
     <Content Include="app\MultiSelectDropDown\CheckboxDropDown.js" />
-    <Content Include="app\MultiSelectDropDown\Template\MultiSelectTemplate.html" />
+    <Content Include="app\MultiSelectDropDown\MultiSelectTemplate.html" />
     <Content Include="content\img\img1.jpg" />
     <Content Include="content\img\img2.jpg" />
     <Content Include="content\img\img3.jpg" />
@@ -138,6 +137,7 @@
     <Content Include="js\ADM-dateTimePicker.min.js" />
     <Content Include="js\angular-confirm.js" />
     <Content Include="js\angular-confirm.min.js" />
+    <Content Include="js\angular-imagefit.js" />
     <Content Include="js\angular.js" />
     <Content Include="js\AutoPagination.js" />
     <Content Include="js\editor\textAngular-rangy.min.js" />
@@ -150,6 +150,10 @@
     <Content Include="js\menubar.js" />
     <Content Include="js\moment-jalaali.js" />
     <Content Include="js\moment.js" />
+    <Content Include="js\ng-file-upload-shim.js" />
+    <Content Include="js\ng-file-upload-shim.min.js" />
+    <Content Include="js\ng-file-upload.js" />
+    <Content Include="js\ng-file-upload.min.js" />
     <Content Include="js\ngprogress.js" />
     <Content Include="js\ngprogress.min.js" />
     <Content Include="js\persian-datepicker-tpls.js" />
@@ -161,6 +165,10 @@
     <Content Include="partials\Admin\AdminCtrl.js" />
     <Content Include="partials\Admin\AdminRoot.html" />
     <Content Include="partials\Admin\AdminService.js" />
+    <Content Include="partials\Admin\Gallery\Gallery.html" />
+    <Content Include="partials\Admin\Gallery\GalleryCtrl.js" />
+    <Content Include="partials\Admin\Subject\Subject.html" />
+    <Content Include="partials\Admin\Subject\SubjectCtrl.js" />
     <Content Include="partials\Admin\Post\AllPosts.html" />
     <Content Include="partials\Admin\Post\AllPostsCtrl.js" />
     <Content Include="partials\Admin\Post\NewPostCtrl.js" />

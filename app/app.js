@@ -1,5 +1,5 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'textAngular', 'angular-confirm', 'ADM-dateTimePicker']);
-
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'textAngular', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload']);
+//, 'angular-imagefit'
 app.config([
     '$stateProvider', '$urlRouterProvider','$ocLazyLoadProvider','ADMdtpProvider',
     function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, ADMdtp) {
@@ -148,6 +148,46 @@ app.config([
                     }]
                 }
             })
+            .state("admin_root.gallery", {
+                url: "/gallery",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/Gallery/Gallery.html",
+                        controller: 'GalleryCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Gallery/GalleryCtrl.js',
+                            //'js/ng-file-upload.min.js',
+                            //'js/ng-file-upload-shim.min.js',
+                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
+                    }]
+                }
+            })
+            .state("admin_root.subjects", {
+                url: "/subjects",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/Subject/Subject.html",
+                        controller: 'SubjectCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Subject/SubjectCtrl.js',
+                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
+                    }]
+                }
+            })
             .state("admin_root.all_posts", {
                 url: "/all_posts",
                 views: {
@@ -216,6 +256,19 @@ app.filter('jalaliDate', function () {
     }
 });
 
+app.filter('splitArray', function () {
+    return function (array, feildName) {
+        var str = "";
+        for (var j = 0; j < array.length; j++) {
+            if (array.length - 1 == j)
+                str += array[j][feildName];
+            else
+                str += (array[j][feildName] + " , ");
+        }
+        return str;
+    }
+});
+
 app
 .directive('slideable', function () {
     return {
@@ -262,3 +315,14 @@ app
         }
     }
 });
+
+function getFile() {
+    document.getElementById("upfile").click();
+}
+function sub(obj) {
+    var file = obj.value;
+    var fileName = file.split("\\");
+    document.getElementById("yourBtn").innerHTML = fileName[fileName.length - 1];
+    document.myForm.submit();
+    event.preventDefault();
+}

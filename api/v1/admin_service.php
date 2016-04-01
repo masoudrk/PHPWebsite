@@ -65,7 +65,27 @@ $app->post('/deletePost', function() use ($app) {
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
     $result = $db->deleteFromTable('post','ID='.$rObj);
-    echoResponse(200, $result);
+});
+
+$app->post('/deleteMedia', function() use ($app)  {
+    $db = new DbHandler();
+    $data = json_decode($app->request->getBody());
+    $r = $db->makeQuery("SELECT * FROM gallery WHERE ID=".$data->mediaID." LIMIT 1");
+
+    while($res = $r->fetch_assoc()){
+        $filename = "../../".$res["FullPath"];
+        if (file_exists($filename)) {
+            unlink($filename);
+            $result = $db->deleteFromTable('gallery','ID='.$data->mediaID);
+            echoResponse(200, 'File '.$filename.' has been deleted');
+            return;
+        } else {
+            $result = $db->deleteFromTable('gallery','ID='.$data->mediaID);
+            echoResponse(201, 'Could not delete '.$filename.'');
+            return;
+        }
+    }
+    echoResponse(201, 'Could not delete '.$filename.', file does not exist');
 });
 
 $app->post('/getAllAuthors', function() use ($app)  {

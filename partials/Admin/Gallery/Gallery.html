@@ -1,0 +1,118 @@
+﻿
+
+<div class="center-content-container yekan-font">
+    <div class="header content-header-yellow">
+        <div class="row">
+            <div class="col-md-12 text-right content-header-mid">
+                <span>گالری فایل های سایت</span>
+                <i class="fa fa-flag"></i>
+            </div>
+        </div>
+    </div>
+    <div class="white-panel">
+        <form name="myForm">
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-12 pull-right">
+
+                        <div class="fileUpload">
+                            <input class="upload-button upload col-md-12" type="file" ngf-select ng-model="picFile" name="file"
+                                   accept="image/*" ngf-max-size="500MB" required
+                                   ngf-model-invalid="errorFile">
+                            <span style="line-height: 100px; width: 100%; color: gray" class="yekan-font text-center">یا کلیک کنید فایل را در اینجا رها کنید </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <multi-select-drop-down class="col-md-9"
+                                                items="fileTypes"
+                                                selected-list="selectedFileType"
+                                                ng-button-text="subjectButtonText"
+                                                multi-select-mode="false"
+                                                radio-button-behaviour="true"
+                                                max-button-titles-show="3"
+                                                check-feild-name="'top'"
+                                                title-feild-name="'Type'"
+                                                close-on-select="false"
+                                                watch-on-items="true">
+                        </multi-select-drop-down>
+                        <label class="col-md-3">نوع فایل</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input class="col-md-9" type="text" ng-model="description"/>
+                        <label class="col-md-3">توضیحات</label>
+                    </div>
+
+                </div>
+                <i ng-show="myForm.file.$error.maxSize">
+                    File too large
+                    {{errorFile.size / 1000000000|number:1}}MB: max 2M
+                </i>
+                <div class="col-md-12 gallery ">
+                    <div class="media col-xs-6 col-sm-4 col-md-3 col-lg-2 image-cover-media" ng-show="myForm.file.$valid">
+                        <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile"/>
+                    </div>
+                </div>
+                <div class="col-md-12 gallery ">
+                    <div class="col-md-6 no-padding">
+                        <button class="btn btn-primary" ng-disabled="!myForm.$valid"
+                                ng-click="uploadPic(picFile)">
+                            شروع آپلود
+                        </button>
+                        <button class="btn btn-danger" ng-click="picFile = null" ng-show="picFile">حذف</button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+
+                    <span class="progress" ng-show="picFile.progress >= 0">
+                        <div style="width: { {picFile.progress}}% "
+                             ng-bind="picFile.progress + '%'"></div>
+                    </span>
+                    <span ng-show="picFile.result">Upload Successful</span>
+                    <span class="err" ng-bind-html="errorMsg" ng-show="errorMsg"></span>
+                </div>
+            </fieldset>
+            <br>
+        </form>
+    </div>
+    <div class="white-panel">
+        <div class="my-scroll-area" imagefit imagefit-option="check" imagefit-error-src="http://www.paolobugatti.com/img/img-default.png">
+        </div>
+    <div class="white-panel">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 col-md-12 gallery ">
+                <div class="media col-xs-4 col-sm-4 col-md-4 col-lg-3 image-cover-media" ng-repeat="m in medias">
+                    <div ng-if="m.Type == 'png'||m.Type == 'jpg/jpeg'" ng-mouseenter="m.showBack = true" ng-mouseleave="m.showBack = false">
+                        <img ng-src="{{m.FullPath}}"/>
+                        <div class="contain-media-back" ng-show="m.showBack" style="position: absolute; top: 5px; width: 100%">
+                            <div class="media-back">
+                                <div class="text-center" style="height: 70%">{{m.FullPath}}</div>
+                                <div class="text-center col-md-12" style="height: 70%">
+                                    <i class="fa fa-trash-o fa-3x my-link" confirm="آیا مطمئن هستید که میخواهید این تصویر را حذف کنید ؟" ng-click="removeMedia(m);"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12">
+                <div class="span8 text-center">
+
+                    <auto-paging page="1"
+                                 page-size="20"
+                                 action-name="getAllMedia"
+                                 data-params="pagingParams"
+                                 ng-control="pagingCtrl"
+                                 items="medias">
+                    </auto-paging>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<script>
+        debugger
+        jQuery(document).ready(function ($) {
+            debugger
+            $("#PostManage").addClass('selected');
+        });
+    </script>-->
+</div>

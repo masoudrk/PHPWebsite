@@ -1,0 +1,58 @@
+﻿
+
+<div class="center-content-container yekan-font">
+    <div class="header content-header-yellow">
+        <div class="row">
+            <div class="col-md-12 text-right content-header-mid">
+                <span>دسته بندی موضوعات سایت</span>
+                <i class="fa fa-flag"></i>
+            </div>
+        </div>
+    </div>
+    <div class="white-panel">
+        <div class="col-sm-12 no-padding">
+            <table dir="rtl" class="table table-striped">
+                <thead>
+                <tr>
+                    <th class="text-right">سر تیتر</th>
+                    <th class="text-right" style="width: 200px">مختصر</th>
+                    <th class="text-right" style="width: 150px">تاریخ انتشار</th>
+                    <th class="text-right" style="width: 58px"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="p in posts">
+                    <td>{{p.Title}}</td>
+                    <td ng-bind-html="p.BriefContent"></td>
+                    <td>{{p.WriteDate | jalaliDate:'jYYYY/jMM/jDD hh:mm' }}</td>
+                    <td>
+                        <div>
+                            <span class="fa fa-trash-o fa-group-mid red" ng-click="deletePost(p)"  confirm="آیا مطمئن هستید که می خواهید پست {{p.ID}} را حذف کنید؟"></span>
+                            <a class="fa fa-pencil fa-group-mid green" ui-sref="admin_root.new_post({id : '{{p.ID}}'})"></a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="span8 text-center">
+
+                <auto-paging page="1"
+                             page-size="20"
+                             action-name="getAllPosts"
+                             data-params="pagingParams"
+                             ng-control="pagingController"
+                             items="posts">
+                </auto-paging>
+            </div>
+        </div>
+    </div>
+    <!--<script>
+        debugger
+        jQuery(document).ready(function ($) {
+            debugger
+            $("#PostManage").addClass('selected');
+        });
+    </script>-->
+</div>

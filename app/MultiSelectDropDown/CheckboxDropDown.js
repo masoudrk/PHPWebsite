@@ -1,36 +1,4 @@
-﻿/*
-دایرکتیو دروپ دان با قابلیت انتخاب چند آیتم و یک آیتم و یا حالت رادیو باتن
-نمونه استفاده به صورت زیر است : 
-
-<multi-select-drop-down 
-    items="drugTypeDropDownItems" 
-    selected-list="selectedDrugTypes"
-    ng-button-text="drugTypeButtonText" 
-    multi-select-mode="false" 
-    radio-button-behaviour="false"
-    max-button-titles-show="3" />
-
-آیتم هایی که میخواهد نمایش دهد باید دارای مقدار
-title
-باشند ، نمونه : 
-
-$scope.drugTypeDropDownItems = [
-{
-    title: 'کمبود کشوری' 
-}, 
-{
-    title: 'سیار'
-}, 
-{
-    title:'یخچال' 
-}];
-
-لیست مورد های انتخاب شده در پروپرتی دوطرفه 
-selectedList 
-می باشند.
-selected-list=""
-*/
-angular.module('myApp').directive('multiSelectDropDown', function () {
+﻿angular.module('myApp').directive('multiSelectDropDown', function () {
     return {
         restrict: 'EA',
         scope: {
@@ -40,81 +8,93 @@ angular.module('myApp').directive('multiSelectDropDown', function () {
             ngButtonText: '=',
             multiSelectMode: '=',
             radioButtonBehaviour: '=',
-            maxButtonTitlesShow:'=',
+            maxButtonTitlesShow: '=',
             selectedList: '=',
             remoteMode: '=',
             serviceName: '=',
             actionName: '=',
-            titleFeildName:'='
+            titleFeildName: '=',
+            checkFeildName: '=',
+            closeOnSelect : '=',
+            selectChanged: '&',
+            watchOnItems: '=',
+            ngId:'@'
         },
         controller: ['$scope', '$http','$element' ,'$attrs','$window', function ($scope, $http,$element, $attrs,$window) {
 
             $scope.selectedList = [];
+            if ($scope.hasFixedItems)
+                $scope.selectedFixedList = [];
             $scope.buttonText = "";
             $scope.showList = false;
 
-            $scope.getRemoteData = function() {
-                if ($scope.remoteMode) {
-                    abp.ui.setBusy(null, $http({
-                        method: 'post',
-                        url: BaseUrl + 'api/services/app/' + scope.serviceName + '/' + scope.actionName,
-                        data: JSON.stringify(data)
-                    }).success(function (data) {
-                        if (data.result != null){
-                            items = data.result;
-                        }
-                    }));
+            if ($scope.watchOnItems)
+            $scope.$watch('[items]', function () {
+                if ($scope.items && $scope.items.length > 0) {
+                    $scope.checkSelectedItems();
+                    $scope.getButtonText();
                 }
-            }
+            }, true);
 
             $scope.onSelectItem = function (item) {
+                var checkFeildName = $scope.checkFeildName;
+
                 if ($scope.multiSelectMode) {
-                    if (item.checked == undefined || item.checked == false) {
-                        item.checked = true;
+                    if (item[checkFeildName] == undefined || item[checkFeildName] == false) {
+                        item[checkFeildName] = true;
                         $scope.selectedList.push(item);
                     } else {
                         var index = $scope.selectedList.indexOf(item);
-                        item.checked = false;
+                        item[checkFeildName] = false;
                         $scope.selectedList.splice(index, 1);
                     }
                 } else {
                     if ($scope.selectedList.length > 0) {
-                        $scope.selectedList[0].checked = false;
+                        $scope.selectedList[0][checkFeildName] = false;
                         if (!$scope.radioButtonBehaviour) {
                             if ($scope.selectedList[0] != item) {
                                 $scope.selectedList.push(item);
                                 $scope.selectedList.splice(0, 1);
-                                item.checked = true;
+                                item[checkFeildName] = true;
                             }
                             else {
-                                item.checked = false;
+                                item[checkFeildName] = false;
                                 $scope.selectedList.splice(0, 1);
                             }
                         } else {
-                            item.checked = true;
+                            item[checkFeildName] = true;
                             $scope.selectedList.push(item);
                             $scope.selectedList.splice(0, 1);
                         }
                     } else {
-                        item.checked = true;
+                        item[checkFeildName] = true;
                         $scope.selectedList.push(item);
                     }
                 }
                 $scope.getButtonText();
+                $scope.selectChanged();
             }
 
+            $scope.checkSelectedItems = function () {
+                $scope.selectedList = [];
+                for (var i = 0; i < $scope.items.length; i++) {
+                    if ($scope.items[i][$scope.checkFeildName])
+                        $scope.selectedList.push($scope.items[i]);
+                }
+            }
             $scope.getButtonText = function () {
-                if ($scope.selectedList.length != 0) {
+                var arr = $scope.selectedList;
+                if (arr.length != 0) {
                     var text = "";
                     var feild = $scope.titleFeildName;
-                    for (var i = 0 ; i < $scope.selectedList.length && i < $scope.maxButtonTitlesShow ; i++) {
-                        if (i == $scope.maxButtonTitlesShow - 1 || i == $scope.selectedList.length - 1)
-                            text += $scope.selectedList[i][feild];
+                    for (var i = 0 ; i < arr.length && i < $scope.maxButtonTitlesShow ; i++) {
+                        if (i == $scope.maxButtonTitlesShow - 1 || i == arr.length - 1)
+                            text += arr[i][feild];
                         else
-                            text += $scope.selectedList[i][feild] + " , ";
+                            text += arr[i][feild] + " , ";
                     }
-                    if ($scope.selectedList.length > $scope.maxButtonTitlesShow)
-                        text += " , "+"..."
+                    if (arr.length > $scope.maxButtonTitlesShow)
+                        text += " , ...";
                     $scope.buttonText = text;
                 } else {
                     $scope.buttonText = $scope.ngButtonText;
@@ -128,8 +108,9 @@ angular.module('myApp').directive('multiSelectDropDown', function () {
 
                 if ($scope.showList) {
                     $window.onclick = function (event) {
+                        console.log(event.target);
                         var isClickedElementChildOfPopup = $element.find(event.target).length > 0;
-
+                        
                         if (isClickedElementChildOfPopup)
                             return;
 
@@ -143,7 +124,7 @@ angular.module('myApp').directive('multiSelectDropDown', function () {
             $scope.getButtonText();
         }],
         templateUrl: function (elem, attrs) {
-            return "app/MultiSelectDropDown/Template/MultiSelectTemplate.html";
+            return "app/MultiSelectDropDown/MultiSelectTemplate.html";
         }
 
     }

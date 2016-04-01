@@ -21,14 +21,18 @@
                     <label class="col-sm-2 control-label no-padding-right yekan-font" for="email">سر تیتر</label>
                 </div>
                 <div class="form-group">
-                    <multi-select-drop-down class="col-sm-5 col-md-offset-5"
+                    <multi-select-drop-down id="dd1"
+                                            class="col-sm-5 col-md-offset-5"
                                             items="subjects"
                                             selected-list="selectSubjects"
                                             ng-button-text="subjectButtonText"
                                             multi-select-mode="true"
                                             radio-button-behaviour="false"
                                             max-button-titles-show="3"
-                                            title-feild-name="'Title'">
+                                            check-feild-name="'top'"
+                                            title-feild-name="'Title'"
+                                            close-on-select="false"
+                                            watch-on-items="true">
                     </multi-select-drop-down>
                     <label class="col-sm-2 control-label no-padding-right yekan-font" for="email">موضوع</label>
                 </div>
@@ -40,7 +44,10 @@
                                             multi-select-mode="true"
                                             radio-button-behaviour="false"
                                             max-button-titles-show="2"
-                                            title-feild-name="'FullName'">
+                                            close-on-select="false"
+                                            check-feild-name="'bottom'"
+                                            title-feild-name="'FullName'"
+                                            watch-on-items="true">
                     </multi-select-drop-down>
                     <label class="col-sm-2 control-label no-padding-right yekan-font" for="email">نویسندگان</label>
                 </div>
