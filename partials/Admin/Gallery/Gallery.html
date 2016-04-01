@@ -19,7 +19,7 @@
                             <input class="upload-button upload col-md-12" type="file" ngf-select ng-model="picFile" name="file"
                                    accept="image/*" ngf-max-size="500MB" required
                                    ngf-model-invalid="errorFile">
-                            <span style="line-height: 100px; width: 100%; color: gray" class="yekan-font text-center">یا کلیک کنید فایل را در اینجا رها کنید </span>
+                            <span style="line-height: 100px; width: 100%; color: gray" class="yekan-font text-center">یا کلیک کنید یا فایل را در اینجا رها کنید </span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -64,7 +64,7 @@
                 <div class="col-md-12">
 
                     <span class="progress" ng-show="picFile.progress >= 0">
-                        <div style="width: { {picFile.progress}}% "
+                        <div style="width: {{picFile.progress}}% "
                              ng-bind="picFile.progress + '%'"></div>
                     </span>
                     <span ng-show="picFile.result">Upload Successful</span>

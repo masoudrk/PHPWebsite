@@ -71,7 +71,20 @@
                     <div class="col-sm-4 col-sm-offset-6" style="margin-top: 10px;">
                         <adm-dtp ng-model='writeDate' options='{calType: "jalali",dtpType:"date&time", format: "YYYY/MM/DD hh:mm", default: "today",autoClose:true}' full-data="writeDateFull"></adm-dtp>
                     </div>
-                    <label class="col-sm-2 control-label no-padding-right yekan-font" for="email" style="margin-top: 10px;">تاریخ نوشته</label>
+                    <label class="col-sm-2 control-label no-padding-right yekan-font" style="margin-top: 10px;">تاریخ نوشته</label>
+                </div>
+                <div class="form-group text-right">
+                    <div class="col-sm-4 col-sm-offset-6" style="margin-top: 10px;">
+                        <button class="btn btn-success yekan-font" style="margin-left: 15px" ng-click="openGalleryModal()">
+                            انتخاب تصویر
+                        </button>
+                    </div>
+                    <label class="col-sm-2 control-label no-padding-right yekan-font" style="margin-top: 10px;">تصویر مطلب</label>
+                </div>
+                <div class="form-group text-right" ng-if="image.FullPath">
+                    <div class="col-md-12 gallery" style="margin-top: 10px;">
+                        <img ng-src="{{image.FullPath}}" class="media col-sm-3 col-sm-offset-7" />
+                    </div>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-success yekan-font" style="margin-left: 15px" ng-click="saveNewPost()">ثبت پست جدید

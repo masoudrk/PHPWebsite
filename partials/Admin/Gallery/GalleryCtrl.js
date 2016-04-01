@@ -34,8 +34,10 @@
             }, function (evt) {
                 // Math.min is to fix IE which reports 200% sometimes
                 file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-                if (file.progress == 100)
+                if (file.progress == 100) {
+                    $scope.pagingCtrl.update();
                     Extention.toast({ message: 'فایل با موفقیت آپلود شد!', status: 'success' });
+                }
             });
         }
 

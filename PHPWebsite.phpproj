@@ -11,15 +11,18 @@
     <Runtime>PHP</Runtime>
     <RuntimeVersion>5.6</RuntimeVersion>
     <SaveServerSettingsInUserFile>false</SaveServerSettingsInUserFile>
-    <EnvName>PHPDev</EnvName>
+    <EnvName>Custom</EnvName>
     <PHPDevHostName>localhost</PHPDevHostName>
-    <PHPDevAutoPort>false</PHPDevAutoPort>
+    <PHPDevAutoPort>true</PHPDevAutoPort>
     <PHPDevPort>80</PHPDevPort>
     <PHPDevRouting>
     </PHPDevRouting>
     <IISProjectUrl>http://localhost/xampp/website/</IISProjectUrl>
     <CustomXdebugPort>9000</CustomXdebugPort>
     <PublishEvent>None</PublishEvent>
+    <SpecificPageValue>index.php</SpecificPageValue>
+    <StartAction>SpecificPage</StartAction>
+    <CustomServerUrl>http://localhost/xampp/website/</CustomServerUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -98,6 +101,8 @@
     <Folder Include="partials\Main\" />
     <Folder Include="partials\Admin\" />
     <Folder Include="partials\Category\" />
+    <Folder Include="partials\Modals\" />
+    <Folder Include="partials\Modals\Gallery\" />
     <Folder Include="partials\Post\" />
     <Folder Include="Scripts\" />
     <Folder Include="Scripts\i18n\" />
@@ -182,7 +187,9 @@
     <Content Include="partials\About\About.html" />
     <Content Include="partials\About\AboutCtrl.js" />
     <Content Include="partials\About\AboutService.js" />
+    <Content Include="partials\Modals\Gallery\GalleryModalCtrl.js" />
     <Content Include="partials\Post\PostService.js" />
+    <Content Include="partials\Modals\Gallery\GalleryTemplate.html" />
     <Content Include="partials\SignupTemplate.html" />
     <Content Include="partials\LoginTemplate.html" />
     <Content Include="partials\Main\MainService.js" />

@@ -12,14 +12,15 @@ $app->post('/savePost', function() use ($app) {
         'Content' => $rObj -> postContent,
         'BriefContent' => $rObj -> postBrief,
         'ReleaseDate' => $rObj -> releaseDate,
-        'WriteDate' => $rObj -> writeDate
+        'WriteDate' => $rObj -> writeDate,
+        'ImageID' => $rObj -> imageID,
     ];
 
     try{
 
         $db->beginTransaction();
 
-        $column_names = array( 'Title','Content','BriefContent','ReleaseDate','WriteDate');
+        $column_names = array( 'Title','Content','BriefContent','ReleaseDate','WriteDate','ImageID');
         $result = null;
 
         if(!$updateMode){

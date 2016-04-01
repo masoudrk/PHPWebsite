@@ -1,4 +1,4 @@
-﻿angular.module('myApp').controller('NewPostCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, $http, Extention, AdminService, MainService,PostService) {
+﻿angular.module('myApp').controller('NewPostCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, $uibModal, Extention, AdminService, MainService,PostService) {
 
     $scope.subjectButtonText = "انتخاب نشده";
 
@@ -44,7 +44,8 @@
             authors: $scope.authors,
             subjects: $scope.subjects,
             releaseDate: $scope.releaseDateFull.gDate,
-            writeDate: $scope.writeDateFull.gDate
+            writeDate: $scope.writeDateFull.gDate,
+            imageID : $scope.image.ID
         };
 
         if ($scope.editMode)
@@ -56,6 +57,36 @@
             } else {
                 Extention.toast({ status: 'error', message: 'مشکل در ثبت پست ، لطفا دوباره امتحان کنید.' });
             }
+        });
+    }
+
+    $scope.openGalleryModal = function() {
+
+        var uibModalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'partials/Modals/Gallery/GalleryTemplate.html',
+            controller: function ($uibModalInstance, $scope, mediaType) {
+
+                $scope.pagingParams = {
+                    imageType : ""
+                }
+
+                $scope.selectMedia = function (item) {
+                    $uibModalInstance.close(item);
+                };
+            },
+            size: 'lg',
+            resolve: {
+                mediaType: function () {
+                    return ["jpeg/jpg","png"];
+                }
+            }
+        });
+
+        uibModalInstance.result.then(function (image) {
+            $scope.image  = image;
+        }, function () {
+            //$log.info('Modal dismissed at: ' + new Date());
         });
     }
 });

@@ -144,6 +144,7 @@ app.config([
                         return $ocLazyLoad.load([
                             'partials/Admin/Post/NewPostCtrl.js',
                             'partials/Post/PostService.js',
+                            'partials/Modals/Gallery/GalleryModalCtrl.js',
                             'app/MultiSelectDropDown/CheckboxDropDown.js']);
                     }]
                 }
@@ -209,7 +210,7 @@ app.config([
 
         $urlRouterProvider.otherwise("/");
     }
-]).run(function ($rootScope, $location, Extention, ngProgressFactory) {
+]).run(function ($rootScope,$state, $location, Extention, ngProgressFactory) {
     
     $rootScope.progressbar = ngProgressFactory.createInstance();
 
@@ -223,12 +224,8 @@ app.config([
         Extention.get('session').then(function (results) {
 
             if (next.url == '/') {
-                $location.path("/home");
+                $state.go("home.home");
                 return;
-            }
-
-            if (next.url == '/post' && !$rootScope.post) {
-                $location.path("/");
             }
 
             if (results.UserID) {
@@ -237,13 +234,19 @@ app.config([
                 $rootScope.user.UserID = results.UserID;
                 $rootScope.user.lastName = results.LastName;
                 $rootScope.user.firstName = results.FirstName;
+            } else {
+                //$rootScope.authenticated = false;
+                ////$location.path('/home');
+                //$state.go("home.home");
             }
-
-            if (next.url == '/admin') {
+            
+            if (next.name.indexOf("admin_root") > -1) {
                 if (!results.AdminID)
-                    $location.path('/home');
+                    $state.go("home.home");
+                    //$location.path('/home');
                 else
-                    $location.path('/admin/dashboard');
+                    $state.go("admin_root.dashboard");
+                    //$location.path('/admin/dashboard');
             }
         });
     });
