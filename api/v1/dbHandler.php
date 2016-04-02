@@ -84,6 +84,16 @@ class DbHandler {
         }
         return NULL;
     }
+    public function insertToTable($table_name , $col_names,$values ) {
+        
+        $query = "INSERT INTO ".$table_name." (".$col_names.") VALUES(".$values.")";
+        $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+
+        if ($r) {
+            return $r;
+        }
+        return NULL;
+    }
 
     public function updateRecord($table_name , $set , $where) {
         

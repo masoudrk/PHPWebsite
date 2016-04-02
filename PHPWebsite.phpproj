@@ -118,6 +118,7 @@
     <Content Include="app\directives\SlideShowTemplate.html" />
     <Content Include="app\MultiSelectDropDown\CheckboxDropDown.js" />
     <Content Include="app\MultiSelectDropDown\MultiSelectTemplate.html" />
+    <Content Include="content\img\avatar.jpg" />
     <Content Include="content\img\img1.jpg" />
     <Content Include="content\img\img2.jpg" />
     <Content Include="content\img\img3.jpg" />
@@ -125,11 +126,14 @@
     <Content Include="css\ADM-dateTimePicker.min.css" />
     <Content Include="css\bootstrap-rtl.min.css" />
     <Content Include="css\font-awesome.css" />
+    <Content Include="css\hover-min.css" />
     <Content Include="css\menubar-styles.css" />
     <Content Include="css\ngProgress.css" />
     <Content Include="css\select.css" />
     <Content Include="css\select.min.css" />
     <Content Include="css\textAngular.css" />
+    <Content Include="css\unslider-dots.css" />
+    <Content Include="css\unslider.css" />
     <Content Include="DefaultCtrl.js" />
     <Content Include="fonts\BYekan.eot" />
     <Content Include="fonts\BYekan.ttf" />
@@ -173,6 +177,7 @@
     <Content Include="js\select.min.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.min.js" />
+    <Content Include="js\unslider.js" />
     <Content Include="packages.config" />
     <Content Include="partials\Admin\AdminDashboard.html" />
     <Content Include="partials\Admin\AdminCtrl.js" />

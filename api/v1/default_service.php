@@ -83,17 +83,18 @@ $app->post('/getAllPosts', function() use ($app)  {
     
     $r = null;
     if(!$hasCat)
-        $r = $db->makeQuery("SELECT post.* , gallery.FullPath as Image FROM `post` LEFT JOIN gallery on post.ImageID = gallery.ID  LIMIT $offset, $pageSize");
+        $r = $db->makeQuery("SELECT post.* , gallery.FullPath as Image FROM `post` LEFT JOIN gallery on post.ImageID = gallery.ID  ORDER BY ID DESC LIMIT $offset, $pageSize");
     else
         $r = $db->makeQuery("SELECT DISTINCT post.* , gallery.FullPath as Image FROM `post` JOIN post_subject on post_subject.PostID=post.ID LEFT JOIN gallery on post.ImageID = gallery.ID 
-                             WHERE post_subject.SubjectID=".$data->catID." LIMIT $offset, $pageSize");
+                             WHERE post_subject.SubjectID=".$data->catID."  ORDER BY ID DESC LIMIT $offset, $pageSize");
 
     $result = array();
     while($res = $r->fetch_assoc()){
     
-        $authorsQ = $db->makeQuery("SELECT admin.ID as AdminID , concat(FirstName , ' ' ,LastName) as FullName FROM post_author 
+        $authorsQ = $db->makeQuery("SELECT gallery.FullPath, admin.ID as AdminID , concat(FirstName , ' ' ,LastName) as FullName FROM post_author 
                                         Left Join admin on admin.ID = post_author.AdminID
                                         Left Join user on user.ID = admin.UserID
+                                        Left Join gallery on gallery.ID = user.AvatarID
                                         where PostID=".$res["ID"]);
         $authors = array();
         while($resAuthor = $authorsQ->fetch_assoc()){
@@ -171,25 +172,35 @@ $app->post('/getAllMedia', function() use ($app)  {
     echoResponse(200, $dataRes);
 });
 
-$app->get('/getAllSubjects', function() use ($app)  {
+
+$app->post('/getAllSubjects', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
     $db = new DbHandler();
-    $r = $db -> makeQuery("SELECT * FROM `subject` WHERE ParentID is null");
-    
-    $result = array();
-    while($res = $r->fetch_assoc()){
-    
-        $childsQ = $db->makeQuery("SELECT * FROM subject where ParentID=".$res["ID"]);
-        $childs = array();
-        while($child = $childsQ->fetch_assoc()){
-            $childs[] = $child;
-        }
-
-        $res["childs"] = $childs;
-        $result[] = $res;
-    }
-    echoResponse(200, $result);
+    if(!isset($data->arrenged)){
+	    $r = $db -> makeQuery("SELECT * FROM `subject` WHERE ParentID=-1");
+	    
+	    $result = array();
+	    while($res = $r->fetch_assoc()){
+	    
+	        $childsQ = $db->makeQuery("SELECT * FROM subject where ParentID=".$res["ID"]);
+	        $childs = array();
+	        while($child = $childsQ->fetch_assoc()){
+	            $childs[] = $child;
+	        }
+	        
+	        $res["childs"] = $childs;
+	        $result[] = $res;
+	    }
+	    echoResponse(200, $result);
+	}else{
+	    $r = $db -> makeQuery("SELECT * FROM `subject`");
+	    $result = array();
+	    while($res = $r->fetch_assoc()){
+	        $result[] = $res;
+	    }
+	    echoResponse(200, $result);
+	}
 });
-
 
 $app->post('/getAllFileTypes', function() use ($app)  {
     $db = new DbHandler();

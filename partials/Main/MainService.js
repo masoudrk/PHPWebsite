@@ -15,7 +15,7 @@ angular.module('myApp').factory("MainService", ['$http', 'toaster',
             });
         };
         obj.getAllSubjects = function (q) {
-            return $http.get(serviceBase + "getAllSubjects").then(function (results) {
+            return $http.post(serviceBase + "getAllSubjects").then(function (results) {
                 return results.data;
             });
         };

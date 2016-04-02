@@ -9,7 +9,7 @@
     $scope.editMode = $scope.postID !== "";
 
     $scope.getAllSubjects = function () {
-        MainService.getAllSubjects().then(function (res) {
+        Extention.post("getAllSubjects",{arrenged: true}).then(function (res) {
             $scope.subjects = res;
         });
     }

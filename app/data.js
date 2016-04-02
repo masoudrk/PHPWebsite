@@ -6,6 +6,7 @@ app.factory("Extention", ['$http' ,'$rootScope' , 'toaster',
         var obj = {};
         obj.workers = 0;
         obj.serviceBase = serviceBase;
+        obj.debugMode = true;
 
         obj.setBusy = function (en) {
             if (en) {
@@ -31,6 +32,8 @@ app.factory("Extention", ['$http' ,'$rootScope' , 'toaster',
         obj.post = function (q, object) {
             return $http.post(serviceBase + q, object).then(function (results) {
                 return results.data;
+            },function(err) {
+                return err;
             });
         };
         obj.put = function (q, object) {

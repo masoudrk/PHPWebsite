@@ -37,6 +37,7 @@
                 });
 
                 scope.slides[scope.currentIndex].visible = true; // make the current image visible
+                slideHelper.resize();
             });
 
             var timer;

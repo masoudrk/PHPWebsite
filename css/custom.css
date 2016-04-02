@@ -28,6 +28,13 @@ a {
     border-radius: 4px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
 }
+.white-panel-header{
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    direction: rtl;
+    border-bottom: 1px solid rgba(183, 181, 181, 0.36);
+}
 
 .content-header-yellow {
     border-right: solid 5px #fecf54;
@@ -69,10 +76,11 @@ a {
 .post {
     height: 400px;
     background-color: gray;
-    margin: 0 10px 10px 10px;
+    margin: 0px 10px 10px 10px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
     border-radius: 4px;
     background-color: white;
+    min-width: 150px;
 
 }
 .post > .post-header {
@@ -88,21 +96,86 @@ a {
 .post > .post-middle {
     height: 52%;
     overflow: hidden;
-    padding: 8px;
+    padding:2px;
     direction: rtl;
 }
+
+.post-avatar-cover {
+    width: 39px;
+    height: 39px;
+    object-fit: cover;
+    overflow: hidden;
+    padding: 0px;
+    text-align: center;
+    margin-left: 8px;
+}
+
+.post-avatar {
+    height: 32px;
+    width: 32px;
+    border-radius: 35px;
+
+    margin-top: 2px;
+
+   -moz-transition: all .2s;
+   -o-transition: all .2s;
+   -webkit-transition: all .2s;
+   transition: all .2s;
+   cursor: pointer
+}
+.post-avatar:hover {
+    border-radius: 5px;
+}
+
+.post-tag {
+    color: gray;
+    /*margin-left: 5px;
+    margin-right:5px;*/
+    background-color: gainsboro;
+    width: 100%
+}
+.post-tag :hover {
+    color: black;
+}
+
+.post-tag-icon {
+    color: gray;
+    margin: 2px;
+    margin-right: 6px;
+}
+
+.post-tag-text {
+    color: gray;
+    margin: 2px;
+    cursor: pointer;
+}
+
+
 .post-footer-icon {
     padding: 5px;
     cursor: pointer;
     color: gray;
 }
 
+.icon-more {
+    margin-top: -10px;
+}
+.icon-more:hover {
+    color: #234383;
+}
 .icon-facebook {
     
 }
 .icon-facebook:hover {
     color: #234383;
 }
+
+/*.icon-heart {
+    
+}
+.icon-heart:hover {
+    color: #cf2130;
+}*/
 
 .post > .post-footer {
     height: 3%;
@@ -416,8 +489,11 @@ padding-bottom: 10px;*/
     ul.colorful-list {
         position: relative;
         background: #fff;
-        width: 250px;
+        max-width: 350px;
+        min-width: 100px;
         margin: auto;
+        margin-bottom: 10px;
+        margin-top: 5px;
         padding: 0;
         list-style: none;
         overflow: hidden;
@@ -451,41 +527,53 @@ padding-bottom: 10px;*/
             background: #efefef;
         }
 
-        .colorful-list li a.green {
+        my-green {
             border-right: 5px solid #008747;
         }
 
-        .colorful-list li a.yellow {
+        my-yellow {
             border-right: 5px solid #fecf54;
         }
 
-        .colorful-list li a.red {
+        my-red {
             border-right: 5px solid #cf2130;
         }
         
-        .colorful-list li a.tourque {
+        my-tourque {
             border-right: 5px solid #008b8b;
         }
 
-        .colorful-list li a.carrot {
+        my-carrot {
             border-right: 5px solid #e67e22;
         }
         
-        .colorful-list li a.wisteria {
+        my-wisteria {
             border-right: 5px solid #8e44ad;
         }
-        .colorful-list li a.green-sea {
+        my-green-sea {
             border-right: 5px solid #16a085;
         }
-        .colorful-list li a.peter {
+        my-peter {
             border-right: 5px solid #3498db;
         }
-        .colorful-list li a.asphalt {
+        my-asphalt {
             border-right: 5px solid #34495e;
         }
-        .colorful-list li a.pumpkin {
+        my-pumpkin {
             border-right: 5px solid #d35400;
         }
+
+
+
+        
+        my-green {
+            border-right: 5px solid #008747;
+        }
+
+        my-yellow {
+            border-right: 5px solid #fecf54;
+        }
+
 
     .colorful-list li:first-child a:hover, .form li:first-child a {
         -webkit-border-radius: 5px 5px 0 0;
@@ -545,4 +633,36 @@ padding-bottom: 10px;*/
     }
     .sub-list-a:hover {
         background-color: transparent !important;
+    }
+
+    
+    .my-gray {
+        color :  #ddd;
+    }
+    .my-red {
+        color :  #cf2130;
+    }
+        
+    .my-tourque {
+        color :  #008b8b;
+    }
+
+    .my-carrot {
+        color :  #e67e22;
+    }
+        
+    .my-wisteria {
+        color :  #8e44ad;
+    }
+    .my-green-sea {
+        color :  #16a085;
+    }
+    .my-peter {
+        color :  #3498db;
+    }
+    .my-asphalt {
+        color :  #34495e;
+    }
+    .my-pumpkin {
+        color :  #d35400;
     }

@@ -16,6 +16,8 @@
 
     <link href="css/select.css" rel="stylesheet">
 
+    <link href="css/hover-min.css" rel="stylesheet">
+
     <link href="css/ADM-dateTimePicker.css " rel="stylesheet">
     <link rel='stylesheet' href='css/textAngular.css'>
 
@@ -24,6 +26,7 @@
     <link href="css/toaster.css" rel="stylesheet">
     <link href="css/menubar-styles.css" rel="stylesheet">
     <link rel="stylesheet" href="css/ngProgress.css">
+
 </head>
 
 <body ng-app="myApp">
@@ -70,6 +73,5 @@
 <script type="text/javascript" src="js/angular-confirm.min.js"></script>
 <script type="text/javascript" src="js/ADM-dateTimePicker.js"></script>
 <script type="text/javascript" src="js/AutoPagination.js"></script>
-
 </html>
 

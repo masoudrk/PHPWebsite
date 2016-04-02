@@ -63,6 +63,24 @@ app.config([
                     }]
                 }
             })
+            .state("home.contact_us", {
+                url: "contact_us",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/About/About.html",
+                        controller: 'AboutCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/DefaultSidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/About/AboutCtrl.js']);
+                    }]
+                }
+            })
             .state("home.post", {
                 url: "post/:id",
                 views: {
@@ -250,7 +268,7 @@ app.config([
                 url: "/profile",
                 views: {
                     "viewContent": {
-                        templateUrl: "partials/Admin/Profile/Slider.html",
+                        templateUrl: "partials/Admin/Profile/Profile.html",
                         controller: 'ProfileCtrl'
                     },
                     "viewSidebar": {

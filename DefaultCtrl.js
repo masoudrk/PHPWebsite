@@ -4,7 +4,7 @@
 
     Extention.post('getAllSlides').then(function(res) {
         $scope.slides = res.Items;
-        $scope.sliderController.update();
+        // $scope.sliderController.update();
     });
 
     $scope.user = undefined;

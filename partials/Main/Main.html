@@ -4,25 +4,42 @@
         <div class="space-6"></div>
         <div class="col-sm-12 no-padding">
             <div class="row posts col-md-12 no-padding">
-                <div class="col-lg-4 no-padding" ng-repeat="post in posts">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 no-padding" ng-repeat="post in posts">
                     <div class="post">
                         <div class="post-header">
                             <img ng-src="{{post.Image}}"/>
                         </div>
-                        <div class="post-middle yekan-font text-center" ng-bind-html="post.Content">
-                            <!--{{post.Authors | splitArray: 'FullName'}}-->
-                            <span ng-repeat="a in post.Authors">{{a.FullName}},</span>
-                            <span ng-repeat="s in post.Subjects">{{s.Title}},</span>
+                        <div class="post-middle yekan-font text-center">
+                            <div  style="height: 100%">
+                                <div class="col-sm-12" style="font-size: 20px; max-height: 55px; overflow: hidden">{{post.Title}}</div>
+                                <div class="col-sm-12 no no-padding" style="max-height:50px; overflow: hidden;margin-top:10px">
+                                    <div class="col-sm-6 pull-right" ng-repeat="s in post.Subjects" ui-sref="home.cat({ id: '{{s.ID}}'})">
+                                        <div class="post-tag">
+                                            <i class="post-tag-icon fa fa-tag pull-right"></i>
+                                            <span class="post-tag-text text-right pull-right">
+                                                {{s.Title}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" ng-bind-html="post.BriefContent" style="overflow: hidden; max-height: 80px;color: gray"></div>
+                            </div>
                         </div>
                         <div class="post-footer">
-                            <!--<div class="col-md-3 no-padding">
-                                <button class="btn btn-success yekan-font" ng-click="postMore(post);">ادامه</button>
-                            </div>-->
                             <div class="col-md-12 no-padding">
-                                <i class="fa fa-facebook fa-2x pull-right post-footer-icon icon-facebook" ng-click="postMore(post);"></i>
-                                <i class="fa fa-twitter fa-2x pull-right post-footer-icon icon-facebook" ng-click="postMore(post);"></i>
-                                <i class="fa fa-instagram fa-2x pull-right post-footer-icon icon-facebook" ng-click="postMore(post);"></i>
-                                <i class="fa fa-angle-left fa-2x pull-left post-footer-icon icon-facebook" ng-click="postMore(post);"></i>
+                                <div class="pull-right" ng-repeat="a in post.Authors">
+                                    <div class="post-avatar-cover pull-right" ng-if="a.FullPath">
+                                        <img class="post-avatar hvr-ripple-out" ng-src="{{a.FullPath}}" />
+                                    </div>
+                                </div>
+                                <i class="fa fa-heart fa-2x pull-right post-footer-icon icon-heart "
+                                   ng-class="(post.class)?post.class:'hvr-pulse-grow'" ng-click="likePost(post)"></i>
+                                
+                                <i class="fa fa-star fa-2x pull-right post-footer-icon icon-heart "
+                                   ng-class="(post.class_star)?post.class_star:'hvr-buzz-out'" ng-click="starPost(post)"></i>
+
+                                <i class="fa fa-angle-left fa-3x pull-left post-footer-icon icon-more hvr-wobble-horizontal" ng-click="postMore(post);"></i>
+
                             </div>
                         </div>
                     </div>

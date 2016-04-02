@@ -325,5 +325,68 @@ $app->post('/deleteUser', function() use ($app) {
 	}
 });
 
+$app->post('/saveSubject', function() use ($app)  {
+    $data = json_decode($app->request->getBody(),true);
+    $db = new DbHandler();
+    
+    $result = null;
+	if(isset($data["ParentID"])){
+		$obj = array();
+		$obj["ParentID"] = $data["ParentID"];
+		$obj["Title"] = $data["Title"];
+		$result = $db->insertIntoTable($obj, array('ParentID','Title'), 'subject');
+	}else{
+		$obj = array();
+		$obj["ParentID"] = -1;
+		$obj["Title"] = $data["Title"];
+		$result = $db->insertIntoTable($obj, array('ParentID','Title'), 'subject');
+	}
+	
+	$response = array();
+	if($result){
+		$response["Status"] = "success";
+    	echoResponse(200, $response);
+	}else{
+		$response["Status"] = "error";
+    	echoResponse(201, $response);
+	}
+});
+
+
+
+$app->post('/updateSubject', function() use ($app)  {
+    $data = json_decode($app->request->getBody(),true);
+    $db = new DbHandler();
+    
+	$result = $db->updateRecord('subject', "Title='".$data["Title"]."'",'ID='.$data["ID"]);
+	
+	$response = array();
+	if($result){ 
+		$response["Status"] = "success";
+    	echoResponse(200, $response);
+	}else{
+		$response["Status"] = "error";
+    	echoResponse(201, $response);
+	}
+});
+
+
+$app->post('/deleteSubject', function() use ($app)  {
+    $data = json_decode($app->request->getBody(),true);
+    $db = new DbHandler();
+    
+	$result = $db->deleteFromTable('subject','ID='.$data["ID"]);
+	
+	$response = array();
+	if($result){
+		$response["Status"] = "success";
+    	echoResponse(200, $response);
+	}else{
+		$response["Status"] = "error";
+    	echoResponse(201, $response);
+	}
+});
+
+
 
 ?>
