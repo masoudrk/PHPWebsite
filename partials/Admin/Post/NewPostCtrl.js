@@ -41,8 +41,8 @@
             title: $scope.title,
             postContent: ($scope.postContent) ? $scope.postContent : "",
             postBrief: ($scope.postBrief) ? $scope.postBrief : "",
-            authors: $scope.authors,
-            subjects: $scope.subjects,
+            authors: $scope.selectAuthors,
+            subjects: $scope.selectSubjects,
             releaseDate: $scope.releaseDateFull.gDate,
             writeDate: $scope.writeDateFull.gDate,
             imageID : $scope.image.ID

@@ -28,7 +28,7 @@ $app->post('/savePost', function() use ($app) {
         }else{
                                         
             $result = $db->updateRecord("post","`Title`='".$object->Title."' , `Content`='".$object->Content."' , `BriefContent`='".$object->BriefContent.
-                                         "' , `WriteDate`='".$object->WriteDate."' ,`ReleaseDate`='".$object->ReleaseDate."',`Image`='"."kk"."'" 
+                                         "' , `WriteDate`='".$object->WriteDate."' ,`ReleaseDate`='".$object->ReleaseDate."'" 
                                         , "post.ID=".$rObj->postID);
 
             $resDelS = $db->deleteFromTable("post_subject","PostID=".$rObj->postID);

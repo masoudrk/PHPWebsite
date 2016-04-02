@@ -1,11 +1,14 @@
 <?php
 
 $app->post('/uploadFile', function() use ($app)  {
-
     $filename = $_FILES['file']['name'];
     $typeID = $_POST['fileTypeID'];  
     $description = $_POST['description'];  
-    $destination = '../../content/img/' . $filename;
+    
+	$rand = generateRandomString(18);
+	$ext = pathinfo($filename, PATHINFO_EXTENSION);
+	
+    $destination = '../../content/img/'.$rand.".".$ext;
     move_uploaded_file( $_FILES['file']['tmp_name'] , $destination );
     
     $db = new DbHandler();
@@ -14,7 +17,7 @@ $app->post('/uploadFile', function() use ($app)  {
         "FileTypeID" => $typeID,
         "Path" => "content/img/",
         "Description" => $description,
-        "FullPath" => "content/img/".$filename
+        "FullPath" => "content/img/".$rand.".".$ext
     ];
     $result = $db->insertIntoTable($object, $column_names, "gallery");
 
