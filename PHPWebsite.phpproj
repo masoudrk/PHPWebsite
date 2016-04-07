@@ -127,6 +127,7 @@
     <Content Include="css\bootstrap-rtl.min.css" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\hover-min.css" />
+    <Content Include="css\loading-bar.css" />
     <Content Include="css\menubar-styles.css" />
     <Content Include="css\ngProgress.css" />
     <Content Include="css\select.css" />
@@ -162,6 +163,7 @@
     <Content Include="js\editor\textAngular.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="defaultPage.js" />
+    <Content Include="js\loading-bar.js" />
     <Content Include="js\menubar.js" />
     <Content Include="js\moment-jalaali.js" />
     <Content Include="js\moment.js" />
@@ -209,7 +211,6 @@
     <Content Include="partials\About\AboutCtrl.js" />
     <Content Include="partials\About\AboutService.js" />
     <Content Include="partials\Modals\Gallery\GalleryModalCtrl.js" />
-    <Content Include="partials\Post\PostService.js" />
     <Content Include="partials\Modals\Gallery\GalleryTemplate.html" />
     <Content Include="partials\SignupTemplate.html" />
     <Content Include="partials\LoginTemplate.html" />

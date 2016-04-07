@@ -2,6 +2,12 @@
     function ($scope, $rootScope, $routeParams, $location, $timeout, Extention, Upload) {
 
         $scope.pagingCtrl = {};
+
+        $scope.pagingParams = {
+            fileTypes: "'jpg/jpeg','png'",
+            isMedia:'1'
+        };
+
         $scope.uploadPic = function (file) {
 
             if (!$scope.description || $scope.description == undefined) {
@@ -26,6 +32,8 @@
             file.upload.then(function (response) {
                 $timeout(function () {
                     file.result = response.data;
+                    $scope.pagingCtrl.update();
+                    Extention.toast({ message: 'فایل با موفقیت آپلود شد!', status: 'success' });
                 });
             }, function (response) {
                 if (response.status > 0) {
@@ -34,10 +42,7 @@
             }, function (evt) {
                 // Math.min is to fix IE which reports 200% sometimes
                 file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-                if (file.progress == 100) {
-                    $scope.pagingCtrl.update();
-                    Extention.toast({ message: 'فایل با موفقیت آپلود شد!', status: 'success' });
-                }
+                
             });
         }
 

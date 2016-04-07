@@ -83,10 +83,12 @@ a {
     min-width: 150px;
 
 }
+
 .post > .post-header {
     height: 35%;
     overflow: hidden;
-  text-align: center;
+    text-align: center;
+    object-fit: scale-down;
 }
 .post > .post-header img {
     width:  100%;
@@ -98,6 +100,28 @@ a {
     overflow: hidden;
     padding:2px;
     direction: rtl;
+}
+
+.post > .post-footer {
+    padding: 8px;
+    height: 50px;
+    /*border-top: 1px solid rgba(183, 181, 181, 0.36);*/
+        /*position: absolute;
+    bottom: 4px;
+        margin-right: 200px;
+    width: 100%;*/
+}
+
+/*@media screen and (min-width: 480px) {
+    .post {
+        overflow: hidden;
+        text-align: center;
+        object-fit: scale-down;
+    }
+}*/
+
+.border-top {
+    border-top: 1px solid rgba(183, 181, 181, 0.36);
 }
 
 .post-avatar-cover {
@@ -176,20 +200,6 @@ a {
 .icon-heart:hover {
     color: #cf2130;
 }*/
-
-.post > .post-footer {
-    height: 3%;
-    padding: 8px;
-    border-top: 1px solid rgba(183, 181, 181, 0.36);
-}
-
-.green {
-    color: #4caf50;
-}
-
-.red {
-    color: #b22222;
-}
 
 .fa-group-mid {
     font-size: 20px;
@@ -527,53 +537,41 @@ padding-bottom: 10px;*/
             background: #efefef;
         }
 
-        my-green {
+        .my-border-green {
             border-right: 5px solid #008747;
         }
 
-        my-yellow {
+        .my-border-yellow {
             border-right: 5px solid #fecf54;
         }
-
-        my-red {
+        
+        .my-border-red {
             border-right: 5px solid #cf2130;
         }
         
-        my-tourque {
+        .my-border-tourque {
             border-right: 5px solid #008b8b;
         }
 
-        my-carrot {
+        .my-border-carrot {
             border-right: 5px solid #e67e22;
         }
         
-        my-wisteria {
+        .my-border-wisteria {
             border-right: 5px solid #8e44ad;
         }
-        my-green-sea {
+        .my-border-green-sea {
             border-right: 5px solid #16a085;
         }
-        my-peter {
+        .my-border-peter {
             border-right: 5px solid #3498db;
         }
-        my-asphalt {
+        .my-border-asphalt {
             border-right: 5px solid #34495e;
         }
-        my-pumpkin {
+        .my-border-pumpkin {
             border-right: 5px solid #d35400;
         }
-
-
-
-        
-        my-green {
-            border-right: 5px solid #008747;
-        }
-
-        my-yellow {
-            border-right: 5px solid #fecf54;
-        }
-
 
     .colorful-list li:first-child a:hover, .form li:first-child a {
         -webkit-border-radius: 5px 5px 0 0;
@@ -665,4 +663,8 @@ padding-bottom: 10px;*/
     }
     .my-pumpkin {
         color :  #d35400;
+    }
+
+    .persian-rtl {
+        direction: rtl; 
     }

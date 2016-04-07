@@ -1,5 +1,67 @@
 <?php
 
+
+
+
+
+$app->post('/likePost', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+    $db = new DbHandler();
+    $sess = $db->getSession();
+    $postID = $data->PostID;
+    $isLiked = $data->Like;
+    
+	if(isset($sess['UserID'])){
+		if($isLiked){
+			$ex = $db->existsRecord('post_like',"PostID='".$postID."' AND UserID='".$sess['UserID']."'");
+			if(!$ex){
+				$db->insertToTable('post_like','Identity,PostID,UserID,Date',"'".getIPAddress().
+				"','".$postID."','".$sess['UserID']."',NOW()");
+				$res = [];
+				$res["Status"] = "";
+				$res["Count"] = 10;
+    			echoResponse(200, $res);
+    			return;
+			}
+		}else{
+			$ex = $db->existsRecord('post_like',"PostID='".$postID."' AND UserID='".$sess['UserID']."'");
+		}
+	}
+    else{
+		if($isLiked){
+			$ex = $db->existsRecord('post_like',"PostID='".$postID."' AND Identity='".getIPAddress()."'");
+			if(!$ex){
+				$date = date('Y-m-d H:i:s');
+				$db->insertToTable('post_like','Identity,PostID,Date',"'".getIPAddress().
+				"','".$postID."','".$date."'");
+				$countQ = $db->makeQuery("SELECT count(*) as Total FROM `post_like` WHERE PostID='".$postID."'");
+				$c = $countQ->fetch_assoc();
+				$res = [];
+				$res["Status"] = "Success";
+				$res["Count"] = $c["Total"];
+				$res["PostID"] = $postID;
+				$res["Liked"] = TRUE;
+    			echoResponse(200, $res);
+    			return;
+			}else{
+    			echoError("LastLiked");
+    			return;
+			}
+		}else{
+			$r = $db->deleteFromTable('post_like',"PostID='".$postID."' AND Identity='".getIPAddress()."'");
+			$countQ = $db->makeQuery("SELECT count(*) as Total FROM `post_like` WHERE PostID='".$postID."'");
+			$c = $countQ->fetch_assoc();
+			$res = [];
+			$res["Status"] = "Success";
+			$res["Count"] = $c["Total"];
+			$res["PostID"] = $postID;
+			$res["Liked"] = FALSE;
+			echoResponse(200, $res);
+			return;
+		}
+	}
+    echoResponse(200, "Success");
+});
 $app->post('/uploadFile', function() use ($app)  {
     $filename = $_FILES['file']['name'];
     $typeID = $_POST['fileTypeID'];  
@@ -29,13 +91,14 @@ $app->post('/getPostByID', function() use ($app)  {
 
     $db = new DbHandler();
 
-    $r = $db->makeQuery("SELECT * FROM `post` where ID=".$data->PostID);
+    $r = $db->makeQuery("SELECT post.* , gallery.FullPath FROM `post` LEFT JOIN gallery on gallery.ID = post.ImageID where post.ID=".$data->PostID);
 
     while($res = $r->fetch_assoc()){
     
-        $authorsQ = $db->makeQuery("SELECT admin.ID as AdminID , concat(FirstName , ' ' ,LastName) as FullName FROM post_author 
+        $authorsQ = $db->makeQuery("SELECT gallery.FullPath,admin.ID as AdminID , concat(FirstName , ' ' ,LastName) as FullName FROM post_author 
                                         Left Join admin on admin.ID = post_author.AdminID
                                         Left Join user on user.ID = admin.UserID
+                                        Left Join gallery on gallery.ID = user.AvatarID
                                         where PostID=".$res["ID"]);
         $authors = array();
         while($resAuthor = $authorsQ->fetch_assoc()){
@@ -90,10 +153,20 @@ $app->post('/getAllPosts', function() use ($app)  {
     else
         $r = $db->makeQuery("SELECT DISTINCT post.* , gallery.FullPath as Image FROM `post` JOIN post_subject on post_subject.PostID=post.ID LEFT JOIN gallery on post.ImageID = gallery.ID 
                              WHERE post_subject.SubjectID=".$data->catID."  ORDER BY ID DESC LIMIT $offset, $pageSize");
-
+	
+	$sess = $db->getSession();
+	$isUser=isset($sess["IsUser"]);
+	$ip = getIPAddress();
+	
     $result = array();
-    while($res = $r->fetch_assoc()){
     
+    while($res = $r->fetch_assoc()){
+    	if($isUser){
+			$res["Liked"]=$db->existsRecord("post_like","UserID='".$sess["UserID"]."' AND PostID='".$res["ID"]."'");	
+		}else{
+			$res["Liked"]=$db->existsRecord("post_like","PostID='".$res["ID"]."' AND Identity='".$ip."'");	
+		}
+		
         $authorsQ = $db->makeQuery("SELECT gallery.FullPath, admin.ID as AdminID , concat(FirstName , ' ' ,LastName) as FullName FROM post_author 
                                         Left Join admin on admin.ID = post_author.AdminID
                                         Left Join user on user.ID = admin.UserID
@@ -136,30 +209,45 @@ $app->post('/getAllMedia', function() use ($app)  {
         $pageSize = $data->pageSize;
         $pageIndex = $data->pageIndex;
     }
-    $hasCat = isset($data->catID);
+    $hasType = isset($data->fileTypes);
+    $isMedia = isset($data->isMedia);
+    $hasSearchValue = isset($data->searchValue);
     
+    if($isMedia)
+    	$isMedia = ($data->isMedia)?1:0;
+    else
+    	$isMedia = 0;
+    
+    $searchValueQuery = "";
+    if($hasSearchValue)
+    	$searchValueQuery = " and Description LIKE '%".$data->searchValue."%' ";
+    	
     $db = new DbHandler();
 
     $offset = ($pageIndex-1) * $pageSize;
     $total = 0;
     $resCount=null;
 
-    if(!$hasCat)
-        $resCount = $db->makeQuery("SELECT count(*) as Total FROM `gallery`");
-    else
-        $resCount = $db->makeQuery("SELECT DISTINCT count(*) as Total FROM `post` JOIN post_subject on post_subject.PostID=post.ID 
-                                    WHERE post_subject.SubjectID=".$data->catID);
+    if(!$hasType)
+        $resCount = $db->makeQuery("SELECT count(*) as Total FROM `gallery` WHERE IsMedia=".$isMedia.$searchValueQuery);
+    else{
+		$query = "SELECT count(*) as Total FROM `gallery` 
+		 Left Join file_type on file_type.ID=gallery.FileTypeID 
+		 WHERE IsMedia=".$isMedia." AND file_type.Type in(".$data->fileTypes.")".$searchValueQuery;
+		 
+		 $resCount = $db->makeQuery($query);
+	}
+       
 
     while($res = $resCount->fetch_assoc()){
         $total = $res["Total"];
     }
     
     $r = null;
-    if(!$hasCat)
-        $r = $db->makeQuery("SELECT gallery.*,file_type.Type FROM `gallery` JOIN file_type on file_type.ID = gallery.FileTypeID  LIMIT $offset, $pageSize");
+    if(!$hasType) 
+        $r = $db->makeQuery("SELECT gallery.*,file_type.Type FROM `gallery` LEFT JOIN file_type on file_type.ID = gallery.FileTypeID WHERE IsMedia=".$isMedia.$searchValueQuery." LIMIT $offset, $pageSize");
     else
-        $r = $db->makeQuery("SELECT DISTINCT post.* , gallery.FullPath as Image FROM `post` JOIN post_subject on post_subject.PostID=post.ID JOIN gallery on post.ImageID = gallery.ID 
-                             WHERE post_subject.SubjectID=".$data->catID." LIMIT $offset, $pageSize");
+        $r = $db->makeQuery("SELECT gallery.*,file_type.Type FROM `gallery` LEFT JOIN file_type on file_type.ID = gallery.FileTypeID WHERE IsMedia=".$isMedia.$searchValueQuery." AND file_type.Type in(".$data->fileTypes.") LIMIT $offset, $pageSize");
 
     $result = array();
     while($res = $r->fetch_assoc()){

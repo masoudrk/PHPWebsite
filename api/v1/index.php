@@ -61,6 +61,22 @@ function echoResponse($status_code, $response) {
     echo json_encode($response);
 
 }
+function echoError($message) {
+	$response=[];
+	$response["Status"] = "error";
+	$response["Message"] = $message;
+	echoResponse(201, $response);
+}
+
+function getIPAddress(){
+	if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    	return $_SERVER['HTTP_CLIENT_IP'];
+	} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+	    return $_SERVER['HTTP_X_FORWARDED_FOR'];
+	} else {
+	    return $_SERVER['REMOTE_ADDR'];
+	}
+}
 
 $app->run();
 ?>

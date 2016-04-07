@@ -1,13 +1,13 @@
 ﻿<ul class="colorful-list yekan-font">
     <li>
-        <a class="green text-right" ui-sref="home.home">
+        <a class="my-border-green text-right" ui-sref="home.home">
             خانه
             <i class="fa fa-home"></i>
         </a>
     </li>
     <!--selected-->
     <li class="text-right" ng-class="(subjectOpen)?'selected':''" slide-toggle="#subs" ng-click="subjectOpen = !subjectOpen">
-        <a class="yellow">
+        <a class="my-border-yellow">
             موضوعات
             <i class="fa fa-list"></i>
         </a>
@@ -31,37 +31,37 @@
         </div>
     </li>
     <li>
-        <a class="peter text-right" ui-sref="home.contact_us">
+        <a class="my-border-peter text-right" ui-sref="home.contact_us">
             تماس با ما
             <i class="fa fa-phone"></i>
         </a>
     </li>
     <li>
-        <a class="red text-right " ui-sref="home.about">
+        <a class="my-border-red text-right " ui-sref="home.about">
             درباره ما
             <i class="fa fa-users"></i>
         </a>
     </li>
     <li ng-if="!authenticated">
-        <a class="carrot text-right" ng-click="openLoginModal()">
+        <a class="my-border-carrot text-right" ng-click="openLoginModal()">
             ورود
             <i class="fa fa-sign-in"></i>
         </a>
     </li>
     <li ng-if="!authenticated">
-        <a class="asphalt text-right" ng-click="openSignupModal()">
+        <a class="my-border-asphalt text-right" ng-click="openSignupModal()">
             ثبت نام
             <i class="fa fa-user"></i>
         </a>
     </li>
     <li ng-if="authenticated">
-        <a class="carrot text-right" ui-sref="admin_root.dashboard">
+        <a class="my-border-carrot text-right" ui-sref="admin_root.dashboard">
             پنل کاربری
             <i class="fa fa-user"></i>
         </a>
     </li>
     <li ng-if="authenticated">
-        <a class="asphalt text-right" ng-click="logout()">
+        <a class="my-border-asphalt text-right" ng-click="logout()">
             خروج
             <i class="fa fa-sign-out"></i>
         </a>

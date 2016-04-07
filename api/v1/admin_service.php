@@ -28,8 +28,8 @@ $app->post('/savePost', function() use ($app) {
         }else{
                                         
             $result = $db->updateRecord("post","`Title`='".$object->Title."' , `Content`='".$object->Content."' , `BriefContent`='".$object->BriefContent.
-                                         "' , `WriteDate`='".$object->WriteDate."' ,`ReleaseDate`='".$object->ReleaseDate."'" 
-                                        , "post.ID=".$rObj->postID);
+                                         "' , `WriteDate`='".$object->WriteDate."' ,`ReleaseDate`='".$object->ReleaseDate."' , `ImageID`='".$object->ImageID."'" 
+                                        , "post.ID=".$rObj->postID );
 
             $resDelS = $db->deleteFromTable("post_subject","PostID=".$rObj->postID);
             $resDelA = $db->deleteFromTable("post_author","PostID=".$rObj->postID);
@@ -37,7 +37,7 @@ $app->post('/savePost', function() use ($app) {
     
         foreach ($rObj->subjects as $value) {
             $s = (object) [
-                'PostID' => $result,
+            	'PostID' => ($updateMode)? $rObj->postID : $result,
                 'SubjectID' => $value -> ID
             ];
             $db->insertIntoTable($s, array( 'PostID','SubjectID'), 'post_subject');
@@ -45,7 +45,7 @@ $app->post('/savePost', function() use ($app) {
 
         foreach ($rObj->authors as $value) {
             $a = (object) [
-                'PostID' => $result,
+            	'PostID' => ($updateMode)? $rObj->postID : $result,
                 'AdminID' => $value -> AdminID
             ];
             $db->insertIntoTable($a, array( 'PostID','AdminID'), 'post_author');
@@ -58,6 +58,16 @@ $app->post('/savePost', function() use ($app) {
         return;
     }
     echoResponse(200, $result);
+});
+
+
+$app->post('/getUserProfile', function() use ($app) {
+    $db = new DbHandler();
+    $user = $db->getSession();
+    $r = $db->makeQuery("SELECT user.* , gallery.FullPath FROM user LEFT JOIN gallery on gallery.ID = user.AvatarID WHERE user.ID=".$user["UserID"]);
+    
+    $res = $r->fetch_assoc();
+    echoResponse(200, $res);
 });
 
 $app->post('/saveSlide', function() use ($app) {
@@ -287,14 +297,10 @@ $app->post('/saveAdminPrivilege', function() use ($app)  {
 			$response["Status"] = "success";
 	   		echoResponse(200, $response);
 		}else{
-			$response["Status"] = "error";
-			$response["Message"] = "NoPrivilege";
-	   		echoResponse(201, $response);
+			echoError("NoPrivilege");
 		}
 	}else{
-		$response["Status"] = "error";
-		$response["Message"] = "IsNoAdmin";
-   		echoResponse(201, $response);
+		echoError("IsNoAdmin");
 	}
 });
 
@@ -314,14 +320,79 @@ $app->post('/deleteUser', function() use ($app) {
 			$response["Status"] = "success";
 	   		echoResponse(200, $response);
 		}else{
-			$response["Status"] = "error";
-			$response["Message"] = "NoPrivilege";
-	   		echoResponse(201, $response);
+			echoError("NoPrivilege");
 		}
 	}else{
-		$response["Status"] = "error";
-		$response["Message"] = "IsNoAdmin";
-   		echoResponse(201, $response);
+		echoError("IsNoAdmin");
+	}
+});
+
+$app->post('/changeUserPassword', function() use ($app) {
+    
+    $rObj = json_decode($app->request->getBody());
+    $db = new DbHandler();
+    
+    if(strlen ($rObj->newPassword) < 6){
+		echoError("PasswordIsShort");
+		return;
+	}
+    
+    $sess = $db->getSession();
+    if(isset($sess["UserID"])){
+		$resM = $db->makeQuery("SELECT * FROM user WHERE user.ID=".$sess["UserID"]);
+		$user = $resM->fetch_assoc();
+		if(passwordHash::check_password($user['Password'],$rObj->oldPassword)){
+			$newPass = passwordHash::hash($rObj->newPassword);
+			$res = $db->updateRecord('user',"Password='".$newPass."'","ID='".$user['ID']."'");
+			if(!$res){
+				echoError("CannotUpdateData");
+			}else{
+    			$response = [];
+				$response["Status"] = "success";
+		   		echoResponse(200, $response);
+		   		$db->destroySession();
+			}
+		}else{
+		   	echoError("PasswordNotMatch");
+		}
+	}else{
+		echoError("IsNoUser");
+	}
+});
+
+$app->post('/changeUserAvatar', function() use ($app) {
+    
+    $filename = $_FILES['file']['name'];
+    
+	$rand = generateRandomString(18);
+	$ext = pathinfo($filename, PATHINFO_EXTENSION);
+	
+    $destination = '../../content/img/'.$rand.".".$ext;
+    move_uploaded_file( $_FILES['file']['tmp_name'] , $destination );
+    
+    $db = new DbHandler();
+    $column_names = array( 'FileTypeID','Path','FullPath','UserID','IsMedia');
+    $object =(object)[
+        "FileTypeID" => '1',
+        "Path" => "content/img/",
+        "Description" => "",
+        "FullPath" => "content/img/".$rand.".".$ext,
+        "UserID" => $sess["UserID"],
+        "IsMedia"=>"0"
+    ];
+    $result = $db->insertIntoTable($object, $column_names, "gallery");
+
+    $sess = $db->getSession();
+    if(isset($sess["UserID"])){
+		$res = $db->updateRecord('user',"AvatarID='".$result."'","ID='".$sess["UserID"]."'");
+		if($res){
+			$response["Status"] = "success";
+	    	echoResponse(200, $response);
+		}
+		else
+			echoError("ErrorUpdate");
+	}else{
+		echoError("IsNoUser");
 	}
 });
 

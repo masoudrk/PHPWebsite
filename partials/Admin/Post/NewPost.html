@@ -14,14 +14,14 @@
                 <div class="form-group text-right">
                     <div class="col-sm-10 ">
                         <span class="block input-icon input-icon-right">
-                            <input dir="rtl" type="text" class="form-control yekan-font text-right" placeholder="سر تیتر ..." name="title" ng-model="title" />
+                            <input dir="rtl" type="text" class="form-control yekan-font text-right" placeholder="سر تیتر ..." name="title" ng-model="post.title" />
                             <!--<i class="ace-icon fa fa-user"></i>-->
                         </span>
                     </div>
                     <label class="col-sm-2 control-label no-padding-right yekan-font" for="email">سر تیتر</label>
                 </div>
                 <div class="form-group">
-                    <multi-select-drop-down id="dd1"
+                    <multi-select-drop-down dir="rtl"
                                             class="col-sm-5 col-md-offset-5"
                                             items="subjects"
                                             selected-list="selectSubjects"
@@ -29,7 +29,7 @@
                                             multi-select-mode="true"
                                             radio-button-behaviour="false"
                                             max-button-titles-show="3"
-                                            check-feild-name="'top'"
+                                            check-feild-name="'subject'"
                                             title-feild-name="'Title'"
                                             close-on-select="false"
                                             watch-on-items="true">
@@ -37,7 +37,8 @@
                     <label class="col-sm-2 control-label no-padding-right yekan-font" for="email">موضوع</label>
                 </div>
                 <div class="form-group">
-                    <multi-select-drop-down class="col-sm-5 col-md-offset-5"
+                    <multi-select-drop-down dir="rtl"
+                                            class="col-sm-5 col-md-offset-5"
                                             items="authors"
                                             selected-list="selectAuthors"
                                             ng-button-text="subjectButtonText"
@@ -45,7 +46,7 @@
                                             radio-button-behaviour="false"
                                             max-button-titles-show="2"
                                             close-on-select="false"
-                                            check-feild-name="'bottom'"
+                                            check-feild-name="'author'"
                                             title-feild-name="'FullName'"
                                             watch-on-items="true">
                     </multi-select-drop-down>
@@ -54,22 +55,22 @@
                 <div class="form-group ">
                     <span class="col-sm-12 control-label no-padding-right yekan-font" for="email">: خلاصه مطلب</span>
                 </div>
-                <div text-angular class="col-sm-12 form-group no-padding" ng-model="postBrief" style="direction: rtl; margin: 0"></div>
+                <div text-angular class="col-sm-12 form-group no-padding" ng-model="post.postBrief" style="direction: rtl; margin: 0"></div>
                 <div class="form-group ">
                     <span class="col-sm-12 control-label no-padding-right yekan-font" for="email">: ادامه مطلب</span>
                 </div>
 
-                <div text-angular class="col-sm-12 form-group no-padding" ng-model="postContent" style="direction: rtl; margin: 0"></div>
+                <div text-angular class="col-sm-12 form-group no-padding" ng-model="post.postContent" style="direction: rtl; margin: 0"></div>
 
                 <div class="form-group text-right">
                     <div class="col-sm-4 col-sm-offset-6" style="margin-top: 10px;">
-                        <adm-dtp ng-model='releaseDate' options='{calType: "jalali",dtpType:"date&time", format: "YYYY/MM/DD hh:mm", default: "today",autoClose:true}' full-data="releaseDateFull"></adm-dtp>
+                        <adm-dtp ng-model='post.releaseDate' options='{calType: "jalali",dtpType:"date&time", format: "YYYY/MM/DD hh:mm", default: "today",autoClose:true}' full-data="releaseDateFull"></adm-dtp>
                     </div>
                     <label class="col-sm-2 control-label no-padding-right yekan-font" for="email" style="margin-top: 10px;">تاریخ انتشار</label>
                 </div>
                 <div class="form-group text-right">
                     <div class="col-sm-4 col-sm-offset-6" style="margin-top: 10px;">
-                        <adm-dtp ng-model='writeDate' options='{calType: "jalali",dtpType:"date&time", format: "YYYY/MM/DD hh:mm", default: "today",autoClose:true}' full-data="writeDateFull"></adm-dtp>
+                        <adm-dtp ng-model='post.writeDate' options='{calType: "jalali",dtpType:"date&time", format: "YYYY/MM/DD hh:mm", default: "today",autoClose:true}' full-data="writeDateFull"></adm-dtp>
                     </div>
                     <label class="col-sm-2 control-label no-padding-right yekan-font" style="margin-top: 10px;">تاریخ نوشته</label>
                 </div>

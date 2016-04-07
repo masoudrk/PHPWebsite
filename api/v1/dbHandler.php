@@ -64,7 +64,7 @@ class DbHandler {
             $columns = $columns.$desired_key.',';
             $values = $values."'".$$desired_key."',";
         }
-        $query = "INSERT INTO ".$table_name."(".trim($columns,',').") VALUES(".trim($values,',').")";
+        $query = "INSERT INTO `".$table_name."` (".trim($columns,',').") VALUES(".trim($values,',').")";
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 
         if ($r) {
@@ -76,7 +76,7 @@ class DbHandler {
     }
     public function deleteFromTable($table_name , $where) {
         
-        $query = "DELETE FROM ".$table_name." WHERE ".$where;
+        $query = "DELETE FROM `".$table_name."` WHERE ".$where;
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 
         if ($r) {
@@ -84,9 +84,19 @@ class DbHandler {
         }
         return NULL;
     }
+    public function existsRecord($table_name , $where) {
+        
+        $query = "SELECT count(*) as Total FROM `".$table_name."` WHERE ".$where;
+        $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+		$res = $r->fetch_assoc();
+        if ($res["Total"] > 0) {
+            return TRUE;
+        }
+        return FALSE;
+    }
     public function insertToTable($table_name , $col_names,$values ) {
         
-        $query = "INSERT INTO ".$table_name." (".$col_names.") VALUES(".$values.")";
+        $query = "INSERT INTO `".$table_name."` (".$col_names.") VALUES(".$values.")";
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 
         if ($r) {
@@ -97,7 +107,7 @@ class DbHandler {
 
     public function updateRecord($table_name , $set , $where) {
         
-        $query = "UPDATE ".$table_name." SET ".$set." WHERE ".$where;
+        $query = "UPDATE `".$table_name."` SET ".$set." WHERE ".$where;
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 
         if ($r) {
@@ -106,7 +116,7 @@ class DbHandler {
         return NULL;
     }
 
-    public function getSession(){
+public function getSession(){
     if (!isset($_SESSION)) {
         session_start();
     }
@@ -122,7 +132,7 @@ class DbHandler {
     }
     else
     {
-        $sess["UserID"] = '';
+       // $sess["UserID"] = '';
         $sess["LastName"] = 'Guest';
         $sess["FirstName"] = '';
     }

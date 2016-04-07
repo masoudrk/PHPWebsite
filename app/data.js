@@ -24,6 +24,27 @@ app.factory("Extention", ['$http' ,'$rootScope' , 'toaster',
             toaster.pop(data.status, "", data.message, 10000, 'trustedHtml');
         }
 
+        obj.pop = function (status, msg, delay) {
+            if (!delay)
+                delay = 7000;
+            toaster.pop(status, "", msg, delay, 'trustedHtml');
+        }
+        obj.popError = function (msg, delay) {
+            if (!delay)
+                delay = 7000;
+            toaster.pop('error', "", msg, delay, 'trustedHtml');
+        }
+        obj.popSuccess = function (msg, delay) {
+            if (!delay)
+                delay = 7000;
+            toaster.pop('success', "", msg, delay, 'trustedHtml');
+        }
+        obj.popInfo = function (msg, delay) {
+            if (!delay)
+                delay = 7000;
+            toaster.pop('info', "", msg, delay, 'trustedHtml');
+        }
+
         obj.get = function (q) {
             return $http.get(serviceBase + q).then(function (results) {
                 return results.data;

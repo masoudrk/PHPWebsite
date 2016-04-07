@@ -18,16 +18,21 @@ angular.module('myApp').controller('MainCtrl', function ($scope, $rootScope, $ro
         Extention.scrollTo(500);
     }
     $scope.likePost = function (post) {
-        if (!post.liked) {
-            post.liked = true;
-        } else {
-            post.liked = !post.liked;
-        }
-        if (post.liked == true) {
+        if (!post.Liked) {
+            post.Liked = true;
             post.class = 'hvr-pop my-red';
         } else {
-            post.class = 'hvr-push my-gray';
+            post.Liked = !post.Liked;
+            if (post.Liked != true) {
+                post.class = 'hvr-push my-gray';
+            }
         }
+
+        Extention.post("likePost", { PostID: post.ID, Like: post.Liked }).then((function(post) {
+            return function(res) {
+                post.Liked = res.Liked;
+            }
+        })(post));
     }
     $scope.starPost = function (post) {
         if (!post.starred) {

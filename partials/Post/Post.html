@@ -1,65 +1,52 @@
-﻿<!--<div class="breadcrumbs" id="breadcrumbs">
-    <ul class="breadcrumb">
-        <li>
-            <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="#">Home</a>
-        </li>
-        <li class="active">hi</li>
-
-    </ul>
-</div>-->
-<style>
-    .post-single-container {
-        background-color: white;
-        height: 500px
-    }
-    
-    .post-single-container>.top {
-        margin-top: 10px;
-        height: 200px;
-    }
-
-    .post-single-container>.middle {
-        margin-top: 10px;
-    }
-    
-    .post-single-container>.top >.post-single-detail {
-        height: 200px;
-    }
-
-    .post-single-container>.top >.post-single-image {
-        height: 200px;
-        overflow: hidden
-    }
-    
+﻿<style>
 .splitter {
     border-bottom: 1px solid #ccc;
 }
 </style>
 <div class="page-content">
-    <div class="">
-        <div class="space-6"></div>
-        <div class="col-sm-12 no-padding">
+    <div class="center-content-container">
+        <div class="white-panel">
 
-            <div class="post-single-container col-md-12 no-padding">
-                <div class="col-md-12 top ">
-                    <div class="col-md-6 post-single-detail">
-                        <div class="col-md-12 splitter">{{post.Title}}</div>
-                        <div class="col-md-12 splitter">{{post.WriteDate}}</div>
-                        <div class="col-md-12 splitter">
-                            <span ng-repeat="a in post.Authors">{{a.FullName}}&nbsp;</span>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-6 post-single-image no-padding">
+                        <div class="col-sm-12 no-padding" style="object-fit: cover; overflow: hidden; border-radius: 5px;">
+                            <img class="" ng-src="{{post.FullPath}}" style="height: 260px; border-radius: 5px;" />
                         </div>
                     </div>
-                    <div class="col-md-6 post-single-image">
-                        <div class="col-md-12">
-                            <img ng-src="{{post.Image}}" alt="" />
+                    <div class="col-sm-6 post-single-detail yekan-font">
+                        <div class="col-sm-12 splitter text-center"><span style="font-weight: 700;font-size: 20px">{{post.Title}}</span></div>
+                        <div class="col-sm-12 no-padding splitter" dir="rtl" style="height: 41px">
+                            <div class="col-sm-6 no-padding">
+                                <div ng-repeat="a in post.Authors" style="margin-top: 4px;">
+                                    <div class="post-avatar-cover pull-left" ng-if="a.FullPath" style="margin-left: 0px;">
+                                        <img class="post-avatar" ng-src="{{a.FullPath}}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="col-sm-6 no-padding" style="margin-top: 8px;">{{post.WriteDate | jalaliDate:'jYYYY/jMM/jDD'}}</span>
+                        </div>
+                        
+                        <div class="col-sm-12 no-padding splitter" dir="rtl">
+                            نوشته : {{post.Authors | split:' و ':'FullName'}}
+                        </div>
+                        <div class="col-sm-12 no-padding splitter" style="margin-top: 10px">
+                            <div class="col-sm-6 pull-right" ng-repeat="s in post.Subjects" ui-sref="home.cat({ id: '{{s.ID}}'})">
+                                <div class="post-tag">
+                                    <i class="post-tag-icon fa fa-tag pull-right"></i>
+                                    <span class="post-tag-text text-right pull-right">
+                                        {{s.Title}}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 middle">
-                    {{post.Content}}
+                <div class="col-sm-12 text-right yekan-font" ng-bind-html="post.BriefContent" style="margin-top: 10px">
                 </div>
-            </div>           
+                <div class="col-sm-12 text-right yekan-font" ng-bind-html="post.Content">
+                </div>
+            </div>
         </div>
     </div>
 </div>

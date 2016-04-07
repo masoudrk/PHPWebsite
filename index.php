@@ -47,7 +47,10 @@
 <script src="js/toaster.js"></script>
 <script src="js/ngprogress.js"></script>
 <script src="js/ui-bootstrap-tpls-1.2.5.js"></script>
-
+<!--
+<link rel='stylesheet' href='css/loading-bar.css' type='text/css' media='all' />
+<script type='text/javascript' src='js/loading-bar.js'></script>
+-->
 <script src="Scripts/lazyLoad/ocLazyLoad.js" type="text/javascript" ></script>
 
 <script src="js/ng-file-upload-shim.min.js"></script>

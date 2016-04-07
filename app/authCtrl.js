@@ -1,23 +1,30 @@
-﻿app.controller('authCtrl', function ($scope, $rootScope, $routeParams, $uibModalInstance, $location, $http, Extention , items) {
+﻿app.controller('authCtrl', function ($scope, $rootScope,$state, $routeParams, $uibModalInstance, $location, $http, Extention) {
     //initially set those objects to null to avoid undefined error
     $scope.login = {};
     $scope.signup = {};
-    $scope.doLogin = function (customer) {
+    $scope.doLogin = function (user) {
         Extention.setBusy(true);
         Extention.post('login', {
-            customer: customer
+            customer: user
         }).then(function (results) {
-            Extention.toast(results);
             Extention.setBusy(false);
-            if (results.Status!="error")
-                Extention.authUser(results);
+
             if (results.Status == "success") {
-                //$location.path('dashboard');
+                Extention.authUser(results);
                 $uibModalInstance.close(results);
+
+                if (results.AdminID) {
+                    Extention.toast({ status: "success", message: "ادمین گرامی به سایت خوش آمدید!" });
+                    $state.go("admin_root.dashboard");
+                }
+                else {
+                    Extention.toast({ status: "success", message: "کاربر گرامی به سایت خوش آمدید!" });
+                }
+
+            } else {
+                Extention.toast({ status: "error", message: "خطا ، اطلاعات وارد شده نادرست است." });
             }
 
-            if (results.AdminID)
-                $location.path("/admin");
         });
     };
     $scope.signup = {email:'',password:'',name:'',phone:'',address:''};
@@ -27,7 +34,6 @@
         }).then(function (results) {
             if (results.status == "success") {
                 Extention.toast({ status: "success", message: "ثبت نام با موفقیت انجام شد!" });
-                //$location.path('dashboard');
             } else {
                 if(results.status == "error-exists")
                     Extention.toast({ status: "error", message: "کاربری با این مشخصات ثبت نام کرده است!" });
@@ -35,19 +41,6 @@
                     Extention.toast({ status: "error", message: "خطا ، لطفا دوباره تلاش کنید." });
             }
         });
-    };
-    //$scope.logout = function () {
-    //    Extention.get('logout').then(function (results) {
-    //        Extention.toast(results);
-    //        Extention.unAuthUser();
-    //        //$location.path('login');
-    //    });
-    //}
-
-
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
     };
 
     $scope.ok = function () {

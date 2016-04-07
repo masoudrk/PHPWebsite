@@ -1,6 +1,4 @@
-﻿
-
-<div class="center-content-container yekan-font">
+﻿<div class="center-content-container yekan-font">
     <div class="header content-header-yellow">
         <div class="row">
             <div class="col-md-12 text-right content-header-mid">
@@ -10,49 +8,66 @@
         </div>
     </div>
     <div class="white-panel">
-        <div class="col-sm-12 no-padding">
-            <table dir="rtl" class="table table-striped">
-                <thead>
-                <tr>
-                    <th class="text-right">سر تیتر</th>
-                    <th class="text-right" style="width: 200px">مختصر</th>
-                    <th class="text-right" style="width: 150px">تاریخ انتشار</th>
-                    <th class="text-right" style="width: 58px"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="p in posts">
-                    <td>{{p.Title}}</td>
-                    <td ng-bind-html="p.BriefContent"></td>
-                    <td>{{p.WriteDate | jalaliDate:'jYYYY/jMM/jDD hh:mm' }}</td>
-                    <td>
-                        <div>
-                            <span class="fa fa-trash-o fa-group-mid red" ng-click="deletePost(p)"  confirm="آیا مطمئن هستید که می خواهید پست {{p.ID}} را حذف کنید؟"></span>
-                            <a class="fa fa-pencil fa-group-mid green" ui-sref="admin_root.new_post({id : '{{p.ID}}'})"></a>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
         <div class="row">
-            <div class="span8 text-center">
+            <div class="col-xs-12 text-center">
+                <div class="image-single-cover hvr-bounce-in" style="margin: auto;margin-top: 8px">
+                    <img class="image-mid my-link" ng-src="{{user.FullPath}}" style="border-radius: 500px;"/>
+                    <!--<div class="hvr-bounce-to-left" style="position: absolute; top: 0; width: 150px; height: 100%;border-radius: 500px;"></div>-->
+                    <input class="upload-button upload col-md-12 my-link" type="file" ngf-select ng-model="picFile" name="file"
+                           accept="image/*" ngf-max-size="1MB" required
+                           ngf-model-invalid="errorFile" style="height: 150px">
+                </div>
+            </div>
 
-                <auto-paging page="1"
-                             page-size="20"
-                             action-name="getAllPosts"
-                             data-params="pagingParams"
-                             ng-control="pagingController"
-                             items="posts">
-                </auto-paging>
+            <div class="col-xs-10 col-xs-offset-2 form-group">
+                <span class="col-md-3 persian-rtl pull-right">
+                    نام کامل :
+                </span>
+                <span class="col-md-5 pull-right text-right">
+                    {{user.FirstName}} {{user.LastName}}
+                </span>
+            </div>
+            <div class="col-xs-10 col-xs-offset-2 form-group">
+                <span class="col-md-3 persian-rtl pull-right">
+                    نام کاربری :
+                </span>
+                <span class="col-md-5 pull-right text-right">
+                    {{user.Username}}
+                </span>
+            </div>
+            <div class="col-xs-10 col-xs-offset-2 form-group">
+                <label class="col-xs-3 control-label pull-right yekan-font" dir="rtl">رمز عبور فعلی : </label>
+                <div class="col-xs-6 pull-right">
+                    <div class="control-label ">
+                        <input type="password" ng-placeholder="بر اساس توضیحات عکس" ng-model="currentPass" class="yekan-font text-center" style="width: 100%" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-10 col-xs-offset-2 form-group">
+                <label class="col-xs-3 control-label pull-right yekan-font" dir="rtl">رمز عبور جدید : </label>
+                <div class="col-xs-6 pull-right">
+                    <div class="control-label ">
+                        <input type="password" ng-placeholder="بر اساس توضیحات عکس" ng-model="newPass" class="yekan-font text-center" style="width: 100%" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-10 col-xs-offset-2 form-group">
+                <label class="col-xs-3 control-label pull-right yekan-font" dir="rtl">تکرار رمز عبور جدید : </label>
+                <div class="col-xs-6 pull-right">
+                    <div class="control-label ">
+                        <input type="password" ng-placeholder="بر اساس توضیحات عکس" ng-model="verifyPass" class="yekan-font text-center" style="width: 100%" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-10 col-xs-offset-2 form-group">
+                <div class="col-xs-6 col-xs-offset-3">
+                    <div class="control-label ">
+                        <button class="btn btn-success" ng-click="changePass()">
+                            تغییر
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!--<script>
-        debugger
-        jQuery(document).ready(function ($) {
-            debugger
-            $("#PostManage").addClass('selected');
-        });
-    </script>-->
 </div>

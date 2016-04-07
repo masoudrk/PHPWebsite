@@ -161,7 +161,6 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Post/NewPostCtrl.js',
-                            'partials/Post/PostService.js',
                             'partials/Modals/Gallery/GalleryModalCtrl.js',
                             'app/MultiSelectDropDown/CheckboxDropDown.js']);
                     }]
@@ -279,6 +278,7 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Profile/ProfileCtrl.js',
+                            'partials/Modals/Gallery/GalleryModalCtrl.js',
                             'app/MultiSelectDropDown/CheckboxDropDown.js']);
                     }]
                 }
@@ -333,19 +333,11 @@ app.config([
                 $rootScope.user.UserID = results.UserID;
                 $rootScope.user.lastName = results.LastName;
                 $rootScope.user.firstName = results.FirstName;
-            } else {
-                //$rootScope.authenticated = false;
-                ////$location.path('/home');
-                //$state.go("home.home");
-            }
+            } 
             
             if (next.name.indexOf("admin_root") > -1) {
                 if (!results.AdminID)
                     $state.go("home.home");
-                    //$location.path('/home');
-                //elses
-                //    $state.go("admin_root.dashboard");
-                    //$location.path('/admin/dashboard');
             }
         });
     });
@@ -358,21 +350,31 @@ app.filter('jalaliDate', function () {
     }
 });
 
-app.filter('splitArray', function () {
-    return function (array, feildName) {
+app.filter('subString', function () {
+    return function (text, length) {
+        if (text&&text.length > length) {
+            return text.substr(0, length) ;
+        }
+        return text;
+    }
+});
+
+app.filter('split', function() {
+    return function (input, splitChar, feildName) {
+        if (!input)
+            return "";
         var str = "";
-        for (var j = 0; j < array.length; j++) {
-            if (array.length - 1 == j)
-                str += array[j][feildName];
+        for (var i = 0; i < input.length; i++) {
+            if (i === input.length-1)
+                str += (input[i][feildName]);
             else
-                str += (array[j][feildName] + " , ");
+                str += (input[i][feildName] + splitChar);
         }
         return str;
     }
 });
 
-app
-.directive('slideable', function () {
+app.directive('slideable', function () {
     return {
         restrict: 'C',
         compile: function (element, attr) {
@@ -417,6 +419,7 @@ app
         }
     }
 });
+
 
 function getFile() {
     document.getElementById("upfile").click();

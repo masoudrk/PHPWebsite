@@ -35,28 +35,28 @@
                             </a>
                         </li>
 
-                        <li ng-if="!authenticated">
-                            <a ng-click="openLoginModal()">
-                                ورود
-                                <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
-                            </a>
-                        </li>
-                        <li ng-if="!authenticated">
+                        <li ng-if="!authenticated" style="float: left">
                             <a ng-click="openSignupModal()">
                                 ثبت نام
                                 <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
                             </a>
                         </li>
-                        <li ng-if="authenticated">
-                            <a ui-sref="admin_root.dashboard">
-                                پنل کاربری
+                        <li ng-if="!authenticated" style="float: left">
+                            <a ng-click="openLoginModal()">
+                                ورود
                                 <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
                             </a>
                         </li>
-                        <li ng-if="authenticated">
+                        <li ng-if="authenticated" style="float: left">
                             <a ng-click="logout()">
                                 خروج
                                 <div class="fa fa-sign-out" style="margin-left: 8px; line-height: 0"></div>
+                            </a>
+                        </li>
+                        <li ng-if="authenticated" style="float: left">
+                            <a ui-sref="admin_root.dashboard">
+                                پنل کاربری
+                                <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
                             </a>
                         </li>
                     </ul>

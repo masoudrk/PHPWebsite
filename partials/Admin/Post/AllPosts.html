@@ -23,12 +23,14 @@
                 <tbody>
                 <tr ng-repeat="p in posts">
                     <td>{{p.Title}}</td>
-                    <td ng-bind-html="p.BriefContent"></td>
+                    <td>
+                        <div ng-bind-html="p.BriefContent" style="height: 60px; overflow: hidden"></div>
+                    </td>
                     <td>{{p.WriteDate | jalaliDate:'jYYYY/jMM/jDD hh:mm' }}</td>
                     <td>
                         <div>
-                            <span class="fa fa-trash-o fa-group-mid red" ng-click="deletePost(p)"  confirm="آیا مطمئن هستید که می خواهید پست {{p.ID}} را حذف کنید؟"></span>
-                            <a class="fa fa-pencil fa-group-mid green" ui-sref="admin_root.new_post({id : '{{p.ID}}'})"></a>
+                            <span class="fa fa-trash-o fa-group-mid my-red" ng-click="deletePost(p)"  confirm="آیا مطمئن هستید که می خواهید پست {{p.ID}} را حذف کنید؟"></span>
+                            <a class="fa fa-pencil fa-group-mid my-green-sea" ui-sref="admin_root.new_post({id : '{{p.ID}}'})"></a>
                         </div>
                     </td>
                 </tr>

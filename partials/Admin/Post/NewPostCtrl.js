@@ -1,4 +1,4 @@
-﻿angular.module('myApp').controller('NewPostCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, $uibModal, Extention, AdminService, MainService,PostService) {
+﻿angular.module('myApp').controller('NewPostCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, $uibModal, Extention) {
 
     $scope.subjectButtonText = "انتخاب نشده";
 
@@ -7,51 +7,94 @@
 
     $scope.postID = $stateParams.id;
     $scope.editMode = $scope.postID !== "";
+    $scope.asyncTasks = 2;
 
-    $scope.getAllSubjects = function () {
-        Extention.post("getAllSubjects",{arrenged: true}).then(function (res) {
-            $scope.subjects = res;
-        });
+    Extention.post("getAllSubjects", { arrenged: true }).then(function (res) {
+        $scope.subjects = res;
+        $scope.getPost();
+    });
+
+    Extention.post("getAllAuthors").then(function (res) {
+        $scope.authors = res;
+        $scope.getPost();
+    });
+
+    $scope.getPost = function () {
+        $scope.asyncTasks--;
+        if ($scope.asyncTasks !== 0) {
+            return;
+        }
+        if ($scope.editMode) {
+            Extention.post("getPostByID", { PostID: $scope.postID }).then(function (res) {
+                $scope.post = {};
+                $scope.post.obj = res;
+                $scope.post.postContent = res.Content;
+                $scope.post.title = res.Title;
+                $scope.post.postBrief = res.BriefContent;
+                $scope.post.authors = res.Authors;
+                $scope.post.subjects = res.Subjects;
+                $scope.post.releaseDate = res.ReleaseDate;
+                $scope.post.writeDate = res.WriteDate;
+
+                $scope.image = {};
+                $scope.image.FullPath = res.FullPath;
+                $scope.image.ID = res.ImageID;
+
+                var i, j;
+                for (i = 0; i < $scope.post.authors.length; i++) {
+                    for (j = 0; j < $scope.authors.length; j++) {
+                        if ($scope.post.authors[i].AdminID === $scope.authors[j].AdminID) {
+                            $scope.selectAuthors.push($scope.authors[j]);
+                            $scope.authors[j].author = true;
+                        }
+                    }
+                }
+                for (i = 0; i < $scope.post.subjects.length; i++) {
+                    for (j = 0; j < $scope.subjects.length; j++) {
+                        if ($scope.post.subjects[i].ID === $scope.subjects[j].ID) {
+                            $scope.selectAuthors.push($scope.subjects[j]);
+                            $scope.subjects[j].subject = true;
+                        }
+                    }
+                }
+            });
+
+        }
     }
-    $scope.getAllAuthors = function () {
-        AdminService.getAllAuthors().then(function (res) {
-            $scope.authors = res;
-        });
-    }
-
-    if ($scope.editMode) {
-
-        PostService.getPostByID($scope.postID).then(function (res) {
-            $scope.post = res;
-            $scope.postContent = res.Content;
-            $scope.title = res.Title;
-            $scope.postBrief = res.BriefContent;
-            $scope.authors = res.Authors;
-            $scope.subjects = res.Subjects;
-            $scope.releaseDate = res.ReleaseDate;
-            $scope.writeDate = res.WriteDate;
-        });
-    }
-
-    $scope.getAllAuthors();
-    $scope.getAllSubjects();
 
     $scope.saveNewPost = function () {
-        var post = {
-            title: $scope.title,
-            postContent: ($scope.postContent) ? $scope.postContent : "",
-            postBrief: ($scope.postBrief) ? $scope.postBrief : "",
-            authors: $scope.selectAuthors,
-            subjects: $scope.selectSubjects,
-            releaseDate: $scope.releaseDateFull.gDate,
-            writeDate: $scope.writeDateFull.gDate,
-            imageID : $scope.image.ID
-        };
+        if (!$scope.image || !$scope.image.ID) {
+            Extention.toast({ status: 'error', message: 'خطا ! لطفا یک تصویر انتخاب کنید.' });
+        }
+        var post;
+        if (!$scope.editMode) {
+            post = {
+                title: $scope.title,
+                postContent: ($scope.postContent) ? $scope.postContent : "",
+                postBrief: ($scope.postBrief) ? $scope.postBrief : "",
+                authors: $scope.selectAuthors,
+                subjects: $scope.selectSubjects,
+                releaseDate: $scope.releaseDateFull.gDate,
+                writeDate: $scope.writeDateFull.gDate,
+                imageID: $scope.image.ID
+            };
+        } else {
+            post = {
+                title: $scope.post.title,
+                postContent: ($scope.post.postContent) ? $scope.post.postContent : "",
+                postBrief: ($scope.post.postBrief) ? $scope.post.postBrief : "",
+                authors: $scope.selectAuthors,
+                subjects: $scope.selectSubjects,
+                releaseDate: $scope.releaseDateFull.gDate,
+                writeDate: $scope.writeDateFull.gDate,
+                imageID: $scope.image.ID
+            };
+        }
 
         if ($scope.editMode)
             post.postID = $scope.postID;
 
-        AdminService.saveNewPost(post).then(function (res) {
+        Extention.post("savePost",post).then(function (res) {
             if (res) {
                 Extention.toast({ status: 'success', message: 'پست با موفقیت ثبت شد!' });
             } else {
@@ -65,20 +108,17 @@
         var uibModalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'partials/Modals/Gallery/GalleryTemplate.html',
-            controller: function ($uibModalInstance, $scope, mediaType) {
-
-                $scope.pagingParams = {
-                    imageType : ""
-                }
-
-                $scope.selectMedia = function (item) {
-                    $uibModalInstance.close(item);
-                };
-            },
+            controller: 'GalleryModalCtrl',
             size: 'lg',
             resolve: {
-                mediaType: function () {
-                    return ["jpeg/jpg","png"];
+                fileTypes: function () {
+                    return "'jpg/jpeg','png'";
+                },
+                isMedia: function () {
+                    return 1;
+                },
+                typesDesc: function() {
+                    return "فایل تصویری";
                 }
             }
         });

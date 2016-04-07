@@ -24,50 +24,27 @@
 
     $scope.openLoginModal = function() {
 
-        var modalInstance = $uibModal.open({
+        $uibModal.open({
             animation: true,
             templateUrl: 'partials/LoginTemplate.html',
             controller: 'authCtrl',
-            size: 'md',
-            resolve: {
-                items: function() {
-                    return ['item1', 'item2', 'item3'];;
-                }
-            }
-        });
-
-        modalInstance.result.then(function(user) {
-            $scope.user = user;
-        }, function() {
-            //$log.info('Modal dismissed at: ' + new Date());
+            size: 'md'
         });
     };
     $scope.openSignupModal = function() {
 
-        var modalInstance = $uibModal.open({
+        $uibModal.open({
             animation: true,
             templateUrl: 'partials/SignupTemplate.html',
             controller: 'authCtrl',
-            size: 'md',
-            resolve: {
-                items: function() {
-                    return ['item1', 'item2', 'item3'];;
-                }
-            }
-        });
-
-        modalInstance.result.then(function(selectedItem) {
-            $scope.selected = selectedItem;
-        }, function() {
-            //$log.info('Modal dismissed at: ' + new Date());
+            size: 'md'
         });
     };
 
     $scope.logout = function () {
         Extention.get('logout').then(function (results) {
-            Extention.toast(results);
+            Extention.popInfo("شما با موفقیت خارج شدید!");
             Extention.unAuthUser();
-            //$location.path('login');
         });
     }
 
