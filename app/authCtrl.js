@@ -17,8 +17,9 @@
                     Extention.toast({ status: "success", message: "ادمین گرامی به سایت خوش آمدید!" });
                     $state.go("admin_root.dashboard");
                 }
-                else {
+                else  {
                     Extention.toast({ status: "success", message: "کاربر گرامی به سایت خوش آمدید!" });
+                    $state.go("user_root.dashboard");
                 }
 
             } else {

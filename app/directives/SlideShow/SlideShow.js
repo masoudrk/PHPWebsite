@@ -40,6 +40,13 @@
                 slideHelper.resize();
             });
 
+            scope.getSlide = function (slide) {
+                scope.slides.forEach(function (image) {
+                    image.visible = false; // make every image invisible
+                });
+                slide.visible = true;
+            }
+
             var timer;
             var sliderFunc = function () {
                 timer = $timeout(function () {
@@ -61,7 +68,7 @@
             }
         },
         templateUrl: function () {
-            return 'app/directives/SlideShowTemplate.html';
+            return 'app/directives/SlideShow/SlideShowTemplate.html';
         }
     };
 })

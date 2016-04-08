@@ -14,7 +14,7 @@
         <div id="subPostManage" class="sub-list slideable sidebar-right" easing="linear" duration="0.15s">
             <ul style="padding-left: 0px;">
                 <li class="sub-list-li">
-                    <a class="yekan-font text-right sub-list-a" ui-sref="admin_root.new_post({ id: '{{s.ID}}'})">
+                    <a class="yekan-font text-right sub-list-a" ui-sref="admin_root.new_post">
                         <label class="sub-list-label">پست جدید</label>
                         <div class="fa fa-plus"></div>
                     </a>
@@ -51,6 +51,28 @@
             مدیریت کاربران
             <i class="fa fa-user"></i>
         </a>
+    </li>
+    <li id="PageManage" class="text-right" slide-toggle="#subPageManage">
+        <a class="my-border-yellow">
+            مدیریت صفحات
+            <i class="fa fa-file"></i>
+        </a>
+        <div id="subPageManage" class="sub-list slideable sidebar-right" easing="linear" duration="0.15s">
+            <ul style="padding-left: 0px;">
+                <li class="sub-list-li">
+                    <a class="yekan-font text-right sub-list-a" ui-sref="admin_root.new_page">
+                        <label class="sub-list-label">صفحه جدید</label>
+                        <div class="fa fa-plus"></div>
+                    </a>
+                </li>
+                <li class="sub-list-li">
+                    <a class="yekan-font text-right sub-list-a" ui-sref="admin_root.all_pages">
+                        <label class="sub-list-label">نمایش همه</label>
+                        <div class="fa fa-list"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </li>
     <li>
         <a class="my-border-wisteria text-right" ui-sref="admin_root.gallery">

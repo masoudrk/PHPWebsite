@@ -1,9 +1,5 @@
 <?php
 
-
-
-
-
 $app->post('/likePost', function() use ($app)  {
     $data = json_decode($app->request->getBody());
     $db = new DbHandler();
@@ -62,6 +58,7 @@ $app->post('/likePost', function() use ($app)  {
 	}
     echoResponse(200, "Success");
 });
+
 $app->post('/uploadFile', function() use ($app)  {
     $filename = $_FILES['file']['name'];
     $typeID = $_POST['fileTypeID'];  
@@ -120,7 +117,8 @@ $app->post('/getPostByID', function() use ($app)  {
     }
     echoResponse(201, "Error not found post!");
 });
-$app->post('/getAllPosts', function() use ($app)  {
+
+$app->post('/getAllPostsOLD', function() use ($app)  {
     $data = json_decode($app->request->getBody());
     $pageSize = 20;
     $pageIndex = 0;
@@ -140,8 +138,7 @@ $app->post('/getAllPosts', function() use ($app)  {
     if(!$hasCat)
         $resCount = $db->makeQuery("SELECT count(*) as Total FROM `post`");
     else
-        $resCount = $db->makeQuery("SELECT DISTINCT count(*) as Total FROM `post` JOIN post_subject on post_subject.PostID=post.ID 
-                                    WHERE post_subject.SubjectID=".$data->catID);
+        $resCount = $db->makeQuery("SELECT DISTINCT count(*) as Total FROM `post` JOIN post_subject on post_subject.PostID=post.ID WHERE post_subject.SubjectID=".$data->catID);
 
     while($res = $resCount->fetch_assoc()){
         $total = $res["Total"];
@@ -166,6 +163,8 @@ $app->post('/getAllPosts', function() use ($app)  {
 		}else{
 			$res["Liked"]=$db->existsRecord("post_like","PostID='".$res["ID"]."' AND Identity='".$ip."'");	
 		}
+		
+		$res["LikesCount"] = $db->getCount('post_like','PostID='.$res["ID"]);
 		
         $authorsQ = $db->makeQuery("SELECT gallery.FullPath, admin.ID as AdminID , concat(FirstName , ' ' ,LastName) as FullName FROM post_author 
                                         Left Join admin on admin.ID = post_author.AdminID
@@ -199,6 +198,57 @@ $app->post('/getAllPosts', function() use ($app)  {
     echoResponse(200, $data);
 });
 
+$app->post('/getAllPosts', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+    $db = new DbHandler();
+    $pr = new Pagingation($data);
+	
+    $hasCat = isset($data->catID);
+    $pageRes = null;
+    if(!$hasCat){
+		$pageRes = $pr->getPage($db,'SELECT post.* , gallery.FullPath as Image FROM post LEFT JOIN gallery on post.ImageID = gallery.ID ORDER BY post.ID DESC');
+	}
+    else{
+		$pageRes = $pr->getPage($db,'SELECT post.* , gallery.FullPath as Image FROM post LEFT JOIN post_subject on post_subject.PostID=post.ID LEFT JOIN gallery on post.ImageID = gallery.ID WHERE post_subject.SubjectID='.$data->catID.' ORDER BY post.ID DESC');
+	}
+	
+	$sess = $db->getSession();
+	$isUser=isset($sess["IsUser"]);
+	$ip = getIPAddress();
+	
+    foreach($pageRes['Items'] as &$res){
+    	if($isUser){
+			$res["Liked"]=$db->existsRecord("post_like","UserID='".$sess["UserID"]."' AND PostID='".$res["ID"]."'");	
+		}else{
+			$res["Liked"]=$db->existsRecord("post_like","PostID='".$res["ID"]."' AND Identity='".$ip."'");	
+		}
+		
+		$res["LikesCount"] = $db->getCount('post_like','PostID='.$res["ID"]);
+		
+        $authorsQ = $db->makeQuery("SELECT gallery.FullPath, admin.ID as AdminID , concat(FirstName , ' ' ,LastName) as FullName FROM post_author 
+                                        Left Join admin on admin.ID = post_author.AdminID
+                                        Left Join user on user.ID = admin.UserID
+                                        Left Join gallery on gallery.ID = user.AvatarID
+                                        where PostID=".$res["ID"]);
+        $authors = array();
+        while($resAuthor = $authorsQ->fetch_assoc()){
+            $authors[] = $resAuthor;
+        }
+        $res["Authors"] = $authors;
+        
+        $subjectsQ = $db->makeQuery("SELECT * FROM post_subject 
+                                        Left Join subject on subject.ID = post_subject.SubjectID
+                                        where PostID=".$res["ID"]);
+        $subjects = array();
+        while($resSubject = $subjectsQ->fetch_assoc()){
+            $subjects[] = $resSubject;
+        }
+        $res["Subjects"] = $subjects;
+
+    }
+
+    echoResponse(200, $pageRes);
+});
 
 $app->post('/getAllMedia', function() use ($app)  {
     $data = json_decode($app->request->getBody());
@@ -263,7 +313,6 @@ $app->post('/getAllMedia', function() use ($app)  {
     echoResponse(200, $dataRes);
 });
 
-
 $app->post('/getAllSubjects', function() use ($app)  {
     $data = json_decode($app->request->getBody());
     $db = new DbHandler();
@@ -303,7 +352,6 @@ $app->post('/getAllFileTypes', function() use ($app)  {
     }
     echoResponse(200, $result);
 });
-
 
 $app->post('/getSubjectByID', function() use ($app)  {
     $db = new DbHandler();

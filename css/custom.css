@@ -664,6 +664,9 @@ padding-bottom: 10px;*/
     .my-pumpkin {
         color :  #d35400;
     }
+    .my-white {
+        color :  #fff;
+    }
 
     .persian-rtl {
         direction: rtl; 

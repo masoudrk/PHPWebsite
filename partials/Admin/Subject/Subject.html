@@ -26,8 +26,8 @@
                             <td class="my-link" ng-click="showSubject(s)">{{s.childs.length}}</td>
                             <td>
                                 <div>
-                                    <a class="fa fa-plus fa-group-mid green my-link" ng-click="showAddChildPanel(s)"></a>
-                                    <span class="fa fa-trash-o fa-group-mid red" ng-click="deleteSubject(s.ID)" confirm="آیا مطمئن هستید که می خواهید پست {{p.ID}} را حذف کنید؟"></span>
+                                    <a class="fa fa-plus fa-group-mid my-green my-link" ng-click="showAddChildPanel(s)"></a>
+                                    <span class="fa fa-trash-o fa-group-mid my-red" ng-click="deleteSubject(s.ID)" confirm="آیا مطمئن هستید که می خواهید پست {{p.ID}} را حذف کنید؟"></span>
                                 </div>
                             </td>
                         </tr>
@@ -83,7 +83,7 @@
                             <td>{{sc.Title}}</td>
                             <td>
                                 <div>
-                                    <span class="fa fa-trash-o fa-group-mid red" ng-click="deleteSubject(sc.ID)" confirm="آیا مطمئن هستید که می خواهید زیر شاخه {{p.ID}} را حذف کنید؟"></span>
+                                    <span class="fa fa-trash-o fa-group-mid my-red" ng-click="deleteSubject(sc.ID)" confirm="آیا مطمئن هستید که می خواهید زیر شاخه {{p.ID}} را حذف کنید؟"></span>
                                 </div>
                             </td>
                         </tr>

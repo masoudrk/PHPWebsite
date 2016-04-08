@@ -53,12 +53,15 @@
 </style>
 <div class="slider">
     <div class="slide" ng-repeat="s in slides" ng-show="s.visible">
-        <img class="" ng-src="{{s.FullPath}}"  />
+        <img class="" ng-src="{{s.FullPath}}"/>
     </div>
     <div>
         <span id="slide-arrow-left" class="arrows fa fa-chevron-circle-left fa-4x " ng-click="prev()" style="left: 20px">
         </span>
         <span id="slide-arrow-right" class="arrows fa fa-chevron-circle-right fa-4x " ng-click="next()" style="right: 20px;">
         </span>
+        <div class="col-xs-12 text-center"  style="bottom: 15px;position: absolute;">
+            <i ng-repeat="s in slides" ng-click="getSlide(s);" class="fa my-white my-link" ng-class="(s.visible)?'fa-circle':'fa-circle-o'" style="padding-right: 8px;font-size: 20px"></i>
+        </div>
     </div>
 </div>

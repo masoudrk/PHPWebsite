@@ -10,6 +10,7 @@ class DbHandler {
         // opening db connection
         $db = new dbConnect();
         $this->conn = $db->connect();
+        //$this->conn->query('SET CHARACTER SET utf8') or die($this->conn->error.__LINE__);
     }
     /**
      * Fetching single record
@@ -94,6 +95,13 @@ class DbHandler {
         }
         return FALSE;
     }
+    public function getCount($table_name , $where) {
+        
+        $query = "SELECT count(*) as Total FROM `".$table_name."` WHERE ".$where;
+        $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+		$res = $r->fetch_assoc();
+        return $res["Total"];
+    }
     public function insertToTable($table_name , $col_names,$values ) {
         
         $query = "INSERT INTO `".$table_name."` (".$col_names.") VALUES(".$values.")";
@@ -116,51 +124,73 @@ class DbHandler {
         return NULL;
     }
 
-public function getSession(){
-    if (!isset($_SESSION)) {
-        session_start();
-    }
-    $sess = array();
-    if(isset($_SESSION['UserID']))
-    {
-        if(isset($_SESSION['AdminID']))
-            $sess["AdminID"] = $_SESSION['AdminID'];
-
-        $sess["UserID"] = $_SESSION['UserID'];
-        $sess["LastName"] = $_SESSION['LastName'];
-        $sess["FirstName"] = $_SESSION['FirstName'];
-    }
-    else
-    {
-       // $sess["UserID"] = '';
-        $sess["LastName"] = 'Guest';
-        $sess["FirstName"] = '';
-    }
-    return $sess;
-}
-public function destroySession(){
-    if (!isset($_SESSION)) {
-    session_start();
-    }
-    if(isSet($_SESSION['UserID']))
-    {
-        unset($_SESSION['AdminID']);
-        unset($_SESSION['UserID']);
-        unset($_SESSION['LastName']);
-        unset($_SESSION['FirstName']);
-        $info='info';
-        if(isSet($_COOKIE[$info]))
-        {
-            setcookie ($info, '', time() - $cookie_time);
+	public function getPage($table_name,$pageSize,$pageIndex,$selects,$where,$query){
+		$total = $this->getCount($table_name,$where);
+    	$offset = ($pageIndex-1) * $pageSize;
+		
+		$q = $this->makeQuery("SELECT ".$selects." FROM `".$table_name."` ".$query.
+		" LIMIT $offset, $pageSize");
+		
+		$items = [];
+		while($r = $q->fetch_assoc()){
+            $items[] = $r;
         }
-        $msg="Logged Out Successfully...";
-    }
-    else
-    {
-        $msg = "Not logged in...";
-    }
-    return $msg;
-}
+        
+		$res = [];
+		$res['Items'] = $items;
+		$res['PageSize'] = $pageSize;
+		$res['PageIndex'] = $pageIndex;
+		$res['Total'] = $total;
+		return $res;
+	}
+	
+	
+	public function getSession(){
+	    if (!isset($_SESSION)) {
+	        session_start();
+	    }
+	    $sess = array();
+	    if(isset($_SESSION['UserID']))
+	    {
+	        if(isset($_SESSION['AdminID']))
+	            $sess["AdminID"] = $_SESSION['AdminID'];
+
+	        $sess["UserID"] = $_SESSION['UserID'];
+	        $sess["LastName"] = $_SESSION['LastName'];
+	        $sess["FirstName"] = $_SESSION['FirstName'];
+	    }
+	    else
+	    {
+	       // $sess["UserID"] = '';
+	        $sess["LastName"] = 'Guest';
+	        $sess["FirstName"] = '';
+	    }
+	    return $sess;
+	}
+	
+	public function destroySession(){
+	    if (!isset($_SESSION)) {
+	    session_start();
+	    }
+	    if(isSet($_SESSION['UserID']))
+	    {
+	        unset($_SESSION['AdminID']);
+	        unset($_SESSION['UserID']);
+	        unset($_SESSION['LastName']);
+	        unset($_SESSION['FirstName']);
+	        $info='info';
+	        if(isSet($_COOKIE[$info]))
+	        {
+	            setcookie ($info, '', time() - $cookie_time);
+	        }
+	        $msg="Logged Out Successfully...";
+	    }
+	    else
+	    {
+	        $msg = "Not logged in...";
+	    }
+	    return $msg;
+	}
  
 }
 

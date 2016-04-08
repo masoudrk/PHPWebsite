@@ -19,19 +19,21 @@
     <link href="css/hover-min.css" rel="stylesheet">
 
     <link href="css/ADM-dateTimePicker.css " rel="stylesheet">
-    <link rel='stylesheet' href='css/textAngular.css'>
+    <link href='css/textAngular.css' rel='stylesheet'>
 
     <link href="css/font-awesome.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/toaster.css" rel="stylesheet">
     <link href="css/menubar-styles.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/ngProgress.css">
+    <link href="css/ngProgress.css" rel="stylesheet">
 
+    <link href="css/angular-tooltips.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body ng-app="myApp">
-    <div ui-view=""></div>
+    <div ui-view></div>
 </body>
+
 <toaster-container toaster-options="{'time-out': 10000}"></toaster-container>
 
 <!-- jqurey libs -->
@@ -47,24 +49,20 @@
 <script src="js/toaster.js"></script>
 <script src="js/ngprogress.js"></script>
 <script src="js/ui-bootstrap-tpls-1.2.5.js"></script>
-<!--
-<link rel='stylesheet' href='css/loading-bar.css' type='text/css' media='all' />
-<script type='text/javascript' src='js/loading-bar.js'></script>
--->
-<script src="Scripts/lazyLoad/ocLazyLoad.js" type="text/javascript" ></script>
 
+
+<script src="Scripts/lazyLoad/ocLazyLoad.js" type="text/javascript" ></script>
 <script src="js/ng-file-upload-shim.min.js"></script>
 <script src="js/ng-file-upload.min.js"></script>
-
+<script src="js/angular-tooltips.min.js"></script>
 <script src="js/select.min.js"></script>
 
 <script src="app/app.js"></script>
-
-<script src="app/data.js"></script>
-
-<script src="app/directives.js"></script>
-<script src="app/directives/SlideShow.js"></script>
+<script src="app/Extention.js"></script>
 <script src="app/authCtrl.js"></script>
+
+<script src="app/directives/directives.js"></script>
+<script src="app/directives/SlideShow/SlideShow.js"></script>
 
 <script src='js/editor/textAngular-rangy.min.js'></script>
 <script src='js/editor/textAngular-sanitize.min.js'></script>
@@ -75,6 +73,6 @@
 <script type="text/javascript" src="js/moment-jalaali.js"></script>
 <script type="text/javascript" src="js/angular-confirm.min.js"></script>
 <script type="text/javascript" src="js/ADM-dateTimePicker.js"></script>
-<script type="text/javascript" src="js/AutoPagination.js"></script>
+<script type="text/javascript" src="app/directives/auto-pagination.js"></script>
 </html>
 

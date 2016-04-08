@@ -1,0 +1,70 @@
+﻿
+<div class="page-content yekan-font">
+    <div class="center-content-container">
+        <div class="header content-header-yellow">
+            <div class="row">
+                <div class="col-md-12 text-right content-header-mid">
+                    <span ng-bind="(editMode)?'ویرایش صفحه':'صفحه جدید'"></span>
+                    <i class="fa fa-plus"></i>
+                </div>
+            </div>
+        </div>
+        <div class="white-panel">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form name="loginForm" class="form-horizontal" role="form">
+                        <div class="form-group text-right">
+                            <div class="col-xs-10 ">
+                                <span class="block input-icon input-icon-right">
+                                    <input dir="rtl" type="text" class="form-control yekan-font text-right" placeholder="نام صفحه انگلیسی ..." name="title" ng-model="page.NameEN" />
+                                </span>
+                            </div>
+                            <label class="col-xs-2 control-label no-padding-right yekan-font">نام صفحه انگلیسی</label>
+                        </div>
+                        <div class="form-group text-right">
+                            <div class="col-xs-10 ">
+                                <span class="block input-icon input-icon-right">
+                                    <input dir="rtl" type="text" class="form-control yekan-font text-right" placeholder="نام صفحه فارسی ..." name="title" ng-model="page.Name" />
+                                </span>
+                            </div>
+                            <label class="col-xs-2 control-label no-padding-right yekan-font" for="email">نام صفحه فارسی</label>
+                        </div>
+                        <div class="form-group">
+                            <multi-select-drop-down dir="rtl"
+                                                    class="col-xs-5 col-xs-offset-5"
+                                                    items="allPageTypes"
+                                                    selected-list="selectedType"
+                                                    ng-button-text="'انتخاب نشده'"
+                                                    multi-select-mode="false"
+                                                    radio-button-behaviour="true"
+                                                    max-button-titles-show="3"
+                                                    check-feild-name="'typeCheck'"
+                                                    title-feild-name="'TypeName'"
+                                                    close-on-select="true"
+                                                    watch-on-items="true">
+                            </multi-select-drop-down>
+                            <label class="col-xs-2 control-label no-padding-right yekan-font">نوع صفحه</label>
+                        </div>
+                        <div class="form-group ">
+                            <span class="col-xs-12 control-label no-padding-right yekan-font">: محتوا صفحه</span>
+                        </div>
+                        <div text-angular class="col-xs-12 form-group no-padding" ng-model="page.HtmlContent" style="direction: rtl; margin: 0"></div>
+
+                        <div class="form-group ">
+                            <span class="col-xs-12 control-label no-padding-right yekan-font" >: محتوا صفحه انگلیسی</span>
+                        </div>
+                        <div text-angular class="col-xs-12 form-group no-padding" ng-model="page.HtmlContentEN" style="direction: rtl; margin: 0"></div>
+
+                        <div class="">
+                            <button class="btn btn-success yekan-font" style="margin-top: 15px" ng-click="savePage()">
+                                ثبت صفحه
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

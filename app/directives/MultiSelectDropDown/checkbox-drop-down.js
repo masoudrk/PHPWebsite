@@ -124,7 +124,7 @@
             $scope.getButtonText();
         }],
         templateUrl: function (elem, attrs) {
-            return "app/MultiSelectDropDown/MultiSelectTemplate.html";
+            return "app/directives/MultiSelectDropDown/MultiSelectTemplate.html";
         }
 
     }

@@ -60,6 +60,40 @@ $app->post('/savePost', function() use ($app) {
     echoResponse(200, $result);
 });
 
+$app->post('/savePage', function() use ($app) {
+    $response = array();
+    $rObj = json_decode($app->request->getBody());
+    $db = new DbHandler();
+    
+    $updateMode = isset($rObj->PageID);
+
+    $result = null;
+	$httpRes = [];
+	$sess = $db->getSession();
+
+    if(!$updateMode){
+         $result = $db->insertToTable('page','Name,NameEN,HtmlContent,HtmlContentEN,PageTypeID,AdminID'
+         ,"'".$rObj->Name."','".$rObj->NameEN."','".$rObj->HtmlContent."','".$rObj->HtmlContentEN."','".$rObj->PageTypeID."','".$sess['AdminID']."'");
+         if($result)
+         {
+			$httpRes['Status'] = "success";
+    		echoResponse(200, $httpRes);
+    		return;
+		 }
+    }else{
+                                    
+        $result = $db->updateRecord("page","`Name`='".$rObj->Name."' , `NameEN`='".$rObj->NameEN."' , `HtmlContent`='".$rObj->HtmlContent."' , `HtmlContentEN`='".$rObj->HtmlContentEN."' ,`PageTypeID`='".$rObj->PageTypeID."',`AdminID`='".$sess['AdminID']."'" , "page.ID=".$rObj->PageID );
+         if($result)
+         {
+			$httpRes['Status'] = "success";
+    		echoResponse(200, $httpRes);
+    		return;
+		 }
+    }
+    
+    $httpRes['Status'] = 'error';
+    echoResponse(201, $httpRes);
+});
 
 $app->post('/getUserProfile', function() use ($app) {
     $db = new DbHandler();
@@ -94,12 +128,25 @@ $app->post('/saveSlide', function() use ($app) {
 	}
 });
 
-
 $app->post('/deletePost', function() use ($app) {
     $response = array();
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
     $result = $db->deleteFromTable('post','ID='.$rObj);
+});
+
+$app->post('/deletePage', function() use ($app) {
+    $response = array();
+    $rObj = json_decode($app->request->getBody());
+    $db = new DbHandler();
+    $result = $db->deleteFromTable('page','ID='.$rObj);
+   	if($result){
+		$httpRes = [];
+		$httpRes['Status'] = "success";
+		echoResponse(200, $httpRes);
+		return;
+	}
+	echoResponse(201, $result);
 });
 
 $app->post('/deleteSlide', function() use ($app) {
@@ -147,9 +194,20 @@ $app->post('/getAllAuthors', function() use ($app)  {
     }
     echoResponse(200, $authors);
 });
+
 $app->post('/getAllPrivileges', function() use ($app)  {
     $db = new DbHandler();
     $resQ = $db->makeQuery("SELECT ID as PrivilegeID , Privilege ,Description FROM admin_privilege");
+    $result = array();
+    while($res = $resQ->fetch_assoc()){
+        $result[] = $res;
+    }
+    echoResponse(200, $result);
+});
+
+$app->post('/getAllPageTypes', function() use ($app)  {
+    $db = new DbHandler();
+    $resQ = $db->makeQuery("SELECT * FROM page_type");
     $result = array();
     while($res = $resQ->fetch_assoc()){
         $result[] = $res;
@@ -270,6 +328,27 @@ $app->post('/getAllUsers', function() use ($app)  {
     ];
 
     echoResponse(200, $data);
+});
+
+$app->post('/getAllPages', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+    $pr = new PagingParams($data);
+    
+    $db = new DbHandler();
+    $pageRes = $db->getPage('page',$pr->PageSize,$pr->PageIndex,
+		'page.* , TypeNameEN, TypeName , user.LastName ,user.FirstName','1=1','LEFT JOIN page_type on page_type.ID = page.PageTypeID LEFT JOIN admin on admin.ID=page.AdminID LEFT JOIN user on user.ID = admin.UserID ORDER BY ID DESC');
+	$sess = $db->getSession();
+
+    echoResponse(200, $pageRes);
+});
+
+$app->post('/getPageByID', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+    
+    $db = new DbHandler();
+    $page = $db->getOneRecord("SELECT page.* , TypeNameEN, TypeName , user.LastName ,user.FirstName FROM page LEFT JOIN page_type on page_type.ID = page.PageTypeID LEFT JOIN admin on admin.ID=page.AdminID LEFT JOIN user on user.ID = admin.UserID WHERE page.ID='".$data->PageID."'");
+
+    echoResponse(200, $page);
 });
 
 $app->post('/saveAdminPrivilege', function() use ($app)  {
@@ -423,8 +502,6 @@ $app->post('/saveSubject', function() use ($app)  {
 	}
 });
 
-
-
 $app->post('/updateSubject', function() use ($app)  {
     $data = json_decode($app->request->getBody(),true);
     $db = new DbHandler();
@@ -440,7 +517,6 @@ $app->post('/updateSubject', function() use ($app)  {
     	echoResponse(201, $response);
 	}
 });
-
 
 $app->post('/deleteSubject', function() use ($app)  {
     $data = json_decode($app->request->getBody(),true);

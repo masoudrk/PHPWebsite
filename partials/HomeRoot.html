@@ -53,8 +53,14 @@
                                 <div class="fa fa-sign-out" style="margin-left: 8px; line-height: 0"></div>
                             </a>
                         </li>
-                        <li ng-if="authenticated" style="float: left">
+                        <li ng-if="authenticated && isAdmin" style="float: left">
                             <a ui-sref="admin_root.dashboard">
+                                پنل کاربری
+                                <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
+                            </a>
+                        </li>
+                        <li ng-if="authenticated && !isAdmin" style="float: left">
+                            <a ui-sref="user_root.dashboard">
                                 پنل کاربری
                                 <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
                             </a>

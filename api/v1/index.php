@@ -11,6 +11,7 @@ $app = new \Slim\Slim();
 // User id from db - Global Variable
 $user_id = NULL;
 
+require_once 'classes.php';
 require_once 'authentication.php';
 require_once 'default_service.php';
 require_once 'admin_service.php';
@@ -76,6 +77,15 @@ function getIPAddress(){
 	} else {
 	    return $_SERVER['REMOTE_ADDR'];
 	}
+}
+
+function adminRequire(){
+	$db = DbHandler();
+    $sess = $db->getSession();
+    if(isset($sess["AdminID"])){
+		return TRUE;
+	}
+	return FALSE;
 }
 
 $app->run();

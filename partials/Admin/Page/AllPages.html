@@ -1,0 +1,58 @@
+﻿
+
+<div class="center-content-container yekan-font">
+    <div class="header content-header-yellow">
+        <div class="row">
+            <div class="col-md-12 text-right content-header-mid">
+                <span>صفحات سایت</span>
+                <i class="fa fa-flag"></i>
+            </div>
+        </div>
+    </div>
+    <div class="white-panel">
+        <div class="col-sm-12 no-padding">
+            <table dir="rtl" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-right">نام صفحه</th>
+                        <th class="text-right" style="width: 200px">ادمین ایجاد کننده</th>
+                        <th class="text-right" style="width: 150px">نوع صفحه</th>
+                        <th class="text-right" style="width: 65px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="p in pages">
+                    <td>{{p.Name}}</td>
+                    <td>{{p.FirstName}}&nbsp;{{p.LastName}}</td>
+                    <td>{{p.TypeName}}</td>
+                    <td>
+                        <div>
+                            <a class="fa fa-pencil fa-group-mid my-green-sea" ui-sref="admin_root.new_page({id:'{{p.ID}}'})"></a>
+                            <span class="fa fa-trash-o fa-group-mid my-red" ng-click="deletePage(p)" confirm='آیا مطمئن هستید که میخواهید این صفحه را حذف کنید؟' ></span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="span8 text-center">
+
+                <auto-paging page="1"
+                             page-size="20"
+                             action-name="getAllPages"
+                             data-params="pagingParams"
+                             ng-control="pagingController"
+                             items="pages">
+                </auto-paging>
+            </div>
+        </div>
+    </div>
+    <!--<script>
+        debugger
+        jQuery(document).ready(function ($) {
+            debugger
+            $("#PostManage").addClass('selected');
+        });
+    </script>-->
+</div>

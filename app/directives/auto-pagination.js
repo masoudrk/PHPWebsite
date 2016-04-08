@@ -76,7 +76,7 @@ angular.module('myApp').directive('autoPaging', function () {
             textTitleNext: '@',
             textTitlePrev: '@',
         },
-        controller: ['$scope', '$http', 'Extention', function ($scope, $http, Extention) {
+        controller: ['$scope','Extention', function ($scope, Extention) {
             $scope.items = [];
 
             $scope.getItems = function () {
@@ -92,17 +92,17 @@ angular.module('myApp').directive('autoPaging', function () {
                 Extention.setBusy(true);
                 Extention.scrollTo(0);
 
-                return $http.post(Extention.serviceBase + $scope.actionName, data)
+                Extention.post($scope.actionName, data)
                 .then(function (results) {
-                    $scope.items = results.data.Items;
-                    $scope.total = results.data.Total;
+                    $scope.items = results.Items;
+                    $scope.total = results.Total;
                     Extention.setBusy(false);
                 });
             }
 
-            $scope.$watch('[params]', function () {
-                $scope.getItems();
-            }, true);
+            //$scope.$watch('[params]', function () {
+            //    $scope.getItems();
+            //}, true);
         }]
 
     };

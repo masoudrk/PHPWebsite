@@ -1,8 +1,15 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'textAngular', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'textAngular', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips']);
 //, 'angular-imagefit'
 app.config([
-    '$stateProvider', '$urlRouterProvider','$ocLazyLoadProvider','ADMdtpProvider',
-    function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, ADMdtp) {
+    '$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'tooltipsConfProvider', 'ADMdtpProvider',
+    function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, tooltipsConfProvider, ADMdtp) {
+
+        tooltipsConfProvider.configure({
+            'smart': true,
+            'size': 'small',
+            'speed': 'fast'
+        });
+
         ADMdtp.setOptions({
             calType: 'jalali',
             format: 'YYYY/MM/DD hh:mm',
@@ -41,7 +48,9 @@ app.config([
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/Main/MainCtrl.js']);
+                            'partials/Main/MainCtrl.js',
+                            'app/directives/Post/post.js'
+                        ]);
                     }]
                 }
             })
@@ -94,7 +103,7 @@ app.config([
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                        return $ocLazyLoad.load(['partials/Post/PostCtrl.js', 'partials/Post/PostService.js']);
+                        return $ocLazyLoad.load(['partials/Post/PostCtrl.js']);
                     }]
                 }
             })
@@ -111,7 +120,55 @@ app.config([
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                        return $ocLazyLoad.load(['partials/Category/CategoryCtrl.js', 'partials/Category/CategoryService.js']);
+                        return $ocLazyLoad.load([
+                            'partials/Category/CategoryCtrl.js',
+                            'app/directives/Post/post.js',
+                            'partials/Category/CategoryService.js']);
+                    }]
+                }
+            })
+            .state("user_root", {
+                url: "/user",
+                templateUrl: "partials/User/UserRoot.html",
+                controller: 'UserCtrl',
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load(['partials/User/UserCtrl.js']);
+                    }]
+                }
+            })
+            .state("user_root.dashboard", {
+                url: "/dashboard",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/User/UserDashboard.html",
+                        controller: 'UserCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/User/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/User/UserCtrl.js']);
+                    }]
+                }
+            })
+            .state("user_root.profile", {
+                url: "/profile",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/User/Profile/Profile.html",
+                        controller: 'ProfileCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/User/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load(['partials/User/Profile/ProfileCtrl.js']);
                     }]
                 }
             })
@@ -162,7 +219,64 @@ app.config([
                         return $ocLazyLoad.load([
                             'partials/Admin/Post/NewPostCtrl.js',
                             'partials/Modals/Gallery/GalleryModalCtrl.js',
-                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
+                }
+            })
+            .state("admin_root.all_posts", {
+                url: "/all_posts",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/Page/AllPosts.html",
+                        controller: 'AllPostsCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Post/AllPostsCtrl.js']);
+                    }]
+                }
+            })
+            .state("admin_root.new_page", {
+                url: "/new_page/:id",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/Page/NewPage.html",
+                        controller: 'NewPageCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Page/NewPageCtrl.js',
+                            'partials/Modals/Gallery/GalleryModalCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
+                }
+            })
+            .state("admin_root.all_pages", {
+                url: "/all_pages",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/Page/AllPages.html",
+                        controller: 'AllPagesCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Page/AllPagesCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }
             })
@@ -183,7 +297,7 @@ app.config([
                             'partials/Admin/Gallery/GalleryCtrl.js',
                             //'js/ng-file-upload.min.js',
                             //'js/ng-file-upload-shim.min.js',
-                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }
             })
@@ -202,7 +316,7 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Subject/SubjectCtrl.js',
-                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }
             })
@@ -221,7 +335,7 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Users/UsersCtrl.js',
-                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }
             })
@@ -240,7 +354,7 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Setting/SettingCtrl.js',
-                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }
             })
@@ -259,7 +373,7 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Slider/SliderCtrl.js',
-                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }
             })
@@ -279,25 +393,7 @@ app.config([
                         return $ocLazyLoad.load([
                             'partials/Admin/Profile/ProfileCtrl.js',
                             'partials/Modals/Gallery/GalleryModalCtrl.js',
-                            'app/MultiSelectDropDown/CheckboxDropDown.js']);
-                    }]
-                }
-            })
-            .state("admin_root.all_posts", {
-                url: "/all_posts",
-                views: {
-                    "viewContent": {
-                        templateUrl: "partials/Admin/Post/AllPosts.html",
-                        controller: 'AllPostsCtrl'
-                    },
-                    "viewSidebar": {
-                        templateUrl: "partials/Admin/Sidebar.html"
-                    }
-                },
-                resolve: {
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                        return $ocLazyLoad.load([
-                            'partials/Admin/Post/AllPostsCtrl.js']);
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }
             });
@@ -337,6 +433,12 @@ app.config([
             
             if (next.name.indexOf("admin_root") > -1) {
                 if (!results.AdminID)
+                    $state.go("home.home");
+                else 
+                    $rootScope.isAdmin = true;
+
+            }else if (next.name.indexOf("user_root") > -1) {
+                if (!results.UserID)
                     $state.go("home.home");
             }
         });
