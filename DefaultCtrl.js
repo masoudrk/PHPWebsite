@@ -4,7 +4,10 @@
 
     Extention.post('getAllSlides').then(function(res) {
         $scope.slides = res.Items;
-        // $scope.sliderController.update();
+    });
+
+    Extention.post('getHomePageData').then(function (res) {
+        $scope.homePageData = res;
     });
 
     $scope.user = undefined;
@@ -47,6 +50,5 @@
             Extention.unAuthUser();
         });
     }
-
 
 });

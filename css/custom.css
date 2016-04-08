@@ -1,6 +1,8 @@
 a {
     text-decoration: none !important;
 }
+.top-buffer { margin-top:20px; }
+.bottom-buffer { margin-bottom:20px; }
 @font-face {
   font-family: 'Yekan';
   src: url('../fonts/BYekan.eot'); /* IE9 Compat Modes */
@@ -347,12 +349,16 @@ padding-bottom: 10px;*/
 }
 
 .site-footer {
-    height: 300px;
+   // height: 300px;
     background-color: rgb(20,20,20);
 }
 
 .link {
     cursor: pointer;
+}
+
+.border-radius-500 {
+    border-radius:500px
 }
 
 /************************************************************/

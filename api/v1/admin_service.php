@@ -332,7 +332,7 @@ $app->post('/getAllUsers', function() use ($app)  {
 
 $app->post('/getAllPages', function() use ($app)  {
     $data = json_decode($app->request->getBody());
-    $pr = new PagingParams($data);
+    $pr = new Pagination($data);
     
     $db = new DbHandler();
     $pageRes = $db->getPage('page',$pr->PageSize,$pr->PageIndex,
@@ -500,6 +500,20 @@ $app->post('/saveSubject', function() use ($app)  {
 		$response["Status"] = "error";
     	echoResponse(201, $response);
 	}
+});
+
+$app->post('/saveSiteSettings', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+    $db = new DbHandler();
+    $res = $db->insertToTable('global_settings',"AboutPageID,FooterPageID","'".$data->AboutPageID."','".$data->FooterPageID."'");
+    
+    if(!$res){
+    	echoError('Error on inserting!');
+    	return;
+	}
+	$response = array();
+	$response["Status"] = "success";
+	echoResponse(200, $response);
 });
 
 $app->post('/updateSubject', function() use ($app)  {

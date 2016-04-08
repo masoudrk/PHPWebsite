@@ -227,7 +227,7 @@ app.config([
                 url: "/all_posts",
                 views: {
                     "viewContent": {
-                        templateUrl: "partials/Admin/Page/AllPosts.html",
+                        templateUrl: "partials/Admin/Post/AllPosts.html",
                         controller: 'AllPostsCtrl'
                     },
                     "viewSidebar": {
@@ -344,7 +344,7 @@ app.config([
                 views: {
                     "viewContent": {
                         templateUrl: "partials/Admin/Setting/Setting.html",
-                        controller: 'UsersCtrl'
+                        controller: 'SettingCtrl'
                     },
                     "viewSidebar": {
                         templateUrl: "partials/Admin/Sidebar.html"
@@ -522,10 +522,10 @@ app.directive('slideable', function () {
     }
 });
 
-
 function getFile() {
     document.getElementById("upfile").click();
 }
+
 function sub(obj) {
     var file = obj.value;
     var fileName = file.split("\\");

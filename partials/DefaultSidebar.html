@@ -16,7 +16,7 @@
                 <li class="sub-list-li" ng-repeat="s in subjects">
                     <a class="yekan-font text-right sub-list-a" ui-sref="home.cat({ id: '{{s.ID}}'})">
                         <label class="sub-list-label">{{s.Title}}</label>
-                        <div class="fa fa-angle-double-left" ></div>
+                        <div class="fa fa-angle-double-left"></div>
                     </a>
                     <ul style="padding-left: 0px;">
                         <li class="sub-list-li" ng-repeat="c in s.childs">
@@ -67,3 +67,9 @@
         </a>
     </li>
 </ul>
+
+<!--<ul class="colorful-list yekan-font" ng-reapeat="m in modules">
+    <div style="height: 100px" ng-bind-html="safsaf">
+        
+    </div>
+</ul>-->

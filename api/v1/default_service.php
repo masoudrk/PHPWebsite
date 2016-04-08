@@ -201,7 +201,7 @@ $app->post('/getAllPostsOLD', function() use ($app)  {
 $app->post('/getAllPosts', function() use ($app)  {
     $data = json_decode($app->request->getBody());
     $db = new DbHandler();
-    $pr = new Pagingation($data);
+    $pr = new Pagination($data);
 	
     $hasCat = isset($data->catID);
     $pageRes = null;
@@ -363,6 +363,33 @@ $app->post('/getSubjectByID', function() use ($app)  {
         return ;
     }
     echoResponse(201, "No result found");
+});
+
+$app->post('/getSiteSettings', function() use ($app)  {
+    $db = new DbHandler();
+    //$data = json_decode($app->request->getBody());
+    $r = $db -> makeQuery("SELECT * FROM `global_settings` ORDER BY ID DESC LIMIT 1");
+    $res = $r->fetch_assoc();
+    echoResponse(200, $res);
+});
+
+$app->post('/getAboutPage', function() use ($app)  {
+    $db = new DbHandler();
+    //$data = json_decode($app->request->getBody());
+    $r = $db -> makeQuery("SELECT * FROM `global_settings` LEFT JOIN page on page.ID=AboutPageID ORDER BY global_settings.ID DESC LIMIT 1");
+    $res = $r->fetch_assoc();
+    echoResponse(200, $res);
+});
+
+$app->post('/getHomePageData', function() use ($app)  {
+    $db = new DbHandler();
+    //$data = json_decode($app->request->getBody());
+    $r = $db -> makeQuery("SELECT * FROM `global_settings` LEFT JOIN page on page.ID=FooterPageID ORDER BY global_settings.ID DESC LIMIT 1");
+    $res = [];
+    $res['Footer'] = $r->fetch_assoc();
+    $res['PostCount'] = 12;
+    
+    echoResponse(200, $res);
 });
 
 

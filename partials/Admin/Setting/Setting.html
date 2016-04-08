@@ -4,55 +4,55 @@
     <div class="header content-header-yellow">
         <div class="row">
             <div class="col-md-12 text-right content-header-mid">
-                <span>دسته بندی موضوعات سایت</span>
+                <span>تنظیمات سایت</span>
                 <i class="fa fa-flag"></i>
             </div>
         </div>
     </div>
     <div class="white-panel">
-        <div class="col-sm-12 no-padding">
-            <table dir="rtl" class="table table-striped">
-                <thead>
-                <tr>
-                    <th class="text-right">سر تیتر</th>
-                    <th class="text-right" style="width: 200px">مختصر</th>
-                    <th class="text-right" style="width: 150px">تاریخ انتشار</th>
-                    <th class="text-right" style="width: 58px"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="p in posts">
-                    <td>{{p.Title}}</td>
-                    <td ng-bind-html="p.BriefContent"></td>
-                    <td>{{p.WriteDate | jalaliDate:'jYYYY/jMM/jDD hh:mm' }}</td>
-                    <td>
-                        <div>
-                            <span class="fa fa-trash-o fa-group-mid red" ng-click="deletePost(p)"  confirm="آیا مطمئن هستید که می خواهید پست {{p.ID}} را حذف کنید؟"></span>
-                            <a class="fa fa-pencil fa-group-mid green" ui-sref="admin_root.new_post({id : '{{p.ID}}'})"></a>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
         <div class="row">
-            <div class="span8 text-center">
-
-                <auto-paging page="1"
-                             page-size="20"
-                             action-name="getAllPosts"
-                             data-params="pagingParams"
-                             ng-control="pagingController"
-                             items="posts">
-                </auto-paging>
+            <div class="col-xs-12">
+                <div class="white-panel-header">
+                    تنظیمات صفحات سایت
+                </div>
+                <div class="form-group">
+                    <multi-select-drop-down dir="rtl"
+                                            class="col-xs-7 col-xs-offset-2"
+                                            items="allPages"
+                                            selected-list="selectedAboutPage"
+                                            ng-button-text="'انتخاب نشده'"
+                                            multi-select-mode="false"
+                                            radio-button-behaviour="true"
+                                            max-button-titles-show="3"
+                                            check-feild-name="'aboutCheck'"
+                                            title-feild-name="'NameEN'"
+                                            close-on-select="true"
+                                            watch-on-items="true">
+                    </multi-select-drop-down>
+                    <label class="col-xs-3 control-label no-padding-right yekan-font text-right" style="margin-top: 5px">صفحه درباره ما</label>
+                </div>
+                <div class="form-group">
+                    <multi-select-drop-down dir="rtl"
+                                            class="col-xs-7 col-xs-offset-2"
+                                            items="allPages"
+                                            selected-list="selectedFooterPage"
+                                            ng-button-text="'انتخاب نشده'"
+                                            multi-select-mode="false"
+                                            radio-button-behaviour="true"
+                                            max-button-titles-show="3"
+                                            check-feild-name="'footerCheck'"
+                                            title-feild-name="'NameEN'"
+                                            close-on-select="true"
+                                            watch-on-items="true">
+                    </multi-select-drop-down>
+                    <label class="col-xs-3 control-label no-padding-right yekan-font text-right" style="margin-top: 5px">فوتر سایت</label>
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-success yekan-font" ng-click="saveSettings()">
+                        ثبت تغییرات
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-    <!--<script>
-        debugger
-        jQuery(document).ready(function ($) {
-            debugger
-            $("#PostManage").addClass('selected');
-        });
-    </script>-->
 </div>

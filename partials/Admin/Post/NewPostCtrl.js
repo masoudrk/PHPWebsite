@@ -2,9 +2,10 @@
 
     $scope.subjectButtonText = "انتخاب نشده";
 
+    $scope.post = {};
+
     $scope.subjects = [];
     $scope.authors = [];
-
     $scope.postID = $stateParams.id;
     $scope.editMode = $scope.postID !== "";
     $scope.asyncTasks = 2;
@@ -26,7 +27,7 @@
         }
         if ($scope.editMode) {
             Extention.post("getPostByID", { PostID: $scope.postID }).then(function (res) {
-                $scope.post = {};
+                
                 $scope.post.obj = res;
                 $scope.post.postContent = res.Content;
                 $scope.post.title = res.Title;
@@ -69,11 +70,11 @@
         var post;
         if (!$scope.editMode) {
             post = {
-                title: $scope.title,
-                postContent: ($scope.postContent) ? $scope.postContent : "",
-                postBrief: ($scope.postBrief) ? $scope.postBrief : "",
-                authors: $scope.selectAuthors,
-                subjects: $scope.selectSubjects,
+                title: $scope.post.title,
+                postContent: ($scope.post.postContent) ? $scope.post.postContent : "",
+                postBrief: ($scope.post.postBrief) ? $scope.post.postBrief : "",
+                authors: $scope.post.selectAuthors,
+                subjects: $scope.post.selectSubjects,
                 releaseDate: $scope.releaseDateFull.gDate,
                 writeDate: $scope.writeDateFull.gDate,
                 imageID: $scope.image.ID

@@ -1,9 +1,9 @@
 <?php
 
-class Pagingation {
+class Pagination {
 
     public $PageIndex = 1;
-    public $PageSize = 20;
+    public $PageSize = 200;
 
     function __construct($data) {  
 	    if(isset($data->pageSize) && isset($data->pageIndex)){
@@ -13,15 +13,14 @@ class Pagingation {
     }
     
     public function getPage($db,$query){
-		require_once('src/PHPSQLParser.php');
-		$parser=new PHPSQLParser($query, true);
+		//require_once('src/PHPSQLParser.php');
+		//$parser=new PHPSQLParser($query, true);
+		//$from = $parser->parsed['FROM'];
+		//$startfromPos = $from[0]['position'];
+		//$startFromStr = substr($query,$startfromPos);
 		
-		$select = $parser->parsed['SELECT'];
-		$from = $parser->parsed['FROM'];
-		
-		$startfromPos = $from[0]['position'];
-		$startFromStr = substr($query,$startfromPos);
-		$countQ = $db->makeQuery("SELECT count(*) as Total FROM ".$startFromStr);
+		$startFromStr = strstr($query, 'FROM');
+		$countQ = $db->makeQuery("SELECT count(*) as Total ".$startFromStr);
 		$countRes = $countQ->fetch_assoc();
 		$total = $countRes['Total'];
 		
