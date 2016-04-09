@@ -9,15 +9,13 @@
     Extention.post('getHomePageData').then(function (res) {
         $scope.homePageData = res;
     });
-
+    
     $scope.user = undefined;
-
     $scope.subjects = [];
 
     $scope.getAllSubjects = function () {
         Extention.setBusy(true);
-        MainService.getAllSubjects()
-            .then(function(result) {
+        MainService.getAllSubjects().then(function(result) {
                 $scope.subjects = result;
                 Extention.setBusy(false);
             });

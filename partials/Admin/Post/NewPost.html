@@ -55,12 +55,18 @@
                 <div class="form-group ">
                     <span class="col-sm-12 control-label no-padding-right yekan-font" for="email">: خلاصه مطلب</span>
                 </div>
-                <div text-angular class="col-sm-12 form-group no-padding" ng-model="post.postBrief" style="direction: rtl; margin: 0"></div>
+                <div class="col-md-12">
+                    <textarea ckeditor="editorOptions" ng-model="post.postBrief"></textarea>
+                </div>
+                <!--<div text-angular class="col-sm-12 form-group no-padding" ng-model="post.postBrief" style="direction: rtl; margin: 0"></div>-->
                 <div class="form-group ">
                     <span class="col-sm-12 control-label no-padding-right yekan-font" for="email">: ادامه مطلب</span>
                 </div>
 
-                <div text-angular class="col-sm-12 form-group no-padding" ng-model="post.postContent" style="direction: rtl; margin: 0"></div>
+                <div class="col-md-12">
+                    <textarea ckeditor="editorOptions" ng-model="post.postContent"></textarea>
+                </div>
+                <!--<div text-angular class="col-sm-12 form-group no-padding" ng-model="post.postContent" style="direction: rtl; margin: 0"></div>-->
 
                 <div class="form-group text-right">
                     <div class="col-sm-4 col-sm-offset-6" style="margin-top: 10px;">

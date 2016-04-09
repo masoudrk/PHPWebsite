@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'textAngular', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor']);
 //, 'angular-imagefit'
 app.config([
     '$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'tooltipsConfProvider', 'ADMdtpProvider',
@@ -429,13 +429,14 @@ app.config([
                 $rootScope.user.UserID = results.UserID;
                 $rootScope.user.lastName = results.LastName;
                 $rootScope.user.firstName = results.FirstName;
+                
+                if (results.AdminID)
+                    $rootScope.isAdmin = true;
             } 
             
             if (next.name.indexOf("admin_root") > -1) {
                 if (!results.AdminID)
                     $state.go("home.home");
-                else 
-                    $rootScope.isAdmin = true;
 
             }else if (next.name.indexOf("user_root") > -1) {
                 if (!results.UserID)
@@ -522,6 +523,27 @@ app.directive('slideable', function () {
     }
 });
 
+app.directive('compile', ['$compile', function ($compile) {
+    return function(scope, element, attrs) {
+        scope.$watch(
+            function(scope) {
+                // watch the 'compile' expression for changes
+                return scope.$eval(attrs.compile);
+            },
+            function(value) {
+                // when the 'compile' expression changes
+                // assign it into the current DOM
+                element.html(value);
+
+                // compile the new DOM and link it to the current
+                // scope.
+                // NOTE: we only compile .childNodes so that
+                // we don't get into infinite loop compiling ourselves
+                $compile(element.contents())(scope);
+            }
+        );
+    };
+}])
 function getFile() {
     document.getElementById("upfile").click();
 }

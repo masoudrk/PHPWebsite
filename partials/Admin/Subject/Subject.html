@@ -12,25 +12,26 @@
     <div class="white-panel">
         <div class="row">
             <div class="col-sm-12">
+
                 <table dir="rtl" class="table table-striped">
                     <thead>
-                        <tr>
-                            <th class="text-right">موضوع شاخه</th>
-                            <th class="text-right">تعداد زیر شاخه</th>
-                            <th class="text-right" style="width: 58px"></th>
-                        </tr>
+                    <tr>
+                        <th class="text-right">موضوع شاخه</th>
+                        <th class="text-right">تعداد زیر شاخه</th>
+                        <th class="text-right" style="width: 58px"></th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="s in subjects">
-                            <td class="my-link" ng-click="showSubject(s)">{{s.Title}}</td>
-                            <td class="my-link" ng-click="showSubject(s)">{{s.childs.length}}</td>
-                            <td>
-                                <div>
-                                    <a class="fa fa-plus fa-group-mid my-green my-link" ng-click="showAddChildPanel(s)"></a>
-                                    <span class="fa fa-trash-o fa-group-mid my-red" ng-click="deleteSubject(s.ID)" confirm="آیا مطمئن هستید که می خواهید پست {{p.ID}} را حذف کنید؟"></span>
-                                </div>
-                            </td>
-                        </tr>
+                    <tr ng-repeat="s in subjects">
+                        <td class="my-link" ng-click="showSubject(s)">{{s.Title}}</td>
+                        <td class="my-link" ng-click="showSubject(s)">{{s.childs.length}}</td>
+                        <td>
+                            <div>
+                                <a class="fa fa-plus fa-group-mid my-green-sea my-link" ng-click="showAddChildPanel(s)"></a>
+                                <span class="fa fa-trash-o fa-group-mid my-red" ng-click="deleteSubject(s.ID)" confirm="آیا مطمئن هستید که می خواهید پست {{p.ID}} را حذف کنید؟"></span>
+                            </div>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

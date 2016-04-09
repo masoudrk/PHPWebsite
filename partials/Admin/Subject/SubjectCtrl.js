@@ -1,5 +1,24 @@
 ﻿angular.module('myApp').controller('SubjectCtrl',
     function ($scope, $rootScope, $routeParams, $location, Extention) {
+        $scope.itemss = [
+            {
+                item: {}, // this object will be referenced as the $item on scope
+                children: []
+            },
+            {
+                item: {},
+                children: [
+                    {
+                        item: {},
+                        children: []
+                    }
+                ]
+            },
+            {
+                item: {},
+                children: []
+            }
+        ];
 
         $scope.p1 = $scope.p2 = $scope.p3 = $scope.p4 = false;
         $scope.showPanel = function (p1, p2, p3, p4) {

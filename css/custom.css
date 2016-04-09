@@ -3,6 +3,8 @@ a {
 }
 .top-buffer { margin-top:20px; }
 .bottom-buffer { margin-bottom:20px; }
+.top-padding-20 { padding-top:20px; }
+.bottom-padding-20 { padding-bottom:20px; }
 @font-face {
   font-family: 'Yekan';
   src: url('../fonts/BYekan.eot'); /* IE9 Compat Modes */

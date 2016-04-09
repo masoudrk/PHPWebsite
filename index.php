@@ -43,19 +43,24 @@
 
 <!-- Libs -->
 <script src="Scripts/angular.js"></script>
+<script src="Scripts/angular-sanitize.js"></script>
 <script src="Scripts/angular-route.min.js"></script>
 <script src="Scripts/angular-animate.min.js" ></script>
 <script src="Scripts/angular-ui-router.js"></script>
+
 <script src="js/toaster.js"></script>
 <script src="js/ngprogress.js"></script>
 <script src="js/ui-bootstrap-tpls-1.2.5.js"></script>
-
 
 <script src="Scripts/lazyLoad/ocLazyLoad.js" type="text/javascript" ></script>
 <script src="js/ng-file-upload-shim.min.js"></script>
 <script src="js/ng-file-upload.min.js"></script>
 <script src="js/angular-tooltips.min.js"></script>
 <script src="js/select.min.js"></script>
+<script src='js/bootstrap-plus.min.js'></script>
+
+<script src="js/editor/ckeditor/ckeditor.js"></script>
+<script src='js/editor/ng-ckeditor.js'></script>
 
 <script src="app/app.js"></script>
 <script src="app/Extention.js"></script>
@@ -63,11 +68,12 @@
 
 <script src="app/directives/directives.js"></script>
 <script src="app/directives/SlideShow/SlideShow.js"></script>
+<script src="app/directives/Menu/menu.js"></script>
 
-<script src='js/editor/textAngular-rangy.min.js'></script>
+<!--<script src='js/editor/textAngular-rangy.min.js'></script>
 <script src='js/editor/textAngular-sanitize.min.js'></script>
-<script src='js/editor/textAngular.min.js'></script>
-<script src='js/editor/textAngular-sanitize.min.js'></script>
+<script src='js/editor/textAngular.min.js'></script>-->
+
 
 <script type="text/javascript" src="js/moment.js"></script>
 <script type="text/javascript" src="js/moment-jalaali.js"></script>
