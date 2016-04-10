@@ -26,6 +26,7 @@
     <link href="css/toaster.css" rel="stylesheet">
     <link href="css/menubar-styles.css" rel="stylesheet">
     <link href="css/ngProgress.css" rel="stylesheet">
+    <link href="css/sortable/ng-sortable.css" rel="stylesheet">
 
     <link href="css/angular-tooltips.css" rel="stylesheet" type="text/css" />
 </head>
@@ -61,6 +62,8 @@
 
 <script src="js/editor/ckeditor/ckeditor.js"></script>
 <script src='js/editor/ng-ckeditor.js'></script>
+
+<script type="text/javascript" src="js/ng-sortable.js"></script>
 
 <script src="app/app.js"></script>
 <script src="app/Extention.js"></script>

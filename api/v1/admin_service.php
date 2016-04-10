@@ -342,6 +342,34 @@ $app->post('/getAllPages', function() use ($app)  {
     echoResponse(200, $pageRes);
 });
 
+$app->post('/getAllPageNames', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+    $pr = new Pagination($data);
+    
+    $db = new DbHandler();
+    $pageRes = $db->makeQuery("SELECT page.ID , page.Name , page.NameEN FROM page");
+    $res = [];
+	while($r = $pageRes->fetch_assoc()){
+		$res[] = $r;
+	}
+
+    echoResponse(200, $res);
+});
+
+$app->post('/getAllPositions', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+    $pr = new Pagination($data);
+    
+    $db = new DbHandler();
+    $pageRes = $db->makeQuery("SELECT * FROM module_position");
+    $res = [];
+	while($r = $pageRes->fetch_assoc()){
+		$res[] = $r;
+	}
+
+    echoResponse(200, $res);
+});
+
 $app->post('/getPageByID', function() use ($app)  {
     $data = json_decode($app->request->getBody());
     
@@ -507,6 +535,11 @@ $app->post('/saveSiteSettings', function() use ($app)  {
     $db = new DbHandler();
     $res = $db->insertToTable('global_settings',"AboutPageID,FooterPageID","'".$data->AboutPageID."','".$data->FooterPageID."'");
     
+    $db->deleteFromTable('site_module','1=1');
+	foreach($data->Modules as &$d){
+		$db->insertToTable('site_module','ModulePositionID,PageID,SortOrder',"'".$d->ModulePositionID."','".$d->PageID."','".$d->SortOrder."'");
+	}
+    
     if(!$res){
     	echoError('Error on inserting!');
     	return;
@@ -548,6 +581,34 @@ $app->post('/deleteSubject', function() use ($app)  {
 	}
 });
 
+$app->post('/getAllModulesSorted', function() use ($app)  {
+    $db = new DbHandler();
+    //$data = json_decode($app->request->getBody());
+    $r = $db -> makeQuery("SELECT site_module.*,page.ID as PageID,page.HtmlContent,module_position.Position FROM `site_module` LEFT JOIN module_position on module_position.ID=site_module.ModulePositionID LEFT JOIN page on page.ID = site_module.PageID ORDER BY SortOrder DESC");
+    
+    $rightbarModules = [];
+    $headerModules = [];
+    $footerModules = [];
+    while($ty = $r->fetch_assoc()){
+    	switch($ty['Position']){
+			case 'RightBar':
+    			$rightbarModules[] = $ty;
+				break;
+			case 'Header':
+    			$headerModules[] = $ty;
+				break;
+			case 'Footer':
+    			$footerModules[] = $ty;
+				break;
+		}
+	}
+    $res = [];
+    $res['RightBarModules'] = $rightbarModules;
+    $res['HeaderModules'] = $headerModules;
+    $res['FooterModules'] = $footerModules;
+    
+    echoResponse(200, $res);
+});
 
 
 ?>

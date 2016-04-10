@@ -94,6 +94,7 @@
     <Folder Include="app\directives\MultiSelectDropDown\" />
     <Folder Include="content\img\" />
     <Folder Include="css" />
+    <Folder Include="css\sortable\" />
     <Folder Include="js" />
     <Folder Include="fonts\" />
     <Folder Include="content\" />
@@ -191,6 +192,7 @@
     <Folder Include="js\editor\ckeditor\skins\flat\" />
     <Folder Include="js\editor\ckeditor\skins\flat\images\" />
     <Folder Include="js\editor\ckeditor\skins\flat\images\hidpi\" />
+    <Folder Include="db\" />
     <Folder Include="partials" />
     <Folder Include="partials\Admin\Page\" />
     <Folder Include="partials\User\" />
@@ -232,6 +234,11 @@
     <Content Include="css\angular-tooltips.css" />
     <Content Include="css\bootstrap-plus.css" />
     <Content Include="css\bootstrap-plus.min.css" />
+    <Content Include="css\sortable\ng-sortable.css" />
+    <Content Include="css\sortable\ng-sortable.min.css" />
+    <Content Include="css\sortable\ng-sortable.style.css" />
+    <Content Include="css\sortable\ng-sortable.style.min.css" />
+    <Content Include="db\db.sql" />
     <Content Include="js\angular-clipboard.js" />
     <Content Include="js\angular-deep-blur.js" />
     <Content Include="js\angular-nestable.js" />
@@ -615,12 +622,15 @@
     <Content Include="js\ng-file-upload-shim.min.js" />
     <Content Include="js\ng-file-upload.js" />
     <Content Include="js\ng-file-upload.min.js" />
+    <Content Include="js\ng-sortable.js" />
+    <Content Include="js\ng-sortable.min.js" />
     <Content Include="js\ngprogress.js" />
     <Content Include="js\ngprogress.min.js" />
     <Content Include="js\persian-datepicker-tpls.js" />
     <Content Include="js\persiandate.js" />
     <Content Include="js\select.js" />
     <Content Include="js\select.min.js" />
+    <Content Include="js\sortable.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.min.js" />
     <Content Include="js\unslider.js" />

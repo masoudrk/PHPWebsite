@@ -386,7 +386,11 @@ $app->post('/getHomePageData', function() use ($app)  {
     //$data = json_decode($app->request->getBody());
     $r = $db -> makeQuery("SELECT * FROM `global_settings` LEFT JOIN page on page.ID=FooterPageID ORDER BY global_settings.ID DESC LIMIT 1");
     
-    $r = $db -> makeQuery("SELECT * FROM `site_module` LEFT JOIN page on page.ID=site_module.PageID LEFT JOIN module_position on module_position.ID =site_module.ModulePositionID ORDER BY site_module.SortOrder DESC");
+    $res = [];
+    $res['Footer'] = $r->fetch_assoc();
+    $res['PostCount'] = 12;
+    
+    $r = $db -> makeQuery("SELECT * FROM `site_module` LEFT JOIN page on page.ID=site_module.PageID LEFT JOIN module_position on module_position.ID =site_module.ModulePositionID ORDER BY site_module.SortOrder ASC");
     
     $rightbarModules = [];
     $headerModules = [];
@@ -404,10 +408,6 @@ $app->post('/getHomePageData', function() use ($app)  {
 				break;
 		}
 	}
-    
-    $res = [];
-    $res['Footer'] = $r->fetch_assoc();
-    $res['PostCount'] = 12;
     $res['RightBarModules'] = $rightbarModules;
     $res['HeaderModules'] = $headerModules;
     $res['FooterModules'] = $footerModules;
