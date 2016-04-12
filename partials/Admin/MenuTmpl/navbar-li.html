@@ -1,0 +1,24 @@
+<li ng-class="{divider: leaf.name == 'divider'}">
+    <a ng-if="leaf.name !== 'divider'" style="width: 350px; font-weight: 700; overflow: hidden; white-space: normal;padding: 10px" class="persian-rtl text-right pull-right" ui-sref="home.post({id:'{{leaf.PostID}}'})">
+        <div class="comment-avatar-cover pull-right">
+            <img class="comment-avatar hvr-ripple-out" ng-if="leaf.FullPath" ng-src="{{leaf.FullPath}}"/>
+            <span class="fa-stack fa-lg" ng-if="!leaf.FullPath">
+                <i class="comment-avatar fa fa-3x fa-circle my-gray fa-stack-1x" ng-if="!leaf.FullPath" style="width: 45px; height: 45px;font-size: 49px;" />
+                <i class="comment-avatar fa fa-2x fa-user my-white fa-stack-2x" ng-if="!leaf.FullPath" style="width: 45px; height: 45px;" />
+            </span>
+            <i class="fa fa-circle my-red" style="position: relative; bottom: 12px;left: -12px" />
+        </div>
+        <div style="word-wrap: normal;">
+            <div>
+                {{leaf.Title | subString : 20}}
+            </div>
+            <div>
+                <span ng-if="leaf.UserID">{{leaf.FullName}}</span>
+                <span ng-if="!leaf.UserID">{{leaf.Identity}}</span>
+            </div>
+            <div style="color: #666;padding-left: 15px;">
+                 {{leaf.Content}}
+            </div>
+        </div>
+    </a>
+</li>
