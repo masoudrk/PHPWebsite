@@ -198,6 +198,50 @@ $app->post('/getAllPostsOLD', function() use ($app)  {
     echoResponse(200, $data);
 });
 
+$app->post('/getPostComments', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+    $db = new DbHandler();
+    $pr = new Pagination($data);
+	
+	$query = 'SELECT comment.* , user.LastName , user.FirstName FROM comment LEFT JOIN user on user.ID=comment.UserID LEFT JOIN gallery on gallery.ID=user.AvatarID';
+	
+	$pageRes = $pr->getPage($db,$query.' WHERE Accepted=1 AND ParentID=-1 AND comment.PostID='.$data->PostID);
+	
+    foreach($pageRes['Items'] as &$c){
+    	$cq = $db->makeQuery($query.' WHERE Accepted=1 AND comment.ParentID='.$c['ID'].' ORDER BY ID ASC');
+    	$c['Childs'] = [];
+    	while($cc = $cq->fetch_assoc()){
+			$c['Childs'][] = $cc;
+		}
+    }
+
+    echoResponse(200, $pageRes);
+});
+$app->post('/saveComment', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+    $db = new DbHandler();
+    
+    $sess = $db->getSession();
+    $parent = (isset($data->ParentID))? $data->ParentID : -1 ;
+    
+    if(isset($sess['UserID'])){
+    	$count = $db->getCount('admin','admin.UserID='.$sess['UserID']);
+    	if($count > 0){
+    		$res = $db->insertToTable('comment',"Content,PostID,UserID,Date,ParentID,Accepted",
+    	"'".$data->Content."','".$data->PostID."','".$sess['UserID']."',NOW(),'".$parent."','1'");
+		}else{
+    		$res = $db->insertToTable('comment',"Content,PostID,UserID,Date,ParentID",
+    	"'".$data->Content."','".$data->PostID."','".$sess['UserID']."',NOW(),'".$parent."'");
+		}
+	}else{
+    	$res = $db->insertToTable('comment',"Content,PostID,Identity,Email,Date,ParentID","'".$data->Content."','".$data->PostID."','".$data->Identity."','".$data->Email."',NOW(),'".$parent."'");
+	}
+	$httpRes = [];
+	$httpRes['Status'] = 'success';
+	$httpRes['CommentID'] = $res;
+    echoResponse(200, $httpRes);
+});
+
 $app->post('/getAllPosts', function() use ($app)  {
     $data = json_decode($app->request->getBody());
     $db = new DbHandler();
@@ -206,7 +250,7 @@ $app->post('/getAllPosts', function() use ($app)  {
     $hasCat = isset($data->catID);
     $pageRes = null;
     if(!$hasCat){
-		$pageRes = $pr->getPage($db,'SELECT post.* , gallery.FullPath as Image FROM post LEFT JOIN gallery on post.ImageID = gallery.ID ORDER BY post.ID DESC');
+		$pageRes = $pr->getPage($db,'SELECT post.* , gallery.FullPath as Image FROM post LEFT JOIN gallery on post.ImageID = gallery.ID WHERE Hidden=0 ORDER BY post.ID DESC');
 	}
     else{
 		$pageRes = $pr->getPage($db,'SELECT post.* , gallery.FullPath as Image FROM post LEFT JOIN post_subject on post_subject.PostID=post.ID LEFT JOIN gallery on post.ImageID = gallery.ID WHERE post_subject.SubjectID='.$data->catID.' ORDER BY post.ID DESC');

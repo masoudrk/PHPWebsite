@@ -12,13 +12,25 @@
         <div class="white-panel">
             <form name="loginForm" class="form-horizontal" role="form">
                 <div class="form-group text-right">
+                    <label class="col-sm-11 control-label no-padding-right yekan-font">فعلا این مطلب رو نمایش نده</label>
+                    <div class="col-sm-1 text-left no-padding">
+                        <input type="checkbox" ng-model="post.hidden" />
+                    </div>
+                </div>
+                <div class="form-group text-right">
+                    <label class="col-sm-11 control-label no-padding-right yekan-font">نظر دادن برای این مطلب آزاد باشه</label>
+                    <div class="col-sm-1 text-left no-padding">
+                        <input type="checkbox" ng-model="post.enableComment" />
+                    </div>
+                </div>
+                <div class="form-group text-right">
                     <div class="col-sm-10 ">
                         <span class="block input-icon input-icon-right">
                             <input dir="rtl" type="text" class="form-control yekan-font text-right" placeholder="سر تیتر ..." name="title" ng-model="post.title" />
                             <!--<i class="ace-icon fa fa-user"></i>-->
                         </span>
                     </div>
-                    <label class="col-sm-2 control-label no-padding-right yekan-font" for="email">سر تیتر</label>
+                    <label class="col-sm-2 control-label no-padding-right yekan-font" >سر تیتر</label>
                 </div>
                 <div class="form-group">
                     <multi-select-drop-down dir="rtl"
@@ -94,7 +106,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-success yekan-font" style="margin-left: 15px" ng-click="saveNewPost()">ثبت پست جدید
+                    <button class="btn btn-success yekan-font" style="margin-left: 15px" ng-click="saveNewPost()" >
+                        {{(editMode)?'ویرایش پست':'ثبت پست جدید'}}
                     </button>
                 </div>
 

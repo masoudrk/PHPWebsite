@@ -320,6 +320,25 @@ app.config([
                     }]
                 }
             })
+            .state("admin_root.comment", {
+                url: "/comments",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/Comment/Comment.html",
+                        controller: 'CommentCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Comment/CommentCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
+                }
+            })
             .state("admin_root.users", {
                 url: "/users",
                 views: {

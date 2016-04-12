@@ -1,4 +1,4 @@
-﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $rootScope, $routeParams, $location, $http, $uibModal, Extention, MainService) {
+﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $rootScope, $routeParams, $uibModal, Extention, MainService) {
 
     $scope.sliderController = {};
 

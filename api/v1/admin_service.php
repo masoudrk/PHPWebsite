@@ -1,5 +1,57 @@
 <?php
 
+$app->post('/getAllPostsAdmin', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+    $db = new DbHandler();
+    $pr = new Pagination($data);
+	
+    $hasCat = isset($data->catID);
+    $pageRes = null;
+    if(!$hasCat){
+		$pageRes = $pr->getPage($db,'SELECT post.* , gallery.FullPath as Image FROM post LEFT JOIN gallery on post.ImageID = gallery.ID ORDER BY post.ID DESC');
+	}
+    else{
+		$pageRes = $pr->getPage($db,'SELECT post.* , gallery.FullPath as Image FROM post LEFT JOIN post_subject on post_subject.PostID=post.ID LEFT JOIN gallery on post.ImageID = gallery.ID WHERE post_subject.SubjectID='.$data->catID.' ORDER BY post.ID DESC');
+	}
+	
+	$sess = $db->getSession();
+	$isUser=isset($sess["IsUser"]);
+	$ip = getIPAddress();
+	
+    foreach($pageRes['Items'] as &$res){
+    	if($isUser){
+			$res["Liked"]=$db->existsRecord("post_like","UserID='".$sess["UserID"]."' AND PostID='".$res["ID"]."'");	
+		}else{
+			$res["Liked"]=$db->existsRecord("post_like","PostID='".$res["ID"]."' AND Identity='".$ip."'");	
+		}
+		
+		$res["LikesCount"] = $db->getCount('post_like','PostID='.$res["ID"]);
+		
+        $authorsQ = $db->makeQuery("SELECT gallery.FullPath, admin.ID as AdminID , concat(FirstName , ' ' ,LastName) as FullName FROM post_author 
+                                        Left Join admin on admin.ID = post_author.AdminID
+                                        Left Join user on user.ID = admin.UserID
+                                        Left Join gallery on gallery.ID = user.AvatarID
+                                        where PostID=".$res["ID"]);
+        $authors = array();
+        while($resAuthor = $authorsQ->fetch_assoc()){
+            $authors[] = $resAuthor;
+        }
+        $res["Authors"] = $authors;
+        
+        $subjectsQ = $db->makeQuery("SELECT * FROM post_subject 
+                                        Left Join subject on subject.ID = post_subject.SubjectID
+                                        where PostID=".$res["ID"]);
+        $subjects = array();
+        while($resSubject = $subjectsQ->fetch_assoc()){
+            $subjects[] = $resSubject;
+        }
+        $res["Subjects"] = $subjects;
+
+    }
+
+    echoResponse(200, $pageRes);
+});
+
 $app->post('/savePost', function() use ($app) {
     $response = array();
     $rObj = json_decode($app->request->getBody());
@@ -14,21 +66,22 @@ $app->post('/savePost', function() use ($app) {
         'ReleaseDate' => $rObj -> releaseDate,
         'WriteDate' => $rObj -> writeDate,
         'ImageID' => $rObj -> imageID,
+        'Hidden' => $rObj -> hidden,
+        'EnableComment' => $rObj -> enableComment,
     ];
 
     try{
 
         $db->beginTransaction();
 
-        $column_names = array( 'Title','Content','BriefContent','ReleaseDate','WriteDate','ImageID');
+        $column_names = array( 'Title','Content','BriefContent','ReleaseDate','WriteDate','ImageID','Hidden','EnableComment');
         $result = null;
 
         if(!$updateMode){
             $result = $db->insertIntoTable($object, $column_names, "post");
         }else{
                                         
-            $result = $db->updateRecord("post","`Title`='".$object->Title."' , `Content`='".$object->Content."' , `BriefContent`='".$object->BriefContent.
-                                         "' , `WriteDate`='".$object->WriteDate."' ,`ReleaseDate`='".$object->ReleaseDate."' , `ImageID`='".$object->ImageID."'" 
+            $result = $db->updateRecord("post","`Title`='".$object->Title."' , `Content`='".$object->Content."' , `BriefContent`='".$object->BriefContent."' , `WriteDate`='".$object->WriteDate."' ,`ReleaseDate`='".$object->ReleaseDate."' , `ImageID`='".$object->ImageID."' , `Hidden`='".$object->Hidden."' , `EnableComment`='".$object->EnableComment."'"
                                         , "post.ID=".$rObj->postID );
 
             $resDelS = $db->deleteFromTable("post_subject","PostID=".$rObj->postID);

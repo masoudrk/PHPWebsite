@@ -93,6 +93,7 @@
     <Folder Include="app\directives\SlideShow\" />
     <Folder Include="app\directives\MultiSelectDropDown\" />
     <Folder Include="content\img\" />
+    <Folder Include="content\static\" />
     <Folder Include="css" />
     <Folder Include="css\sortable\" />
     <Folder Include="js" />
@@ -195,6 +196,7 @@
     <Folder Include="db\" />
     <Folder Include="partials" />
     <Folder Include="partials\Admin\Page\" />
+    <Folder Include="partials\Admin\Comment\" />
     <Folder Include="partials\User\" />
     <Folder Include="partials\User\Profile\" />
     <Folder Include="partials\Admin\Gallery\" />
@@ -639,6 +641,8 @@
     <Content Include="partials\Admin\Page\AllPagesCtrl.js" />
     <Content Include="partials\Admin\Page\NewPage.html" />
     <Content Include="partials\Admin\Page\NewPageCtrl.js" />
+    <Content Include="partials\Admin\Comment\Comment.html" />
+    <Content Include="partials\Admin\Comment\CommentCtrl.js" />
     <Content Include="partials\User\UserCtrl.js" />
     <Content Include="partials\User\UserDashboard.html" />
     <Content Include="partials\User\UserRoot.html" />
@@ -648,7 +652,6 @@
     <Content Include="partials\Admin\AdminDashboard.html" />
     <Content Include="partials\Admin\AdminCtrl.js" />
     <Content Include="partials\Admin\AdminRoot.html" />
-    <Content Include="partials\Admin\AdminService.js" />
     <Content Include="partials\Admin\Gallery\Gallery.html" />
     <Content Include="partials\Admin\Gallery\GalleryCtrl.js" />
     <Content Include="partials\Admin\Setting\SettingCtrl.js" />

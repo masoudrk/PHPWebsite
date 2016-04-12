@@ -1,4 +1,4 @@
-﻿angular.module('myApp').controller('NewPostCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, $uibModal, Extention) {
+﻿angular.module('myApp').controller('NewPostCtrl', function ($scope, $rootScope, $routeParams, $state, $stateParams, $uibModal, Extention) {
 
     $scope.subjectButtonText = "انتخاب نشده";
 
@@ -36,6 +36,8 @@
                 $scope.post.subjects = res.Subjects;
                 $scope.post.releaseDate = res.ReleaseDate;
                 $scope.post.writeDate = res.WriteDate;
+                $scope.post.hidden = (res.Hidden == 1) ? true : false;
+                $scope.post.enableComment = (res.EnableComment == 1) ? true : false;
 
                 $scope.image = {};
                 $scope.image.FullPath = res.FullPath;
@@ -67,30 +69,19 @@
         if (!$scope.image || !$scope.image.ID) {
             Extention.toast({ status: 'error', message: 'خطا ! لطفا یک تصویر انتخاب کنید.' });
         }
-        var post;
-        if (!$scope.editMode) {
-            post = {
-                title: $scope.post.title,
-                postContent: ($scope.post.postContent) ? $scope.post.postContent : "",
-                postBrief: ($scope.post.postBrief) ? $scope.post.postBrief : "",
-                authors: $scope.post.selectAuthors,
-                subjects: $scope.post.selectSubjects,
-                releaseDate: $scope.releaseDateFull.gDate,
-                writeDate: $scope.writeDateFull.gDate,
-                imageID: $scope.image.ID
-            };
-        } else {
-            post = {
-                title: $scope.post.title,
-                postContent: ($scope.post.postContent) ? $scope.post.postContent : "",
-                postBrief: ($scope.post.postBrief) ? $scope.post.postBrief : "",
-                authors: $scope.selectAuthors,
-                subjects: $scope.selectSubjects,
-                releaseDate: $scope.releaseDateFull.gDate,
-                writeDate: $scope.writeDateFull.gDate,
-                imageID: $scope.image.ID
-            };
-        }
+
+        var post = {
+            title: $scope.post.title,
+            postContent: ($scope.post.postContent) ? $scope.post.postContent : "",
+            postBrief: ($scope.post.postBrief) ? $scope.post.postBrief : "",
+            authors: $scope.selectAuthors,
+            subjects: $scope.selectSubjects,
+            releaseDate: $scope.releaseDateFull.gDate,
+            writeDate: $scope.writeDateFull.gDate,
+            imageID: $scope.image.ID,
+            hidden: $scope.post.hidden,
+            enableComment: $scope.post.enableComment
+        };
 
         if ($scope.editMode)
             post.postID = $scope.postID;
@@ -98,6 +89,8 @@
         Extention.post("savePost",post).then(function (res) {
             if (res) {
                 Extention.toast({ status: 'success', message: 'پست با موفقیت ثبت شد!' });
+                if(!$scope.editMode)
+                    $state.go("admin_root.new_post", { id: res }, { reload: true });
             } else {
                 Extention.toast({ status: 'error', message: 'مشکل در ثبت پست ، لطفا دوباره امتحان کنید.' });
             }
