@@ -29,6 +29,8 @@
     <link href="css/sortable/ng-sortable.css" rel="stylesheet">
 
     <link href="css/angular-tooltips.css" rel="stylesheet" type="text/css" />
+
+    <link href="css/ui-navbar.css" rel="stylesheet">
 </head>
 
 <body ng-app="myApp">
@@ -63,9 +65,11 @@
 <script src="js/editor/ckeditor/ckeditor.js"></script>
 <script src='js/editor/ng-ckeditor.js'></script>
 
-<script type="text/javascript" src="js/ng-sortable.js"></script>
+<script src="js/ng-sortable.js" type="text/javascript" ></script>
+<script src="js/ui-navbar.js" type="text/javascript"></script>
 
 <script src="app/app.js"></script>
+<script src="js/angular-clipboard.js"></script>
 <script src="app/Extention.js"></script>
 <script src="app/authCtrl.js"></script>
 

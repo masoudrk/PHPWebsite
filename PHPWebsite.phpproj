@@ -93,6 +93,7 @@
     <Folder Include="app\directives\SlideShow\" />
     <Folder Include="app\directives\MultiSelectDropDown\" />
     <Folder Include="content\img\" />
+    <Folder Include="content\files\" />
     <Folder Include="content\static\" />
     <Folder Include="css" />
     <Folder Include="css\sortable\" />
@@ -197,6 +198,7 @@
     <Folder Include="partials" />
     <Folder Include="partials\Admin\Page\" />
     <Folder Include="partials\Admin\Comment\" />
+    <Folder Include="partials\Admin\MenuTmpl\" />
     <Folder Include="partials\User\" />
     <Folder Include="partials\User\Profile\" />
     <Folder Include="partials\Admin\Gallery\" />
@@ -240,6 +242,8 @@
     <Content Include="css\sortable\ng-sortable.min.css" />
     <Content Include="css\sortable\ng-sortable.style.css" />
     <Content Include="css\sortable\ng-sortable.style.min.css" />
+    <Content Include="css\ui-navbar.css" />
+    <Content Include="css\ui-navbar.min.css" />
     <Content Include="db\db.sql" />
     <Content Include="js\angular-clipboard.js" />
     <Content Include="js\angular-deep-blur.js" />
@@ -635,6 +639,8 @@
     <Content Include="js\sortable.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.min.js" />
+    <Content Include="js\ui-navbar.js" />
+    <Content Include="js\ui-navbar.min.js" />
     <Content Include="js\unslider.js" />
     <Content Include="packages.config" />
     <Content Include="partials\Admin\Page\AllPages.html" />
@@ -643,6 +649,8 @@
     <Content Include="partials\Admin\Page\NewPageCtrl.js" />
     <Content Include="partials\Admin\Comment\Comment.html" />
     <Content Include="partials\Admin\Comment\CommentCtrl.js" />
+    <Content Include="partials\Admin\MenuTmpl\navbar-li.html" />
+    <Content Include="partials\Admin\MenuTmpl\navbar-ul.html" />
     <Content Include="partials\User\UserCtrl.js" />
     <Content Include="partials\User\UserDashboard.html" />
     <Content Include="partials\User\UserRoot.html" />

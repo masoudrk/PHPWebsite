@@ -1,5 +1,5 @@
 ﻿angular.module('myApp').controller('GalleryCtrl',
-    function ($scope, $rootScope, $routeParams, $location, $timeout, Extention, Upload) {
+    function ($scope, $rootScope, $routeParams, $location, $timeout, Extention, Upload, clipboard) {
 
         $scope.pagingCtrl = {};
 
@@ -7,6 +7,8 @@
             fileTypes: "'jpg/jpeg','png'",
             isMedia:'1'
         };
+
+        $scope.typeModel = {};
 
         $scope.uploadPic = function (file) {
 
@@ -51,8 +53,13 @@
             $scope.fileTypes = res;
         });
 
+        $scope.typeChanged = function () {
+            $scope.pagingParams.fileTypes = "'" + $scope.typeModel.selected.Type + "'";
+            $scope.pagingCtrl.update();
+        }
+
         $scope.removeMedia = function (item) {
-            Extention.post("deleteMedia", { mediaID : item.ID }).then(function (res) {
+            Extention.post("deleteMedia", { mediaID: item.ID }).then(function (res) {
                 if (res) {
                     Extention.toast({ message: 'فایل با موفقیت حذف شد!', status: 'success' });
                     $scope.pagingCtrl.update();
@@ -63,4 +70,11 @@
             });
         }
 
+        $scope.copyLink = function (item) {
+            var absUrl = $location.absUrl();
+            var i = absUrl.indexOf('#');
+            var siteName = absUrl.substr(0,i);
+            clipboard.copyText(siteName + item.FullPath);
+            Extention.toast({ message: 'لینک فایل کپی شد.', status: 'success' });
+        }
     });

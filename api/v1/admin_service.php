@@ -663,5 +663,31 @@ $app->post('/getAllModulesSorted', function() use ($app)  {
     echoResponse(200, $res);
 });
 
+$app->post('/getAdminHeaderData', function() use ($app)  {
+	adminRequire();
+    $db = new DbHandler();
+    //$data = json_decode($app->request->getBody());
+    $sess = $db->getSession();
+    $AdminID = $sess['AdminID'];
+    $r = $db -> makeQuery("SELECT comment.*,post.Title,gallery.FullPath , concat(user.FirstName,'  ',user.LastName) as FullName FROM comment LEFT JOIN user on user.ID=comment.UserID LEFT JOIN post on post.ID=comment.PostID LEFT JOIN gallery on gallery.ID=user.AvatarID WHERE not exists(SELECT * FROM comment_read WHERE comment_read.CommentID=comment.ID AND comment_read.AdminID='".$AdminID."')");
+    
+    $res = [];
+    while($ty = $r->fetch_assoc()){
+    	$res[] = $ty;
+	}
+    
+    echoResponse(200, $res);
+});
 
+$app->post('/markAsReadComments', function() use ($app)  {
+	adminRequire();
+	
+    $db = new DbHandler();
+    $sess = $db->getSession();
+    $AdminID = $sess['AdminID'];
+    $r = $db -> makeQuery("CALL `Proc_MarkAsRead`('".$AdminID."', @p1)");
+    
+    echoResponse(200, $r);
+});
+ 
 ?>

@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar']);
 //, 'angular-imagefit'
 app.config([
     '$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'tooltipsConfProvider', 'ADMdtpProvider',
@@ -180,7 +180,6 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/AdminCtrl.js',
-                            'partials/Admin/AdminService.js',
                             'partials/Main/MainService.js']);
                     }]
                 }
@@ -296,7 +295,7 @@ app.config([
                         return $ocLazyLoad.load([
                             'partials/Admin/Gallery/GalleryCtrl.js',
                             //'js/ng-file-upload.min.js',
-                            //'js/ng-file-upload-shim.min.js',
+                            'js/angular-clipboard.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }
@@ -475,7 +474,7 @@ app.filter('jalaliDate', function () {
 app.filter('subString', function () {
     return function (text, length) {
         if (text&&text.length > length) {
-            return text.substr(0, length) ;
+            return text.substr(0, length) + "...";
         }
         return text;
     }

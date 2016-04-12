@@ -67,16 +67,27 @@ $app->post('/uploadFile', function() use ($app)  {
 	$rand = generateRandomString(18);
 	$ext = pathinfo($filename, PATHINFO_EXTENSION);
 	
-    $destination = '../../content/img/'.$rand.".".$ext;
+	$db= new DbHandler();
+	$rs = $db->makeQuery("SELECT * FROM file_type where ID=".$typeID);
+	$r=$rs->fetch_assoc();
+	
+	$specFolder = $r['SpecialFolder'];
+	$specFile = $rand.".".$ext;
+	$absPath =  '../../content/'.$specFolder.'/';
+    if (!file_exists($absPath)) {
+    	mkdir($absPath, 0777, true);
+	}
+    
+    $destination =$absPath.$specFile;
     move_uploaded_file( $_FILES['file']['tmp_name'] , $destination );
     
     $db = new DbHandler();
     $column_names = array( 'FileTypeID','Path','FullPath');
     $object =(object)[
         "FileTypeID" => $typeID,
-        "Path" => "content/img/",
+        "Path" => "content/".$specFolder."/",
         "Description" => $description,
-        "FullPath" => "content/img/".$rand.".".$ext
+        "FullPath" => "content/".$specFolder."/".$specFile
     ];
     $result = $db->insertIntoTable($object, $column_names, "gallery");
 
@@ -203,7 +214,7 @@ $app->post('/getPostComments', function() use ($app)  {
     $db = new DbHandler();
     $pr = new Pagination($data);
 	
-	$query = 'SELECT comment.* , user.LastName , user.FirstName FROM comment LEFT JOIN user on user.ID=comment.UserID LEFT JOIN gallery on gallery.ID=user.AvatarID';
+	$query = 'SELECT comment.* , user.LastName , user.FirstName,gallery.FullPath FROM comment LEFT JOIN user on user.ID=comment.UserID LEFT JOIN gallery on gallery.ID=user.AvatarID';
 	
 	$pageRes = $pr->getPage($db,$query.' WHERE Accepted=1 AND ParentID=-1 AND comment.PostID='.$data->PostID);
 	
@@ -217,6 +228,7 @@ $app->post('/getPostComments', function() use ($app)  {
 
     echoResponse(200, $pageRes);
 });
+
 $app->post('/saveComment', function() use ($app)  {
     $data = json_decode($app->request->getBody());
     $db = new DbHandler();
@@ -339,9 +351,9 @@ $app->post('/getAllMedia', function() use ($app)  {
     
     $r = null;
     if(!$hasType) 
-        $r = $db->makeQuery("SELECT gallery.*,file_type.Type FROM `gallery` LEFT JOIN file_type on file_type.ID = gallery.FileTypeID WHERE IsMedia=".$isMedia.$searchValueQuery." LIMIT $offset, $pageSize");
+        $r = $db->makeQuery("SELECT gallery.*,file_type.Type,file_type.NgClass FROM `gallery` LEFT JOIN file_type on file_type.ID = gallery.FileTypeID WHERE IsMedia=".$isMedia.$searchValueQuery." LIMIT $offset, $pageSize");
     else
-        $r = $db->makeQuery("SELECT gallery.*,file_type.Type FROM `gallery` LEFT JOIN file_type on file_type.ID = gallery.FileTypeID WHERE IsMedia=".$isMedia.$searchValueQuery." AND file_type.Type in(".$data->fileTypes.") LIMIT $offset, $pageSize");
+        $r = $db->makeQuery("SELECT gallery.*,file_type.Type,file_type.NgClass FROM `gallery` LEFT JOIN file_type on file_type.ID = gallery.FileTypeID WHERE IsMedia=".$isMedia.$searchValueQuery." AND file_type.Type in(".$data->fileTypes.") LIMIT $offset, $pageSize");
 
     $result = array();
     while($res = $r->fetch_assoc()){

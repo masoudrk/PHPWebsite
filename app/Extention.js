@@ -8,6 +8,8 @@ app.factory("Extention", ['$http' ,'$rootScope' , 'toaster',
         obj.serviceBase = serviceBase;
         obj.debugMode = true;
 
+        obj.noImageClass = 'fa fa-2x fa-user';
+
         obj.setBusy = function (en) {
             if (en) {
                 if (obj.workers === 0)

@@ -80,12 +80,25 @@ function getIPAddress(){
 }
 
 function adminRequire(){
-	$db = DbHandler();
+	$db = new DbHandler();
     $sess = $db->getSession();
-    if(isset($sess["AdminID"])){
+    $rq = $db->makeQuery("SELECT admin.ID FROM user JOIN admin on admin.UserID=user.ID where user.ID='".$sess["UserID"]."'");
+    $r = $rq->fetch_assoc();
+    if($r){
+		return TRUE;
+	} 
+	die('Encrypted media , Admininistrator auth has been failed.');
+}
+
+function privilegeRequire($privilege){
+	$db = new DbHandler();
+    $sess = $db->getSession();
+    $rq = $db->makeQuery("SELECT privilege.Privilege FROM user JOIN admin on admin.UserID=user.ID JOIN admin_privilege on admin_privilege.ID =admin.PrivilegeID where privilege.Privilege='".$privilege."' AND user.ID='".$sess["UserID"]."'");
+    $r = $rq->fetch_assoc();
+    if($r){
 		return TRUE;
 	}
-	return FALSE;
+	return False;
 }
 
 $app->run();
