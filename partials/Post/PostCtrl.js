@@ -54,6 +54,7 @@
                 }
                 else
                     Extention.popSuccess('با تشکر از شما ، نظر شما پس از تایید نمایش داده خواهد شد.');
+                $scope.newComment.content = "";
             } else {
                 Extention.popError('خطا در سرور ، لطفا دوباره تلاش کنید');
             }

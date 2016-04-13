@@ -104,6 +104,7 @@ app.factory("Extention", ['$http', '$timeout', '$rootScope', 'toaster',
 
         obj.unAuthUser = function () {
             $rootScope.authenticated = false;
+            $rootScope.isAdmin = false;
             $rootScope.user = {};
         }
 
