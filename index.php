@@ -15,8 +15,9 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <link href="css/select.css" rel="stylesheet">
-
+    
     <link href="css/hover-min.css" rel="stylesheet">
+    <link href="css/treasure-overlay-spinner.css" rel="stylesheet">
 
     <link href="css/ADM-dateTimePicker.css " rel="stylesheet">
     <link href='css/textAngular.css' rel='stylesheet'>
@@ -34,6 +35,9 @@
 </head>
 
 <body ng-app="myApp">
+    <treasure-overlay-spinner active='spinner.active'>
+    </treasure-overlay-spinner>
+
     <div ui-view></div>
 </body>
 
@@ -68,24 +72,21 @@
 <script src="js/ng-sortable.js" type="text/javascript" ></script>
 <script src="js/ui-navbar.js" type="text/javascript"></script>
 
+<script src="js/treasure-overlay-spinner.js" type="text/javascript"></script>
+
 <script src="app/app.js"></script>
 <script src="js/angular-clipboard.js"></script>
 <script src="app/Extention.js"></script>
 <script src="app/authCtrl.js"></script>
+<script src="app/directives/auto-pagination.js"></script>
 
 <script src="app/directives/directives.js"></script>
 <script src="app/directives/SlideShow/SlideShow.js"></script>
 <script src="app/directives/Menu/menu.js"></script>
 
-<!--<script src='js/editor/textAngular-rangy.min.js'></script>
-<script src='js/editor/textAngular-sanitize.min.js'></script>
-<script src='js/editor/textAngular.min.js'></script>-->
-
-
 <script type="text/javascript" src="js/moment.js"></script>
 <script type="text/javascript" src="js/moment-jalaali.js"></script>
 <script type="text/javascript" src="js/angular-confirm.min.js"></script>
 <script type="text/javascript" src="js/ADM-dateTimePicker.js"></script>
-<script type="text/javascript" src="app/directives/auto-pagination.js"></script>
 </html>
 

@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngProgress', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar', 'treasure-overlay-spinner']);
 //, 'angular-imagefit'
 app.config([
     '$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'tooltipsConfProvider', 'ADMdtpProvider',
@@ -418,9 +418,9 @@ app.config([
 
         $urlRouterProvider.otherwise("/");
     }
-]).run(function ($rootScope,$state, $location, Extention, ngProgressFactory) {
+]).run(function ($rootScope,$state, $location, Extention) {
     
-    $rootScope.progressbar = ngProgressFactory.createInstance();
+    $rootScope.spinner = { active: false };
 
     $rootScope.$on("$stateChangeSuccess", function() {
         Extention.setBusy(false);

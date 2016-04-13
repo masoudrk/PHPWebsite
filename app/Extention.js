@@ -1,5 +1,5 @@
-app.factory("Extention", ['$http' ,'$rootScope' , 'toaster', 
-    function ($http, $rootScope, toaster) { // This service connects to our REST API
+app.factory("Extention", ['$http', '$timeout', '$rootScope', 'toaster',
+    function ($http ,$timeout, $rootScope, toaster) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
 
@@ -13,12 +13,14 @@ app.factory("Extention", ['$http' ,'$rootScope' , 'toaster',
         obj.setBusy = function (en) {
             if (en) {
                 if (obj.workers === 0)
-                    $rootScope.progressbar.start();
+                    $rootScope.spinner.active = true;
+                    //$rootScope.progressbar.start();
                 obj.workers++;
             } else {
                 obj.workers--;
                 if (obj.workers === 0)
-                    $rootScope.progressbar.complete();
+                    $timeout(obj.disableLoading, 500);
+                //$rootScope.progressbar.complete();
             }
         };
 
@@ -48,17 +50,39 @@ app.factory("Extention", ['$http' ,'$rootScope' , 'toaster',
         }
 
         obj.get = function (q) {
+            obj.setBusy(true);
             return $http.get(serviceBase + q).then(function (results) {
+                obj.setBusy(false);
                 return results.data;
-            });
-        };
-        obj.post = function (q, object) {
-            return $http.post(serviceBase + q, object).then(function (results) {
-                return results.data;
-            },function(err) {
+            }, function (err) {
+                obj.setBusy(false);
                 return err;
             });
         };
+
+        obj.post = function (q, object) {
+            obj.setBusy(true);
+            return $http.post(serviceBase + q, object).then(function (results) {
+                obj.setBusy(false);
+                return results.data;
+            }, function (err) {
+                obj.setBusy(false);
+                return err;
+            });
+        };
+
+        obj.postAsync = function (q, object) {
+            return $http.post(serviceBase + q, object).then(function (results) {
+                return results.data;
+            }, function (err) {
+                return err;
+            });
+        };
+
+        obj.disableLoading = function () {
+            $rootScope.spinner.active = false;
+        }
+
         obj.put = function (q, object) {
             return $http.put(serviceBase + q, object).then(function (results) {
                 return results.data;
@@ -81,6 +105,10 @@ app.factory("Extention", ['$http' ,'$rootScope' , 'toaster',
         obj.unAuthUser = function () {
             $rootScope.authenticated = false;
             $rootScope.user = {};
+        }
+
+        obj.isAdmin = function () {
+            return $rootScope.isAdmin;
         }
 
         obj.scrollTo = function (y) {

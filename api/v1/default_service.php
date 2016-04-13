@@ -216,7 +216,7 @@ $app->post('/getPostComments', function() use ($app)  {
 	
 	$query = 'SELECT comment.* , user.LastName , user.FirstName,gallery.FullPath FROM comment LEFT JOIN user on user.ID=comment.UserID LEFT JOIN gallery on gallery.ID=user.AvatarID';
 	
-	$pageRes = $pr->getPage($db,$query.' WHERE Accepted=1 AND ParentID=-1 AND comment.PostID='.$data->PostID);
+	$pageRes = $pr->getPage($db,$query.' WHERE Accepted=1 AND ParentID=-1 AND comment.PostID='.$data->PostID.' ORDER BY Date Desc');
 	
     foreach($pageRes['Items'] as &$c){
     	$cq = $db->makeQuery($query.' WHERE Accepted=1 AND comment.ParentID='.$c['ID'].' ORDER BY ID ASC');

@@ -89,14 +89,12 @@ angular.module('myApp').directive('autoPaging', function () {
                 data.pageIndex = $scope.page;
                 data.pageSize = $scope.pageSize;
 
-                Extention.setBusy(true);
                 Extention.scrollTo(0);
 
                 Extention.post($scope.actionName, data)
                 .then(function (results) {
                     $scope.items = results.Items;
                     $scope.total = results.Total;
-                    Extention.setBusy(false);
                 });
             }
 

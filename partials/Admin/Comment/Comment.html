@@ -9,6 +9,54 @@
     </div>
     <div class="white-panel">
         <div class="row">
+            <div class="col-xs-12">
+                <table dir="rtl" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-right">نام نظر دهنده</th>
+                            <th class="text-right">پست</th>
+                            <th class="text-right">متن نظر</th>
+                            <th class="text-right">تاریخ</th>
+                            <th class="text-right">پاسخ به</th>
+                            <th class="text-right" style="width: 70px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="c in comments">
+                            <td>{{(c.UserID)? c.FullName : c.Identity}}</td>
+                            <td><a ui-sref="home.post({id:{{c.PostID}}})">{{c.Title | subString : 15}}</a></td>
+                            <td>
+                                <div style="max-width: 250px; line-break: normal; word-wrap: break-word; color: #555">
+                                     {{c.Content}}
+                                </div>
+                            </td>
+                            <td style="min-width: 225px;">{{c.Date | jalaliDate:'jYYYY/jMM/jDD hh:mm' }}</td>
+                            <td>{{(c.AnswerToUserID)? c.AnswerToFullName : c.AnswerToIdentity}}</td>
+                            <td>
+                                <div>
+                                    <a ng-if="c.Accepted == 1" class="fa fa-close fa-group-mid my-carrot pull-right" ng-click="acceptComment(c,false)"></a>
+                                    <a ng-if="c.Accepted != 1" class="fa fa-check fa-group-mid my-green-sea pull-right" ng-click="acceptComment(c,true)"></a>
+
+                                    <span class="fa fa-trash-o fa-group-mid my-red pull-left" ng-click="deletePost(p)" confirm="آیا مطمئن هستید که می خواهید کامنت {{c.ID}} را حذف کنید؟"></span>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row"> <!--ng-if="posts.length > 0"--> 
+                <div class="span8 text-center">
+
+                    <auto-paging page="1"
+                                 page-size="20"
+                                 action-name="getAllCommentsForManage"
+                                 data-params="pagingParams"
+                                 ng-control="pagingController"
+                                 items="comments">
+                    </auto-paging>
+                </div>
+            </div>
         </div>
     </div>
 </div>

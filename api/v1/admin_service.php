@@ -1,6 +1,8 @@
 <?php
 
 $app->post('/getAllPostsAdmin', function() use ($app)  {
+	adminRequire();
+	
     $data = json_decode($app->request->getBody());
     $db = new DbHandler();
     $pr = new Pagination($data);
@@ -53,6 +55,8 @@ $app->post('/getAllPostsAdmin', function() use ($app)  {
 });
 
 $app->post('/savePost', function() use ($app) {
+	adminRequire();
+	
     $response = array();
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
@@ -114,6 +118,7 @@ $app->post('/savePost', function() use ($app) {
 });
 
 $app->post('/savePage', function() use ($app) {
+	adminRequire();
     $response = array();
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
@@ -149,6 +154,8 @@ $app->post('/savePage', function() use ($app) {
 });
 
 $app->post('/getUserProfile', function() use ($app) {
+	adminRequire();
+	
     $db = new DbHandler();
     $user = $db->getSession();
     $r = $db->makeQuery("SELECT user.* , gallery.FullPath FROM user LEFT JOIN gallery on gallery.ID = user.AvatarID WHERE user.ID=".$user["UserID"]);
@@ -158,6 +165,8 @@ $app->post('/getUserProfile', function() use ($app) {
 });
 
 $app->post('/saveSlide', function() use ($app) {
+	adminRequire();
+	
     $response = array();
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
@@ -182,6 +191,7 @@ $app->post('/saveSlide', function() use ($app) {
 });
 
 $app->post('/deletePost', function() use ($app) {
+	adminRequire();
     $response = array();
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
@@ -189,6 +199,7 @@ $app->post('/deletePost', function() use ($app) {
 });
 
 $app->post('/deletePage', function() use ($app) {
+	adminRequire();
     $response = array();
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
@@ -203,6 +214,7 @@ $app->post('/deletePage', function() use ($app) {
 });
 
 $app->post('/deleteSlide', function() use ($app) {
+	adminRequire();
     $response = array();
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
@@ -217,6 +229,7 @@ $app->post('/deleteSlide', function() use ($app) {
 });
 
 $app->post('/deleteMedia', function() use ($app)  {
+	adminRequire();
     $db = new DbHandler();
     $data = json_decode($app->request->getBody());
     $r = $db->makeQuery("SELECT * FROM gallery WHERE ID=".$data->mediaID." LIMIT 1");
@@ -238,6 +251,7 @@ $app->post('/deleteMedia', function() use ($app)  {
 });
 
 $app->post('/getAllAuthors', function() use ($app)  {
+	adminRequire();
     $db = new DbHandler();
     $authorsQ = $db->makeQuery("SELECT admin.ID as AdminID , concat(FirstName , ' ' ,LastName) as FullName FROM admin 
                                     Left Join user on user.ID = admin.UserID");
@@ -249,6 +263,8 @@ $app->post('/getAllAuthors', function() use ($app)  {
 });
 
 $app->post('/getAllPrivileges', function() use ($app)  {
+	adminRequire();
+	
     $db = new DbHandler();
     $resQ = $db->makeQuery("SELECT ID as PrivilegeID , Privilege ,Description FROM admin_privilege");
     $result = array();
@@ -259,6 +275,8 @@ $app->post('/getAllPrivileges', function() use ($app)  {
 });
 
 $app->post('/getAllPageTypes', function() use ($app)  {
+	adminRequire();
+	
     $db = new DbHandler();
     $resQ = $db->makeQuery("SELECT * FROM page_type");
     $result = array();
@@ -269,6 +287,8 @@ $app->post('/getAllPageTypes', function() use ($app)  {
 });
 
 $app->post('/getAllSlides', function() use ($app)  {
+	adminRequire();
+	
     $data = json_decode($app->request->getBody());
     $pageSize = 20;
     $pageIndex = 0;
@@ -319,6 +339,8 @@ $app->post('/getAllSlides', function() use ($app)  {
 });
 
 $app->post('/getAllUsers', function() use ($app)  {
+	adminRequire();
+	
     $data = json_decode($app->request->getBody());
     $pageSize = 20;
     $pageIndex = 0;
@@ -384,6 +406,8 @@ $app->post('/getAllUsers', function() use ($app)  {
 });
 
 $app->post('/getAllPages', function() use ($app)  {
+	adminRequire();
+	
     $data = json_decode($app->request->getBody());
     $pr = new Pagination($data);
     
@@ -396,6 +420,8 @@ $app->post('/getAllPages', function() use ($app)  {
 });
 
 $app->post('/getAllPageNames', function() use ($app)  {
+	adminRequire();
+	
     $data = json_decode($app->request->getBody());
     $pr = new Pagination($data);
     
@@ -410,6 +436,8 @@ $app->post('/getAllPageNames', function() use ($app)  {
 });
 
 $app->post('/getAllPositions', function() use ($app)  {
+	adminRequire();
+	
     $data = json_decode($app->request->getBody());
     $pr = new Pagination($data);
     
@@ -424,6 +452,7 @@ $app->post('/getAllPositions', function() use ($app)  {
 });
 
 $app->post('/getPageByID', function() use ($app)  {
+	adminRequire();
     $data = json_decode($app->request->getBody());
     
     $db = new DbHandler();
@@ -433,6 +462,7 @@ $app->post('/getPageByID', function() use ($app)  {
 });
 
 $app->post('/saveAdminPrivilege', function() use ($app)  {
+	adminRequire();
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
     $response = [];
@@ -466,6 +496,7 @@ $app->post('/saveAdminPrivilege', function() use ($app)  {
 
 $app->post('/deleteUser', function() use ($app) {
     
+	adminRequire();
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
     $response = [];
@@ -488,7 +519,7 @@ $app->post('/deleteUser', function() use ($app) {
 });
 
 $app->post('/changeUserPassword', function() use ($app) {
-    
+	
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
     
@@ -557,6 +588,8 @@ $app->post('/changeUserAvatar', function() use ($app) {
 });
 
 $app->post('/saveSubject', function() use ($app)  {
+	adminRequire();
+	
     $data = json_decode($app->request->getBody(),true);
     $db = new DbHandler();
     
@@ -584,6 +617,8 @@ $app->post('/saveSubject', function() use ($app)  {
 });
 
 $app->post('/saveSiteSettings', function() use ($app)  {
+	adminRequire();
+	
     $data = json_decode($app->request->getBody());
     $db = new DbHandler();
     $res = $db->insertToTable('global_settings',"AboutPageID,FooterPageID","'".$data->AboutPageID."','".$data->FooterPageID."'");
@@ -603,6 +638,8 @@ $app->post('/saveSiteSettings', function() use ($app)  {
 });
 
 $app->post('/updateSubject', function() use ($app)  {
+	adminRequire();
+	
     $data = json_decode($app->request->getBody(),true);
     $db = new DbHandler();
     
@@ -619,6 +656,8 @@ $app->post('/updateSubject', function() use ($app)  {
 });
 
 $app->post('/deleteSubject', function() use ($app)  {
+	adminRequire();
+	
     $data = json_decode($app->request->getBody(),true);
     $db = new DbHandler();
     
@@ -635,6 +674,8 @@ $app->post('/deleteSubject', function() use ($app)  {
 });
 
 $app->post('/getAllModulesSorted', function() use ($app)  {
+	adminRequire();
+	
     $db = new DbHandler();
     //$data = json_decode($app->request->getBody());
     $r = $db -> makeQuery("SELECT site_module.*,page.ID as PageID,page.HtmlContent,module_position.Position FROM `site_module` LEFT JOIN module_position on module_position.ID=site_module.ModulePositionID LEFT JOIN page on page.ID = site_module.PageID ORDER BY SortOrder DESC");
@@ -679,6 +720,27 @@ $app->post('/getAdminHeaderData', function() use ($app)  {
     echoResponse(200, $res);
 });
 
+$app->post('/getAllCommentsForManage', function() use ($app)  {
+	adminRequire();
+	$data = json_decode($app->request->getBody());
+    $db = new DbHandler();
+    $pr = new Pagination($data);
+	
+	$query = "SELECT comment.*, post.Title , concat(user.LastName ,' ', user.FirstName) as FullName, concat(up.LastName ,' ', up.FirstName) as AnswerToFullName ,cp.Identity AS AnswerToIdentity ,up.ID as AnswerToUserID FROM comment LEFT JOIN user on user.ID=comment.UserID LEFT JOIN post on post.ID=comment.PostID LEFT JOIN comment AS cp on comment.ParentID=cp.ID LEFT JOIN user AS up on up.ID=cp.UserID ORDER BY comment.Date Desc";
+	
+	$pageRes = $pr->getPage($db,$query);
+	/*
+    foreach($pageRes['Items'] as &$c){
+    	$cq = $db->makeQuery($query.' WHERE Accepted=1 AND comment.ParentID='.$c['ID'].' ORDER BY ID ASC');
+    	$c['Childs'] = [];
+    	while($cc = $cq->fetch_assoc()){
+			$c['Childs'][] = $cc;
+		}
+    }
+*/
+    echoResponse(200, $pageRes);
+});
+
 $app->post('/markAsReadComments', function() use ($app)  {
 	adminRequire();
 	
@@ -688,6 +750,24 @@ $app->post('/markAsReadComments', function() use ($app)  {
     $r = $db -> makeQuery("CALL `Proc_MarkAsRead`('".$AdminID."', @p1)");
     
     echoResponse(200, $r);
+});
+
+$app->post('/acceptComment', function() use ($app)  {
+	adminRequire();
+	$data = json_decode($app->request->getBody());
+	
+    $db = new DbHandler();
+    $acc = ($data->Accepted)?'1':'0';
+    $r = $db -> updateRecord('comment',"Accepted=".$acc,"ID=".$data->CommentID);
+    
+	$response = array();
+	if($r){ 
+		$response["Status"] = "success";
+    	echoResponse(200, $response);
+	}else{
+		$response["Status"] = "error";
+    	echoResponse(201, $response);
+	}
 });
  
 ?>

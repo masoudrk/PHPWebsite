@@ -1,6 +1,7 @@
 ﻿angular.module('myApp').controller('CommentCtrl',
     function ($scope, $rootScope, $routeParams, $location, $timeout, $uibModal, Extention, Upload) {
         $scope.uploading = false;
+        $scope.pagingController = {};
 
         Extention.post("getUserProfile").then(function (res) {
             $scope.user = res;
@@ -46,39 +47,16 @@
             });
         }
 
-        $scope.changePass = function () {
+        $scope.acceptComment = function (c,accept) {
 
-            if ($scope.newPass.length < 6) {
-                Extention.toast({ status: 'error', message: 'طول حروف رمز بایستی بزرگتر از 6 حرف باشد!' });
-                return;
-            }
-
-            if ($scope.newPass != $scope.verifyPass) {
-                Extention.toast({ status: 'error', message: 'رمز های جدید یکسان نیستند!' });
-                return;
-            }
-
-            var obj = {
-                oldPassword: $scope.currentPass,
-                newPassword: $scope.newPass
-            }
-
-            Extention.post("changeUserPassword", obj).then(function (res) {
+            Extention.post("acceptComment", { CommentID: c.ID, Accepted: accept }).then(function (res) {
                 if (res) {
                     if (res.Status == "success") {
-                        Extention.toast({ status: 'success', message: 'رمز با موفقیت تغییر یافت!' });
-                        return;
+                        Extention.toast({ status: 'success', message: 'با موفقیت تغییر کرد!' });
+                        $scope.pagingController.update();
                     } else {
-                        if (res.Message == "PasswordNotMatch") {
-                            Extention.toast({ status: 'error', message: 'خطا! رمز قبلی صحیح نیست.' });
-                            return;
-                        }
-                        if (res.Message == "PasswordIsShort") {
-                            Extention.toast({ status: 'error', message: 'خطا ، طول رمز کمتر از 6 کاراکتر است!' });
-                            return;
-                        }
+                        Extention.toast({ status: 'error', message: 'خطا در سرور ، دوباره تلاش کنید' });
                     }
-                    Extention.toast({ status: 'error', message: 'خطا در سرور ! لطفا دوباره تلاش کنید.' });
                 } 
             });
         }

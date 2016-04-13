@@ -3,11 +3,9 @@
     $scope.login = {};
     $scope.signup = {};
     $scope.doLogin = function (user) {
-        Extention.setBusy(true);
         Extention.post('login', {
             customer: user
         }).then(function (results) {
-            Extention.setBusy(false);
 
             if (results.Status == "success") {
                 Extention.authUser(results);
@@ -34,7 +32,8 @@
             customer: customer
         }).then(function (results) {
             if (results.status == "success") {
-                Extention.toast({ status: "success", message: "ثبت نام با موفقیت انجام شد!" });
+                $uibModalInstance.close(results);
+                Extention.toast({ status: "success", message: "ثبت نام با موفقیت انجام شد! لطفا وارد سایت شوید." });
             } else {
                 if(results.status == "error-exists")
                     Extention.toast({ status: "error", message: "کاربری با این مشخصات ثبت نام کرده است!" });

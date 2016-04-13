@@ -46,7 +46,14 @@
 
         Extention.post("saveComment", httpBody).then(function (res) {
             if (res && res.Status == "success") {
-                Extention.popSuccess('با تشکر از شما ، نظر شما پس از تایید نمایش داده خواهد شد.');
+                if (Extention.isAdmin()) {
+                    Extention.popSuccess('نظر با موفقیت ثبت شد!');
+                    Extention.post("getPostComments", { PostID: $stateParams.id }).then(function (res) {
+                        $scope.comments = res.Items;
+                    });
+                }
+                else
+                    Extention.popSuccess('با تشکر از شما ، نظر شما پس از تایید نمایش داده خواهد شد.');
             } else {
                 Extention.popError('خطا در سرور ، لطفا دوباره تلاش کنید');
             }

@@ -1,12 +1,10 @@
-angular.module('myApp').controller('UserCtrl', function ($scope, $rootScope, $routeParams, $state, $location, Extention) {
+ï»¿angular.module('myApp').controller('UserCtrl', function ($scope, $rootScope, $routeParams, $state, $location, Extention) {
 
     $scope.logout = function () {
-        Extention.setBusy(true);
         Extention.get('logout').then(function (results) {
-            Extention.popInfo('ÔãÇ ÈÇ ãæİŞ?Ê ÎÇÑÌ ÔÏ?Ï!');
+            Extention.popInfo('Ø´Ù…Ø§ Ø¨Ø§ Ù…ÙˆÙÙ‚ÛŒØª Ø®Ø§Ø±Ø¬ Ø´Ø¯ÛŒØ¯!');
             Extention.unAuthUser();
             $state.go('home.home');
-            Extention.setBusy(true);
         });
     }
 });
