@@ -13,14 +13,27 @@ $app->post('/likePost', function() use ($app)  {
 			if(!$ex){
 				$db->insertToTable('post_like','Identity,PostID,UserID,Date',"'".getIPAddress().
 				"','".$postID."','".$sess['UserID']."',NOW()");
+				$countQ = $db->makeQuery("SELECT count(*) as Total FROM `post_like` WHERE PostID='".$postID."'");
+				$c = $countQ->fetch_assoc();
 				$res = [];
-				$res["Status"] = "";
-				$res["Count"] = 10;
+				$res["Status"] = "Success";
+				$res["Count"] = $c["Total"];
+				$res["PostID"] = $postID;
+				$res["Liked"] = TRUE;
     			echoResponse(200, $res);
     			return;
 			}
 		}else{
-			$ex = $db->existsRecord('post_like',"PostID='".$postID."' AND UserID='".$sess['UserID']."'");
+			$r = $db->deleteFromTable('post_like',"PostID='".$postID."' AND UserID='".$sess['UserID']."'");
+			$countQ = $db->makeQuery("SELECT count(*) as Total FROM `post_like` WHERE PostID='".$postID."'");
+			$c = $countQ->fetch_assoc();
+			$res = [];
+			$res["Status"] = "Success";
+			$res["Count"] = $c["Total"];
+			$res["PostID"] = $postID;
+			$res["Liked"] = FALSE;
+			echoResponse(200, $res);
+			return;
 		}
 	}
     else{

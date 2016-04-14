@@ -195,7 +195,7 @@ $app->post('/deletePost', function() use ($app) {
     $response = array();
     $rObj = json_decode($app->request->getBody());
     $db = new DbHandler();
-    $result = $db->deleteFromTable('post','ID='.$rObj);
+    $result = $db->deleteFromTable('post','ID='.$rObj->PostID);
 });
 
 $app->post('/deletePage', function() use ($app) {

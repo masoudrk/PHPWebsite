@@ -416,7 +416,8 @@ app.config([
                 }
             });
 
-        $urlRouterProvider.otherwise("/");
+        $urlRouterProvider.when('', '/home');
+       // $urlRouterProvider.otherwise("/");
     }
 ]).run(function ($rootScope,$state, $location, Extention) {
     
@@ -431,10 +432,10 @@ app.config([
         $rootScope.authenticated = false;
         Extention.get('session').then(function (results) {
 
-            if (next.url == '/') {
-                $state.go("home.home");
-                return;
-            }
+            //if (next.url == '/') {
+            //    $state.go("home.home");
+            //    return;
+            //}
 
             if (next.url == '/admin') {
                 $state.go("admin_root.dashboard");

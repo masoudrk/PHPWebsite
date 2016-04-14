@@ -15,7 +15,14 @@ angular.module('ui.navbar', ['ui.bootstrap'])
                     });
                 }
             },
-            templateUrl: 'partials/Admin/MenuTmpl/navbar-ul.html'
+            template: '<ul class="dropdown-menu" style="padding: 0">'+
+                            '<div style="max-height: 300px; overflow: auto">'+
+                                '<leaf ng-repeat="leaf in tree" leaf="leaf"></leaf>'+
+                            '</div>'+
+                            '<div class="text-center" style="padding: 5px;background-color:#ddd" >'+
+                                '<button class="btn btn-success" style="font-weight: 700" ng-click="markAsRead()" >еге —ж ќждѕг</button>'+
+                            '</div>'+
+                        '</ul>'
         };
     })
 

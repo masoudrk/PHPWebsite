@@ -1,13 +1,13 @@
-﻿angular.module('myApp').controller('AllPostsCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Extention, AdminService, MainService) {
+﻿angular.module('myApp').controller('AllPostsCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Extention) {
 
     $scope.subjectButtonText = "انتخاب نشده";
     $scope.pagingController = {};
     $scope.posts = [];
     $scope.pagingParams = {};
 
-    $scope.deletePost = function (post) {
+    $scope.deletePost = function(post) {
         Extention.setBusy(true);
-        AdminService.deletePost(post.ID).then(function (res) {
+        Extention.post('deletePost', {PostID : post.ID }).then(function (res) {
             Extention.setBusy(false);
             if (res) {
                 $scope.pagingController.update();

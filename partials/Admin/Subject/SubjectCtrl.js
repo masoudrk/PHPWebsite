@@ -1,24 +1,5 @@
 ﻿angular.module('myApp').controller('SubjectCtrl',
     function ($scope, $rootScope, $routeParams, $location, Extention) {
-        $scope.itemss = [
-            {
-                item: {}, // this object will be referenced as the $item on scope
-                children: []
-            },
-            {
-                item: {},
-                children: [
-                    {
-                        item: {},
-                        children: []
-                    }
-                ]
-            },
-            {
-                item: {},
-                children: []
-            }
-        ];
 
         $scope.p1 = $scope.p2 = $scope.p3 = $scope.p4 = false;
         $scope.showPanel = function (p1, p2, p3, p4) {
@@ -50,6 +31,7 @@
             Extention.post("saveSubject", { ParentID: $scope.selectedSubject.ID, Title: $scope.newChildSubjectTitle })
                 .then(function (res) {
                     if (res && res.Status == "success") {
+                        $scope.newChildSubjectTitle = '';
                         Extention.toast({ status: "success", message: "با موفقیت اضافه شد!" });
                         $scope.getAllSubjects();
                     } else {
@@ -57,6 +39,20 @@
                     }
                 });
         }
+
+        $scope.saveSubject = function () {
+            Extention.post("saveSubject", { ParentID: -1, Title: $scope.newSubjectTitle })
+                .then(function (res) {
+                    if (res && res.Status == "success") {
+                        $scope.newSubjectTitle = '';
+                        Extention.toast({ status: "success", message: "با موفقیت اضافه شد!" });
+                        $scope.getAllSubjects();
+                    } else {
+                        Extention.toast({ status: "error", message: "مشکل در اضافه کردن لطفا دوباره امتحان کنید." });
+                    }
+                });
+        }
+
         $scope.updateSubject = function (subjectID, title) {
             Extention.post("updateSubject", { ID: subjectID, Title: title })
                 .then(function (res) {

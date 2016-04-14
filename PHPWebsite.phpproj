@@ -238,6 +238,7 @@
     <Content Include="css\angular-tooltips.css" />
     <Content Include="css\bootstrap-plus.css" />
     <Content Include="css\bootstrap-plus.min.css" />
+    <Content Include="css\font-awesome.min.css" />
     <Content Include="css\sortable\ng-sortable.css" />
     <Content Include="css\sortable\ng-sortable.min.css" />
     <Content Include="css\sortable\ng-sortable.style.css" />
@@ -639,6 +640,8 @@
     <Content Include="js\select.min.js" />
     <Content Include="js\sortable.js" />
     <Content Include="css\treasure-overlay-spinner.min.css" />
+    <Content Include="css\toaster.min.css" />
+    <Content Include="js\toaster.min.js" />
     <Content Include="js\treasure-overlay-spinner.js" />
     <Content Include="js\treasure-overlay-spinner.min.js" />
     <Content Include="js\ui-bootstrap-tpls-1.2.5.js" />

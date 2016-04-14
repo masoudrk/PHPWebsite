@@ -24,7 +24,7 @@
                 <tr ng-repeat="p in posts">
                     <td>{{p.Title}}</td>
                     <td>
-                        <div ng-bind-html="p.BriefContent" style="height: 60px; overflow: hidden"></div>
+                        <div compile="p.BriefContent" style="max-height: 60px; overflow: hidden"></div>
                     </td>
                     <td>{{p.WriteDate | jalaliDate:'jYYYY/jMM/jDD hh:mm' }}</td>
                     <td>

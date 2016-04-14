@@ -23,8 +23,9 @@
                     }
                 }
 
-                Extention.post("likePost", { PostID: post.ID, Like: post.Liked }).then(function (res) {
+                Extention.postAsync("likePost", { PostID: post.ID, Like: post.Liked }).then(function (res) {
                     $scope.ngModel.Liked = res.Liked;
+                    $scope.ngModel.LikesCount = res.Count;
                 });
             }
 
