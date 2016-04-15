@@ -615,11 +615,6 @@
     <Content Include="js\editor\ckeditor\styles.js" />
     <Content Include="js\editor\ng-ckeditor.js" />
     <Content Include="js\editor\ng-ckeditor.min.js" />
-    <Content Include="js\editor\textAngular-rangy.min.js" />
-    <Content Include="js\editor\textAngular-sanitize.js" />
-    <Content Include="js\editor\textAngular-sanitize.min.js" />
-    <Content Include="js\editor\textAngular.js" />
-    <Content Include="js\editor\textAngular.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="defaultPage.js" />
     <Content Include="js\loading-bar.js" />

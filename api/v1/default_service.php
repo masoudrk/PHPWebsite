@@ -100,7 +100,8 @@ $app->post('/uploadFile', function() use ($app)  {
         "FileTypeID" => $typeID,
         "Path" => "content/".$specFolder."/",
         "Description" => $description,
-        "FullPath" => "content/".$specFolder."/".$specFile
+        "FullPath" => "content/".$specFolder."/".$specFile,
+        "IsMedia" => '1'
     ];
     $result = $db->insertIntoTable($object, $column_names, "gallery");
 
@@ -282,7 +283,7 @@ $app->post('/getAllPosts', function() use ($app)  {
 	}
 	
 	$sess = $db->getSession();
-	$isUser=isset($sess["IsUser"]);
+	$isUser=isset($sess["UserID"]);
 	$ip = getIPAddress();
 	
     foreach($pageRes['Items'] as &$res){
@@ -333,7 +334,7 @@ $app->post('/getAllMedia', function() use ($app)  {
     $hasSearchValue = isset($data->searchValue);
     
     if($isMedia)
-    	$isMedia = ($data->isMedia)?1:0;
+    	$isMedia = ($isMedia)?1:0;
     else
     	$isMedia = 0;
     

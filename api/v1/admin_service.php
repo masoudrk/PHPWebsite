@@ -287,7 +287,7 @@ $app->post('/getAllPageTypes', function() use ($app)  {
 });
 
 $app->post('/getAllSlides', function() use ($app)  {
-	adminRequire();
+	//adminRequire();
 	
     $data = json_decode($app->request->getBody());
     $pageSize = 20;

@@ -46,18 +46,17 @@
             var uibModalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'partials/Modals/Gallery/GalleryTemplate.html',
-                controller: function ($uibModalInstance, $scope, mediaType) {
-                    $scope.pagingParams = {
-                        imageType: ""
-                    }
-                    $scope.selectMedia = function (item) {
-                        $uibModalInstance.close(item);
-                    };
-                },
+                controller: 'GalleryModalCtrl',
                 size: 'lg',
                 resolve: {
-                    mediaType: function () {
-                        return ["jpeg/jpg", "png"];
+                    fileTypes: function () {
+                        return "'jpg/jpeg','png'";
+                    },
+                    isMedia: function () {
+                        return 1;
+                    },
+                    typesDesc: function () {
+                        return "فایل تصویری";
                     }
                 }
             });

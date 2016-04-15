@@ -391,6 +391,7 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Slider/SliderCtrl.js',
+                            'partials/Modals/Gallery/GalleryModalCtrl.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }

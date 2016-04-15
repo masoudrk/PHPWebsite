@@ -1,77 +1,79 @@
-﻿<div id="top-menubar" class="navbar navbar-inverse navbar-fixed-top" role="navigation" 
-     style="background-color: rgba(245, 245, 245, 0.59);border:none">
+﻿<div id="top-menubar" class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+     style="background-color: rgba(0, 0, 0, 0.9); border: none">
+
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 no-padding">
-                <div id='cssmenu' class="align-right">
+        <div id='cssmenu' class="align-right">
+            <ul>
+                <li>
+                    <a ui-sref="home.home" class="yekan-font">
+                        خانه
+                        <div class="glyphicon glyphicon-home" style="margin-left: 8px; line-height: 0"></div>
+                    </a>
+                </li>
+                <li class='has-sub'>
+                    <a href='#'>موضوعات</a>
                     <ul>
-                        <li>
-                            <a ui-sref="home.home" class="yekan-font">
-                                خانه
-                                <div class="glyphicon glyphicon-home" style="margin-left: 8px; line-height: 0"></div>
-                            </a>
-                        </li>
-                        <li class='has-sub'>
-                            <a href='#'>موضوعات</a>
+                        <li class='has-sub' ng-repeat="s in subjects">
+                            <a ui-sref="home.cat({ id: '{{s.ID}}'})">{{s.Title}}</a>
                             <ul>
-                                <li class='has-sub' ng-repeat="s in subjects">
-                                    <a ui-sref="home.cat({ id: '{{s.ID}}'})">{{s.Title}}</a>
-                                    <ul>
-                                        <li><a ui-sref="home.cat({ id: '{{child.ID}}'})" ng-repeat="child in s.childs">{{child.Title}}</a></li>
-                                    </ul>
-                                </li>
+                                <li><a ui-sref="home.cat({ id: '{{child.ID}}'})" ng-repeat="child in s.childs">{{child.Title}}</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a ui-sref='home.about'>
-                                درباره ما
-                                <div class="glyphicon glyphicon-globe" style="margin-left: 8px; line-height: 0"></div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href='#'>
-                                تماس با ما
-                                <div class="glyphicon glyphicon-earphone" style="margin-left: 8px; line-height: 0"></div>
-                            </a>
-                        </li>
-
-                        <li ng-if="!authenticated" style="float: left">
-                            <a ng-click="openSignupModal()">
-                                ثبت نام
-                                <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
-                            </a>
-                        </li>
-                        <li ng-if="!authenticated" style="float: left">
-                            <a ng-click="openLoginModal()">
-                                ورود
-                                <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
-                            </a>
-                        </li>
-                        <li ng-if="authenticated" style="float: left">
-                            <a ng-click="logout()">
-                                خروج
-                                <div class="fa fa-sign-out" style="margin-left: 8px; line-height: 0"></div>
-                            </a>
-                        </li>
-                        <li ng-if="authenticated && isAdmin" style="float: left">
-                            <a ui-sref="admin_root.dashboard">
-                                پنل کاربری
-                                <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
-                            </a>
-                        </li>
-                        <li ng-if="authenticated && !isAdmin" style="float: left">
-                            <a ui-sref="user_root.dashboard">
-                                پنل کاربری
-                                <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
-                            </a>
-                        </li>
                     </ul>
-                </div>
-            </div>
+                </li>
+                <li>
+                    <a ui-sref='home.about'>
+                        درباره ما
+                        <div class="glyphicon glyphicon-globe" style="margin-left: 8px; line-height: 0"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href='#'>
+                        تماس با ما
+                        <div class="glyphicon glyphicon-earphone" style="margin-left: 8px; line-height: 0"></div>
+                    </a>
+                </li>
+
+                <li ng-if="!authenticated" style="float: left">
+                    <a ng-click="openSignupModal()">
+                        ثبت نام
+                        <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
+                    </a>
+                </li>
+                <li ng-if="!authenticated" style="float: left">
+                    <a ng-click="openLoginModal()">
+                        ورود
+                        <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
+                    </a>
+                </li>
+                <li ng-if="authenticated" style="float: left">
+                    <a ng-click="logout()">
+                        خروج
+                        <div class="fa fa-sign-out" style="margin-left: 8px; line-height: 0"></div>
+                    </a>
+                </li>
+                <li ng-if="authenticated && isAdmin" style="float: left">
+                    <a ui-sref="admin_root.dashboard">
+                        پنل کاربری
+                        <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
+                    </a>
+                </li>
+                <li ng-if="authenticated && !isAdmin" style="float: left">
+                    <a ui-sref="user_root.dashboard">
+                        پنل کاربری
+                        <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
+                    </a>
+                </li>
+            </ul>
         </div>
+        <!--<div class="row">
+            <div class="col-xs-12 no-padding">
+
+            </div>
+        </div>-->
     </div>
 </div>
-<div style="margin-top:-51px">
+<div style="margin-top:0px">
     <slide-show id="main-slider" class="col-md-12 slider no-padding" slides="slides" ng-control="sliderController"></slide-show>
     <div class="container">
 

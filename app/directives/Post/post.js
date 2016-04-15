@@ -6,12 +6,15 @@
             onPostMore:'&'
         },
         controller: ['$scope', 'Extention', '$element', '$attrs', '$window', function ($scope, Extention, $element, $attrs, $window) {
-
+            $scope.posting = false;
             $scope.postMore = function () {
                 $scope.onPostMore();
             }
 
             $scope.likePost = function () {
+                if ($scope.posting)
+                    return;
+                $scope.posting = true;
                 var post = $scope.ngModel;
                 if (!post.Liked) {
                     post.Liked = true;
@@ -22,10 +25,15 @@
                         post.class = 'hvr-push my-gray';
                     }
                 }
-
+                if (post.Liked) {
+                    $scope.ngModel.LikesCount++;
+                } else {
+                    $scope.ngModel.LikesCount--;
+                }
                 Extention.postAsync("likePost", { PostID: post.ID, Like: post.Liked }).then(function (res) {
                     $scope.ngModel.Liked = res.Liked;
                     $scope.ngModel.LikesCount = res.Count;
+                    $scope.posting = false;
                 });
             }
 

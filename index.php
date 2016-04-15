@@ -1,11 +1,5 @@
 <!DOCTYPE html>
 <html lang="fa">
-<style>
-    .slider {
-        height: 500px;
-        background-color: gray;
-    }
-</style>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,7 +34,7 @@
     <div ui-view></div>
 </body>
 
-<toaster-container toaster-options="{'time-out': 10000}"></toaster-container>
+<toaster-container toaster-options="{'time-out': 10000, 'position-class': 'toast-bottom-right', 'close-button':true, 'animation-class': 'toast-bottom-right'}"></toaster-container>
 
 <!-- jqurey libs -->
 <script src="js/jquery.js" type="text/javascript"></script>
@@ -49,7 +43,6 @@
 
 <!-- Libs -->
 <script src="Scripts/angular.js"></script>
-<script src="Scripts/angular-sanitize.min.js"></script>
 <script src="Scripts/angular-route.min.js"></script>
 <script src="Scripts/angular-animate.min.js" ></script>
 <script src="Scripts/angular-ui-router.js"></script>

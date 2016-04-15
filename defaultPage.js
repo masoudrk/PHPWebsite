@@ -5,13 +5,13 @@ jQuery(function ($) {
         var w = $(window).width();
         var h = 0;
         if (w > 1300) {
-            h = 400;
+            h = 500;
         } else {
-            h = w - 400;
+            h = w - 500;
         }
 
-        if (h > 400)
-            h = 400;
+        if (h > 500)
+            h = 500;
 
         var leftArrow = $("#slide-arrow-left");
         var rightArrow = $("#slide-arrow-right");
@@ -24,8 +24,10 @@ jQuery(function ($) {
         leftArrow.css("top", (h - leftArrow.height()) / 2);
         rightArrow.css("top", (h - rightArrow.height()) / 2);
 
-        if (h < 50) {
+        if (h < 150) {
             mainSlider.css("visibility", "collapse");
+            mainSlider.css("height", 0);
+            slider.css("height", 0);
         } else {
             mainSlider.css("visibility", "visible");
         }
@@ -36,15 +38,15 @@ jQuery(function ($) {
     });
 
     function stickyScroll(e) {
-        var scroll_top = $(window).scrollTop();
-        if (scroll_top < 5) {
-            $("#top-menubar").css('background-color', 'rgba(0,0,0,0)');
-        } else {
-            var o = (scroll_top / 500);
-            if (o > 0.7)
-                o = 0.7;
-            $("#top-menubar").css('background-color', 'rgba(0, 0, 0, ' + o + ')');
-        }
+        //var scroll_top = $(window).scrollTop();
+        //if (scroll_top < 5) {
+        //    $("#top-menubar").css('background-color', 'rgba(0,0,0,0)');
+        //} else {
+        //    var o = (scroll_top / 500);
+        //    if (o > 0.7)
+        //        o = 0.7;
+        //    $("#top-menubar").css('background-color', 'rgba(0, 0, 0, ' + o + ')');
+        //}
     }
 
     stickyScroll();
