@@ -31,6 +31,7 @@
                 }
             });
 
+            Extention.popInfo('لطفا تا پایان آپلود فایل صبر کنید.');
             file.upload.then(function (response) {
                 $timeout(function () {
                     file.result = response.data;

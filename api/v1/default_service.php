@@ -73,9 +73,9 @@ $app->post('/likePost', function() use ($app)  {
 });
 
 $app->post('/uploadFile', function() use ($app)  {
-    $filename = $_FILES['file']['name'];
     $typeID = $_POST['fileTypeID'];  
     $description = $_POST['description'];  
+    $filename = $_FILES['file']['name'];
     
 	$rand = generateRandomString(18);
 	$ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -85,7 +85,12 @@ $app->post('/uploadFile', function() use ($app)  {
 	$r=$rs->fetch_assoc();
 	
 	$specFolder = $r['SpecialFolder'];
-	$specFile = $rand.".".$ext;
+	$specFile ='';
+	if($r["GeneralType"] == 'Image')
+		$specFile = $rand.".".$ext;
+	else
+		$specFile = $filename;
+	
 	$absPath =  '../../content/'.$specFolder.'/';
     if (!file_exists($absPath)) {
     	mkdir($absPath, 0777, true);

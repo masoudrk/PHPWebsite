@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2016 at 09:37 PM
+-- Generation Time: Apr 18, 2016 at 09:24 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -19,6 +19,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `testdb`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Proc_MarkAsRead`(IN `INAdminID` BIGINT, OUT `Status` BOOLEAN)
+    NO SQL
+BEGIN
+
+INSERT INTO comment_read
+(AdminID,CommentID) 
+SELECT INAdminID, comment.ID as CommentID 
+FROM comment 
+WHERE not exists(SELECT * FROM comment_read 
+WHERE comment_read.CommentID=comment.ID 
+AND comment_read.AdminID=INAdminID);
+
+SET Status = TRUE;
+
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -71,10 +93,46 @@ INSERT INTO `admin_privilege` (`ID`, `Privilege`, `Description`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `comment` (
-  `ID` int(11) NOT NULL,
-  `Content` int(11) NOT NULL,
-  `ParentID` int(11) NOT NULL DEFAULT '-1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `PostID` bigint(20) DEFAULT NULL,
+  `Content` text COLLATE utf8_persian_ci NOT NULL,
+  `ParentID` int(11) NOT NULL DEFAULT '-1',
+  `Identity` varchar(200) COLLATE utf8_persian_ci DEFAULT NULL,
+  `Email` varchar(100) COLLATE utf8_persian_ci DEFAULT NULL,
+  `UserID` bigint(20) DEFAULT NULL,
+  `Date` datetime NOT NULL,
+  `Accepted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=21 ;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`ID`, `PostID`, `Content`, `ParentID`, `Identity`, `Email`, `UserID`, `Date`, `Accepted`) VALUES
+(11, 125, 'Ø¯Ø±ÙˆØ¯ Ù…Ù…Ù†ÙˆÙ† Ø§Ø² Ù…Ø·Ø§Ù„Ø¨ØªÙˆÙ†!', -1, 'Ù…Ø³Ø¹ÙˆØ¯', 'maoud@gmail.com', NULL, '2016-03-09 00:00:00', 1),
+(12, 125, 'Ø³Ù„Ø§Ù… Ø¨Ù„Ù‡ Ø¯Ø±Ø³ØªÙ‡!', 11, 'ali', 'khanlo', NULL, '2016-04-11 23:50:47', 1),
+(13, 125, 'Ø§ÛŒÙ† Ø¨Ø­Ø« Ù…Ø·Ø±Ø­ Ø´Ø¯Ù‡ Ø¯Ø± Ø§ÛŒÙ† Ù¾Ø³Øª Ø¨ÛŒØ´ØªØ± Ù…Ø±Ø¨ÙˆØ· Ù…ÛŒØ´Ù‡ Ø¨Ù‡ Ø§ØµÙˆÙ„ Ú†Ù‡Ø§Ø±Ú¯Ø§Ù†Ù‡ Ø¨Ø±Ù†Ø§Ù…Ù‡ Ù†ÙˆÛŒØ³ÛŒ Ú©Ù‡ Ø®ÙˆØ¯Ø´ Ù…Ù‚ÙˆÙ„Ù‡ Ø§ÛŒ Ø¬Ø¯Ø§Ø³Øª Ùˆ Ø¨Ø­Ø« Ø±Ø§Ø¬Ø¹ Ø¨Ù‡ Ø§ÙˆÙ† Ù‡Ù… Ø¨Ù‡ Ù†ÙˆØ¨Ù‡ Ø®ÙˆØ¯ Ø²Ù…Ø§Ù† Ø¨Ø± Ù‡Ø³Øª ØŒ Ø§Ø² Ø¯ÙˆØ³ØªØ§Ù† Ù…ÛŒ Ø®ÙˆØ§Ù… Ù‡Ù…Ø±Ø§Ù‡ÛŒ Ú©Ù†Ù†.', -1, 'ÙˆØ­ÛŒØ¯', 'Ø´Ø³Ø¨Ø´Ø³Ø¨', NULL, '2016-04-12 00:15:37', 1),
+(14, 125, 'Ø³Ù„Ø§Ù… Ùˆ Ø³Ù¾Ø§Ø³ Ø§Ø² Ø²Ø­Ù…Ø§Øª Ø´Ù…Ø§!', 11, NULL, NULL, 8, '2016-04-12 00:53:53', 1),
+(15, 125, 'Ø¨Ù„Ù‡ Ú©Ø§Ù…Ù„Ø§ Ù…ÙˆØ§ÙÙ‚Ù… Ø¨Ø§ Ù†Ø¸Ø± Ø´Ù…Ø§ Ø¯ÙˆØ³Øª Ø¹Ø²ÛŒØ².', 13, NULL, NULL, 8, '2016-04-12 01:00:10', 1),
+(16, 125, 'Ø³Ù„Ø§Ù… Ù„Ø·ÙØ§ Ø®ÙˆØ¯ØªÙˆÙ† Ø±Ùˆ Ù…Ø¹Ø±ÙÛŒ Ú©Ù†ÛŒØ¯!', -1, NULL, NULL, 8, '2016-04-13 23:10:11', 1),
+(17, 125, 'Ø¨Ø§Ø´Ù‡', -1, NULL, NULL, 8, '2016-04-13 23:43:44', 1),
+(18, 125, 'Ø¨Ù„Ù‡ ØµØ­ÛŒØ­ Ù†ÛŒØ³Øª.', -1, NULL, NULL, 8, '2016-04-13 23:44:57', 1),
+(19, 120, 'Ø³Ù„Ø§Ù… Ø¨Ù‡ Ù‡Ù…Ú¯ÛŒ!', -1, NULL, NULL, 8, '2016-04-13 23:53:25', 1),
+(20, 120, 'Ù…Ù…Ù†ÙˆÙ† Ø§Ø² Ø´Ù…Ø§.', -1, 'Ù†Ù‚ÛŒ', 'Ø³Ø´Ø¨Ø´Ø³Ø¨ Ø³Ø´Ø¨Ø³Ø´ ÛŒ', NULL, '2016-04-13 23:54:24', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment_read`
+--
+
+CREATE TABLE IF NOT EXISTS `comment_read` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `AdminID` bigint(20) NOT NULL,
+  `CommentID` bigint(20) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -86,18 +144,29 @@ CREATE TABLE IF NOT EXISTS `file_type` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `Type` varchar(50) COLLATE utf8_persian_ci NOT NULL,
   `Explain` text COLLATE utf8_persian_ci,
+  `GeneralType` varchar(30) COLLATE utf8_persian_ci NOT NULL,
+  `SpecialFolder` varchar(30) COLLATE utf8_persian_ci NOT NULL,
+  `NgClass` varchar(100) COLLATE utf8_persian_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `file_type`
 --
 
-INSERT INTO `file_type` (`ID`, `Type`, `Explain`) VALUES
-(1, 'jpg/jpeg', 'JPG is a file extension for a lossy graphics file.'),
-(3, 'png', 'Portable Network Graphics'),
-(4, 'zip', NULL),
-(5, 'pdf', NULL);
+INSERT INTO `file_type` (`ID`, `Type`, `Explain`, `GeneralType`, `SpecialFolder`, `NgClass`) VALUES
+(1, 'jpg/jpeg', 'JPG is a file extension for a lossy graphics file.', 'Image', 'img', NULL),
+(3, 'png', 'Portable Network Graphics', 'Image', 'img', NULL),
+(4, 'zip', NULL, 'Archive', 'archives', 'fa fa-4x fa-file-archive-o'),
+(5, 'pdf', NULL, 'Document', 'docs', ' fa fa-4x fa-file-pdf-o'),
+(6, 'rar', NULL, 'Archive', 'archives', ' fa fa-4x fa-file-archive-o'),
+(7, 'exe', NULL, 'WindowsApp', 'files', ' fa fa-4x fa-windows'),
+(8, 'mp3', NULL, 'Sound', 'sounds', ' fa fa-4x fa-music'),
+(9, 'apk', NULL, 'AndroidApp', 'apks', ' fa fa-4x fa-android'),
+(10, 'mp4', NULL, 'Video', 'videos', ' fa fa-4x fa-video-camera'),
+(11, 'swf', NULL, 'Video', 'videos', ' fa fa-4x fa-video-camera'),
+(12, 'avi', NULL, 'Video', 'videos', ' fa fa-4x fa-video-camera'),
+(13, 'wave', NULL, 'Archive', 'videos', ' fa fa-4x fa-file-archive-o');
 
 -- --------------------------------------------------------
 
@@ -116,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   `IsMedia` tinyint(1) NOT NULL DEFAULT '1',
   `UserID` bigint(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=287 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=297 ;
 
 --
 -- Dumping data for table `gallery`
@@ -139,7 +208,15 @@ INSERT INTO `gallery` (`ID`, `FileTypeID`, `UploadDate`, `Path`, `FullPath`, `De
 (283, 1, NULL, 'content/img/', 'content/img/MKjIdB1bs5dwH4PlGS.jpg', NULL, NULL, 0, 0),
 (284, 1, NULL, 'content/img/', 'content/img/H9ngm4gzGkSiCuTNEE.JPG', NULL, NULL, 0, 0),
 (285, 1, NULL, 'content/img/', 'content/img/G5fKbl8HfIS7kgGQqB.png', NULL, NULL, 1, 0),
-(286, 3, NULL, 'content/img/', 'content/img/MgtVq2jOzN5FXTgANa.jpg', NULL, NULL, 1, 0);
+(287, 4, NULL, 'content/archives/', 'content/archives/6fQWRgUykRMG4KOLc9.jpg', NULL, NULL, 1, 0),
+(288, 4, NULL, 'content/archives/', 'content/archives/VcxCjjdtzJKW1WefxT.png', NULL, NULL, 1, 0),
+(289, 1, NULL, 'content/img/', 'content/img/w2.jpg', NULL, NULL, 0, 0),
+(290, 1, NULL, 'content/img/', 'content/img/bicycle.jpg', 'sa', NULL, 0, 0),
+(292, 1, NULL, 'content/img/', 'content/img/aayKmQyFqPocHBby26.PNG', NULL, NULL, 1, 0),
+(293, 1, NULL, 'content/img/', 'content/img/d5tt5BDbkCLPzTeSRB.jpg', NULL, NULL, 1, 0),
+(294, 4, NULL, 'content/archives/', 'content/archives/large_female_zombie_3d_model_fbx_max__724f199f-1dcc-43c2-b653-50cdff4b58f4.jpg', NULL, NULL, 1, 0),
+(295, 6, NULL, 'content/archives/', 'content/archives/1.PNG', NULL, NULL, 1, 0),
+(296, 6, NULL, 'content/archives/', 'content/archives/Algoritm-flocharts-www.sourceiran.com.rar', NULL, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -152,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `global_settings` (
   `AboutPageID` bigint(20) NOT NULL,
   `FooterPageID` bigint(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `global_settings`
@@ -181,7 +258,8 @@ INSERT INTO `global_settings` (`ID`, `AboutPageID`, `FooterPageID`) VALUES
 (20, 10, 11),
 (21, 10, 11),
 (22, 10, 11),
-(23, 10, 11);
+(23, 10, 11),
+(24, 10, 11);
 
 -- --------------------------------------------------------
 
@@ -230,7 +308,7 @@ INSERT INTO `page` (`ID`, `HtmlContent`, `Name`, `NameEN`, `HtmlContentEN`, `Pag
 (1, '<p></p><p style="color: rgb(85, 85, 85);background-color: rgb(255, 255, 255);"><b>مسعود هستم</b></p><p style="color: rgb(85, 85, 85);text-align: center;background-color: rgb(255, 255, 255);"><b><img src="http://localhost/xampp/website/content/img/img1.jpg" style="height: 373px;width: 596px;"/></b></p><div class="col-xs-12 text-center">heloooooo</div>', 'درباره', 'my about page', '<p>i am masoud</p>', 3, 1, 0),
 (8, '<p>بیا</p>', 'بیابیا', 'aaaaaaaaaaa', '<p>ایبایا</p>', 2, 1, 0),
 (10, '<p style="text-align: center;">Ø³Ù„Ø§Ù… Ù…Ù† Ù…Ø³Ø¹ÙˆØ¯ Ù‡Ø³ØªÙ… !</p><p></p><div style="text-align: center;"><b>Ø³Ù„Ø§Ù… Ù…Ù† Ù…Ø³Ø¹ÙˆØ¯ Ù‡Ø³ØªÙ… !</b></div><!--StartFragment--><!--StartFragment--><p><span style="color: rgb(85, 85, 85);float: none;background-color: rgb(255, 255, 255);"></span><div style="text-align: center;"><b>Ø³Ù„Ø§Ù… Ù…Ù† Ù…Ø³Ø¹ÙˆØ¯ Ù‡Ø³ØªÙ… !</b></div></p><!--StartFragment--><p><span style="color: rgb(85, 85, 85);float: none;background-color: rgb(255, 255, 255);"></span><div style="text-align: center;"><b>Ø³Ù„Ø§Ù… Ù…Ù† Ù…Ø³Ø¹ÙˆØ¯ Ù‡Ø³ØªÙ… !</b></div></p><p></p><p style="text-align: center;"><span style="color: rgb(85, 85, 85);float: none;background-color: rgb(255, 255, 255);"><img src="content/img/img1.jpg" style="height: 243px;width: 522px;"/><b><br/></b></span></p>', 'ØµÙØ­Ù‡ Ø¯Ø±Ø¨Ø§Ø±Ù‡', 'About', '<p>asf</p>', 2, 1, 0),
-(11, '<div class="col-sm-12 yekan-font bottom-padding-20 top-padding-20"><div class="col-sm-4 text-center my-white">ØªØ±Ú©&#8204;Ù¾Ø¯ Ù…ÙˆØ¬ÙˆØ¯ Ø¯Ø± Ù…Ú©&#8204; Ø¨ÙˆÚ©&#8204;Ù‡Ø§ÛŒ Ø§Ù…Ø±ÙˆØ²ÛŒ ÙÙ†Ø§ÙˆØ±ÛŒ Ø¨Ø®ØµÙˆØµÛŒ Ø§Ø³Øª Ú©Ù‡ Ù…ÙˆØ±Ø¯ ØªÙˆØ¬Ù‡ Ø¨Ø³ÛŒØ§Ø±ÛŒ Ø§Ø² Ø§ÙØ±Ø§Ø¯ Ù‚Ø±Ø§Ø± Ú¯Ø±ÙØªÙ‡ Ø§Ø³ØªØ› Ø§Ù…Ø§ Ø§Ù¾Ù„ Ø¹Ù„Ø§ÙˆÙ‡ Ø¨Ø± ØªØ±Ú©&#8204;Ù¾Ø¯ØŒ Ù‚ØµØ¯ Ø¯Ø§Ø±Ø¯ Ú©ÛŒØ¨ÙˆØ±Ø¯ Ù…Ú© Ø¨ÙˆÚ©&#8204;Ù‡Ø§ Ø±Ø§ Ù†ÛŒØ² Ø§Ø±ØªÙ‚Ø§ Ø¯Ù‡Ø¯. Ø§Ø² Ø§ÛŒÙ†&#8204;Ø±Ùˆ Ø§ÛŒÙ† Ú©Ù…Ù¾Ø§Ù†ÛŒ Ù¾ØªÙ†Øª Ù…Ø±Ø¨ÙˆØ· Ø¨Ù‡ Ú©ÛŒØ¨ÙˆØ±Ø¯ Ø¨Ø¯ÙˆÙ† Ø¯Ú©Ù…Ù‡&#8204;ÛŒ Ù…Ú© Ø¨ÙˆÚ© Ø±Ø§ Ø¨Ù‡ Ø«Ø¨Øª Ø±Ø³Ø§Ù†Ø¯.<p class="my-red">Ø¢Ù„Ù¾Ø§ÛŒÙ† Ø±Ø§ Ù…ÛŒ&#8204;ØªÙˆØ§Ù† ÛŒÚ©ÛŒ Ø§Ø² Ù…ÙˆØ±Ø¯ Ø§Ù†ØªØ¸Ø§Ø±&#8204;ØªØ±ÛŒÙ† Ø®ÙˆØ¯Ø±Ùˆ&#8204;Ù‡Ø§ÛŒ Ø³Ø§Ù„ Û²Û°Û±Û¶ Ø¯Ø§Ù†Ø³Øª. Ø±Ù†Ùˆ Ù‚ØµØ¯ Ø¯Ø§Ø±Ø¯ Ù¾Ø³ Ø§Ø² Û²Ûµ Ø³Ø§Ù„ Ù…Ø¯Ù„ Ø¬Ø¯ÛŒØ¯ÛŒ Ø§Ø² Ø³Ø±ÛŒ Ø§Ø³Ù¾Ø±Øª Ø¢Ù„Ù¾Ø§ÛŒÙ† Ø±Ø§ Ø¹Ø±Ø¶Ù‡ Ú©Ù† Ú©Ù‡ Ø§Ø­ØªÙ…Ø§Ù„Ø§ Ø§Ø² Ù¾ÛŒØ´Ø±Ø§Ù†Ù‡&#8204;ÛŒ Ø³Ø§Ø®Øª AMG Ù…Ø±Ø³Ø¯Ø³ Ø¨Ù†Ø² Ø¯Ø± Ø¢Ù† Ø§Ø³ØªÙØ§Ø¯Ù‡ Ø®ÙˆØ§Ù‡Ø¯ Ø´Ø¯.</p>Ø¢Ù„Ù¾Ø§ÛŒÙ† Ø±Ø§ Ù…ÛŒ&#8204;ØªÙˆØ§Ù† ÛŒÚ©ÛŒ Ø§Ø² Ù…ÙˆØ±Ø¯ Ø§Ù†ØªØ¸Ø§Ø±&#8204;ØªØ±ÛŒÙ† Ø®ÙˆØ¯Ø±Ùˆ&#8204;Ù‡Ø§ÛŒ Ø³Ø§Ù„ Û²Û°Û±Û¶ Ø¯Ø§Ù†Ø³Øª. Ø±Ù†Ùˆ Ù‚ØµØ¯ Ø¯Ø§Ø±Ø¯ Ù¾Ø³ Ø§Ø² Û²Ûµ Ø³Ø§Ù„ Ù…Ø¯Ù„ Ø¬Ø¯ÛŒØ¯ÛŒ Ø§Ø² Ø³Ø±ÛŒ Ø§Ø³Ù¾Ø±Øª Ø¢Ù„Ù¾Ø§ÛŒÙ† Ø±Ø§ Ø¹Ø±Ø¶Ù‡ Ú©Ù† Ú©Ù‡ Ø§Ø­ØªÙ…Ø§Ù„Ø§ Ø§Ø² Ù¾ÛŒØ´Ø±Ø§Ù†Ù‡&#8204;ÛŒ Ø³Ø§Ø®Øª AMG Ù…Ø±Ø³Ø¯Ø³ Ø¨Ù†Ø² Ø¯Ø± Ø¢Ù† Ø§Ø³ØªÙØ§Ø¯Ù‡ Ø®ÙˆØ§Ù‡Ø¯ Ø´Ø¯.<p>Ø¢Ù„Ù¾Ø§ÛŒÙ† Ø±Ø§ Ù…ÛŒ&#8204;ØªÙˆØ§Ù† ÛŒÚ©ÛŒ Ø§Ø² Ù…ÙˆØ±Ø¯ Ø§Ù†ØªØ¸Ø§Ø±&#8204;ØªØ±ÛŒÙ† Ø®ÙˆØ¯Ø±Ùˆ&#8204;Ù‡Ø§ÛŒ Ø³Ø§Ù„ Û²Û°Û±Û¶ Ø¯Ø§Ù†Ø³Øª. Ø±Ù†Ùˆ Ù‚ØµØ¯ Ø¯Ø§Ø±Ø¯ Ù¾Ø³ Ø§Ø² Û²Ûµ Ø³Ø§Ù„ Ù…Ø¯Ù„ Ø¬Ø¯ÛŒØ¯ÛŒ Ø§Ø² Ø³Ø±ÛŒ Ø§Ø³Ù¾Ø±Øª Ø¢Ù„Ù¾Ø§ÛŒÙ† Ø±Ø§ Ø¹Ø±Ø¶Ù‡ Ú©Ù† Ú©Ù‡ Ø§Ø­ØªÙ…Ø§Ù„Ø§ Ø§Ø² Ù¾ÛŒØ´Ø±Ø§Ù†Ù‡&#8204;ÛŒ Ø³Ø§Ø®Øª AMG Ù…Ø±Ø³Ø¯Ø³ Ø¨Ù†Ø² Ø¯Ø± Ø¢Ù† Ø§Ø³ØªÙØ§Ø¯Ù‡ Ø®ÙˆØ§Ù‡Ø¯ Ø´Ø¯.</p></div><div class="col-sm-4 text-center my-white">    <div class="col-sm-12 text-center"><div class="image-single-cover hvr-bounce-in"><img class="image-mid my-link border-radius-500" src="content/img/1xxGE29rB40eB1z9RH.jpg" style="width: 100%;"/></div></div><div class="col-sm-12 text-center top-buffer">ÙˆÛŒÙ… Ø¯Ù„ÙˆÙˆÛŒ Ù‡Ù†Ø±Ù…Ù†Ø¯ Ù…Ø¹Ø§ØµØ± Ø¨Ù„Ú˜ÛŒÚ©ÛŒ Ø§Ø³Øª Ú©Ù‡ Ø§Ø³ÙÙ†Ø¯ Û¹Û´ Ø¢Ø«Ø§Ø± Ø®ÙˆØ¯ Ø±Ø§ Ø¯Ø± Ù‚Ø§Ù„Ø¨ ÛŒÚ© Ú¯Ø§Ù„Ø±ÛŒ Ø§Ø² Ù‡Ù†Ø±Ù‡Ø§ÛŒ ØªØ¬Ø³Ù…ÛŒ Ùˆ Ù…ÙÙ‡ÙˆÙ…ÛŒ Ø¨Ù‡ Ù…ÙˆØ²Ù‡ Ù‡Ù†Ø±Ù‡Ø§ÛŒ Ù…Ø¹Ø§ØµØ± ØªÙ‡Ø±Ø§Ù† Ø¢ÙˆØ±Ø¯. Ø§ÛŒÙ† Ú¯Ø§Ù„Ø±ÛŒ Ø¨Ø³ÛŒØ§Ø± Ù…ÙˆØ±Ø¯ ØªÙˆØ¬Ù‡ Ø¹Ù„Ø§Ù‚Ù‡&#8204;Ù…Ù†Ø¯Ø§Ù† Ø¨Ù‡ Ù‡Ù†Ø±Ù‡Ø§ÛŒ ØªØ¬Ø³Ù…ÛŒ Ùˆ Ù…ÙÙ‡ÙˆÙ…ÛŒ Ù‚Ø±Ø§Ø± Ú¯Ø±ÙØª Ùˆ Ù…ÙˆØ²Ù‡ Ù‡Ù†Ø±Ù‡Ø§ÛŒ Ù…Ø¹Ø§ØµØ± ØªÙ‡Ø±Ø§Ù† Ù‡Ù…Ù‡ Ø±ÙˆØ²Ù‡ Ø´Ø§Ù‡Ø¯ Ø­Ø¶ÙˆØ± Ú¯Ø±Ø¯Ø´Ú¯Ø±Ø§Ù† Ø²ÛŒØ§Ø¯ÛŒ Ø¨Ø±Ø§ÛŒ Ù…Ø´Ø§Ù‡Ø¯Ù‡ Ø¢Ø«Ø§Ø± ÙˆÛŒÙ… Ø¯Ù„ÙˆÙˆÛŒ Ø§Ø³Øª. Ø§ÛŒÙ† Ø¢Ø«Ø§Ø± Ø´Ø§Ù…Ù„ Ú©Ø§Ø±Ù‡Ø§ÛŒ Ø­Ø¬Ù…ÛŒ Ùˆ Ø­Ú©Ø§Ú©ÛŒ Ø´Ø¯Ù‡ Ùˆ Ù…ÙÙ‡ÙˆÙ…ÛŒ ÙˆÛŒ Ø§Ø³Øª </div></div><div class="col-sm-4 text-center my-white">Ø¢Ù„Ù¾Ø§ÛŒÙ† Ø±Ø§ Ù…ÛŒ&#8204;ØªÙˆØ§Ù† ÛŒÚ©ÛŒ Ø§Ø² Ù…ÙˆØ±Ø¯ Ø§Ù†ØªØ¸Ø§Ø±&#8204;ØªØ±ÛŒÙ† Ø®ÙˆØ¯Ø±Ùˆ&#8204;Ù‡Ø§ÛŒ Ø³Ø§Ù„ Û²Û°Û±Û¶ Ø¯Ø§Ù†Ø³Øª. Ø±Ù†Ùˆ Ù‚ØµØ¯ Ø¯Ø§Ø±Ø¯ Ù¾Ø³ Ø§Ø² Û²Ûµ Ø³Ø§Ù„ Ù…Ø¯Ù„ Ø¬Ø¯ÛŒØ¯ÛŒ Ø§Ø² Ø³Ø±ÛŒ Ø§Ø³Ù¾Ø±Øª Ø¢Ù„Ù¾Ø§ÛŒÙ† Ø±Ø§ Ø¹Ø±Ø¶Ù‡ Ú©Ù† Ú©Ù‡ Ø§Ø­ØªÙ…Ø§Ù„Ø§ Ø§Ø² Ù¾ÛŒØ´Ø±Ø§Ù†Ù‡&#8204;ÛŒ Ø³Ø§Ø®Øª AMG Ù…Ø±Ø³Ø¯Ø³ Ø¨Ù†Ø² Ø¯Ø± Ø¢Ù† Ø§Ø³ØªÙØ§Ø¯Ù‡ Ø®ÙˆØ§Ù‡Ø¯ Ø´Ø¯.<p class="my-green-sea">Ø¢Ù„Ù¾Ø§ÛŒÙ† Ø±Ø§ Ù…ÛŒ&#8204;ØªÙˆØ§Ù† ÛŒÚ©ÛŒ Ø§Ø² Ù…ÙˆØ±Ø¯ Ø§Ù†ØªØ¸Ø§Ø±&#8204;ØªØ±ÛŒÙ† Ø®ÙˆØ¯Ø±Ùˆ&#8204;Ù‡Ø§ÛŒ Ø³Ø§Ù„ Û²Û°Û±Û¶ Ø¯Ø§Ù†Ø³Øª. Ø±Ù†Ùˆ Ù‚ØµØ¯ Ø¯Ø§Ø±Ø¯ Ù¾Ø³ Ø§Ø² Û²Ûµ Ø³Ø§Ù„ Ù…Ø¯Ù„ Ø¬Ø¯ÛŒØ¯ÛŒ Ø§Ø² Ø³Ø±ÛŒ Ø§Ø³Ù¾Ø±Øª Ø¢Ù„Ù¾Ø§ÛŒÙ† Ø±Ø§ Ø¹Ø±Ø¶Ù‡ Ú©Ù† Ú©Ù‡ Ø§Ø­ØªÙ…Ø§Ù„Ø§ Ø§Ø² Ù¾ÛŒØ´Ø±Ø§Ù†Ù‡&#8204;ÛŒ Ø³Ø§Ø®Øª AMG Ù…Ø±Ø³Ø¯Ø³ Ø¨Ù†Ø² Ø¯Ø± Ø¢Ù† Ø§Ø³ØªÙØ§Ø¯Ù‡ Ø®ÙˆØ§Ù‡Ø¯ Ø´Ø¯.</p><div class="col-sm-12 text-center"><div class="image-single-cover hvr-bounce-out"><img class="image-small my-link border-radius-500" src="content/img/XN0Jx21mfR8RqHrqTx.jpg" style="width: 100%;"/></div></div></div><div class="col-sm-12 text-center my-peter top-padding-20" dir="rtl">Ø·Ø±Ø§Ø­ÛŒ Ø´Ø¯Ù‡ ØªÙˆØ³Ø· www.MagicCube.ir</div></div>', 'Ù¾Ø§ÙˆØ±Ù‚ÛŒ Ø³Ø§ÛŒØª', 'Footer', '<br/><div class="col-xs-12 yekan-font" style="height: 300px;"><div class="col-xs-4 text-center my-white">Ø³Ù„Ø§Ù…!</div><div class="col-xs-4 text-center my-white">Ù¾Ø§ÙˆØ±Ù‚ÛŒ Ø³Ø§ÛŒØª</div><div class="col-xs-4 text-center my-white">Ø§ÛŒÙ†Ù… Ø§Ø² Ø§ÛŒÙ†</div></div>', 1, 1, 0),
+(11, '<div class="col-sm-12 yekan-font bottom-padding-20 top-padding-20">\n<div class="col-sm-4 text-center my-white"></div>\n\n<div class="col-sm-4 text-center my-white">\n<div class="col-sm-12 text-center">\n<div class="image-single-cover hvr-bounce-in"><img class="border-radius-500 image-mid my-link" src="content/img/1xxGE29rB40eB1z9RH.jpg" style="width:100%" /></div>\n</div>\n\n<div class="col-sm-4 text-center my-white">\n<div class="col-sm-12 text-center">\n<div class="image-single-cover hvr-bounce-out"><img class="border-radius-500 image-small my-link" src="content/img/XN0Jx21mfR8RqHrqTx.jpg" style="width:100%" /></div>\n</div>\n</div>\n\n<div class="col-sm-12 text-center my-peter top-padding-20" dir="rtl">Ø·Ø±Ø§Ø­ÛŒ Ø´Ø¯Ù‡ ØªÙˆØ³Ø· www.MagicCube.ir</div>\n</div>\n', 'Ù¾Ø§ÙˆØ±Ù‚ÛŒ Ø³Ø§ÛŒØª', 'Footer', '<p>&nbsp;</p>\n\n<div class="col-xs-12 yekan-font" style="height: 300px;">\n<div class="col-xs-4 text-center my-white">Ø³Ù„Ø§Ù…!</div>\n\n<div class="col-xs-4 text-center my-white">Ù¾Ø§ÙˆØ±Ù‚ÛŒ Ø³Ø§ÛŒØª</div>\n\n<div class="col-xs-4 text-center my-white">Ø§ÛŒÙ†Ù… Ø§Ø² Ø§ÛŒÙ†</div>\n</div>\n\n<p>&nbsp;</p>\n', 1, 1, 0),
 (12, '<menu style="padding-left:0;margin-top: 0px;"></menu>', 'MenuBar', 'MenuBar', '<menu></menu>', 1, 1, 1),
 (13, '<ul class="colorful-list yekan-font">    <div class="col-xs-12 text-center top-padding-20 bottom-padding-20" dir="rtl">Ø³Ù„Ø§Ù… Ù…Ù† Ù…Ø³Ø¹ÙˆØ¯ Ø±Ø¶Ø§Ø®Ø§Ù†Ù„Ùˆ Ù‡Ø³ØªÙ… !</div></ul>', 'ÛŒÛŒÛŒÛŒÛŒÛŒ', 'heyyyy', '<p>Ø´Ø³Ø¨Ø³Ø´</p>', 1, 1, 0);
 
@@ -271,18 +349,26 @@ CREATE TABLE IF NOT EXISTS `post` (
   `WriteDate` datetime NOT NULL,
   `ReleaseDate` datetime DEFAULT NULL,
   `ImageID` bigint(20) DEFAULT NULL,
+  `Hidden` tinyint(1) NOT NULL DEFAULT '0',
+  `EnableComment` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=119 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=126 ;
 
 --
 -- Dumping data for table `post`
 --
 
-INSERT INTO `post` (`ID`, `Title`, `BriefContent`, `Content`, `WriteDate`, `ReleaseDate`, `ImageID`) VALUES
-(115, 'Ù¾Ø³Øª Ø¬Ø¯ÛŒØ¯ Ù…Ù†', '<p><span style="color: rgb(85, 85, 85);float: none;background-color: rgb(255, 255, 255);"><b><b><b>Ø§ÛŒÙ† Ù¾Ø³Øª Ø¨Ù‡ Ù…Ù†Ø¸ÙˆØ± Ù…Ø¹Ø±ÙÛŒ Ø¬Ø¯ÛŒØ¯ØªØ±ÛŒÙ† Ù‡Ø§ Ø¯Ø± Ù†ÙˆØ¹ Ø®ÙˆØ¯ Ù…ÛŒØ¨Ø§Ø´Ø¯ ØŒ Â Ùˆ Ø§Ø² Ø§ÛŒÙ† Ø­ÛŒØ« Ù…Ø´Ú©Ù„ÛŒ Ù†Ø®ÙˆØ§Ù‡Ø¯ Ø¯Ø§Ø´Øª Ú©Ù‡ Ú©Ø§Ø±Ø¨Ø±Ø§Ù† Ù…Ø§ Ø¨Ù‡ Ø³Ø§ÛŒØª Ø§Ø­ØªØ±Ø§Ù… Ú¯Ø°Ø§Ø´ØªÙ‡ Ùˆ Ù…Ø·Ø§Ù„Ø¨ Ø³Ø§ÛŒØª Ø±Ø§ Ú©Ù¾ÛŒ Ù†Ú©Ù†Ù†Ø¯.</b></b></b></span><br/><br/></p>', '<p><b style="color: rgb(85, 85, 85);"><b><b>Ø§ÛŒÙ† Ù¾Ø³Øª Ø¨Ù‡ Ù…Ù†Ø¸ÙˆØ± Ù…Ø¹Ø±ÙÛŒ Ø¬Ø¯ÛŒØ¯ØªØ±ÛŒÙ† Ù‡Ø§ Ø¯Ø± Ù†ÙˆØ¹ Ø®ÙˆØ¯ Ù…ÛŒØ¨Ø§Ø´Ø¯ ØŒ Â Ùˆ Ø§Ø² Ø§ÛŒÙ† Ø­ÛŒØ« Ù…Ø´Ú©Ù„ÛŒ Ù†Ø®ÙˆØ§Ù‡Ø¯ Ø¯Ø§Ø´Øª Ú©Ù‡ Ú©Ø§Ø±Ø¨Ø±Ø§Ù† Ù…Ø§ Ø¨Ù‡ Ø³Ø§ÛŒØª Ø§Ø­ØªØ±Ø§Ù… Ú¯Ø°Ø§Ø´ØªÙ‡ Ùˆ Ù…Ø·Ø§Ù„Ø¨ Ø³Ø§ÛŒØª Ø±Ø§ Ú©Ù¾ÛŒ Ù†Ú©Ù†Ù†Ø¯.</b></b></b><br/><br/></p>', '2016-04-07 19:30:00', '2016-04-07 19:30:00', 10),
-(116, 'Ø¯Ø±Ø¨Ø§Ø±Ù‡ ÙˆØ¨ Ø³Ø§ÛŒØª', '<p dir="rtl">Ø³Ù„Ø§Ù… Ù…Ù† Ù…Ø³Ø¹ÙˆØ¯ Ø®Ø§Ù†Ù„Ùˆ Ù‡Ø³ØªÙ…! Ø¨Ø§ Ø§Ù†ÙˆØ§Ø¹ App Ø§Ø´Ù†Ø§ Ø´ÙˆÛŒØ¯!</p>\n', '<p dir="rtl">Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;</p>\n', '2016-04-09 19:30:00', '2016-04-09 19:30:00', 3),
-(117, 'Ø¯Ø±Ø¨Ø§Ø±Ù‡ ÙˆØ¨ Ø³Ø§ÛŒØª', '<p dir="rtl">Ø³Ù„Ø§Ù… Ù…Ù† Ù…Ø³Ø¹ÙˆØ¯ Ø®Ø§Ù†Ù„Ùˆ Ù‡Ø³ØªÙ…! Ø¨Ø§ Ø§Ù†ÙˆØ§Ø¹ App Ø§Ø´Ù†Ø§ Ø´ÙˆÛŒØ¯!</p>\n', '<p dir="rtl">Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;</p>\n', '2016-04-09 19:30:00', '2016-04-09 19:30:00', 3),
-(118, 'Ø¯Ø±Ø¨Ø§Ø±Ù‡ ÙˆØ¨ Ø³Ø§ÛŒØª', '<p dir="rtl">Ø³Ù„Ø§Ù… Ù…Ù† Ù…Ø³Ø¹ÙˆØ¯ Ø®Ø§Ù†Ù„Ùˆ Ù‡Ø³ØªÙ…! Ø¨Ø§ Ø§Ù†ÙˆØ§Ø¹ App Ø§Ø´Ù†Ø§ Ø´ÙˆÛŒØ¯!</p>\n', '<div dir="rtl" style="background:#eee;border:1px solid #ccc;padding:5px 10px;">Ø§Ø´Ø³Ø¨Ø³</div>\n\n<div dir="rtl" style="background:#eee;border:1px solid #ccc;padding:5px 10px;">&nbsp;</div>\n\n<p>&nbsp;</p>\n\n<div dir="rtl" style="background:#eee;border:1px solid #ccc;padding:5px 10px;">&nbsp;</div>\n\n<div dir="rtl" style="background:#eee;border:1px solid #ccc;padding:5px 10px;">Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;</div>\n', '2016-04-09 19:30:00', '2016-04-09 19:30:00', 3);
+INSERT INTO `post` (`ID`, `Title`, `BriefContent`, `Content`, `WriteDate`, `ReleaseDate`, `ImageID`, `Hidden`, `EnableComment`) VALUES
+(115, 'Ù¾Ø³Øª Ø¬Ø¯ÛŒØ¯ Ù…Ù†', '<p><span style="color: rgb(85, 85, 85);float: none;background-color: rgb(255, 255, 255);"><b><b><b>Ø§ÛŒÙ† Ù¾Ø³Øª Ø¨Ù‡ Ù…Ù†Ø¸ÙˆØ± Ù…Ø¹Ø±ÙÛŒ Ø¬Ø¯ÛŒØ¯ØªØ±ÛŒÙ† Ù‡Ø§ Ø¯Ø± Ù†ÙˆØ¹ Ø®ÙˆØ¯ Ù…ÛŒØ¨Ø§Ø´Ø¯ ØŒ Â Ùˆ Ø§Ø² Ø§ÛŒÙ† Ø­ÛŒØ« Ù…Ø´Ú©Ù„ÛŒ Ù†Ø®ÙˆØ§Ù‡Ø¯ Ø¯Ø§Ø´Øª Ú©Ù‡ Ú©Ø§Ø±Ø¨Ø±Ø§Ù† Ù…Ø§ Ø¨Ù‡ Ø³Ø§ÛŒØª Ø§Ø­ØªØ±Ø§Ù… Ú¯Ø°Ø§Ø´ØªÙ‡ Ùˆ Ù…Ø·Ø§Ù„Ø¨ Ø³Ø§ÛŒØª Ø±Ø§ Ú©Ù¾ÛŒ Ù†Ú©Ù†Ù†Ø¯.</b></b></b></span><br/><br/></p>', '<p><b style="color: rgb(85, 85, 85);"><b><b>Ø§ÛŒÙ† Ù¾Ø³Øª Ø¨Ù‡ Ù…Ù†Ø¸ÙˆØ± Ù…Ø¹Ø±ÙÛŒ Ø¬Ø¯ÛŒØ¯ØªØ±ÛŒÙ† Ù‡Ø§ Ø¯Ø± Ù†ÙˆØ¹ Ø®ÙˆØ¯ Ù…ÛŒØ¨Ø§Ø´Ø¯ ØŒ Â Ùˆ Ø§Ø² Ø§ÛŒÙ† Ø­ÛŒØ« Ù…Ø´Ú©Ù„ÛŒ Ù†Ø®ÙˆØ§Ù‡Ø¯ Ø¯Ø§Ø´Øª Ú©Ù‡ Ú©Ø§Ø±Ø¨Ø±Ø§Ù† Ù…Ø§ Ø¨Ù‡ Ø³Ø§ÛŒØª Ø§Ø­ØªØ±Ø§Ù… Ú¯Ø°Ø§Ø´ØªÙ‡ Ùˆ Ù…Ø·Ø§Ù„Ø¨ Ø³Ø§ÛŒØª Ø±Ø§ Ú©Ù¾ÛŒ Ù†Ú©Ù†Ù†Ø¯.</b></b></b><br/><br/></p>', '2016-04-07 19:30:00', '2016-04-07 19:30:00', 10, 0, 1),
+(116, 'Ø¯Ø±Ø¨Ø§Ø±Ù‡ ÙˆØ¨ Ø³Ø§ÛŒØª', '<p dir="rtl">Ø³Ù„Ø§Ù… Ù…Ù† Ù…Ø³Ø¹ÙˆØ¯ Ø®Ø§Ù†Ù„Ùˆ Ù‡Ø³ØªÙ…! Ø¨Ø§ Ø§Ù†ÙˆØ§Ø¹ App Ø§Ø´Ù†Ø§ Ø´ÙˆÛŒØ¯!</p>\n', '<p dir="rtl">Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;</p>\n', '2016-04-09 19:30:00', '2016-04-09 19:30:00', 3, 0, 1),
+(117, 'Ø¯Ø±Ø¨Ø§Ø±Ù‡ ÙˆØ¨ Ø³Ø§ÛŒØª', '<p dir="rtl">Ø³Ù„Ø§Ù… Ù…Ù† Ù…Ø³Ø¹ÙˆØ¯ Ø®Ø§Ù†Ù„Ùˆ Ù‡Ø³ØªÙ…! Ø¨Ø§ Ø§Ù†ÙˆØ§Ø¹ App Ø§Ø´Ù†Ø§ Ø´ÙˆÛŒØ¯!</p>\n', '<p dir="rtl">Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;</p>\n', '2016-04-09 19:30:00', '2016-04-09 19:30:00', 3, 0, 1),
+(118, 'Ø¯Ø±Ø¨Ø§Ø±Ù‡ ÙˆØ¨ Ø³Ø§ÛŒØª', '<p dir="rtl">Ø³Ù„Ø§Ù… Ù…Ù† Ù…Ø³Ø¹ÙˆØ¯ Ø®Ø§Ù†Ù„Ùˆ Ù‡Ø³ØªÙ…! Ø¨Ø§ Ø§Ù†ÙˆØ§Ø¹ App Ø§Ø´Ù†Ø§ Ø´ÙˆÛŒØ¯!</p>\n', '<div dir="rtl" style="background:#eee;border:1px solid #ccc;padding:5px 10px;">Ø§Ø´Ø³Ø¨Ø³</div>\n\n<div dir="rtl" style="background:#eee;border:1px solid #ccc;padding:5px 10px;">&nbsp;</div>\n\n<p>&nbsp;</p>\n\n<div dir="rtl" style="background:#eee;border:1px solid #ccc;padding:5px 10px;">&nbsp;</div>\n\n<div dir="rtl" style="background:#eee;border:1px solid #ccc;padding:5px 10px;">Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;Ø§Ø´Ø³Ø¨Ø³Ø´Ø¨ Ø³Ø´Ø¨Ø³Ø´&nbsp;</div>\n', '2016-04-09 19:30:00', '2016-04-09 19:30:00', 3, 0, 1),
+(119, 'Ù¾Ø³Øª Ø¬Ø¯ÛŒØ¯ Ù…Ù†', '<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n', '<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n', '2016-04-10 19:30:00', '2016-04-10 19:30:00', 10, 0, 1),
+(120, 'Ù¾Ø³Øª Ø¬Ø¯ÛŒØ¯ Ù…Ù†', '<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n', '<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n\n<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ù‡ ØªÙ…Ø§Ù…ÛŒ Ø§Ø¹Ø¶Ø§ÛŒ Ø³Ø§ÛŒØª ØŒ Ù…Ù† Ø¨Ø¹Ø¯ Ù…Ø·Ø§Ù„Ø¨ Ù…ÙÛŒØ¯ Ø¢Ù…ÙˆØ²Ø´ÛŒ Ø¯Ø± Ø§ÛŒÙ† ÙˆØ¨Ø³Ø§ÛŒØª Ù‚Ø±Ø§Ø± Ø®ÙˆØ§Ù‡Ø¯ Ú¯Ø±ÙØª!</p>\n', '2016-04-10 19:30:00', '2016-04-10 19:30:00', 10, 0, 1),
+(121, 'afwq', '<p dir="rtl">Ø¯Ø±ÙˆØ¯ Ø¨Ø± Ø´Ù…Ø§ ØŒ Ø³Ø§ÛŒØª Ù…Ù† Ø´Ø±ÙˆØ¹ Ø¨Ù‡ Ú©Ø§Ø± Ú©Ø±Ø¯!<img alt="laugh" src="http://localhost/xampp/website/js/editor/ckeditor/plugins/smiley/images/teeth_smile.png" style="height:23px; width:23px" title="laugh" /></p>\n', '', '2016-04-10 19:30:00', '2016-04-10 19:30:00', 8, 0, 1),
+(122, 'hellllll', '<p>safasf</p>\n', '<p>asfasf</p>\n', '2016-04-10 19:30:00', '2016-04-10 19:30:00', 8, 0, 1),
+(123, 'gggg', '<p>dsfads</p>\n', '<p>asfsaf</p>\n', '2016-04-10 19:30:00', '2016-04-10 19:30:00', 4, 0, 1),
+(125, 'asf', '<p>safasf</p>\n', '<p>saf</p>\n', '2016-04-10 19:30:00', '2016-04-10 19:30:00', 3, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -295,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `post_author` (
   `AdminID` bigint(20) NOT NULL,
   `PostID` bigint(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=152 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=166 ;
 
 --
 -- Dumping data for table `post_author`
@@ -413,7 +499,15 @@ INSERT INTO `post_author` (`ID`, `AdminID`, `PostID`) VALUES
 (148, 1, 107),
 (149, 9, 107),
 (150, 10, 107),
-(151, 1, 115);
+(151, 1, 115),
+(153, 7, 121),
+(154, 1, 122),
+(155, 7, 122),
+(156, 1, 123),
+(157, 7, 123),
+(158, 1, 124),
+(159, 7, 124),
+(165, 1, 125);
 
 -- --------------------------------------------------------
 
@@ -428,7 +522,7 @@ CREATE TABLE IF NOT EXISTS `post_like` (
   `Identity` varchar(60) COLLATE utf8_persian_ci NOT NULL,
   `UserID` bigint(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `post_like`
@@ -443,7 +537,14 @@ INSERT INTO `post_like` (`ID`, `PostID`, `Date`, `Identity`, `UserID`) VALUES
 (7, 97, '2016-04-07 21:21:51', '127.0.0.1', 8),
 (8, 98, '2016-04-08 00:11:08', '127.0.0.1', 14),
 (9, 96, '2016-04-08 19:32:33', '::1', 8),
-(10, 100, '2016-04-08 19:32:53', '::1', 8);
+(10, 100, '2016-04-08 19:32:53', '::1', 8),
+(18, 125, '2016-04-14 20:25:13', '127.0.0.1', 8),
+(19, 121, '2016-04-14 20:25:16', '127.0.0.1', 8),
+(22, 123, '2016-04-14 20:37:06', '127.0.0.1', 8),
+(23, 119, '2016-04-14 20:37:14', '127.0.0.1', 8),
+(25, 122, '2016-04-14 23:35:41', '::1', 8),
+(27, 117, '2016-04-16 19:46:38', '::1', 8),
+(30, 120, '2016-04-18 22:30:21', '::1', 8);
 
 -- --------------------------------------------------------
 
@@ -456,7 +557,7 @@ CREATE TABLE IF NOT EXISTS `post_subject` (
   `PostID` bigint(20) NOT NULL,
   `SubjectID` bigint(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=362 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=391 ;
 
 --
 -- Dumping data for table `post_subject`
@@ -736,7 +837,19 @@ INSERT INTO `post_subject` (`ID`, `PostID`, `SubjectID`) VALUES
 (358, 107, 5),
 (359, 107, 6),
 (360, 115, 3),
-(361, 115, 4);
+(361, 115, 4),
+(364, 121, 3),
+(365, 121, 4),
+(366, 121, 6),
+(367, 122, 3),
+(368, 122, 4),
+(369, 123, 3),
+(370, 123, 4),
+(371, 124, 3),
+(372, 124, 4),
+(388, 125, 3),
+(389, 125, 4),
+(390, 125, 5);
 
 -- --------------------------------------------------------
 
@@ -752,16 +865,15 @@ CREATE TABLE IF NOT EXISTS `site_module` (
   `ModulePositionID` bigint(20) NOT NULL,
   `SortOrder` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=39 ;
 
 --
 -- Dumping data for table `site_module`
 --
 
 INSERT INTO `site_module` (`ID`, `Name`, `NameEN`, `PageID`, `ModulePositionID`, `SortOrder`) VALUES
-(34, '', '', '13', 3, 1),
-(35, '', '', '12', 3, 2),
-(36, '', '', '11', 1, 1);
+(37, '', '', '13', 3, 1),
+(38, '', '', '12', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -777,15 +889,15 @@ CREATE TABLE IF NOT EXISTS `slider` (
   `Link` text COLLATE utf8_persian_ci NOT NULL,
   `ShowOrder` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `slider`
 --
 
 INSERT INTO `slider` (`ID`, `ImageID`, `Title`, `Content`, `Link`, `ShowOrder`) VALUES
-(2, 4, 'asfasf', 'sagsag', 'google.com', 0),
-(4, 3, 'sad', 'sagsags', 'rrrr', 2);
+(5, 290, 'a', 'a', 'a', -1),
+(6, 289, 'afsa', 'gadsg', 'ags', 1);
 
 -- --------------------------------------------------------
 
@@ -820,7 +932,7 @@ CREATE TABLE IF NOT EXISTS `subject` (
   `ParentID` bigint(20) DEFAULT '-1',
   `TitleEN` text NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `subject`
@@ -838,7 +950,10 @@ INSERT INTO `subject` (`ID`, `Title`, `ParentID`, `TitleEN`) VALUES
 (11, 'Video', 10, ''),
 (12, 'Sounds', 10, ''),
 (21, 'feesc', 20, ''),
-(24, 'hbkj', 6, '');
+(24, 'hbkj', 6, ''),
+(25, 'sdsds', -1, ''),
+(26, 'safsa', -1, ''),
+(27, 'aaaa', 26, '');
 
 -- --------------------------------------------------------
 

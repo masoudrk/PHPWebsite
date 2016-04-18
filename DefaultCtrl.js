@@ -1,5 +1,6 @@
-﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $rootScope, $routeParams, $uibModal, Extention, MainService) {
+﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $templateCache, $rootScope, $routeParams, $uibModal, Extention, MainService) {
 
+    //$templateCache.removeAll();
     $scope.sliderController = {};
 
     Extention.post('getAllSlides').then(function(res) {

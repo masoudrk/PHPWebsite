@@ -420,8 +420,9 @@ app.config([
         $urlRouterProvider.when('', '/home');
        // $urlRouterProvider.otherwise("/");
     }
-]).run(function ($rootScope,$state, $location, Extention) {
-    
+]).run(function ($rootScope, $state, $location, Extention) {
+
+
     $rootScope.spinner = { active: false };
 
     $rootScope.$on("$stateChangeSuccess", function() {

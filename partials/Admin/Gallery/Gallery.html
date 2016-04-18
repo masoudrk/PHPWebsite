@@ -17,7 +17,7 @@
 
                         <div class="fileUpload">
                             <input class="upload-button upload col-md-12" type="file" ngf-select ng-model="picFile" name="file"
-                                   accept="image/*" ngf-max-size="500MB" required
+                                    ngf-max-size="2000MB" required
                                    ngf-model-invalid="errorFile">
                             <span style="line-height: 100px; width: 100%; color: gray" class="yekan-font text-center">یا کلیک کنید یا فایل را در اینجا رها کنید </span>
                         </div>
@@ -41,11 +41,10 @@
                         <input class="col-md-9" type="text" ng-model="description"/>
                         <label class="col-md-3">توضیحات</label>
                     </div>
-
                 </div>
                 <i ng-show="myForm.file.$error.maxSize">
                     File too large
-                    {{errorFile.size / 1000000000|number:1}}MB: max 2M
+                    {{errorFile.size / 1000000000|number:1}}MB: max 2000MB
                 </i>
                 <div class="col-md-12 gallery ">
                     <div class="media col-xs-6 col-sm-4 col-md-3 col-lg-2 image-cover-media" ng-show="myForm.file.$valid">

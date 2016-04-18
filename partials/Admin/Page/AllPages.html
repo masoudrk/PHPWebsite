@@ -16,7 +16,6 @@
                     <tr>
                         <th class="text-right">نام صفحه</th>
                         <th class="text-right" style="width: 200px">ادمین ایجاد کننده</th>
-                        <th class="text-right" style="width: 150px">نوع صفحه</th>
                         <th class="text-right" style="width: 65px"></th>
                     </tr>
                 </thead>
@@ -24,7 +23,6 @@
                 <tr ng-repeat="p in pages">
                     <td>{{p.Name}}</td>
                     <td>{{p.FirstName}}&nbsp;{{p.LastName}}</td>
-                    <td>{{p.TypeName}}</td>
                     <td>
                         <div>
                             <a class="fa fa-pencil fa-group-mid my-green-sea" ui-sref="admin_root.new_page({id:'{{p.ID}}'})"></a>

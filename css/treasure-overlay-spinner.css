@@ -95,7 +95,7 @@
 
 /* container */
 treasure-overlay-spinner.treasure-overlay-spinner-active-remove {
-  transition:  all 750ms ease-in;
+  transition:  all 200ms ease-in;
 }
 
 
