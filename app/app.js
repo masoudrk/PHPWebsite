@@ -25,13 +25,13 @@ app.config([
             // Home persian states
             .state("home", {
                 url: "/",
-                templateUrl: "partials/HomeRoot.html",
+                templateUrl: "partials/Home/HomeRoot.html",
                 controller: 'DefaultCtrl',
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'DefaultCtrl.js',
-                            'partials/Main/MainService.js']);
+                            'partials/Home/DefaultCtrl.js',
+                            'partials/Home/Main/MainService.js']);
                     }]
                 }
             })
@@ -39,14 +39,14 @@ app.config([
                 url: "home",
                 views: {
                     "viewContent": {
-                        templateUrl: "partials/Main/Main.html",
+                        templateUrl: "partials/Home/Main/Main.html",
                         controller: 'MainCtrl'
                     }
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/Main/MainCtrl.js',
+                            'partials/Home/Main/MainCtrl.js',
                             'app/directives/Post/post.js'
                         ]);
                     }]
@@ -56,14 +56,14 @@ app.config([
                 url: "about",
                 views: {
                     "viewContent": {
-                        templateUrl: "partials/About/About.html",
+                        templateUrl: "partials/Home/About/About.html",
                         controller: 'AboutCtrl'
                     }
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/About/AboutCtrl.js']);
+                            'partials/Home/About/AboutCtrl.js']);
                     }]
                 }
             })
@@ -71,14 +71,14 @@ app.config([
                 url: "contact_us",
                 views: {
                     "viewContent": {
-                        templateUrl: "partials/About/About.html",
+                        templateUrl: "partials/Home/About/About.html",
                         controller: 'AboutCtrl'
                     }
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/About/AboutCtrl.js']);
+                            'partials/Home/About/AboutCtrl.js']);
                     }]
                 }
             })
@@ -86,13 +86,13 @@ app.config([
                 url: "post/:id",
                 views: {
                     "viewContent": {
-                        templateUrl: "partials/Post/Post.html",
+                        templateUrl: "partials/Home/Post/Post.html",
                         controller: 'PostCtrl'
                     }
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                        return $ocLazyLoad.load(['partials/Post/PostCtrl.js']);
+                        return $ocLazyLoad.load(['partials/Home/Post/PostCtrl.js']);
                     }]
                 }
             })
@@ -100,16 +100,16 @@ app.config([
                 url: "cat/:id",
                 views: {
                     "viewContent": {
-                        templateUrl: "partials/Category/Category.html",
+                        templateUrl: "partials/Home/Category/Category.html",
                         controller: 'CategoryCtrl'
                     }
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/Category/CategoryCtrl.js',
+                            'partials/Home/Category/CategoryCtrl.js',
                             'app/directives/Post/post.js',
-                            'partials/Category/CategoryService.js']);
+                            'partials/Home/Category/CategoryService.js']);
                     }]
                 }
             })
@@ -121,7 +121,7 @@ app.config([
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'DefaultCtrl.js',
+                            'partials/HomeEN/DefaultCtrl.js',
                             'partials/HomeEN/Main/MainService.js']);
                     }]
                 }
@@ -204,7 +204,7 @@ app.config([
                     }]
                 }
             })
-            // User states
+            // User persian states
             .state("user_root", {
                 url: "/user",
                 templateUrl: "partials/User/UserRoot.html",

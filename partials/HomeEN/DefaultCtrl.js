@@ -28,16 +28,17 @@
 
         $uibModal.open({
             animation: true,
-            templateUrl: 'partials/LoginTemplate.html',
+            templateUrl: 'partials/HomeEN/LoginTemplate.html',
             controller: 'authCtrl',
             size: 'md'
         });
     };
+
     $scope.openSignupModal = function() {
 
         $uibModal.open({
             animation: true,
-            templateUrl: 'partials/SignupTemplate.html',
+            templateUrl: 'partials/HomeEN/SignupTemplate.html',
             controller: 'authCtrl',
             size: 'md'
         });
@@ -48,16 +49,6 @@
             Extention.popInfo("شما با موفقیت خارج شدید!");
             Extention.unAuthUser();
         });
-    }
-
-    $scope.switchLang = function (en) {
-        if (en != 'en') {
-            $state.go('home.home');
-        }
-        else
-        {
-            $state.go('homeEN.home');
-        }
     }
 
 });

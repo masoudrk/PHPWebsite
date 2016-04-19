@@ -45,7 +45,7 @@
 
             var uibModalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'partials/Modals/Gallery/GalleryTemplate.html',
+                templateUrl: 'partials/Admin/Modals/Gallery/GalleryTemplate.html',
                 controller: 'GalleryModalCtrl',
                 size: 'lg',
                 resolve: {
