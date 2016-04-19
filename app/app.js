@@ -22,6 +22,7 @@ app.config([
         });
         
         $stateProvider
+            // Home persian states
             .state("home", {
                 url: "/",
                 templateUrl: "partials/HomeRoot.html",
@@ -112,6 +113,7 @@ app.config([
                     }]
                 }
             })
+            // Home english states
             .state("homeEN", {
                 url: "/en/",
                 templateUrl: "partials/HomeEN/HomeRootEN.html",
@@ -202,6 +204,7 @@ app.config([
                     }]
                 }
             })
+            // User states
             .state("user_root", {
                 url: "/user",
                 templateUrl: "partials/User/UserRoot.html",
@@ -247,6 +250,7 @@ app.config([
                     }]
                 }
             })
+            // Admin states
             .state("admin_root", {
                 url: "/admin",
                 templateUrl: "partials/Admin/AdminRoot.html",

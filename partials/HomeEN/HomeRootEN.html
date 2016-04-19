@@ -28,7 +28,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href='homeEN.contact_us'>
+                    <a ui-sref='homeEN.contact_us'>
                         <div class="glyphicon glyphicon-earphone" style="margin-right: 8px; line-height: 0"></div>
                         Contact us
                     </a>
@@ -41,14 +41,14 @@
                 </li>
                 <li ng-if="!authenticated" style="float: right">
                     <a ng-click="openSignupModal()">
-                        Sign Up
                         <div class="glyphicon glyphicon-user" style="margin-right: 8px; line-height: 0"></div>
+                        Sign Up
                     </a>
                 </li>
                 <li ng-if="!authenticated" style="float: right">
                     <a ng-click="openLoginModal()">
+                        <div class="fa fa-lock" style="margin-right: 8px; line-height: 0"></div>
                         Login
-                        <div class="glyphicon glyphicon-user" style="margin-right: 8px; line-height: 0"></div>
                     </a>
                 </li>
                 <li ng-if="authenticated" style="float: right">
