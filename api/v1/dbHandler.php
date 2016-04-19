@@ -149,7 +149,7 @@ class DbHandler {
 	    if (!isset($_SESSION)) {
 	        session_start();
 	    }
-	    $sess = array();
+	    $sess = [];
 	    if(isset($_SESSION['UserID']))
 	    {
 	        if(isset($_SESSION['AdminID']))
@@ -166,6 +166,22 @@ class DbHandler {
 	        $sess["FirstName"] = '';
 	    }
 	    return $sess;
+	}
+	
+	public function setLanguage($lang){
+	    if (!isset($_SESSION)) {
+	        session_start();
+	    }
+	    
+	    $_SESSION['Lang'] = $lang;
+	}
+	
+	public function getLanguage(){
+	    if (!isset($_SESSION)) {
+	        return 'FA';
+	    }
+	    
+	    return $_SESSION['Lang'];
 	}
 	
 	public function destroySession(){

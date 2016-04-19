@@ -2,71 +2,71 @@
      style="background-color: rgba(0, 0, 0, 0.9); border: none">
 
     <div class="container">
-        <div id='cssmenu' class="align-right">
+        <div id='cssmenu' class="">
             <ul>
                 <li>
-                    <a ui-sref="home.home" class="yekan-font">
-                        خانه
-                        <div class="glyphicon glyphicon-home" style="margin-left: 8px; line-height: 0"></div>
+                    <a ui-sref="homeEN.home" class="yekan-font">
+                        <div class="glyphicon glyphicon-home" style="margin-right: 8px; line-height: 0"></div>
+                        Home
                     </a>
                 </li>
                 <li class='has-sub'>
-                    <a href='#'>موضوعات</a>
+                    <a href='#'>Subjects</a>
                     <ul>
                         <li class='has-sub' ng-repeat="s in subjects">
-                            <a ui-sref="home.cat({ id: '{{s.ID}}'})">{{s.Title}}</a>
+                            <a ui-sref="homeEN.cat({ id: '{{s.ID}}'})">{{s.Title}}</a>
                             <ul>
-                                <li><a ui-sref="home.cat({ id: '{{child.ID}}'})" ng-repeat="child in s.childs">{{child.Title}}</a></li>
+                                <li><a ui-sref="homeEN.cat({ id: '{{child.ID}}'})" ng-repeat="child in s.childs">{{child.Title}}</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a ui-sref='home.about'>
-                        درباره ما
-                        <div class="glyphicon glyphicon-globe" style="margin-left: 8px; line-height: 0"></div>
+                    <a ui-sref='homeEN.about'>
+                        <div class="glyphicon glyphicon-globe" style="margin-right: 8px; line-height: 0"></div>
+                        About
                     </a>
                 </li>
                 <li>
-                    <a href='#'>
-                        تماس با ما
-                        <div class="glyphicon glyphicon-earphone" style="margin-left: 8px; line-height: 0"></div>
+                    <a href='homeEN.contact_us'>
+                        <div class="glyphicon glyphicon-earphone" style="margin-right: 8px; line-height: 0"></div>
+                        Contact us
                     </a>
                 </li>
 
-                <li style="float: left">
-                    <a ng-click="switchLang('en')" style="padding: 5px;padding-top: 12px;">
-                        <img src="images/flag_united_kingdom.png" style="margin-left: 8px; height: 30px;width:30px" />
+                <li style="float: right">
+                    <a ng-click="switchLang('fa')" style="padding: 5px;padding-top: 12px;">
+                        <img src="images/flag_iran.png" style="margin-right: 8px; height: 30px;width:30px" />
                     </a>
                 </li>
-                <li ng-if="!authenticated" style="float: left">
+                <li ng-if="!authenticated" style="float: right">
                     <a ng-click="openSignupModal()">
-                        ثبت نام
-                        <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
+                        Sign Up
+                        <div class="glyphicon glyphicon-user" style="margin-right: 8px; line-height: 0"></div>
                     </a>
                 </li>
-                <li ng-if="!authenticated" style="float: left">
+                <li ng-if="!authenticated" style="float: right">
                     <a ng-click="openLoginModal()">
-                        ورود
-                        <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
+                        Login
+                        <div class="glyphicon glyphicon-user" style="margin-right: 8px; line-height: 0"></div>
                     </a>
                 </li>
-                <li ng-if="authenticated" style="float: left">
+                <li ng-if="authenticated" style="float: right">
                     <a ng-click="logout()">
-                        خروج
-                        <div class="fa fa-sign-out" style="margin-left: 8px; line-height: 0"></div>
+                        <div class="fa fa-sign-out" style="margin-right: 8px; line-height: 0"></div>
+                        Sign out
                     </a>
                 </li>
-                <li ng-if="authenticated && isAdmin" style="float: left">
+                <li ng-if="authenticated && isAdmin" style="float: right">
                     <a ui-sref="admin_root.dashboard">
-                        پنل کاربری
-                        <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
+                        <div class="glyphicon glyphicon-user" style="margin-right: 8px; line-height: 0"></div>
+                        Managing Panel
                     </a>
                 </li>
-                <li ng-if="authenticated && !isAdmin" style="float: left">
+                <li ng-if="authenticated && !isAdmin" style="float: right">
                     <a ui-sref="user_root.dashboard">
-                        پنل کاربری
-                        <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
+                        <div class="glyphicon glyphicon-user" style="margin-right: 8px; line-height: 0"></div>
+                        Panel
                     </a>
                 </li>
             </ul>

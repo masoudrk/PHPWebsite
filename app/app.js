@@ -40,9 +40,6 @@ app.config([
                     "viewContent": {
                         templateUrl: "partials/Main/Main.html",
                         controller: 'MainCtrl'
-                    },
-                    "viewSidebar": {
-                        templateUrl: "partials/DefaultSidebar.html"
                     }
                 },
                 resolve: {
@@ -60,9 +57,6 @@ app.config([
                     "viewContent": {
                         templateUrl: "partials/About/About.html",
                         controller: 'AboutCtrl'
-                    },
-                    "viewSidebar": {
-                        templateUrl: "partials/DefaultSidebar.html"
                     }
                 },
                 resolve: {
@@ -78,9 +72,6 @@ app.config([
                     "viewContent": {
                         templateUrl: "partials/About/About.html",
                         controller: 'AboutCtrl'
-                    },
-                    "viewSidebar": {
-                        templateUrl: "partials/DefaultSidebar.html"
                     }
                 },
                 resolve: {
@@ -96,9 +87,6 @@ app.config([
                     "viewContent": {
                         templateUrl: "partials/Post/Post.html",
                         controller: 'PostCtrl'
-                    },
-                    "viewSidebar": {
-                        templateUrl: "partials/DefaultSidebar.html"
                     }
                 },
                 resolve: {
@@ -113,9 +101,6 @@ app.config([
                     "viewContent": {
                         templateUrl: "partials/Category/Category.html",
                         controller: 'CategoryCtrl'
-                    },
-                    "viewSidebar": {
-                        templateUrl: "partials/DefaultSidebar.html"
                     }
                 },
                 resolve: {
@@ -124,6 +109,96 @@ app.config([
                             'partials/Category/CategoryCtrl.js',
                             'app/directives/Post/post.js',
                             'partials/Category/CategoryService.js']);
+                    }]
+                }
+            })
+            .state("homeEN", {
+                url: "/en/",
+                templateUrl: "partials/HomeEN/HomeRootEN.html",
+                controller: 'DefaultCtrl',
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'DefaultCtrl.js',
+                            'partials/HomeEN/Main/MainService.js']);
+                    }]
+                }
+            })
+            .state("homeEN.home", {
+                url: "home",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/HomeEN/Main/Main.html",
+                        controller: 'MainCtrl'
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/HomeEN/Main/MainCtrl.js',
+                            'app/directives/Post/post.js'
+                        ]);
+                    }]
+                }
+            })
+            .state("homeEN.about", {
+                url: "about",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/HomeEN/About/About.html",
+                        controller: 'AboutCtrl'
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/HomeEN/About/AboutCtrl.js']);
+                    }]
+                }
+            })
+            .state("homeEN.contact_us", {
+                url: "contact_us",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/HomeEN/About/About.html",
+                        controller: 'AboutCtrl'
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/HomeEN/About/AboutCtrl.js']);
+                    }]
+                }
+            })
+            .state("homeEN.post", {
+                url: "post/:id",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/HomeEN/Post/Post.html",
+                        controller: 'PostCtrl'
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load(['partials/HomeEN/Post/PostCtrl.js']);
+                    }]
+                }
+            })
+            .state("homeEN.cat", {
+                url: "cat/:id",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/HomeEN/Category/Category.html",
+                        controller: 'CategoryCtrl'
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/HomeEN/Category/CategoryCtrl.js',
+                            'partials/HomeEN/Category/CategoryService.js',
+                            'app/directives/Post/post.js']);
                     }]
                 }
             })

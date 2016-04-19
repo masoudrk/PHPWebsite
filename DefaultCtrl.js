@@ -1,4 +1,4 @@
-﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $templateCache, $rootScope, $routeParams, $uibModal, Extention, MainService) {
+﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $templateCache,$state, $rootScope, $routeParams, $uibModal, Extention, MainService) {
 
     //$templateCache.removeAll();
     $scope.sliderController = {};
@@ -48,6 +48,16 @@
             Extention.popInfo("شما با موفقیت خارج شدید!");
             Extention.unAuthUser();
         });
+    }
+
+    $scope.switchLang = function (en) {
+        if (en != 'en') {
+            $state.go('home.home');
+        }
+        else
+        {
+            $state.go('homeEN.home');
+        }
     }
 
 });

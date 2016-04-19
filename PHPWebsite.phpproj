@@ -74,7 +74,6 @@
     <Compile Include="js\editor\ckeditor\samples\old\assets\posteddata.php" />
     <Compile Include="js\editor\ckeditor\samples\old\sample_posteddata.php" />
     <Compile Include="js\toaster.js" />
-    <Compile Include="partials\dashboard.html" />
     <Compile Include="index.php" />
   </ItemGroup>
   <ItemGroup>
@@ -195,10 +194,18 @@
     <Folder Include="js\editor\ckeditor\skins\flat\images\" />
     <Folder Include="js\editor\ckeditor\skins\flat\images\hidpi\" />
     <Folder Include="db\" />
+    <Folder Include="images\" />
     <Folder Include="partials" />
     <Folder Include="partials\Admin\Page\" />
     <Folder Include="partials\Admin\Comment\" />
     <Folder Include="partials\Admin\MenuTmpl\" />
+    <Folder Include="partials\HomeEN\" />
+    <Folder Include="partials\HomeEN\About\" />
+    <Folder Include="partials\HomeEN\Category\" />
+    <Folder Include="partials\HomeEN\Main\" />
+    <Folder Include="partials\HomeEN\Modals\" />
+    <Folder Include="partials\HomeEN\Modals\Gallery\" />
+    <Folder Include="partials\HomeEN\Post\" />
     <Folder Include="partials\User\" />
     <Folder Include="partials\User\Profile\" />
     <Folder Include="partials\Admin\Gallery\" />
@@ -247,6 +254,9 @@
     <Content Include="css\ui-navbar.css" />
     <Content Include="css\ui-navbar.min.css" />
     <Content Include="db\db.sql" />
+    <Content Include="images\flag_united_kingdom.png" />
+    <Content Include="images\flag_england.png" />
+    <Content Include="images\flag_iran.png" />
     <Content Include="js\angular-clipboard.js" />
     <Content Include="js\angular-deep-blur.js" />
     <Content Include="js\angular-nestable.js" />
@@ -653,6 +663,21 @@
     <Content Include="partials\Admin\Comment\CommentCtrl.js" />
     <Content Include="partials\Admin\MenuTmpl\navbar-li.html" />
     <Content Include="partials\Admin\MenuTmpl\navbar-ul.html" />
+    <Content Include="partials\HomeEN\About\About.html" />
+    <Content Include="partials\HomeEN\About\AboutCtrl.js" />
+    <Content Include="partials\HomeEN\Category\Category.html" />
+    <Content Include="partials\HomeEN\Category\CategoryCtrl.js" />
+    <Content Include="partials\HomeEN\Category\CategoryService.js" />
+    <Content Include="partials\HomeEN\HomeRootEN.html" />
+    <Content Include="partials\HomeEN\LoginTemplate.html" />
+    <Content Include="partials\HomeEN\Main\Main.html" />
+    <Content Include="partials\HomeEN\Main\MainCtrl.js" />
+    <Content Include="partials\HomeEN\Main\MainService.js" />
+    <Content Include="partials\HomeEN\Modals\Gallery\GalleryModalCtrl.js" />
+    <Content Include="partials\HomeEN\Modals\Gallery\GalleryTemplate.html" />
+    <Content Include="partials\HomeEN\Post\Post.html" />
+    <Content Include="partials\HomeEN\Post\PostCtrl.js" />
+    <Content Include="partials\HomeEN\SignupTemplate.html" />
     <Content Include="partials\User\UserCtrl.js" />
     <Content Include="partials\User\UserDashboard.html" />
     <Content Include="partials\User\UserRoot.html" />

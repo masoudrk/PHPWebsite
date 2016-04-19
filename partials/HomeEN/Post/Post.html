@@ -1,0 +1,143 @@
+﻿<style>
+.splitter {
+    border-bottom: 1px solid #ccc;
+}
+</style>
+<div class="page-content">
+    <div class="center-content-container">
+        <div class="white-panel">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-6 post-single-image no-padding">
+                        <div class="col-sm-12 no-padding" style="object-fit: cover; overflow: hidden; border-radius: 5px;">
+                            <img class="" ng-src="{{post.FullPath}}" style="height: 260px; border-radius: 5px;"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 post-single-detail yekan-font">
+                        <div class="col-sm-12 splitter text-center"><span style="font-weight: 700; font-size: 20px">{{post.Title}}</span></div>
+                        <div class="col-sm-12 no-padding splitter" dir="rtl" style="height: 41px">
+                            <div class="col-sm-6 no-padding">
+                                <div ng-repeat="a in post.Authors" style="margin-top: 4px;">
+                                    <div class="post-avatar-cover pull-left" ng-if="a.FullPath" style="margin-left: 0px;">
+                                        <img class="post-avatar" ng-src="{{a.FullPath}}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="col-sm-6 no-padding" style="margin-top: 8px;">{{post.WriteDate | jalaliDate:'jYYYY/jMM/jDD'}}</span>
+                        </div>
+
+                        <div class="col-sm-12 no-padding splitter" dir="rtl">
+                            نوشته : {{post.Authors | split:' و ':'FullName'}}
+                        </div>
+                        <div class="col-sm-12 no-padding splitter" style="margin-top: 10px">
+                            <div class="col-sm-6 pull-right" ng-repeat="s in post.Subjects" ui-sref="home.cat({ id: '{{s.ID}}'})">
+                                <div class="post-tag">
+                                    <i class="post-tag-icon fa fa-tag pull-right"></i>
+                                    <span class="post-tag-text text-right pull-right">
+                                        {{s.Title}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 text-right yekan-font" compile="post.BriefContent" style="margin-top: 10px">
+                </div>
+                <div class="col-sm-12 text-right yekan-font" compile="post.Content">
+                </div>
+            </div>
+        </div>
+
+        <div class="white-panel yekan-font">
+            <div class="" style="padding: 10px">
+                <div class="row">
+                    <div class="col-sm-12 text-right content-header-mid" style="color: #666">
+                        <span class="">نظرات</span>
+                        <i class="fa fa-comments"></i>
+                    </div>
+                </div>
+
+                <!-- new comment form -->
+                <div class="row">
+                    <div class="col-xs-12 top-buffer" id="new-cm-form">
+                        <div class="col-xs-9 pull-right text-right no-padding persian-rtl" ng-if="answerMode">
+                            ارسال جواب به : {{answerPersonName}}
+                        </div>
+                        <div class="col-xs-9 pull-right no-padding" ng-if="!authenticated">
+                            <div class="col-xs-12 form-group">
+                                <span class="col-xs-4 persian-rtl text-right pull-right no-padding" type="text">نام کامل : </span>
+                                <div class="col-xs-8 pull-right">
+                                    <input type="text" ng-model="newComment.identity" class="persian-rtl" style="width: 100%"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 form-group">
+                                <span class="col-xs-4 persian-rtl text-right pull-right no-padding" type="text">ایمیل : </span>
+                                <div class="col-xs-8 pull-right">
+                                    <input type="text" ng-model="newComment.userEmail" class="persian-rtl" style="width: 100%"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-9 pull-right no-padding">
+                            <span class="col-xs-4 persian-rtl text-right pull-right" type="text">نظری برای این مطلب بزار : </span>
+                            <div class="col-xs-8 pull-right">
+                                <textarea ng-model="newComment.content" class="persian-rtl" style="word-wrap: break-word; width: 100%"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-xs-9 pull-right">
+                            <button class="btn btn-success" ng-click="addComment()">ارسال</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- comments panel -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12 my-comment" ng-repeat="c in comments">
+                            <div class="col-xs-11 text-right persian-rtl no-padding">
+                                <span class="col-md-12" style="font-size: 15px">{{(c.UserID)? (c.FirstName +" "+ c.LastName) : c.Identity}}</span>
+                                <span class="col-md-12" style="font-size: 13px; color: gray">{{c.Date | jalaliDate:'jYYYY/jMM/jDD hh:mm' }}</span>
+                                <div class="col-md-12" style="font-size: 15px; color: #555; padding: 10px 20px 0 0">
+                                    {{c.Content}}
+                                    <div class="col-md-12 no-padding">
+                                        <span class="my-comment-answer-text" ng-click="gotAnswer(c)">پاسخ دادن</span>
+                                    </div>
+
+                                    <div class="col-xs-12 my-comment-inner" ng-repeat="child in c.Childs">
+                                        <div class="col-xs-11 text-right persian-rtl no-padding">
+                                            <span class="col-md-12" style="font-size: 15px">{{(child.UserID)? (child.FirstName +" "+ child.LastName) : child.Identity}}</span>
+                                            <span class="col-md-12" style="font-size: 13px; color: gray">{{child.Date | jalaliDate:'jYYYY/jMM/jDD hh:mm' }}</span>
+                                            <span class="col-md-12" style="font-size: 15px; color: #555; padding: 10px 20px 0 0">{{child.Content}}</span>
+                                        </div>
+                                        <div class="col-xs-1 col-xs-12">
+                                            <div class="comment-avatar-cover pull-right">
+                                                <!--<img class="comment-avatar hvr-ripple-out" ng-src="content/img/1xxGE29rB40eB1z9RH.JPG"/>-->
+                                                <img class="comment-avatar hvr-ripple-out" ng-if="child.FullPath" ng-src="{{child.FullPath}}" />
+                                                <span class="fa-stack fa-lg" ng-if="!child.FullPath">
+                                                    <i class="comment-avatar fa fa-3x fa-circle fa-stack-1x" ng-if="!child.FullPath" style="width: 45px; height: 45px;font-size: 49px;color: #eee" />
+                                                    <i class="comment-avatar fa fa-2x fa-user my-white fa-stack-2x" ng-if="!child.FullPath" style="width: 45px; height: 45px;" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-1">
+                                <div class="comment-avatar-cover pull-right">
+                                    <img class="comment-avatar hvr-ripple-out" ng-if="c.FullPath" ng-src="{{c.FullPath}}" />
+                                    <span class="fa-stack fa-lg" ng-if="!c.FullPath">
+                                        <i class="comment-avatar fa fa-3x fa-circle my-gray fa-stack-1x" ng-if="!c.FullPath" style="width: 45px; height: 45px;font-size: 49px;" />
+                                        <i class="comment-avatar fa fa-2x fa-user my-white fa-stack-2x" ng-if="!c.FullPath" style="width: 45px; height: 45px;" />
+                                    </span>
+                                    <!--<img class="comment-avatar hvr-ripple-out" ng-src="content/img/1xxGE29rB40eB1z9RH.JPG"/>-->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

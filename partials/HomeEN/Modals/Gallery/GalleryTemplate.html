@@ -1,0 +1,64 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title yekan-font text-right">گالری</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 col-md-12 gallery ">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label class="col-sm-3 control-label pull-right yekan-font" dir="rtl" >نوع فایل : </label>
+                    <div class="col-sm-9 control-label yekan-font pull-right text-right">
+                        <span style="color: gray;padding-top:7px " class="">{{typesDesc}}</span>
+                    </div>
+                </div>
+                <!--<div class="col-sm-6">
+                    <label class="col-sm-6 control-label pull-right yekan-font" dir="rtl" style="padding-top:7px ">مرتب سازی بر اساس : </label>
+                    <div class="col-sm-6 control-label ">
+                        <ui-select dir="ltr" ng-model="selectFileType"
+                                   theme="bootstrap"
+                                   ng-disabled="disabled"
+                                   reset-search-input="false">
+                            <ui-select-match style="font-weight: 700" class="yekan-font" placeholder="Select an Privilege">{{$select.selected.Title}}</ui-select-match>
+                            <ui-select-choices repeat="f in searchItems track by $index"
+                                               refresh="refreshAddresses($select.search)"
+                                               refresh-delay="100">
+                                <div class="yekan-font" ng-bind-html="f.Title | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>-->
+                <div class="col-sm-6">
+                    <label class="col-sm-4 control-label pull-right yekan-font" dir="rtl">جستجو : </label>
+                    <div class="col-sm-8 control-label ">
+                        <input type="text" ng-placeholder="بر اساس توضیحات عکس" ng-model="searchValue" ng-change="getSearchResult()" ng-model-options='{ debounce: 500 }' class="yekan-font" style="width: 100%"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xs-12 col-md-12 gallery " style="margin-top: 10px">
+            <div class="media col-xs-4 col-sm-4 col-md-3 col-lg-2 image-cover-media" ng-repeat="m in medias">
+                <div ng-if="m.Type == 'png'||m.Type == 'jpg/jpeg'" ng-click="selectMedia(m)" style="cursor: pointer;">
+                    <img ng-src="{{m.FullPath}}"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xs-12 col-md-12">
+            <div class="span8 text-center">
+                <auto-paging page="1"
+                             page-size="20"
+                             action-name="getAllMedia"
+                             data-params="pagingParams"
+                             ng-control="pagingCtrl"
+                             items="medias">
+                </auto-paging>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--<div class="modal-footer">
+    <button class="btn btn-default pull-right yekan-font" type="button" ng-click="cancel()" style="margin-left: 5px">بازگشت</button>
+    <button type="submit" class="btn btn-primary pull-left yekan-font" ng-click="signUp(signup)" data-ng-disabled="signupForm.$invalid">
+        ثبت نام
+    </button>
+</div>-->
