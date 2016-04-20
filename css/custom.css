@@ -564,45 +564,10 @@ padding-bottom: 10px;*/
         transition: all 0.2s linear;
     }
 
-        .colorful-list li a:hover {
-            background: #efefef;
-        }
+    .colorful-list li a:hover {
+        background: #efefef;
+    }
 
-        .my-border-green {
-            border-right: 5px solid #008747;
-        }
-
-        .my-border-yellow {
-            border-right: 5px solid #fecf54;
-        }
-        
-        .my-border-red {
-            border-right: 5px solid #cf2130;
-        }
-        
-        .my-border-tourque {
-            border-right: 5px solid #008b8b;
-        }
-
-        .my-border-carrot {
-            border-right: 5px solid #e67e22;
-        }
-        
-        .my-border-wisteria {
-            border-right: 5px solid #8e44ad;
-        }
-        .my-border-green-sea {
-            border-right: 5px solid #16a085;
-        }
-        .my-border-peter {
-            border-right: 5px solid #3498db;
-        }
-        .my-border-asphalt {
-            border-right: 5px solid #34495e;
-        }
-        .my-border-pumpkin {
-            border-right: 5px solid #d35400;
-        }
 
     .colorful-list li:first-child a:hover, .form li:first-child a {
         -webkit-border-radius: 5px 5px 0 0;
@@ -648,6 +613,8 @@ padding-bottom: 10px;*/
         background: #efefef;
     }
     
+    
+
     .sub-list-a {
         background-color: transparent !important;
     }
@@ -663,8 +630,44 @@ padding-bottom: 10px;*/
     .sub-list-a:hover {
         background-color: transparent !important;
     }
-
     
+    
+
+    .my-border-green {
+        border-right: 5px solid #008747;
+    }
+
+    .my-border-yellow {
+        border-right: 5px solid #fecf54;
+    }
+        
+    .my-border-red {
+        border-right: 5px solid #cf2130;
+    }
+        
+    .my-border-tourque {
+        border-right: 5px solid #008b8b;
+    }
+
+    .my-border-carrot {
+        border-right: 5px solid #e67e22;
+    }
+        
+    .my-border-wisteria {
+        border-right: 5px solid #8e44ad;
+    }
+    .my-border-green-sea {
+        border-right: 5px solid #16a085;
+    }
+    .my-border-peter {
+        border-right: 5px solid #3498db;
+    }
+    .my-border-asphalt {
+        border-right: 5px solid #34495e;
+    }
+    .my-border-pumpkin {
+        border-right: 5px solid #d35400;
+    }
     .my-gray {
         color :  #ddd;
     }
@@ -698,7 +701,6 @@ padding-bottom: 10px;*/
     .my-white {
         color :  #fff;
     }
-
     
 /********************* Comment Styles************************/
 .my-comment {

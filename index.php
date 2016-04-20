@@ -28,14 +28,14 @@
 </head>
 
 <body ng-app="myApp">
-    <treasure-overlay-spinner active='spinner.active' toast-message='(lang == "en")?"toast-message-en":"toast-message"'>
+    <treasure-overlay-spinner active='spinner.active' >
     </treasure-overlay-spinner>
 
     <div ui-view></div>
-</body>
-
 <toaster-container toaster-options="{'time-out': 10000, 'position-class': 'toast-bottom-right', 'close-button':true, 'animation-class': 'toast-bottom-right'}"></toaster-container>
 
+</body>
+<!--  -->
 <!-- jqurey libs -->
 <script src="js/jquery.js" type="text/javascript"></script>
 <script src="js/menubar.js"></script>

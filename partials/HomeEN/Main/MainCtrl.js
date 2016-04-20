@@ -1,4 +1,4 @@
-angular.module('myApp').controller('MainCtrl', function ($scope, $state, $rootScope, $routeParams, $location, $stateParams, $http, Extention) {
+angular.module('myApp').controller('MainCtrlEN', function ($scope, $state, $rootScope, $routeParams, $location, $stateParams, $http, Extention) {
 
     $scope.pagingParams =
     {

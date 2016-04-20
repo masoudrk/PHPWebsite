@@ -33,6 +33,12 @@ app.factory("Extention", ['$http', '$timeout', '$rootScope', 'toaster',
                 delay = 7000;
             toaster.pop(status, "", msg, delay, 'trustedHtml');
         }
+
+        obj.popEN = function (status, msg, delay) {
+            if (!delay)
+                delay = 7000;
+            toaster.pop(status, "", msg, delay, 'trustedHtml');
+        }                                                                                                                                                                                                                                                          ``
         obj.popError = function (msg, delay) {
             if (!delay)
                 delay = 7000;

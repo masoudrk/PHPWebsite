@@ -87,6 +87,7 @@
     <Folder Include="api" />
     <Folder Include="app" />
     <Folder Include="app\directives\" />
+    <Folder Include="app\directives\MenuEN\" />
     <Folder Include="app\directives\Menu\" />
     <Folder Include="app\directives\Post\" />
     <Folder Include="app\directives\SlideShow\" />
@@ -229,6 +230,8 @@
     <Folder Include="Scripts\lazyLoad\modules\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\directives\MenuEN\menu.js" />
+    <Content Include="app\directives\MenuEN\MenuTemplate.html" />
     <Content Include="app\directives\Menu\menu.js" />
     <Content Include="app\directives\Menu\MenuTemplate.html" />
     <Content Include="app\directives\Post\post.js" />

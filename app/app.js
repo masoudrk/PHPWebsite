@@ -117,11 +117,11 @@ app.config([
             .state("homeEN", {
                 url: "/en/",
                 templateUrl: "partials/HomeEN/HomeRootEN.html",
-                controller: 'DefaultCtrl',
+                controller: 'DefaultCtrlEN',
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/HomeEN/DefaultCtrl.js']);
+                            'partials/HomeEN/DefaultCtrl.js', 'app/directives/MenuEN/menu.js']);
                     }]
                 }
             })
@@ -130,7 +130,7 @@ app.config([
                 views: {
                     "viewContent": {
                         templateUrl: "partials/HomeEN/Main/Main.html",
-                        controller: 'MainCtrl'
+                        controller: 'MainCtrlEN'
                     }
                 },
                 resolve: {
@@ -256,9 +256,7 @@ app.config([
                 controller: 'AdminCtrl',
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                        return $ocLazyLoad.load([
-                            'partials/Admin/AdminCtrl.js',
-                            'partials/Main/MainService.js']);
+                        return $ocLazyLoad.load(['partials/Admin/AdminCtrl.js']);
                     }]
                 }
             })

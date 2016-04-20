@@ -1,4 +1,4 @@
-﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $templateCache,$state, $rootScope, $routeParams, $uibModal, Extention) {
+﻿angular.module('myApp').controller('DefaultCtrlEN', function ($scope, $templateCache, $state, $rootScope, $routeParams, $uibModal, Extention) {
 
     //$templateCache.removeAll();
     $scope.sliderController = {};

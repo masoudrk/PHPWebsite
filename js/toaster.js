@@ -130,8 +130,7 @@ function ($compile, $timeout, $sce, toasterConfig, toaster) {
                 scope.toasters.splice(0, scope.toasters.length);
             });
         },
-        controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
-
+        controller: ['$rootScope', '$scope', '$element', '$attrs', function ($rootScope ,$scope, $element, $attrs) {
             $scope.stopTimer = function (toast) {
                 if (toast.timeout) {
                     $timeout.cancel(toast.timeout);

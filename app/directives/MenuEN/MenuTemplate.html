@@ -1,0 +1,213 @@
+﻿<style>
+    
+    /*/////////////////////////////////////////*/
+    
+    .colorful-list-en {
+        position: relative;
+        background: #fff;
+        max-width: 350px;
+        min-width: 100px;
+        margin: auto;
+        margin-bottom: 10px;
+        margin-top: 5px;
+        padding: 0;
+        list-style: none;
+        overflow: hidden;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .colorful-list-en li a {
+        padding-left: 20px;
+        height: 50px;
+        line-height: 50px;
+        display: block;
+        overflow: hidden;
+        position: relative;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 14px;
+        color: #686868;
+        background-color: white;
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+    }
+
+    .colorful-list-en li a:hover {
+        background: #efefef;
+    }
+
+
+    .colorful-list-en li:first-child a:hover, .form li:first-child a {
+        -webkit-border-radius: 5px 5px 0 0;
+        -moz-border-radius: 5px 5px 0 0;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .colorful-list-en li:last-child a:hover, .form li:last-child a {
+        -webkit-border-radius: 0 0 5px 5px;
+        -moz-border-radius: 0 0 5px 5px;
+        border-radius: 0 0 5px 5px;
+    }
+
+    .colorful-list-en li a:hover i {
+        color: #ea4f35;
+    }
+
+    .colorful-list-en i {
+        margin-right: 15px;
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+    }
+
+    .colorful-list-en em {
+        font-size: 10px;
+        background: #ea4f35;
+        padding: 3px 5px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        font-style: normal;
+        color: #fff;
+        margin-top: 17px;
+        margin-left: 15px;
+        line-height: 10px;
+        height: 10px;
+        float: left;
+    }
+
+    .colorful-list-en li.selected a {
+        background: #efefef;
+    }
+    .my-border-green-en {
+        border-left: 5px solid #008747;
+    }
+
+    .my-border-yellow-en {
+        border-left: 5px solid #fecf54;
+    }
+        
+    .my-border-red-en {
+        border-left: 5px solid #cf2130;
+    }
+        
+    .my-border-tourque-en {
+        border-left: 5px solid #008b8b;
+    }
+
+    .my-border-carrot-en {
+        border-left: 5px solid #e67e22;
+    }
+        
+    .my-border-wisteria-en {
+        border-left: 5px solid #8e44ad;
+    }
+    .my-border-green-sea-en {
+        border-left: 5px solid #16a085;
+    }
+    .my-border-peter-en {
+        border-left: 5px solid #3498db;
+    }
+    .my-border-asphalt-en {
+        border-left: 5px solid #34495e;
+    }
+    .my-border-pumpkin-en {
+        border-left: 5px solid #d35400;
+    }
+    .sub-list-a-en {
+        background-color: transparent !important;
+    }
+    .sub-list-en {
+        border-left: 5px solid #fecf54;
+    }
+    .sub-list-a-a-en {
+        padding-left: 40px !important;
+    }
+    .sub-list-a-en:hover {
+        background-color: transparent !important;
+    }
+
+</style>
+<ul class="colorful-list-en yekan-font">
+    <li>
+        <a class="my-border-green-en english-font" ui-sref="home.home">
+            <i class="fa fa-home"></i>
+            Home
+        </a>
+    </li>
+    <!--selected-->
+    <li class="" ng-class="(subjectOpen)?'selected':''" slide-toggle="#subs" ng-click="subjectOpen = !subjectOpen">
+        <a class="my-border-yellow-en english-font">
+            <i class="fa fa-list"></i>
+            Subjects
+        </a>
+        <div id="subs" class="sub-list-en slideable sidebar-right" easing="linear" duration="0.35s">
+            <ul style="padding-left: 0px;">
+                <li class="sub-list-li-en" ng-repeat="s in subjects">
+                    <a class="yekan-font sub-list-a" ui-sref="homeEN.cat({ id: '{{s.ID}}'})">
+                        <div class="fa fa-angle-double-right"></div>
+                        <label class="sub-list-label">{{s.Title}}</label>
+                    </a>
+                    <ul style="padding-left: 0px;">
+                        <li class="sub-list-li-en" ng-repeat="c in s.childs">
+                            <a class="yekan-font sub-list-a-en sub-list-a-a-en" ui-sref="homeEN.cat({ id: '{{c.ID}}'})">
+                                <div class="fa fa-angle-right" style="font-size: "></div>
+                                <label class="sub-list-label">{{c.Title}}</label>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </li>
+    <li>
+        <a class="my-border-peter-en english-font" ui-sref="home.contact_us">
+            <i class="fa fa-phone"></i>
+            Contact Us
+        </a>
+    </li>
+    <li>
+        <a class="my-border-red-en  english-font" ui-sref="home.about">
+            <i class="fa fa-users"></i>
+            About
+        </a>
+    </li>
+    <li ng-if="!authenticated">
+        <a class="my-border-carrot-en english-font" ng-click="openLoginModal()">
+            <i class="fa fa-sign-in"></i>
+            Login
+        </a>
+    </li>
+    <li ng-if="!authenticated">
+        <a class="my-border-asphalt-en english-font" ng-click="openSignupModal()">
+            <i class="fa fa-user"></i>
+            Sing Up
+        </a>
+    </li>
+    <li ng-if="authenticated">
+        <a class="my-border-carrot-en english-font" ui-sref="admin_root.dashboard">
+            <i class="fa fa-user"></i>
+            Panel
+        </a>
+    </li>
+    <li ng-if="authenticated">
+        <a class="my-border-asphalt-en english-font" ng-click="logout()">
+            <i class="fa fa-sign-out"></i>
+            Sign Out
+        </a>
+    </li>
+</ul>
+
+<!--<ul class="colorful-list yekan-font" ng-reapeat="m in modules">
+    <div style="height: 100px" ng-bind-html="safsaf">
+
+    </div>
+</ul>-->

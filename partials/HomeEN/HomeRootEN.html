@@ -86,7 +86,13 @@
             <!-- Header Content-->
             <div class="col-md-12 col-xs-12 col-sm-12 no-padding yekan-font">
                 <div ng-repeat="m in homePageData.HeaderModules">
-                    <div compile='m.HtmlContent'></div>
+                    <div compile='m.HtmlContentEN'></div>
+                </div>
+            </div>
+            <!-- Right Sidebar -->
+            <div class="col-md-3 col-xs-12 col-sm-12 no-padding" style="margin-top: -5px">
+                <div ng-repeat="m in homePageData.RightBarModules">
+                    <div compile='m.HtmlContentEN'></div>
                 </div>
             </div>
 
@@ -95,22 +101,15 @@
                 <div ui-view="viewContent" style="margin-right: 10px; margin-left: 10px"></div>
             </div>
 
-            <!-- Right Sidebar -->
-            <div class="col-md-3 col-xs-12 col-sm-12 no-padding" style="margin-top: -5px">
-                <div ng-repeat="m in homePageData.RightBarModules">
-                    <div compile='m.HtmlContent'></div>
-                </div>
-            </div>
-
             <!-- Footer Content-->
             <div class="col-md-12 col-xs-12 col-sm-12 no-padding yekan-font">
                 <div ng-repeat="m in homePageData.FooterModules">
-                    <div compile='m.HtmlContent'></div>
+                    <div compile='m.HtmlContentEN'></div>
                 </div>
             </div>
         </div>
     </div>
     <div class="site-footer row" style="margin-left: 0;margin-right:0">
-        <div class="col-md-12 no-padding" compile="homePageData.Footer.HtmlContent"></div>
+        <div class="col-md-12 no-padding" compile="homePageData.Footer.HtmlContentEN"></div>
     </div>
 </div>
