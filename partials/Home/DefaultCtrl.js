@@ -33,6 +33,7 @@
             size: 'md'
         });
     };
+
     $scope.openSignupModal = function() {
 
         $uibModal.open({

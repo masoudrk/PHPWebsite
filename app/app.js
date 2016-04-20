@@ -121,8 +121,7 @@ app.config([
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/HomeEN/DefaultCtrl.js',
-                            'partials/HomeEN/Main/MainService.js']);
+                            'partials/HomeEN/DefaultCtrl.js']);
                     }]
                 }
             })
@@ -532,7 +531,13 @@ app.config([
                 
                 if (results.AdminID)
                     $rootScope.isAdmin = true;
-            } 
+            }
+
+            if (next.name.indexOf("en") > -1) {
+                $rootScope.lang = 'en';
+            } else {
+                $rootScope.lang = 'fa';
+            }
             
             if (next.name.indexOf("admin_root") > -1) {
                 if (!results.AdminID)

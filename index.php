@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fa">
 <head>
     <meta charset="utf-8">
@@ -28,7 +28,7 @@
 </head>
 
 <body ng-app="myApp">
-    <treasure-overlay-spinner active='spinner.active'>
+    <treasure-overlay-spinner active='spinner.active' toast-message='(lang == "en")?"toast-message-en":"toast-message"'>
     </treasure-overlay-spinner>
 
     <div ui-view></div>

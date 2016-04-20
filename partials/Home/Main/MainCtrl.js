@@ -1,10 +1,7 @@
  
-angular.module('myApp').controller('MainCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, $http, Extention) {
+angular.module('myApp').controller('MainCtrl', function ($scope, $rootScope, $routeParams, $state, $stateParams, $http, Extention) {
 
-    $scope.pagingParams =
-    {
-        filter: "hey"
-    };
+    //$scope.pagingParams = {};
 
     $scope.user = {};
     $scope.posts = [];
@@ -14,8 +11,8 @@ angular.module('myApp').controller('MainCtrl', function ($scope, $rootScope, $ro
 
     $scope.postMore = function (post) {
 
-        $location.path("/post/" + post.ID);
-        Extention.scrollTo(500);
+        $state.go("home.post" , { id : post.ID });
+        Extention.scrollTo(0);
     }
 
 });

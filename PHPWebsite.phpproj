@@ -255,6 +255,8 @@
     <Content Include="css\ui-navbar.css" />
     <Content Include="css\ui-navbar.min.css" />
     <Content Include="db\db.sql" />
+    <Content Include="fonts\Segoe-UI.ttf" />
+    <Content Include="fonts\Segoe-UI.woff" />
     <Content Include="images\flag_united_kingdom.png" />
     <Content Include="images\flag_england.png" />
     <Content Include="images\flag_iran.png" />
@@ -674,7 +676,6 @@
     <Content Include="partials\HomeEN\LoginTemplate.html" />
     <Content Include="partials\HomeEN\Main\Main.html" />
     <Content Include="partials\HomeEN\Main\MainCtrl.js" />
-    <Content Include="partials\HomeEN\Main\MainService.js" />
     <Content Include="partials\HomeEN\Modals\Gallery\GalleryModalCtrl.js" />
     <Content Include="partials\HomeEN\Modals\Gallery\GalleryTemplate.html" />
     <Content Include="partials\HomeEN\Post\Post.html" />

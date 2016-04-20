@@ -1,39 +1,4 @@
-﻿/* این دایرکتیو به منظور پیج بندی اتوماتیک نوسته شده است ،
- .کاملا اتوماتیک انجام میگردد
- این دایرکتیو همچنین به صورت زنده اطلاعات جدول را واکشی کرده و در متغیری به نام 
- items 
- ذخیره میکند.
-
- با دادن نام سرویس مورد نظر و همچنین نام اکشن (یا متد مورد نظر) میتوان به داده ها دسترسی پیدا کرد
- نمونه زیر اطلاعات جدول ارگان ها را دریافت و در آرایه 
- items
- :ذخیره میکند
-*/
-
-/*
-<auto-paging 
-    page="1"
-    page-size="50"
-    service-name="Organization"
-    action-name="GetPaged" 
-    data-params="{{pagingParams}}"
-    items="allBaseUnits" >
-</auto-paging> 
-*/
-
-/*
- این دایرکتیو نسبت به متغیر های 
- serviceName,actionName,params
- حساس است.
- میتوان ‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍آرگومان های تابع اکشن را به صورت زیر یک متغیر برای آن ایجاد کرد و نهایتا به دایرکتیو آنرا ارسال کرد
-
-$scope.pagingParams = 
-{                
-    filter: "hey"
-};
-*/
-
-angular.module('myApp').directive('autoPaging', function () {
+﻿angular.module('myApp').directive('autoPaging', function () {
 
     var regex = /\{page\}/g;
 
@@ -51,6 +16,7 @@ angular.module('myApp').directive('autoPaging', function () {
             ngControl: '=',
             //This variable defained for fetched items from database.
             items: '=',
+            lang : '@',
 
             page: '=',
             pageSize: '=',
@@ -88,6 +54,9 @@ angular.module('myApp').directive('autoPaging', function () {
                     data = {};
                 data.pageIndex = $scope.page;
                 data.pageSize = $scope.pageSize;
+
+                if ($scope.lang)
+                    data.Lang = $scope.lang;
 
                 Extention.scrollTo(0);
 

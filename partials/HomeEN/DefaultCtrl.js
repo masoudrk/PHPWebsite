@@ -1,4 +1,4 @@
-﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $templateCache,$state, $rootScope, $routeParams, $uibModal, Extention, MainService) {
+﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $templateCache,$state, $rootScope, $routeParams, $uibModal, Extention) {
 
     //$templateCache.removeAll();
     $scope.sliderController = {};
@@ -16,7 +16,7 @@
 
     $scope.getAllSubjects = function () {
         Extention.setBusy(true);
-        MainService.getAllSubjects().then(function(result) {
+        Extention.post('getAllSubjects').then(function (result) {
                 $scope.subjects = result;
                 Extention.setBusy(false);
             });

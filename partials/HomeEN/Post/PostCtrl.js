@@ -2,7 +2,7 @@
 
     $scope.newComment = {};
 
-    Extention.post("getPostByID", { PostID: $stateParams.id }).then(function (res) {
+    Extention.post("getPostByID", { PostID: $stateParams.id ,Lang:'en'}).then(function (res) {
         $scope.post = res;
     });
 
@@ -20,16 +20,16 @@
     $scope.addComment = function () {
         if (!$rootScope.authenticated) {
             if (!$scope.newComment.userEmail) {
-                Extention.popError('لطفا ایمیل خود را وارد کنید!');
+                Extention.popError('Please enter your mail!');
                 return;
             }
             if (!$scope.newComment.identity) {
-                Extention.popError('لطفا نام خود را کامل تایپ کنید!');
+                Extention.popError('Please enter your fullname!');
                 return;
             }
         }
-        if ($scope.newComment.content.length < 2) {
-            Extention.popError('طول نظر بایستی بزرگتر از 20 کاراکتر باشد !');
+        if ($scope.newComment.content.length < 20) {
+            Extention.popError('Comment length most be more than 20 characters!');
             return;
         }
 

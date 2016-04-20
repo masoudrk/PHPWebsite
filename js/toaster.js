@@ -74,6 +74,7 @@ function ($compile, $timeout, $sce, toasterConfig, toaster) {
                 tap: mergedConfig['tap-to-dismiss']
             };
 
+
             scope.configureTimer = function configureTimer(toast) {
                 var timeout = typeof (toast.timeout) == "number" ? toast.timeout : mergedConfig['time-out'];
                 if (timeout > 0)

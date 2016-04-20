@@ -5,66 +5,66 @@
         <div id='cssmenu' class="">
             <ul>
                 <li>
-                    <a ui-sref="homeEN.home" class="yekan-font">
-                        <div class="glyphicon glyphicon-home" style="margin-right: 8px; line-height: 0"></div>
+                    <a ui-sref="homeEN.home" class="english-font" style="padding-top: 18px">
+                        <div class="glyphicon glyphicon-home" style="margin-right: 8px; line-height: 0;"></div>
                         Home
                     </a>
                 </li>
                 <li class='has-sub'>
-                    <a href='#'>Subjects</a>
+                    <a href='#' class="english-font" style="padding-top: 18px">Subjects</a>
                     <ul>
-                        <li class='has-sub' ng-repeat="s in subjects">
-                            <a ui-sref="homeEN.cat({ id: '{{s.ID}}'})">{{s.Title}}</a>
+                        <li class='has-sub ' ng-repeat="s in subjects">
+                            <a ui-sref="homeEN.cat({ id: '{{s.ID}}'})" class="english-font">{{s.Title}}</a>
                             <ul>
-                                <li><a ui-sref="homeEN.cat({ id: '{{child.ID}}'})" ng-repeat="child in s.childs">{{child.Title}}</a></li>
+                                <li><a  class="english-font" ui-sref="homeEN.cat({ id: '{{child.ID}}'})" ng-repeat="child in s.childs">{{child.Title}}</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a ui-sref='homeEN.about'>
+                    <a ui-sref='homeEN.about' class="english-font" style="padding-top: 18px">
                         <div class="glyphicon glyphicon-globe" style="margin-right: 8px; line-height: 0"></div>
                         About
                     </a>
                 </li>
                 <li>
-                    <a ui-sref='homeEN.contact_us'>
+                    <a ui-sref='homeEN.contact_us' class="english-font" style="padding-top: 18px">
                         <div class="glyphicon glyphicon-earphone" style="margin-right: 8px; line-height: 0"></div>
                         Contact us
                     </a>
                 </li>
 
                 <li style="float: right">
-                    <a ui-sref="home.home" style="padding: 5px;padding-top: 12px;">
+                    <a ui-sref="home.home" style="padding: 5px;padding-top: 10px;">
                         <img src="images/flag_iran.png" style="margin-right: 8px; height: 30px;width:30px" />
                     </a>
                 </li>
                 <li ng-if="!authenticated" style="float: right">
-                    <a ng-click="openSignupModal()">
+                    <a ng-click="openSignupModal()" class="english-font" style="padding-top: 18px">
                         <div class="glyphicon glyphicon-user" style="margin-right: 8px; line-height: 0"></div>
                         Sign Up
                     </a>
                 </li>
                 <li ng-if="!authenticated" style="float: right">
-                    <a ng-click="openLoginModal()">
+                    <a ng-click="openLoginModal()" class="english-font" style="padding-top: 18px">
                         <div class="fa fa-lock" style="margin-right: 8px; line-height: 0"></div>
                         Login
                     </a>
                 </li>
                 <li ng-if="authenticated" style="float: right">
-                    <a ng-click="logout()">
+                    <a ng-click="logout()" class="english-font" style="padding-top: 18px">
                         <div class="fa fa-sign-out" style="margin-right: 8px; line-height: 0"></div>
                         Sign out
                     </a>
                 </li>
                 <li ng-if="authenticated && isAdmin" style="float: right">
-                    <a ui-sref="admin_root.dashboard">
+                    <a ui-sref="admin_root.dashboard" class="english-font" style="padding-top: 18px">
                         <div class="glyphicon glyphicon-user" style="margin-right: 8px; line-height: 0"></div>
                         Managing Panel
                     </a>
                 </li>
                 <li ng-if="authenticated && !isAdmin" style="float: right">
-                    <a ui-sref="user_root.dashboard">
+                    <a ui-sref="user_root.dashboard" class="english-font" style="padding-top: 18px">
                         <div class="glyphicon glyphicon-user" style="margin-right: 8px; line-height: 0"></div>
                         Panel
                     </a>

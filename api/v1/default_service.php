@@ -117,8 +117,13 @@ $app->post('/getPostByID', function() use ($app)  {
     $data = json_decode($app->request->getBody());
 
     $db = new DbHandler();
-
-    $r = $db->makeQuery("SELECT post.* , gallery.FullPath FROM `post` LEFT JOIN gallery on gallery.ID = post.ImageID where post.ID=".$data->PostID);
+	$lang = isset($data->Lang);
+	
+	if($lang && $data->Lang == 'en'){
+    	$r = $db->makeQuery("SELECT post.WriteDate,post.ID, post.TitleEN AS Title ,post.ContentEN as Content ,post.BriefContentEN as BriefContent , gallery.FullPath FROM `post` LEFT JOIN gallery on gallery.ID = post.ImageID where post.ID=".$data->PostID);
+	}else{
+    	$r = $db->makeQuery("SELECT post.WriteDate,post.ID, post.Title ,post.Content ,post.BriefContent, gallery.FullPath FROM `post` LEFT JOIN gallery on gallery.ID = post.ImageID where post.ID=".$data->PostID);
+	}
 
     while($res = $r->fetch_assoc()){
     
@@ -146,86 +151,6 @@ $app->post('/getPostByID', function() use ($app)  {
         return;
     }
     echoResponse(201, "Error not found post!");
-});
-
-$app->post('/getAllPostsOLD', function() use ($app)  {
-    $data = json_decode($app->request->getBody());
-    $pageSize = 20;
-    $pageIndex = 0;
-    
-    if(isset($data->pageSize) && isset($data->pageIndex)){
-        $pageSize = $data->pageSize;
-        $pageIndex = $data->pageIndex;
-    }
-    $hasCat = isset($data->catID);
-    
-    $db = new DbHandler();
-
-    $offset = ($pageIndex-1) * $pageSize;
-    $total = 0;
-    $resCount=null;
-
-    if(!$hasCat)
-        $resCount = $db->makeQuery("SELECT count(*) as Total FROM `post`");
-    else
-        $resCount = $db->makeQuery("SELECT DISTINCT count(*) as Total FROM `post` JOIN post_subject on post_subject.PostID=post.ID WHERE post_subject.SubjectID=".$data->catID);
-
-    while($res = $resCount->fetch_assoc()){
-        $total = $res["Total"];
-    }
-    
-    $r = null;
-    if(!$hasCat)
-        $r = $db->makeQuery("SELECT post.* , gallery.FullPath as Image FROM `post` LEFT JOIN gallery on post.ImageID = gallery.ID  ORDER BY ID DESC LIMIT $offset, $pageSize");
-    else
-        $r = $db->makeQuery("SELECT DISTINCT post.* , gallery.FullPath as Image FROM `post` JOIN post_subject on post_subject.PostID=post.ID LEFT JOIN gallery on post.ImageID = gallery.ID 
-                             WHERE post_subject.SubjectID=".$data->catID."  ORDER BY ID DESC LIMIT $offset, $pageSize");
-	
-	$sess = $db->getSession();
-	$isUser=isset($sess["IsUser"]);
-	$ip = getIPAddress();
-	
-    $result = array();
-    
-    while($res = $r->fetch_assoc()){
-    	if($isUser){
-			$res["Liked"]=$db->existsRecord("post_like","UserID='".$sess["UserID"]."' AND PostID='".$res["ID"]."'");	
-		}else{
-			$res["Liked"]=$db->existsRecord("post_like","PostID='".$res["ID"]."' AND Identity='".$ip."'");	
-		}
-		
-		$res["LikesCount"] = $db->getCount('post_like','PostID='.$res["ID"]);
-		
-        $authorsQ = $db->makeQuery("SELECT gallery.FullPath, admin.ID as AdminID , concat(FirstName , ' ' ,LastName) as FullName FROM post_author 
-                                        Left Join admin on admin.ID = post_author.AdminID
-                                        Left Join user on user.ID = admin.UserID
-                                        Left Join gallery on gallery.ID = user.AvatarID
-                                        where PostID=".$res["ID"]);
-        $authors = array();
-        while($resAuthor = $authorsQ->fetch_assoc()){
-            $authors[] = $resAuthor;
-        }
-        $res["Authors"] = $authors;
-        
-        $subjectsQ = $db->makeQuery("SELECT * FROM post_subject 
-                                        Left Join subject on subject.ID = post_subject.SubjectID
-                                        where PostID=".$res["ID"]);
-        $subjects = array();
-        while($resSubject = $subjectsQ->fetch_assoc()){
-            $subjects[] = $resSubject;
-        }
-        $res["Subjects"] = $subjects;
-
-        $result[] = $res;
-    }
-    $data = (object)[
-            'Items' => $result,
-            'PageIndex' => $pageIndex,
-            'PageSize' => $pageSize,
-            'Total' => $total
-    ];
-
-    echoResponse(200, $data);
 });
 
 $app->post('/getPostComments', function() use ($app)  {
@@ -279,12 +204,20 @@ $app->post('/getAllPosts', function() use ($app)  {
     $pr = new Pagination($data);
 	
     $hasCat = isset($data->catID);
+    $lang = isset($data->Lang);
+    
     $pageRes = null;
     if(!$hasCat){
-		$pageRes = $pr->getPage($db,'SELECT post.* , gallery.FullPath as Image FROM post LEFT JOIN gallery on post.ImageID = gallery.ID WHERE Hidden=0 ORDER BY post.ID DESC');
+    	if($lang && $data->Lang=='en')
+			$pageRes = $pr->getPage($db,'SELECT post.WriteDate,post.ID, post.TitleEN AS Title ,post.ContentEN as Content ,post.BriefContentEN as BriefContent, gallery.FullPath as Image FROM post LEFT JOIN gallery on post.ImageID = gallery.ID WHERE Hidden=0 AND EnableEnglish=1 ORDER BY post.ID DESC');
+		else
+			$pageRes = $pr->getPage($db,'SELECT post.WriteDate,post.ID, post.Title ,post.Content ,post.BriefContent , gallery.FullPath as Image FROM post LEFT JOIN gallery on post.ImageID = gallery.ID WHERE Hidden=0 ORDER BY post.ID DESC');
 	}
     else{
-		$pageRes = $pr->getPage($db,'SELECT post.* , gallery.FullPath as Image FROM post LEFT JOIN post_subject on post_subject.PostID=post.ID LEFT JOIN gallery on post.ImageID = gallery.ID WHERE post_subject.SubjectID='.$data->catID.' ORDER BY post.ID DESC');
+    	if($lang && $data->Lang=='en')
+			$pageRes = $pr->getPage($db,'SELECT post.ID, post.TitleEN AS Title ,post.ContentEN as Content ,post.BriefContentEN as BriefContent  , gallery.FullPath as Image FROM post LEFT JOIN post_subject on post_subject.PostID=post.ID LEFT JOIN gallery on post.ImageID = gallery.ID WHERE post_subject.SubjectID='.$data->catID.' AND EnableEnglish=1 ORDER BY post.ID DESC');
+		else
+			$pageRes = $pr->getPage($db,'SELECT post.WriteDate,post.ID, post.Title ,post.Content ,post.BriefContent , gallery.FullPath as Image FROM post LEFT JOIN post_subject on post_subject.PostID=post.ID LEFT JOIN gallery on post.ImageID = gallery.ID WHERE post_subject.SubjectID='.$data->catID.' ORDER BY post.ID DESC');
 	}
 	
 	$sess = $db->getSession();

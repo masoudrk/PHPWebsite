@@ -3,10 +3,16 @@
         restrict: 'EA',
         scope: {
             ngModel: '=',
-            onPostMore:'&'
+            onPostMore: '&',
+            lang : '@'
         },
         controller: ['$scope', 'Extention', '$element', '$attrs', '$window', function ($scope, Extention, $element, $attrs, $window) {
             $scope.posting = false;
+
+            if ($scope.lang == 'en') {
+                $scope.langClass = 'english-font english-ltr';
+            }
+
             $scope.postMore = function () {
                 $scope.onPostMore();
             }

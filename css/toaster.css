@@ -16,9 +16,17 @@
   -ms-word-wrap: break-word;
   word-wrap: break-word;
     text-align: right;
+
     font-family: 'Yekan', Tahoma;
     font-weight: 600;
     direction: rtl;
+}
+.toast-message-en {
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+
+    font-family: 'Segoe', Tahoma;
+    direction: ltr;
 }
 .toast-message a,
 .toast-message label {
