@@ -203,6 +203,7 @@
     <Folder Include="partials\HomeEN\" />
     <Folder Include="partials\HomeEN\About\" />
     <Folder Include="partials\HomeEN\Category\" />
+    <Folder Include="partials\HomeEN\ContactUs\" />
     <Folder Include="partials\HomeEN\Main\" />
     <Folder Include="partials\HomeEN\Modals\" />
     <Folder Include="partials\HomeEN\Modals\Gallery\" />
@@ -669,6 +670,8 @@
     <Content Include="partials\Admin\Comment\CommentCtrl.js" />
     <Content Include="partials\Admin\MenuTmpl\navbar-li.html" />
     <Content Include="partials\Admin\MenuTmpl\navbar-ul.html" />
+    <Content Include="partials\HomeEN\ContactUs\ContactUsEn.html" />
+    <Content Include="partials\HomeEN\ContactUs\ContactUsCtrlEn.js" />
     <Content Include="partials\Home\ContactUs\ContactUs.html" />
     <Content Include="partials\Home\ContactUs\ContactUsCtrl.js" />
     <Content Include="partials\Home\DefaultCtrl.js" />

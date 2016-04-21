@@ -161,14 +161,14 @@ app.config([
                 url: "contact_us",
                 views: {
                     "viewContent": {
-                        templateUrl: "partials/HomeEN/About/About.html",
-                        controller: 'AboutCtrl'
+                        templateUrl: "partials/HomeEN/ContactUs/ContactUsEn.html",
+                        controller: 'ContactUsCtrlEn'
                     }
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/HomeEN/About/AboutCtrl.js']);
+                            'partials/HomeEN/ContactUs/ContactUsCtrlEn.js']);
                     }]
                 }
             })
