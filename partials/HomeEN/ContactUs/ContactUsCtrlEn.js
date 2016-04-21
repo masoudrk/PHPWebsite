@@ -1,4 +1,4 @@
-﻿angular.module('myApp').controller('ContactUsCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, Extention) {
+﻿angular.module('myApp').controller('ContactUsCtrlEn', function ($scope, $rootScope, $routeParams, $location, $stateParams, Extention) {
     $scope.EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     $scope.emailError = false;
     $scope.nameError = false;
@@ -20,15 +20,15 @@
             if ($scope.contactForm.$valid) {
                 Extention.post('saveContactUs', $scope.contactUs).then(function(resp) {
                     if (resp && resp.Status == 'success') {
-                        Extention.popSuccess('با تشکر . پیام شما ارسال شد');
+                        Extention.popSuccess('Your message has been sent');
                         $scope.contactUs.message = '';
                     } else {
-                        Extention.popError('خطا در ارسال اطلاعات');
+                        Extention.popError('Error in sending message');
                     }
                 });
             }
             else {
-                Extention.popInfo('لطفا فرم را به درستی پر کنید');
+                Extention.popInfo('Please correctly fill the form');
             }
 
         } else {

@@ -1,0 +1,49 @@
+﻿
+<div class="page-content">
+    <div class="center-content-container">
+        <div class="header content-header-red">
+            <div class="row">
+                <div class="col-md-12 fa-2x">
+                    <span class="english-text ng-binding" style="font-size:18px"><i class="fa fa-phone" style="margin-right:16px"></i>contact whit us</span>
+                </div>
+            </div>
+        </div>
+        <div class="white-panel">
+            <form class="form-horizontal" name="contactForm" role="form">
+                <div class="row">
+                    <div class="form-group col-xs-12" ng-class="nameError ? 'has-error has-feedback' : ''">
+                        <label class="col-xs-3 control-label no-padding-right english-text text-right" for="name">Name</label>
+                        <div class="col-sm-7 col-xs-9">
+                            <input ng-readonly="readOnly" type="text" dir="rtl" ng-change="checkName(contactUs.name)" ng-model="contactUs.name" class="form-control english-text" id="name" placeholder="Name" ng-required="true">
+                            <span ng-show="nameError" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12" ng-class="{true: 'has-error has-feedback', false: ''}[emailError]">
+                        <label class="col-xs-3 control-label no-padding-right english-text text-right" for="email">Email</label>
+                        <div class="col-sm-7 col-xs-9">
+                            <input ng-readonly="readOnly" type="email" ng-model="contactUs.email" ng-change="checkEmail(contactUs.email)" dir="rtl" class="form-control english-text" id="email" placeholder="Email" ng-required="true">
+                            <span ng-show="emailError" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label class="col-xs-3 control-label no-padding-right english-text text-right" for="phone">Phone Number</label>
+                        <div class="col-sm-7 col-xs-9">
+                            <input type="text" dir="rtl" ng-model="contactUs.phone" class="form-control english-text" id="phone" placeholder="Phone Number">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12" ng-class="{false: 'has-error', true: ''}[contactForm.message.$valid]">
+                        <label class="col-xs-3 control-label no-padding-right english-text text-right">Message</label>
+                        <div class="col-sm-7 col-xs-9">
+                            <textarea style="resize: none;" ng-minlength="5" name="message" ng-model="contactUs.message" class="form-control english-text" dir="rtl" rows="5" ng-required="true"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <div class="col-xs-offset-3 col-sm-7 col-xs-9">
+                            <button type="submit" class="btn btn-success english-text pull-right" ng-click="sendMessage()">Send message</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

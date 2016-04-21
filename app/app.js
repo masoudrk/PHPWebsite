@@ -20,7 +20,7 @@ app.config([
             debug: true,
             events: true
         });
-
+        
         $stateProvider
             // Home persian states
             .state("home", {
@@ -30,11 +30,11 @@ app.config([
                 resolve: {
                     deps: [
                         '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Home/DefaultCtrl.js',
+                        return $ocLazyLoad.load([
+                            'partials/Home/DefaultCtrl.js',
                                 'partials/Home/Main/MainService.js'
                             ]);
-                        }
+                }
                     ]
                 }
             })
@@ -49,11 +49,11 @@ app.config([
                 resolve: {
                     deps: [
                         '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Home/Main/MainCtrl.js',
-                                'app/directives/Post/post.js'
-                            ]);
-                        }
+                        return $ocLazyLoad.load([
+                            'partials/Home/Main/MainCtrl.js',
+                            'app/directives/Post/post.js'
+                        ]);
+                }
                     ]
                 }
             })
@@ -68,10 +68,10 @@ app.config([
                 resolve: {
                     deps: [
                         '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
+                        return $ocLazyLoad.load([
                                 'partials/Home/About/AboutCtrl.js'
                             ]);
-                        }
+                }
                     ]
                 }
             })
@@ -86,10 +86,10 @@ app.config([
                 resolve: {
                     deps: [
                         '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
+                        return $ocLazyLoad.load([
                                 'partials/Home/ContactUs/ContactUsCtrl.js'
                             ]);
-                        }
+                }
                     ]
                 }
             })
@@ -104,8 +104,8 @@ app.config([
                 resolve: {
                     deps: [
                         '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load(['partials/Home/Post/PostCtrl.js']);
-                        }
+                        return $ocLazyLoad.load(['partials/Home/Post/PostCtrl.js']);
+                }
                     ]
                 }
             })
@@ -120,12 +120,12 @@ app.config([
                 resolve: {
                     deps: [
                         '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Home/Category/CategoryCtrl.js',
-                                'app/directives/Post/post.js',
+                        return $ocLazyLoad.load([
+                            'partials/Home/Category/CategoryCtrl.js',
+                            'app/directives/Post/post.js',
                                 'partials/Home/Category/CategoryService.js'
                             ]);
-                        }
+                }
                     ]
                 }
             })
@@ -137,10 +137,10 @@ app.config([
                 resolve: {
                     deps: [
                         '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
+                        return $ocLazyLoad.load([
                                 'partials/HomeEN/DefaultCtrl.js', 'app/directives/MenuEN/menu.js'
                             ]);
-                        }
+                }
                     ]
                 }
             })
@@ -155,11 +155,11 @@ app.config([
                 resolve: {
                     deps: [
                         '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/HomeEN/Main/MainCtrl.js',
-                                'app/directives/Post/post.js'
-                            ]);
-                        }
+                        return $ocLazyLoad.load([
+                            'partials/HomeEN/Main/MainCtrl.js',
+                            'app/directives/Post/post.js'
+                        ]);
+                }
                     ]
                 }
             })
@@ -174,10 +174,10 @@ app.config([
                 resolve: {
                     deps: [
                         '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
+                        return $ocLazyLoad.load([
                                 'partials/HomeEN/About/AboutCtrl.js'
                             ]);
-                        }
+                }
                     ]
                 }
             })
@@ -185,18 +185,15 @@ app.config([
                 url: "contact_us",
                 views: {
                     "viewContent": {
-                        templateUrl: "partials/HomeEN/About/About.html",
-                        controller: 'AboutCtrl'
+                        templateUrl: "partials/HomeEN/ContactUs/ContactUsEn.html",
+                        controller: 'ContactUsCtrlEn'
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/HomeEN/About/AboutCtrl.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/HomeEN/ContactUs/ContactUsCtrlEn.js']);
+                    }]
                 }
             })
             .state("homeEN.post", {
@@ -208,11 +205,9 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load(['partials/HomeEN/Post/PostCtrl.js']);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load(['partials/HomeEN/Post/PostCtrl.js']);
+                    }]
                 }
             })
             .state("homeEN.cat", {
@@ -224,15 +219,12 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/HomeEN/Category/CategoryCtrl.js',
-                                'partials/HomeEN/Category/CategoryService.js',
-                                'app/directives/Post/post.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/HomeEN/Category/CategoryCtrl.js',
+                            'partials/HomeEN/Category/CategoryService.js',
+                            'app/directives/Post/post.js']);
+                    }]
                 }
             })
             // User persian states
@@ -241,11 +233,9 @@ app.config([
                 templateUrl: "partials/User/UserRoot.html",
                 controller: 'UserCtrl',
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load(['partials/User/UserCtrl.js']);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load(['partials/User/UserCtrl.js']);
+                    }]
                 }
             })
             .state("user_root.dashboard", {
@@ -260,13 +250,10 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/User/UserCtrl.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/User/UserCtrl.js']);
+                    }]
                 }
             })
             .state("user_root.profile", {
@@ -281,11 +268,9 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load(['partials/User/Profile/ProfileCtrl.js']);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load(['partials/User/Profile/ProfileCtrl.js']);
+                    }]
                 }
             })
             // Admin states
@@ -294,11 +279,9 @@ app.config([
                 templateUrl: "partials/Admin/AdminRoot.html",
                 controller: 'AdminCtrl',
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load(['partials/Admin/AdminCtrl.js']);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load(['partials/Admin/AdminCtrl.js']);
+                    }]
                 }
             })
             .state("admin_root.dashboard", {
@@ -313,13 +296,10 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Admin/AdminCtrl.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/AdminCtrl.js']);
+                    }]
                 }
             })
             .state("admin_root.new_post", {
@@ -334,15 +314,12 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Admin/Post/NewPostCtrl.js',
-                                'partials/Admin/Modals/Gallery/GalleryModalCtrl.js',
-                                'app/directives/MultiSelectDropDown/checkbox-drop-down.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Post/NewPostCtrl.js',
+                            'partials/Admin/Modals/Gallery/GalleryModalCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.all_posts", {
@@ -357,13 +334,10 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Admin/Post/AllPostsCtrl.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Post/AllPostsCtrl.js']);
+                    }]
                 }
             })
             .state("admin_root.new_page", {
@@ -378,15 +352,12 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Admin/Page/NewPageCtrl.js',
-                                'partials/Admin/Modals/Gallery/GalleryModalCtrl.js',
-                                'app/directives/MultiSelectDropDown/checkbox-drop-down.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Page/NewPageCtrl.js',
+                            'partials/Admin/Modals/Gallery/GalleryModalCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.all_pages", {
@@ -401,14 +372,11 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Admin/Page/AllPagesCtrl.js',
-                                'app/directives/MultiSelectDropDown/checkbox-drop-down.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Page/AllPagesCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.gallery", {
@@ -423,16 +391,13 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Admin/Gallery/GalleryCtrl.js',
-                                //'js/ng-file-upload.min.js',
-                                'js/angular-clipboard.js',
-                                'app/directives/MultiSelectDropDown/checkbox-drop-down.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Gallery/GalleryCtrl.js',
+                            //'js/ng-file-upload.min.js',
+                            'js/angular-clipboard.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.subjects", {
@@ -447,14 +412,11 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Admin/Subject/SubjectCtrl.js',
-                                'app/directives/MultiSelectDropDown/checkbox-drop-down.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Subject/SubjectCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.comment", {
@@ -469,14 +431,11 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Admin/Comment/CommentCtrl.js',
-                                'app/directives/MultiSelectDropDown/checkbox-drop-down.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Comment/CommentCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.users", {
@@ -491,14 +450,11 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Admin/Users/UsersCtrl.js',
-                                'app/directives/MultiSelectDropDown/checkbox-drop-down.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Users/UsersCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.setting", {
@@ -513,14 +469,11 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Admin/Setting/SettingCtrl.js',
-                                'app/directives/MultiSelectDropDown/checkbox-drop-down.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Setting/SettingCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.slider", {
@@ -535,15 +488,12 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Admin/Slider/SliderCtrl.js',
-                                'partials/Admin/Modals/Gallery/GalleryModalCtrl.js',
-                                'app/directives/MultiSelectDropDown/checkbox-drop-down.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Slider/SliderCtrl.js',
+                            'partials/Admin/Modals/Gallery/GalleryModalCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.profile", {
@@ -558,19 +508,16 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Admin/Profile/ProfileCtrl.js',
-                                'app/directives/MultiSelectDropDown/checkbox-drop-down.js'
-                            ]);
-                        }
-                    ]
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Profile/ProfileCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             });
 
         $urlRouterProvider.when('', '/home');
-        // $urlRouterProvider.otherwise("/");
+       // $urlRouterProvider.otherwise("/");
     }
 ]);
 app.run(function ($rootScope, $templateCache, $state, $location, Extention) {
