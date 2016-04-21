@@ -495,13 +495,15 @@ app.config([
         $urlRouterProvider.when('', '/home');
        // $urlRouterProvider.otherwise("/");
     }
-]).run(function ($rootScope, $state, $location, Extention) {
+]).run(function ($rootScope, $templateCache, $state, $location, Extention) {
 
 
     $rootScope.spinner = { active: false };
 
     $rootScope.$on("$stateChangeSuccess", function() {
         Extention.setBusy(false);
+        //$templateCache.remove('partials/Home/Main/Main.html');
+       // $templateCache.remove('partials/Home/Post/Post.html');
     });
 
     $rootScope.$on("$stateChangeStart", function (event, next, current) {
@@ -552,6 +554,11 @@ app.filter('jalaliDate', function () {
     return function (inputDate, format) {
         var date = moment(inputDate);
         return date.fromNow() + " " + date.format(format);
+    }
+});
+app.filter('moment', function () {
+    return function (inputDate, format) {
+        return moment(inputDate).format(format);
     }
 });
 

@@ -1,5 +1,8 @@
 ﻿angular.module('myApp').controller('DefaultCtrl', function ($scope, $templateCache,$state, $rootScope, $routeParams, $uibModal, Extention, MainService) {
 
+    $scope.switchLanguage = function () {
+        Extention.switchLanguage('en');
+    }
     //$templateCache.removeAll();
     $scope.sliderController = {};
 

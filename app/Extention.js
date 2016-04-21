@@ -1,5 +1,5 @@
-app.factory("Extention", ['$http', '$timeout', '$rootScope', 'toaster',
-    function ($http ,$timeout, $rootScope, toaster) { // This service connects to our REST API
+app.factory("Extention", ['$http', '$timeout', '$rootScope', '$state', '$stateParams', 'toaster',
+    function ($http, $timeout, $rootScope, $state, $stateParams, toaster) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
 
@@ -116,6 +116,19 @@ app.factory("Extention", ['$http', '$timeout', '$rootScope', 'toaster',
 
         obj.isAdmin = function () {
             return $rootScope.isAdmin;
+        }
+
+        obj.switchLanguage = function (lang) {
+            var s = $state.current.name;
+            var nestedIndex = s.indexOf('.');
+            var nestedName = s.substr(nestedIndex);
+            var state ;
+            if (lang == 'en') {
+                state = 'homeEN' + nestedName;
+            } else {
+                state = 'home' + nestedName;
+            }
+            $state.go(state, $stateParams);
         }
 
         obj.scrollTo = function (y) {

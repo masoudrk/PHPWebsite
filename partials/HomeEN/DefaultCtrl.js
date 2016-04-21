@@ -1,5 +1,9 @@
 ﻿angular.module('myApp').controller('DefaultCtrlEN', function ($scope, $templateCache, $state, $rootScope, $routeParams, $uibModal, Extention) {
 
+    $scope.switchLanguage = function () {
+        Extention.switchLanguage('fa');
+    }
+
     //$templateCache.removeAll();
     $scope.sliderController = {};
 
@@ -50,5 +54,6 @@
             Extention.unAuthUser();
         });
     }
+
 
 });
