@@ -1,50 +1,64 @@
 ﻿<style>
-.splitter {
-    border-bottom: 1px solid #ccc;
-}
+    .splitter {
+        padding-bottom: 10px;
+        /border-bottom: 1px solid #ccc;
+    }
+    .tooltip-author {
+        width: 200px;
+    }
 </style>
-<div class="page-content">
+<div class="page-content" >
     <div class="center-content-container">
         <div class="white-panel">
 
             <div class="row">
                 <div class="col-sm-12">
                     <div class="col-sm-6 post-single-image no-padding">
-                        <div class="col-sm-12 no-padding" style="object-fit: cover; overflow: hidden; border-radius: 5px;">
-                            <img class="" ng-src="{{post.FullPath}}" style="height: 260px; border-radius: 5px;"/>
+                        <div class="col-sm-12 no-padding thumbnail" style="border-radius: 5px;">
+                            <img class="" ng-src="{{post.FullPath}}" style=" border-radius: 5px;"/>
                         </div>
                     </div>
                     <div class="col-sm-6 post-single-detail yekan-font">
-                        <div class="col-sm-12 splitter text-center"><span style="font-weight: 700; font-size: 20px">{{post.Title}}</span></div>
-                        <div class="col-sm-12 no-padding splitter" dir="rtl" style="height: 41px">
-                            <div class="col-sm-6 no-padding">
-                                <div ng-repeat="a in post.Authors" style="margin-top: 4px;">
-                                    <div class="post-avatar-cover pull-left" ng-if="a.FullPath" style="margin-left: 0px;">
-                                        <img class="post-avatar" ng-src="{{a.FullPath}}"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="col-sm-6 no-padding" style="margin-top: 8px;">{{post.WriteDate | jalaliDate:'jYYYY/jMM/jDD'}}</span>
-                        </div>
-
-                        <div class="col-sm-12 no-padding splitter" dir="rtl">
-                            نوشته : {{post.Authors | split:' و ':'FullName'}}
-                        </div>
-                        <div class="col-sm-12 no-padding splitter" style="margin-top: 10px">
-                            <div class="col-sm-6 pull-right" ng-repeat="s in post.Subjects" ui-sref="home.cat({ id: '{{s.ID}}'})">
-                                <div class="post-tag">
-                                    <i class="post-tag-icon fa fa-tag pull-right"></i>
-                                    <span class="post-tag-text text-right pull-right">
-                                        {{s.Title}}
+                        <div class="row" style="margin-right: 10px; margin-left: 10px;">
+                            <div class="col-xs-12 no-padding splitter">
+                                <div class="no-padding text-center">
+                                    <span ng-repeat="a in post.Authors" class="" ng-if="a.FullPath" tooltips tooltip-template="{{a.FullName}}" tooltip-class="tooltip-author">
+                                        <span class="thumbnail1" style="margin-left: 0px; padding: 0; border: none; margin-bottom: 10px; width: auto">
+                                            <img class="post-avatar" ng-src="{{a.FullPath}}" style="width: 70px; max-width: 100px;height: 70px" />
+                                        </span>
                                     </span>
                                 </div>
                             </div>
+                            <div class="col-xs-12 splitter text-center persian-rtl">
+                                <span style="font-weight: 700; font-size: 20px">{{post.Title}}</span>
+                            </div>
+                            <div class="col-xs-12 no-padding splitter" dir="rtl">
+                                <div class="text-center no-padding" style="">تاریخ نوشته : <span class="my-darkgray">{{post.WriteDate | jalaliDate:'jYYYY/jMM/jDD'}}</span></div>
+                            </div>
+                            <ul class="col-xs-12 nav nav-pills splitter no-padding" role="tablist" style="background-color: lavender; border-radius: 5px; margin-top: 8px;">
+                                <li role="presentation" ng-repeat="s in post.Subjects track by $index" class="pull-right" ng-if="$index < 6">
+                                    <a ui-sref="home.cat({ id: '{{s.ID}}'})" class="my-darkgray">
+                                        <span style="padding-right: 5px" class="fa fa-tag"></span>{{s.Title}}
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
+                        
+                        <!--<div class="col-sm-12 no-padding splitter" style="margin-top: 10px">
+                            <div class="col-sm-6 pull-right">
+                                <div class="post-tag">
+                                    <i class="post-tag-icon fa fa-tag pull-right"></i>
+                                    <span class="post-tag-text text-right pull-right">
+                                        
+                                    </span>
+                                </div>
+                            </div>
+                        </div>-->
                     </div>
                 </div>
-                <div class="col-sm-12 text-right yekan-font" compile="post.BriefContent" style="margin-top: 10px">
+                <div class="col-xs-12 text-right yekan-font persian-rtl" compile="post.BriefContent" style="margin-top: 10px">
                 </div>
-                <div class="col-sm-12 text-right yekan-font" compile="post.Content">
+                <div class="col-xs-12 text-right yekan-font persian-rtl" compile="post.Content">
                 </div>
             </div>
         </div>

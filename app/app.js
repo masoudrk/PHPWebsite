@@ -293,7 +293,7 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Post/NewPostCtrl.js',
-                            'partials/Modals/Gallery/GalleryModalCtrl.js',
+                            'partials/Admin/Modals/Gallery/GalleryModalCtrl.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }
@@ -331,7 +331,7 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Page/NewPageCtrl.js',
-                            'partials/Modals/Gallery/GalleryModalCtrl.js',
+                            'partials/Admin/Modals/Gallery/GalleryModalCtrl.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }
@@ -467,7 +467,7 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Slider/SliderCtrl.js',
-                            'partials/Modals/Gallery/GalleryModalCtrl.js',
+                            'partials/Admin/Modals/Gallery/GalleryModalCtrl.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }
@@ -487,7 +487,6 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Profile/ProfileCtrl.js',
-                            'partials/Modals/Gallery/GalleryModalCtrl.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }

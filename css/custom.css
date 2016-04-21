@@ -46,6 +46,7 @@ a {
     min-height: 200px;
     margin-left: 0;
     margin-right: 0;
+
 }
 .center-content-container > .header {
     background-color: white;
@@ -670,6 +671,9 @@ padding-bottom: 10px;*/
     }
     .my-gray {
         color :  #ddd;
+    }
+    .my-darkgray {
+        color : #777;
     }
     .my-red {
         color :  #cf2130;
