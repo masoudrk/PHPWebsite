@@ -173,6 +173,22 @@ $app->post('/getPostComments', function() use ($app)  {
     echoResponse(200, $pageRes);
 });
 
+$app->post('/saveContactUs', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+    $db = new DbHandler();
+
+    $sess = $db->getSession();
+
+    if(isset($sess['UserID'])){
+    	$res = $db->insertToTable('contact_us',"UserID,Name,Email,PhoneNumber,Message,Date","'".$sess['UserID']."','".$data->name."','".$data->email."','".$data->phone."','".$data->message."',NOW()");
+	}else{
+        $ip = getIPAddress();
+    	$res = $db->insertToTable('contact_us',"Identity,Name,Email,PhoneNumber,Message,Date","'".$ip."','".$data->name."','".$data->email."','".$data->phone."','".$data->message."',NOW()");
+	}
+	$httpRes = [];
+	$httpRes['Status'] = 'success';
+    echoResponse(200, $httpRes);
+});
 $app->post('/saveComment', function() use ($app)  {
     $data = json_decode($app->request->getBody());
     $db = new DbHandler();
