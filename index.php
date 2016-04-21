@@ -11,6 +11,7 @@
     <link href="css/select.min.css" rel="stylesheet">
     
     <link href="css/hover-min.css" rel="stylesheet">
+    <link href="css/imagehover.css" rel="stylesheet">
     <link href="css/treasure-overlay-spinner.css" rel="stylesheet">
 
     <link href="css/ADM-dateTimePicker.min.css " rel="stylesheet">
@@ -36,10 +37,6 @@
 
 </body>
 <!--  -->
-<!-- jqurey libs -->
-<script src="js/jquery.js" type="text/javascript"></script>
-<script src="js/menubar.js"></script>
-<script src="defaultPage.js" ></script>
 
 <!-- Libs -->
 <script src="Scripts/angular.js"></script>
@@ -82,5 +79,10 @@
 <script type="text/javascript" src="js/moment-jalaali.js"></script>
 <script type="text/javascript" src="js/angular-confirm.min.js"></script>
 <script type="text/javascript" src="js/ADM-dateTimePicker.min.js"></script>
+
+<!-- jqurey libs -->
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="defaultPage.js" ></script>
+<script src="js/menubar.js"></script>
 </html>
 

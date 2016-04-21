@@ -231,6 +231,8 @@
     <Folder Include="Scripts\lazyLoad\modules\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\imagehover.css" />
+    <Content Include="css\imagehover.min.css" />
     <Content Include="js\angular-masonry-directive.js" />
     <Content Include="app\directives\MenuEN\menu.js" />
     <Content Include="app\directives\MenuEN\MenuTemplate.html" />

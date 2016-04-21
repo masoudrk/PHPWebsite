@@ -1,4 +1,4 @@
-app.factory("Extention", ['$http', '$timeout', '$rootScope', '$state', '$stateParams', 'toaster',
+angular.module('myApp').factory("Extention", ['$http', '$timeout', '$rootScope', '$state', '$stateParams', 'toaster',
     function ($http, $timeout, $rootScope, $state, $stateParams, toaster) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
