@@ -27,14 +27,15 @@ app.config([
                 url: "/",
                 templateUrl: "partials/Home/HomeRoot.html",
                 controller: 'DefaultCtrl',
+                abstract: true,
                 resolve: {
                     deps: [
-                        '$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load([
-                            'partials/Home/DefaultCtrl.js',
-                                'partials/Home/Main/MainService.js'
+                        '$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'partials/Home/DefaultCtrl.js',
+                                    'partials/Home/Main/MainService.js'
                             ]);
-                }
+                        }
                     ]
                 }
             })
@@ -516,8 +517,18 @@ app.config([
                 }
             });
 
-        $urlRouterProvider.when('', '/home');
-       // $urlRouterProvider.otherwise("/");
+        //$urlRouterProvider.when('', '/home');
+        //$urlRouterProvider.when('/', '/home');
+        //$urlRouterProvider.otherwise("/home"); 
+
+        //$stateProvider
+        //    .state("otherwise", { url: '/home' });
+
+
+        $urlRouterProvider.otherwise(function ($injector, $location) {
+            var $state = $injector.get('$state');
+            $state.go('home.home');
+        });
     }
 ]);
 app.run(function ($rootScope, $templateCache, $state, $location, Extention) {
