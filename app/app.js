@@ -71,14 +71,14 @@ app.config([
                 url: "contact_us",
                 views: {
                     "viewContent": {
-                        templateUrl: "partials/Home/About/About.html",
-                        controller: 'AboutCtrl'
+                        templateUrl: "partials/Home/ContactUs/ContactUs.html",
+                        controller: 'ContactUsCtrl'
                     }
                 },
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/Home/About/AboutCtrl.js']);
+                            'partials/Home/ContactUs/ContactUsCtrl.js']);
                     }]
                 }
             })
@@ -257,8 +257,7 @@ app.config([
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/Admin/AdminCtrl.js',
-                            'partials/Main/MainService.js']);
+                            'partials/Admin/AdminCtrl.js']);
                     }]
                 }
             })

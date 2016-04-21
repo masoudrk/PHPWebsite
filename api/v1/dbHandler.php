@@ -158,6 +158,7 @@ class DbHandler {
 	        $sess["UserID"] = $_SESSION['UserID'];
 	        $sess["LastName"] = $_SESSION['LastName'];
 	        $sess["FirstName"] = $_SESSION['FirstName'];
+	        $sess["Email"] = $_SESSION['Email'];
 	    }
 	    else
 	    {
@@ -166,22 +167,6 @@ class DbHandler {
 	        $sess["FirstName"] = '';
 	    }
 	    return $sess;
-	}
-	
-	public function setLanguage($lang){
-	    if (!isset($_SESSION)) {
-	        session_start();
-	    }
-	    
-	    $_SESSION['Lang'] = $lang;
-	}
-	
-	public function getLanguage(){
-	    if (!isset($_SESSION)) {
-	        return 'FA';
-	    }
-	    
-	    return $_SESSION['Lang'];
 	}
 	
 	public function destroySession(){

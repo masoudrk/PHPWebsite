@@ -1,0 +1,51 @@
+﻿
+<div class="page-content">
+    <div class="center-content-container">
+        <div class="header content-header-red">
+            <div class="row">
+                <div class="col-md-12 text-right fa-2x">
+                    <span class="yekan-font ng-binding" style="font-size:18px">با ما در ارتباط باشید <i class="fa fa-phone"></i></span>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="white-panel">
+            <form class="form-horizontal" name="contactForm" role="form">
+                <div class="row">
+                    <div class="form-group col-xs-12" ng-class="nameError ? 'has-error has-feedback' : ''">
+                        <div class="col-sm-7 col-sm-offset-2 col-xs-9" >
+                            <input ng-readonly="readOnly" type="text" dir="rtl" ng-change="checkName(contactUs.name)" ng-model="contactUs.name" class="form-control yekan-font" id="name" placeholder="نام خود را وارد کنید">
+                            <span ng-show="nameError" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        </div>
+                        <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="name">نام</label>
+                    </div>
+                    <div class="form-group col-xs-12" ng-class="{true: 'has-error has-feedback', false: ''}[emailError]">
+                        <div class="col-sm-7 col-sm-offset-2 col-xs-9">
+                            <input ng-readonly="readOnly" type="email" ng-model="contactUs.email" ng-change="checkEmail(contactUs.email)" dir="rtl" class="form-control yekan-font" id="email" placeholder="ایمیل خود را وارد کنید">
+                            <span ng-show="emailError" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        </div>
+                        <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="email">ایمیل</label>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <div class="col-sm-7 col-sm-offset-2 col-xs-9">
+                            <input type="text" dir="rtl" ng-model="contactUs.phone" class="form-control yekan-font" id="phone" placeholder="شماره تماس">
+                        </div>
+                        <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="phone">شماره تماس</label>
+                    </div>
+                    <div class="form-group col-xs-12" ng-class="{false: 'has-error', true: ''}[contactForm.message.$valid]">
+                        <div class="col-sm-7 col-sm-offset-2 col-xs-9">
+                            <textarea style="resize: none;" ng-minlength="5" name="message" ng-model="contactUs.message" class="form-control yekan-font" dir="rtl" rows="5" ng-required="true"></textarea>
+                        </div>
+
+                        <label class="col-xs-3 control-label no-padding-right yekan-font text-right">متن پیام</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-success yekan-font" ng-click="sendMessage()">ارسال پیام</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
