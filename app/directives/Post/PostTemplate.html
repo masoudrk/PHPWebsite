@@ -8,14 +8,7 @@
         <div class="row" style="max-height: 220px">
             <div class="col-sm-12" style="font-size: 20px; max-height: 55px; overflow: hidden" ng-class="langClass">{{ngModel.Title}}</div>
             <div class="col-sm-12" style="max-height: 96px; overflow: hidden; margin-top: 10px">
-                <!--<div class="col-sm-12 pull-right" ng-repeat="s in ngModel.Subjects" ui-sref="home.cat({ id: '{{s.ID}}'})">
-                    <div class="post-tag">
-                        <i class="post-tag-icon fa fa-tag pull-right" style="padding-top: 4px"></i>
-                        <span class="post-tag-text text-right pull-right" ng-class="langClass">
-                            {{s.Title}}
-                        </span>
-                    </div>
-                </div>-->
+
                 <ul class="col-xs-12 nav nav-pills splitter no-padding" role="tablist" style="padding:5px !important ">
                     <li role="presentation" ng-repeat="s in ngModel.Subjects track by $index" class="pull-right" ng-if="$index < 6">
                         <a ui-sref="home.cat({ id: '{{s.ID}}'})" class="my-darkgray" style="padding: 5px">
@@ -27,8 +20,8 @@
             <div class="col-sm-12" ng-class="langClass" compile="ngModel.BriefContent" style="overflow: hidden; min-height:30px ; max-height: 80px; color: gray"></div>
         </div>
     </div>
-    <div class="post-footer row">
-        <div class="col-md-12 border-top">
+    <div class="post-footer">
+        <div class="col-md- border-top" style="margin-right: 20px">
             <div class="pull-right" ng-repeat="a in ngModel.Authors">
                 <div class="post-avatar-cover pull-right" ng-if="a.FullPath">
                     <img class="post-avatar hvr-ripple-out" ng-src="{{a.FullPath}}" />

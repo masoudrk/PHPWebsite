@@ -231,6 +231,7 @@
     <Folder Include="Scripts\lazyLoad\modules\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="js\angular-masonry-directive.js" />
     <Content Include="app\directives\MenuEN\menu.js" />
     <Content Include="app\directives\MenuEN\MenuTemplate.html" />
     <Content Include="app\directives\Menu\menu.js" />
@@ -266,6 +267,7 @@
     <Content Include="images\flag_iran.png" />
     <Content Include="js\angular-clipboard.js" />
     <Content Include="js\angular-deep-blur.js" />
+    <Content Include="js\angular-masonry.js" />
     <Content Include="js\angular-nestable.js" />
     <Content Include="js\angular-tooltips.js" />
     <Content Include="css\angular-tooltips.min.css" />
@@ -634,6 +636,7 @@
     <Content Include="js\jquery.js" />
     <Content Include="defaultPage.js" />
     <Content Include="js\loading-bar.js" />
+    <Content Include="js\masonry.js" />
     <Content Include="js\menubar.js" />
     <Content Include="js\moment-jalaali.js" />
     <Content Include="js\moment.js" />

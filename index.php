@@ -47,6 +47,7 @@
 <script src="Scripts/angular-animate.min.js" ></script>
 <script src="Scripts/angular-ui-router.js"></script>
 
+
 <script src="js/toaster.min.js"></script>
 <script src="js/ui-bootstrap-tpls-1.2.5.min.js"></script>
 
@@ -64,6 +65,8 @@
 <script src="js/ui-navbar.js" type="text/javascript"></script>
 
 <script src="js/treasure-overlay-spinner.min.js" type="text/javascript"></script>
+<!--<script src="js/masonry.js"></script>
+<script src="js/angular-masonry.js"></script>-->
 
 <script src="app/app.js"></script>
 <script src="js/angular-clipboard.js"></script>
