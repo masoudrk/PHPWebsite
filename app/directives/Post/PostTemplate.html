@@ -14,8 +14,8 @@
 
                     <ul class="col-xs-12 nav nav-pills splitter " role="tablist" style="padding-top: 20px !important;z-index: 0;">
                         <li role="presentation" ng-repeat="s in ngModel.Subjects track by $index" class="pull-right" ng-if="$index < 3">
-                            <a ui-sref="home.cat({ id: '{{s.ID}}'})" class="my-darkgray" style="padding: 5px">
-                                {{s.Title}}<span style="padding-left: 7px" class="fa fa-tag"></span>
+                            <a ui-sref="home.cat({ id: '{{s.ID}}'})" class="my-darkgray" ng-class="langClass" style="padding: 5px">
+                                {{(lang=='en')? s.TitleEN:s.Title}}<span style="padding-left: 7px" class="fa fa-tag"></span>
                             </a>
                         </li>
                     </ul>

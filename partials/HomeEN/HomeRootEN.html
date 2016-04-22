@@ -11,7 +11,7 @@
                     </a>
                 </li>
                 <li class='has-sub'>
-                    <a href='#' class="english-font" style="padding-top: 18px">Subjects</a>
+                    <a class="english-font" style="padding-top: 18px">Subjects</a>
                     <ul>
                         <li class='has-sub ' ng-repeat="s in subjects">
                             <a ui-sref="homeEN.cat({ id: '{{s.ID}}'})" class="english-font">{{s.TitleEN}}</a>
@@ -82,7 +82,7 @@
     <slide-show id="main-slider" class="col-md-12 slider no-padding" slides="slides" ng-control="sliderController"></slide-show>
     <div class="container">
 
-        <div class="col-md-12 no-padding" style="margin-top: 10px">
+        <div class="col-md-12 no-padding english-text" style="margin-top: 10px">
             <!-- Header Content-->
             <div class="col-md-12 col-xs-12 col-sm-12 no-padding yekan-font">
                 <div ng-repeat="m in homePageData.HeaderModules">
@@ -110,6 +110,6 @@
         </div>
     </div>
     <div class="site-footer row" style="margin-left: 0;margin-right:0">
-        <div class="col-md-12 no-padding" compile="homePageData.Footer.HtmlContentEN"></div>
+        <div class="col-md-12 no-padding english-text" compile="homePageData.Footer.HtmlContentEN"></div>
     </div>
 </div>
