@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="Sat, 20 May 2016 00:00:00 GMT">
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -34,8 +37,8 @@
     </treasure-overlay-spinner>
 
     <div ui-view></div>
-<toaster-container toaster-options="{'time-out': 10000, 'position-class': 'toast-bottom-right', 'close-button':true, 'animation-class': 'toast-bottom-right'}"></toaster-container>
 
+    <toaster-container toaster-options="{'time-out': 10000, 'position-class': 'toast-bottom-right', 'close-button':true, 'animation-class': 'toast-bottom-right'}"></toaster-container>
 </body>
 <!--  -->
 

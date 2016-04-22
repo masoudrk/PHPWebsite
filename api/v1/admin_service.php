@@ -593,18 +593,21 @@ $app->post('/saveSubject', function() use ($app)  {
     $data = json_decode($app->request->getBody(),true);
     $db = new DbHandler();
     
-    $result = null;
+	$obj = array();
+	$obj["Title"] = $data["Title"];
+	$obj["TitleEN"] = $data["TitleEN"];
+		
 	if(isset($data["ParentID"])){
-		$obj = array();
 		$obj["ParentID"] = $data["ParentID"];
-		$obj["Title"] = $data["Title"];
-		$result = $db->insertIntoTable($obj, array('ParentID','Title'), 'subject');
 	}else{
-		$obj = array();
 		$obj["ParentID"] = -1;
-		$obj["Title"] = $data["Title"];
-		$result = $db->insertIntoTable($obj, array('ParentID','Title'), 'subject');
 	}
+	
+	if(!isset($data["ID"]))
+		$result = $db->insertIntoTable($obj, array('ParentID','Title','TitleEN'), 'subject');
+	else
+		$result = $db->updateRecord('subject', "Title='".$obj["Title"]."',TitleEN='".$obj["TitleEN"].
+		"'","ID='".$data["ID"]."'");
 	
 	$response = array();
 	if($result){
