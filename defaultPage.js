@@ -1,5 +1,7 @@
 ﻿var slideHelper = {};
-jQuery(function ($) {
+var bsHelper = {};
+
+(function ($, viewport) {
 
     slideHelper.resize = function() {
         var w = $(window).width();
@@ -33,6 +35,10 @@ jQuery(function ($) {
         }
     }
 
+    bsHelper.getViewPort = function() {
+        return viewport.current();
+    }
+
     $(window).resize(function () {
         $(".slider").each(slideHelper.resize);
     });
@@ -52,4 +58,4 @@ jQuery(function ($) {
     stickyScroll();
 
     window.addEventListener('scroll', stickyScroll, false);
-});
+})(jQuery,ResponsiveBootstrapToolkit);
