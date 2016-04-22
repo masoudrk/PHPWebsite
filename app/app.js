@@ -2,7 +2,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootst
 //, 'angular-imagefit'
 app.config([
     '$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'tooltipsConfProvider', 'ADMdtpProvider',
-    function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, tooltipsConfProvider, ADMdtp) {
+    function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, tooltipsConfProvider, ADMdtp) {
 
         tooltipsConfProvider.configure({
             'smart': true,
@@ -27,12 +27,16 @@ app.config([
                 url: "/",
                 templateUrl: "partials/Home/HomeRoot.html",
                 controller: 'DefaultCtrl',
+                abstract: true,
                 resolve: {
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                        return $ocLazyLoad.load([
-                            'partials/Home/DefaultCtrl.js',
-                            'partials/Home/Main/MainService.js']);
-                    }]
+                    deps: [
+                        '$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'partials/Home/DefaultCtrl.js',
+                                    'partials/Home/Main/MainService.js'
+                            ]);
+                        }
+                    ]
                 }
             })
             .state("home.home", {
@@ -44,12 +48,14 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    deps: [
+                        '$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Home/Main/MainCtrl.js',
                             'app/directives/Post/post.js'
                         ]);
-                    }]
+                }
+                    ]
                 }
             })
             .state("home.about", {
@@ -61,10 +67,13 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    deps: [
+                        '$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/Home/About/AboutCtrl.js']);
-                    }]
+                                'partials/Home/About/AboutCtrl.js'
+                            ]);
+                }
+                    ]
                 }
             })
             .state("home.contact_us", {
@@ -76,10 +85,13 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    deps: [
+                        '$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/Home/ContactUs/ContactUsCtrl.js']);
-                    }]
+                                'partials/Home/ContactUs/ContactUsCtrl.js'
+                            ]);
+                }
+                    ]
                 }
             })
             .state("home.post", {
@@ -91,9 +103,11 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    deps: [
+                        '$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load(['partials/Home/Post/PostCtrl.js']);
-                    }]
+                }
+                    ]
                 }
             })
             .state("home.cat", {
@@ -105,12 +119,15 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    deps: [
+                        '$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Home/Category/CategoryCtrl.js',
                             'app/directives/Post/post.js',
-                            'partials/Home/Category/CategoryService.js']);
-                    }]
+                                'partials/Home/Category/CategoryService.js'
+                            ]);
+                }
+                    ]
                 }
             })
             // Home english states
@@ -119,10 +136,13 @@ app.config([
                 templateUrl: "partials/HomeEN/HomeRootEN.html",
                 controller: 'DefaultCtrlEN',
                 resolve: {
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    deps: [
+                        '$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/HomeEN/DefaultCtrl.js', 'app/directives/MenuEN/menu.js']);
-                    }]
+                                'partials/HomeEN/DefaultCtrl.js', 'app/directives/MenuEN/menu.js'
+                            ]);
+                }
+                    ]
                 }
             })
             .state("homeEN.home", {
@@ -134,12 +154,14 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    deps: [
+                        '$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/HomeEN/Main/MainCtrl.js',
                             'app/directives/Post/post.js'
                         ]);
-                    }]
+                }
+                    ]
                 }
             })
             .state("homeEN.about", {
@@ -151,10 +173,13 @@ app.config([
                     }
                 },
                 resolve: {
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    deps: [
+                        '$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/HomeEN/About/AboutCtrl.js']);
-                    }]
+                                'partials/HomeEN/About/AboutCtrl.js'
+                            ]);
+                }
+                    ]
                 }
             })
             .state("homeEN.contact_us", {
@@ -492,10 +517,21 @@ app.config([
                 }
             });
 
-        $urlRouterProvider.when('', '/home');
-       // $urlRouterProvider.otherwise("/");
+        //$urlRouterProvider.when('', '/home');
+        //$urlRouterProvider.when('/', '/home');
+        //$urlRouterProvider.otherwise("/home"); 
+
+        //$stateProvider
+        //    .state("otherwise", { url: '/home' });
+
+
+        $urlRouterProvider.otherwise(function ($injector, $location) {
+            var $state = $injector.get('$state');
+            $state.go('home.home');
+        });
     }
-]).run(function ($rootScope, $templateCache, $state, $location, Extention) {
+]);
+app.run(function ($rootScope, $templateCache, $state, $location, Extention) {
 
 
     $rootScope.spinner = { active: false };

@@ -119,29 +119,23 @@ a {
     margin-right: 0;
 }
 .post {
-    height: 400px;
+    height: 350px;
     background-color: gray;
     margin: 0px 10px 10px 10px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
+    border-radius: 8px;
     background-color: white;
     min-width: 150px;
 
 }
 
-/*.post > .post-header {
-    height: 35%;
-    overflow: hidden;
-    text-align: center;
-    object-fit: scale-down;
+.post-back {
+    background-color: #b22222 !important;
+    padding: 8px !important;
 }
-.post > .post-header img {
-    width:  100%;
-    background-color: white;
-    border-radius: 4px 4px 0px 0px;
-}*/
+
 .post > .post-middle {
-    height: 52%;
+    height: 200px;
     overflow: hidden;
     padding:2px;
     direction: rtl;
@@ -158,14 +152,6 @@ a {
         margin-right: 200px;
     width: 100%;*/
 }
-
-/*@media screen and (min-width: 480px) {
-    .post {
-        overflow: hidden;
-        text-align: center;
-        object-fit: scale-down;
-    }
-}*/
 
 .border-top {
     border-top: 1px solid rgba(183, 181, 181, 0.36);

@@ -1,4 +1,4 @@
-app.factory('clipboard', [
+angular.module('myApp').factory('clipboard', [
     '$document', function($document) {
         function createNode(text) {
             var node = $document[0].createElement('textarea');
