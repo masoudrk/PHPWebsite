@@ -152,15 +152,15 @@
         <div id="subs" class="sub-list-en slideable sidebar-right" easing="linear" duration="0.35s">
             <ul style="padding-left: 0px;">
                 <li class="sub-list-li-en" ng-repeat="s in subjects">
-                    <a class="yekan-font sub-list-a" ui-sref="homeEN.cat({ id: '{{s.ID}}'})">
+                    <a class="english-text sub-list-a" ui-sref="homeEN.cat({ id: '{{s.ID}}'})">
                         <div class="fa fa-angle-double-right"></div>
-                        <label class="sub-list-label">{{s.Title}}</label>
+                        <label class="sub-list-label">{{s.TitleEN}}</label>
                     </a>
                     <ul style="padding-left: 0px;">
                         <li class="sub-list-li-en" ng-repeat="c in s.childs">
-                            <a class="yekan-font sub-list-a-en sub-list-a-a-en" ui-sref="homeEN.cat({ id: '{{c.ID}}'})">
+                            <a class="yekan-font sub-list-a-en sub-list-a-a-en english-text" ui-sref="homeEN.cat({ id: '{{c.ID}}'})">
                                 <div class="fa fa-angle-right" style="font-size: "></div>
-                                <label class="sub-list-label">{{c.Title}}</label>
+                                <label class="sub-list-label">{{c.TitleEN}}</label>
                             </a>
                         </li>
                     </ul>

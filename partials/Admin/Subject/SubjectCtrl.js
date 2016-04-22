@@ -43,6 +43,13 @@
             $scope.scrollToEditPanel();
         }
 
+        $scope.editChildSubject = function (item) {
+            $scope.childSubject = item;
+            $scope.showPanel(true, true ,false ,true);
+
+            $scope.scrollToEditPanel();
+        }
+        
         $scope.newSubject = function () {
             $scope.subjectParent = {};
             $scope.subject = {};
@@ -84,16 +91,52 @@
             Extention.post("saveSubject", data)
                 .then(function (res) {
                     if (res && res.Status == "success") {
+                        Extention.toast({ status: "success", message: "با موفقیت ثبت شد!" });
                         $scope.subject = {};
-                        Extention.toast({ status: "success", message: "با موفقیت اضافه شد!" });
+                        $scope.showPanel();
                         $scope.getAllSubjects();
                     } else {
-                        Extention.toast({ status: "error", message: "مشکل در اضافه کردن لطفا دوباره امتحان کنید." });
+                        Extention.toast({ status: "error", message: "مشکل در ثبت کردن لطفا دوباره امتحان کنید." });
+                    }
+                });
+        }
+
+        $scope.saveChildSubject = function () {
+
+            var subjectValid = $scope.childSubject.Title && $scope.childSubject.Title.length > 1;
+            var subjectENValid = $scope.childSubject.TitleEN && $scope.childSubject.TitleEN.length > 1;
+
+            $scope.childSubject.newSubjectError = !subjectValid;
+            $scope.childSubject.newSubjectErrorEN = !subjectENValid;
+
+            if (!subjectValid)
+            { return }
+
+            if (!subjectENValid)
+            { return }
+
+            if (!$scope.newChildSubjectForm || !$scope.newChildSubjectForm.$valid) {
+                Extention.popError("لطفا اطلاعات موضوع زیر شاخه را به درستی وارد کنید.");
+                return;
+            }
+
+            var data = { ParentID: $scope.subject.ID, ID: $scope.childSubject.ID, Title: $scope.childSubject.Title, TitleEN: $scope.childSubject.TitleEN };
+
+            Extention.post("saveSubject", data)
+                .then(function (res) {
+                    if (res && res.Status == "success") {
+                        Extention.toast({ status: "success", message: "با موفقیت ثبت شد!" });
+                        $scope.childSubject = {};
+                        $scope.showPanel();
+                        $scope.getAllSubjects();
+                    } else {
+                        Extention.toast({ status: "error", message: "مشکل در ثبت کردن لطفا دوباره امتحان کنید." });
                     }
                 });
         }
 
         $scope.deleteSubject = function (subjectID) {
+            $scope.showPanel();
             Extention.post("deleteSubject", { ID: subjectID })
                 .then(function (res) {
                     if (res && res.Status == "success") {

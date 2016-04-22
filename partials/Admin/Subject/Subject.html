@@ -18,20 +18,20 @@
                         <th class="text-right">موضوع شاخه فارسی</th>
                         <th class="text-right">موضوع شاخه انگلیسی</th>
                         <th class="text-right">تعداد زیر شاخه</th>
-                        <th class="text-right" style="width: 105px"></th>
+                        <th class="text-right" style="width: 125px"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="s in subjects">
                         <td class="my-link" ng-click="showChilds(s)">{{s.Title}}</td>
-                        <td class="my-link" ng-click="showChilds(s)">{{s.TitleEN}}</td>
+                        <td class="my-link english-font" ng-click="showChilds(s)" ><span class="english-text">{{s.TitleEN}}</span></td>
                         <td class="my-link" ng-click="showChilds(s)">{{s.childs.length}}</td>
                         <td>
                             <div>
-                                <a class="fa fa-search fa-group-mid my-carrot my-link" ng-click="showChilds(s)"></a>
-                                <a class="fa fa-pencil fa-group-mid my-peter my-link" ng-click="editSubject(s)"></a>
-                                <a class="fa fa-plus fa-group-mid my-green-sea my-link" ng-click="showAddChildPanel(s)"></a>
-                                <span class="fa fa-trash-o fa-group-mid my-red" ng-click="deleteSubject(s.ID)" confirm="آیا مطمئن هستید که می خواهید موضوع {{p.ID}} را حذف کنید؟"></span>
+                                <span class="fa fa-search fa-group-mid my-carrot my-link hvr-grow" ng-click="showChilds(s)" style="padding-right: 3px"></span>
+                                <span class="fa fa-pencil fa-group-mid my-peter my-link hvr-grow" ng-click="editSubject(s)" style="padding-right: 3px"></span>
+                                <span class="fa fa-plus fa-group-mid my-green-sea my-link hvr-grow" ng-click="showAddChildPanel(s)" style="padding-right: 3px"></span>
+                                <span class="fa fa-trash-o fa-group-mid my-red hvr-grow" ng-click="deleteSubject(s.ID)" confirm="آیا مطمئن هستید که می خواهید موضوع {{p.ID}} را حذف کنید؟" style="padding-right: 3px"></span>
                             </div>
                         </td>
                     </tr>
@@ -39,7 +39,38 @@
                 </table>
             </div>
             <div class="col-xs-12">
-                <button class="btn btn-success" ng-click="newSubject();">افزودن شاخه جدید</button>
+                <button class="btn btn-success yekan-font" ng-click="newSubject();">افزودن شاخه جدید</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subject Childs -->
+    <div class="white-panel" ng-show="p1">
+        <div class="white-panel-header">نمایش زیر شاخه های [<span class="my-carrot">{{subject.Title}}</span>]
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table dir="rtl" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-right">نام زیر شاخه به فارسی</th>
+                        <th class="text-right">نام زیر شاخه به انگلیسی</th>
+                        <th class="text-right" style="width: 80px"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="sc in subject.childs">
+                        <td>{{sc.Title}}</td>
+                        <td><span class="english-text">{{sc.TitleEN}}</span></td>
+                        <td>
+                            <div>
+                                <span class="fa fa-pencil fa-group-mid my-peter my-link hvr-grow" ng-click="editChildSubject(sc)" style="padding-right: 3px"></span>
+                                <span class="fa fa-trash-o fa-group-mid my-red my-link hvr-grow" ng-click="deleteSubject(sc.ID)" confirm="آیا مطمئن هستید که می خواهید زیر شاخه {{p.ID}} را حذف کنید؟" style="padding-right: 3px"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -47,10 +78,12 @@
     <!-- New Subject -->
     <div class="white-panel" ng-show="p3">
         <div ng-show="!subject.ID && !insertChild" class="white-panel-header">افزودن شاخه جدید </div>
-        <div ng-show="subject.ID && !insertChild" class="white-panel-header">ویرایش شاخه [{{subject.Title}}] </div>
-        <div ng-show="!subject.ID && insertChild" class="white-panel-header">افزودن زیر شاخه جدید به [{{subjectParent.Title}}] </div>
+        <div ng-show="subject.ID && !insertChild" class="white-panel-header">ویرایش شاخه [<span class="my-carrot">{{subject.Title}}</span>]
+        </div>
+        <div ng-show="!subject.ID && insertChild" class="white-panel-header">افزودن زیر شاخه جدید به [<span class="my-carrot">{{subjectParent.Title}}</span>]
+        </div>
 
-        <form class="form-horizontal" name="newSubjectForm" role="form" >
+        <form class="form-horizontal" name="newSubjectForm" role="form">
             <div class="row">
                 <div class="form-group col-xs-12" ng-class="subject.newSubjectError ? 'has-error has-feedback' : ''">
                     <div class="col-sm-7 col-sm-offset-2 col-xs-9">
@@ -61,7 +94,7 @@
                 </div>
                 <div class="form-group col-xs-12" ng-class="subject.newSubjectErrorEN ? 'has-error has-feedback' : ''">
                     <div class="col-sm-7 col-sm-offset-2 col-xs-9">
-                        <input ng-readonly="readOnly" type="text" dir="rtl" ng-model="subject.TitleEN" class="form-control yekan-font" id="name" placeholder="نوشته شاخه انگلیسی را وارد کنید" ng-required="true" ng-minlength="2">
+                        <input ng-readonly="readOnly" type="text" dir="rtl" ng-model="subject.TitleEN" class="form-control english-text" id="name" placeholder="Enter title as english..." ng-required="true" ng-minlength="2">
                         <span ng-show="subject.newSubjectErrorEN" class="glyphicon glyphicon-remove form-control-feedback"></span>
                     </div>
                     <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="name">نوشته شاخه انگلیسی</label>
@@ -71,40 +104,42 @@
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-success yekan-font" ng-click="saveSubject()">
                         {{(subject.ID) ? 'ویرایش':'افزودن شاخه'}}
-                        
+
                     </button>
                 </div>
             </div>
         </form>
     </div>
 
-    <!-- Subject Childs -->
-    <div class="white-panel" ng-show="p1">
-        <div class="white-panel-header">نمایش زیر شاخه های [{{subject.Title}}]</div>
-        <div class="row">
-            <div class="col-sm-12">
-                <table dir="rtl" class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th class="text-right">نام زیر شاخه به فارسی</th>
-                        <th class="text-right">نام زیر شاخه به انگلیسی</th>
-                        <th class="text-right" style="width: 58px"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="sc in subject.childs">
-                        <td>{{sc.Title}}</td>
-                        <td>{{sc.TitleEN}}</td>
-                        <td>
-                            <div>
-                                <span class="fa fa-trash-o fa-group-mid my-red" ng-click="deleteSubject(sc.ID)" confirm="آیا مطمئن هستید که می خواهید زیر شاخه {{p.ID}} را حذف کنید؟"></span>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+    <!-- New Child Subject -->
+    <div class="white-panel" ng-show="p4">
+        <div class="white-panel-header">ویرایش زیر شاخه [<span class="my-carrot">{{childSubject.Title}}</span>]</div>
+
+        <form class="form-horizontal" name="newChildSubjectForm" role="form">
+            <div class="row">
+                <div class="form-group col-xs-12" ng-class="childSubject.newSubjectError ? 'has-error has-feedback' : ''">
+                    <div class="col-sm-7 col-sm-offset-2 col-xs-9">
+                        <input ng-readonly="readOnly" type="text" dir="rtl" ng-model="childSubject.Title" class="form-control yekan-font" id="name" placeholder="نوشته شاخه فارسی را وارد کنید" ng-required="true" ng-minlength="2">
+                        <span ng-show="childSubject.newSubjectError" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                    </div>
+                    <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="name">نوشته شاخه فارسی</label>
+                </div>
+                <div class="form-group col-xs-12" ng-class="childSubject.newSubjectErrorEN ? 'has-error has-feedback' : ''">
+                    <div class="col-sm-7 col-sm-offset-2 col-xs-9">
+                        <input ng-readonly="readOnly" type="text" ng-model="childSubject.TitleEN" class="form-control english-text" id="name" placeholder="Enter title as english..." ng-required="true" ng-minlength="2">
+                        <span ng-show="childSubject.newSubjectErrorEN" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                    </div>
+                    <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="name">نوشته شاخه انگلیسی</label>
+                </div>
             </div>
-        </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-success yekan-font" ng-click="saveChildSubject()">
+                        ویرایش زیر شاخه
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <div id="bottom"></div>

@@ -14,9 +14,9 @@
                     <a href='#' class="english-font" style="padding-top: 18px">Subjects</a>
                     <ul>
                         <li class='has-sub ' ng-repeat="s in subjects">
-                            <a ui-sref="homeEN.cat({ id: '{{s.ID}}'})" class="english-font">{{s.Title}}</a>
+                            <a ui-sref="homeEN.cat({ id: '{{s.ID}}'})" class="english-font">{{s.TitleEN}}</a>
                             <ul>
-                                <li><a  class="english-font" ui-sref="homeEN.cat({ id: '{{child.ID}}'})" ng-repeat="child in s.childs">{{child.Title}}</a></li>
+                                <li><a  class="english-font" ui-sref="homeEN.cat({ id: '{{child.ID}}'})" ng-repeat="child in s.childs">{{child.TitleEN}}</a></li>
                             </ul>
                         </li>
                     </ul>
