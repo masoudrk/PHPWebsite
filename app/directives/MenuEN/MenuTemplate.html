@@ -180,25 +180,31 @@
             About
         </a>
     </li>
-    <li ng-if="!authenticated">
-        <a class="my-border-carrot-en english-font" ng-click="openLoginModal()">
+    <li ng-if="!auth.authenticated">
+        <a class="my-border-carrot-en english-font" ng-click="openModal('signin')">
             <i class="fa fa-sign-in"></i>
             Login
         </a>
     </li>
-    <li ng-if="!authenticated">
-        <a class="my-border-asphalt-en english-font" ng-click="openSignupModal()">
+    <li ng-if="!auth.authenticated">
+        <a class="my-border-asphalt-en english-font" ng-click="openModal('signup')">
             <i class="fa fa-user"></i>
             Sing Up
         </a>
     </li>
-    <li ng-if="authenticated">
+    <li ng-if="auth.authenticated && !auth.isAdmin">
         <a class="my-border-carrot-en english-font" ui-sref="admin_root.dashboard">
             <i class="fa fa-user"></i>
-            Panel
+            User Panel
         </a>
     </li>
-    <li ng-if="authenticated">
+    <li ng-if="auth.authenticated && auth.isAdmin">
+        <a class="my-border-carrot-en english-font" ui-sref="admin_root.dashboard">
+            <i class="fa fa-user"></i>
+            Management Panel
+        </a>
+    </li>
+    <li ng-if="auth.authenticated">
         <a class="my-border-asphalt-en english-font" ng-click="logout()">
             <i class="fa fa-sign-out"></i>
             Sign Out

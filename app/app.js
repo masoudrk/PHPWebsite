@@ -525,6 +525,7 @@ app.config([
 ]);
 app.run(function ($rootScope, $templateCache, $state, $location, Extention) {
 
+    //$templateCache.removeAll();
 
     $rootScope.spinner = { active: false };
 

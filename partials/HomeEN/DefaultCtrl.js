@@ -1,5 +1,7 @@
 ﻿angular.module('myApp').controller('DefaultCtrlEN', function ($scope, $templateCache, $state, $rootScope, $routeParams, $uibModal, Extention) {
 
+    //$templateCache.removeAll();
+
     $scope.switchLanguage = function () {
         Extention.switchLanguage('fa');
     }
@@ -28,25 +30,13 @@
 
     $scope.getAllSubjects();
 
-    $scope.openLoginModal = function() {
 
-        $uibModal.open({
-            animation: true,
-            templateUrl: 'partials/HomeEN/LoginTemplate.html',
-            controller: 'authCtrl',
-            size: 'md'
-        });
-    };
-
-    $scope.openSignupModal = function() {
-
-        $uibModal.open({
-            animation: true,
-            templateUrl: 'partials/HomeEN/SignupTemplate.html',
-            controller: 'authCtrl',
-            size: 'md'
-        });
-    };
+    $scope.openModal = function (name) {
+        if (name == 'signin')
+            Extention.openSigninPanel('en');
+        else
+            Extention.openSignupPanel('en');
+    }
 
     $scope.logout = function () {
         Extention.get('logout').then(function (results) {

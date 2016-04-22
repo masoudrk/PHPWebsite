@@ -1,5 +1,5 @@
-angular.module('myApp').factory("Extention", ['$http', '$timeout', '$rootScope', '$state', '$stateParams', 'toaster',
-    function ($http, $timeout, $rootScope, $state, $stateParams, toaster) { // This service connects to our REST API
+angular.module('myApp').factory("Extention", ['$http', '$timeout', '$rootScope', '$state', '$stateParams', 'toaster', '$uibModal',
+    function ($http, $timeout, $rootScope, $state, $stateParams, toaster, $uibModal) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
 
@@ -116,6 +116,40 @@ angular.module('myApp').factory("Extention", ['$http', '$timeout', '$rootScope',
 
         obj.isAdmin = function () {
             return $rootScope.isAdmin;
+        }
+
+        obj.getAuth = function () {
+            return { authenticated: $rootScope.authenticated, isAdmin: $rootScope.isAdmin };
+        }
+
+        obj.openSignupPanel = function (lang) {
+            var template;
+            if (lang == 'en')
+                template = 'partials/HomeEN/SignupTemplate.html';
+            else
+                template = 'partials/Home/SignupTemplate.html';
+
+            $uibModal.open({
+                animation: true,
+                templateUrl: template,
+                controller: 'authCtrl',
+                size: 'md'
+            });
+        }
+
+        obj.openSigninPanel = function (lang) {
+            var template;
+            if(lang == 'en')
+                template = 'partials/HomeEN/LoginTemplate.html';
+            else
+                template = 'partials/Home/LoginTemplate.html';
+
+            $uibModal.open({
+                animation: true,
+                templateUrl: template,
+                controller: 'authCtrl',
+                size: 'md'
+            });
         }
 
         obj.switchLanguage = function (lang) {

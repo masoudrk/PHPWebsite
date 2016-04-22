@@ -20,7 +20,7 @@
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+            <div class="collapse navbar-collapse yekan-font" ng-class="!navCollapsed && 'in'">
 
                 <!--<ul class="nav navbar-nav">
                     <li uib-dropdown>
@@ -31,7 +31,15 @@
                         <tree tree='tree'></tree>
                     </li>
                 </ul>-->
-                <ul class="nav navbar-nav navbar-right yekan-font">
+                <ul class="nav navbar-nav">
+                    <li uib-dropdown>
+                        <a ng-click="logout()" uib-dropdown-toggle>
+                            خروج از پنل
+                            <b class='fa fa-sign-out'></b>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                     <li uib-dropdown>
                         <a  uib-dropdown-toggle>
                             <b class='caret'></b>

@@ -100,6 +100,9 @@
     <Folder Include="js" />
     <Folder Include="fonts\" />
     <Folder Include="content\" />
+    <Folder Include="js\cache\uib\template\" />
+    <Folder Include="js\cache\uib\" />
+    <Folder Include="js\cache\uib\template\modal\" />
     <Folder Include="js\editor\" />
     <Folder Include="js\editor\ckeditor\" />
     <Folder Include="js\editor\ckeditor\adapters\" />
@@ -196,6 +199,7 @@
     <Folder Include="js\editor\ckeditor\skins\flat\images\hidpi\" />
     <Folder Include="db\" />
     <Folder Include="images\" />
+    <Folder Include="js\cache\" />
     <Folder Include="partials" />
     <Folder Include="partials\Admin\Page\" />
     <Folder Include="partials\Admin\Comment\" />
@@ -233,6 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\hotkeys.css" />
+    <Content Include="js\cache\uib\template\modal\window.html" />
     <Content Include="js\hotkeys.js" />
     <Content Include="css\hotkeys.min.css" />
     <Content Include="js\hotkeys.min.js" />
