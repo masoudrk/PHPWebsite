@@ -1,7 +1,15 @@
 ﻿angular.module('myApp').controller('SettingCtrl',
-    function ($scope, $rootScope, $routeParams, $location, Extention) {
+    function ($scope, $rootScope, $routeParams, $location, hotkeys, Extention) {
 
         $scope.module = {};
+
+        hotkeys.bindTo($scope).add({
+            combo: 'ctrl+shift+s',
+            allowIn: ['INPUT', 'SELECT', 'TEXTAREA'],
+            callback: function () {
+                $scope.saveSettings();
+            }
+        });
 
         Extention.post('getAllModulesSorted').then(function (res) {
             $scope.rightBarModules = res.RightBarModules;

@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar', 'treasure-overlay-spinner']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar', 'treasure-overlay-spinner', 'cfp.hotkeys']);
 //, 'angular-imagefit'
 app.config([
     '$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'tooltipsConfProvider', 'ADMdtpProvider',
@@ -517,14 +517,6 @@ app.config([
                 }
             });
 
-        //$urlRouterProvider.when('', '/home');
-        //$urlRouterProvider.when('/', '/home');
-        //$urlRouterProvider.otherwise("/home"); 
-
-        //$stateProvider
-        //    .state("otherwise", { url: '/home' });
-
-
         $urlRouterProvider.otherwise(function ($injector, $location) {
             var $state = $injector.get('$state');
             $state.go('home.home');
@@ -533,6 +525,7 @@ app.config([
 ]);
 app.run(function ($rootScope, $templateCache, $state, $location, Extention) {
 
+    //$templateCache.removeAll();
 
     $rootScope.spinner = { active: false };
 

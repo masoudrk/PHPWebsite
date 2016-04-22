@@ -42,25 +42,31 @@
             <i class="fa fa-users"></i>
         </a>
     </li>
-    <li ng-if="!authenticated">
-        <a class="my-border-carrot text-right" ng-click="openLoginModal()">
+    <li ng-if="!auth.authenticated">
+        <a class="my-border-carrot text-right" ng-click="openModal('signin')">
             ورود
             <i class="fa fa-sign-in"></i>
         </a>
     </li>
-    <li ng-if="!authenticated">
-        <a class="my-border-asphalt text-right" ng-click="openSignupModal()">
+    <li ng-if="!auth.authenticated">
+        <a class="my-border-asphalt text-right" ng-click="openModal('signup')">
             ثبت نام
             <i class="fa fa-user"></i>
         </a>
     </li>
-    <li ng-if="authenticated">
+    <li ng-if="auth.authenticated && !auth.isAdmin">
         <a class="my-border-carrot text-right" ui-sref="admin_root.dashboard">
             پنل کاربری
             <i class="fa fa-user"></i>
         </a>
     </li>
-    <li ng-if="authenticated">
+    <li ng-if="auth.authenticated && auth.isAdmin">
+        <a class="my-border-carrot text-right" ui-sref="user_root.dashboard">
+            پنل ادمین
+            <i class="fa fa-user"></i>
+        </a>
+    </li>
+    <li ng-if="auth.authenticated">
         <a class="my-border-asphalt text-right" ng-click="logout()">
             خروج
             <i class="fa fa-sign-out"></i>

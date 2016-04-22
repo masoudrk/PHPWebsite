@@ -1,6 +1,9 @@
 a {
     text-decoration: none !important;
 }
+a:hover {
+    text-decoration: none !important;
+}
 .top-buffer { margin-top:20px; }
 .bottom-buffer { margin-bottom:20px; }
 .top-padding-20 { padding-top:20px; }
@@ -138,7 +141,8 @@ a {
 }
 
 .post-back {
-    background-color: #b22222 !important;
+    background-color: rgba(178, 34, 34,1) !important;
+    
     padding: 8px !important;
 }
 

@@ -27,25 +27,12 @@
 
     $scope.getAllSubjects();
 
-    $scope.openLoginModal = function() {
-
-        $uibModal.open({
-            animation: true,
-            templateUrl: 'partials/Home/LoginTemplate.html',
-            controller: 'authCtrl',
-            size: 'md'
-        });
-    };
-
-    $scope.openSignupModal = function() {
-
-        $uibModal.open({
-            animation: true,
-            templateUrl: 'partials/Home/SignupTemplate.html',
-            controller: 'authCtrl',
-            size: 'md'
-        });
-    };
+    $scope.openModal = function (name) {
+        if (name == 'signin')
+            Extention.openSigninPanel();
+        else
+            Extention.openSignupPanel();
+    }
 
     $scope.logout = function () {
         Extention.get('logout').then(function (results) {

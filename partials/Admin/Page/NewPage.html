@@ -51,14 +51,16 @@
                         <!--<div text-angular class="col-xs-12 form-group no-padding" ng-model="page.HtmlContent" style="direction: rtl; margin: 0"></div>-->
 
                         <div class="col-md-12">
-                            <textarea ckeditor="editorOptions" ng-model="page.HtmlContent"></textarea>
+                            <textarea style="resize: none;" name="message" ng-model="page.HtmlContent" class="form-control english-text" rows="20"></textarea>
+                            <!--<textarea ckeditor="editorOptions" ng-model="page.HtmlContent"></textarea>-->
                         </div>
                         <div class="form-group ">
                             <span class="col-xs-12 control-label no-padding-right yekan-font" >: محتوا صفحه انگلیسی</span>
                         </div>
                         <!--<div text-angular class="col-xs-12 form-group no-padding" ng-model="page.HtmlContentEN" style="direction: rtl; margin: 0"></div>-->
                         <div class="col-md-12">
-                            <textarea ckeditor="editorOptions" ng-model="page.HtmlContentEN"></textarea>
+                            <textarea style="resize: none;" name="message" ng-model="page.HtmlContentEN" class="form-control english-text" rows="20"></textarea>
+                            <!--<textarea ckeditor="editorOptions" ng-model="page.HtmlContentEN"></textarea>-->
                         </div>
                         <div class="">
                             <button class="btn btn-success yekan-font" style="margin-top: 15px" ng-click="savePage()">
