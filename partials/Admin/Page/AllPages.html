@@ -26,7 +26,7 @@
                     <td>
                         <div>
                             <a class="fa fa-pencil fa-group-mid my-green-sea" ui-sref="admin_root.new_page({id:'{{p.ID}}'})"></a>
-                            <span class="fa fa-trash-o fa-group-mid my-red" ng-click="deletePage(p)" confirm='آیا مطمئن هستید که میخواهید این صفحه را حذف کنید؟' ></span>
+                            <span ng-if="p.IsStatic==0" class="fa fa-trash-o fa-group-mid my-red" ng-click="deletePage(p)" confirm='آیا مطمئن هستید که میخواهید این صفحه را حذف کنید؟' ></span>
                         </div>
                     </td>
                 </tr>

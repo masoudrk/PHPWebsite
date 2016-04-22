@@ -1,10 +1,19 @@
-﻿angular.module('myApp').controller('NewPageCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, $uibModal, Extention) {
+﻿angular.module('myApp').controller('NewPageCtrl', function ($scope, $rootScope, $routeParams, $location, $stateParams, $uibModal,hotkeys, Extention) {
 
     $scope.pageID = $stateParams.id;
     $scope.editMode = $scope.pageID !== "";
 
     $scope.page = {};
     $scope.allPageTypes = [];
+
+    hotkeys.bindTo($scope).add({
+        combo: 'ctrl+shift+s',
+        allowIn: ['INPUT', 'SELECT', 'TEXTAREA'],
+        callback: function () {
+            $scope.savePage();
+        }
+    });
+
 
     $scope.savePage = function () {
         if ($scope.selectedType.length < 1) {

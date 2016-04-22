@@ -1,4 +1,4 @@
-﻿angular.module('myApp').controller('NewPostCtrl', function ($scope, $rootScope, $routeParams, $state, $stateParams, $uibModal, Extention) {
+﻿angular.module('myApp').controller('NewPostCtrl', function ($scope, $rootScope, $routeParams, $state, $stateParams, $uibModal, hotkeys, Extention) {
 
     $scope.subjectButtonText = "انتخاب نشده";
 
@@ -9,6 +9,14 @@
     $scope.postID = $stateParams.id;
     $scope.editMode = $scope.postID !== "";
     $scope.asyncTasks = 2;
+
+    hotkeys.bindTo($scope).add({
+        combo: 'ctrl+shift+s',
+        allowIn: ['INPUT', 'SELECT', 'TEXTAREA'],
+        callback: function () {
+            $scope.saveNewPost();
+        }
+    });
 
     Extention.post("getAllSubjects", { arrenged: true }).then(function (res) {
         $scope.subjects = res;

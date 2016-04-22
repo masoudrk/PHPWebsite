@@ -232,6 +232,10 @@
     <Folder Include="Scripts\lazyLoad\modules\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\hotkeys.css" />
+    <Content Include="js\hotkeys.js" />
+    <Content Include="css\hotkeys.min.css" />
+    <Content Include="js\hotkeys.min.js" />
     <Content Include="css\imagehover.css" />
     <Content Include="css\imagehover.min.css" />
     <Content Include="js\angular-masonry-directive.js" />

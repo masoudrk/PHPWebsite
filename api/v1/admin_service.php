@@ -414,7 +414,7 @@ $app->post('/getAllPages', function() use ($app)  {
     $db = new DbHandler();
     $pageRes = $db->getPage('page',$pr->PageSize,$pr->PageIndex,
 		'page.* , TypeNameEN, TypeName , user.LastName ,user.FirstName','1=1','LEFT JOIN page_type on page_type.ID = page.PageTypeID LEFT JOIN admin on admin.ID=page.AdminID LEFT JOIN user on user.ID = admin.UserID ORDER BY ID DESC');
-	$sess = $db->getSession();
+		
 
     echoResponse(200, $pageRes);
 });

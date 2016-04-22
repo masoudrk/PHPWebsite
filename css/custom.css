@@ -130,7 +130,8 @@ a {
 }
 
 .post-back {
-    background-color: #b22222 !important;
+    background-color: rgba(178, 34, 34,1) !important;
+    
     padding: 8px !important;
 }
 

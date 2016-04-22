@@ -65,6 +65,8 @@
 <!--<script src="js/masonry.js"></script>
 <script src="js/angular-masonry.js"></script>-->
 
+<script src="js/hotkeys.min.js"></script>
+
 <script src="app/app.js"></script>
 <script src="js/angular-clipboard.js"></script>
 <script src="app/Extention.js"></script>
