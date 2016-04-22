@@ -99,7 +99,7 @@ app.config([
                 views: {
                     "viewContent": {
                         templateUrl: "partials/Home/Post/Post.html",
-                        controller: 'PostCtrl'
+                        controller: 'PostSingleCtrl'
                     }
                 },
                 resolve: {

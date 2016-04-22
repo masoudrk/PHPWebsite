@@ -17,7 +17,7 @@
                             <img class="" ng-src="{{post.FullPath}}" style=" border-radius: 5px;" />
                         </div>
                     </div>
-                    <div class="col-sm-6 post-single-detail yekan-font">
+                    <div class="col-sm-6 post-single-detail english-font">
                         <div class="row" style="margin-right: 10px; margin-left: 10px;">
                             <div class="col-xs-12 no-padding splitter">
                                 <div class="no-padding text-center">
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="white-panel yekan-font">
+        <div class="white-panel">
             <div class="" style="padding: 10px">
                 <div class="row">
                     <div class="col-sm-12 content-header-mid" style="color: #666">
@@ -61,39 +61,46 @@
                 </div>
 
                 <!-- new comment form -->
-                <div class="row">
-                    <div class="col-xs-12 top-buffer" id="new-cm-form">
-                        <div class="col-xs-9 english-font" ng-if="answerMode">
-                            Respond to : {{answerPersonName}}
-                        </div>
-                        <div class="col-xs-9 no-padding" ng-if="!authenticated">
-                            <div class="col-xs-12 form-group">
-                                <span class="col-xs-4 no-padding english-font" type="text">Full Name : </span>
-                                <div class="col-xs-8">
-                                    <input type="text" ng-model="newComment.identity" class="english-font" style="width: 100%"/>
+                <form class="form-horizontal" name="commentForm" role="form">
+                    <div class="row">
+                        <div class="col-xs-12 top-buffer" id="new-cm-form">
+                            <div class="form-group col-xs-12" ng-show="answerMode">
+                                <label class="col-xs-3 control-label english-font text-right" for="fullName">Respond To</label>
+                                <label class="col-sm-7 col-xs-9 control-label english-font text-right" for="fullName"><span class="pull-left">{{answerPersonName}}</span><span ng-click="answerMode=!answerMode" class="col-xs-2 pull-right"><i class="glyphicon glyphicon-remove hvr-pulse my-link my-red"></i></span></label>
+                            </div>
+                            <div ng-if="!authenticated">
+                                <div class="form-group col-xs-12" ng-class="commentForm.fullName.$valid ? '' : 'has-error has-feedback'">
+                                    <label class="col-xs-3 control-label no-padding-right english-font text-right" for="fullName">Full Name</label>
+                                    <div class="col-sm-7 col-xs-9">
+                                        <input ng-model="newComment.identity" type="text" dir="ltr" class="form-control english-font" name="fullName" id="fullName" placeholder="Full Name">
+                                        <span ng-show="!commentForm.fullName.$valid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-12" ng-class="commentForm.email.$valid ? '' : 'has-error has-feedback'">
+                                    <label class="col-xs-3 control-label no-padding-right english-font text-right" for="email">Email</label>
+                                    <div class="col-sm-7 col-xs-9">
+                                        <input ng-model="newComment.userEmail" ng-pattern="EMAIL_REGEXP" type="text" dir="ltr" class="form-control english-font" name="email" id="email" placeholder="Email">
+                                        <span ng-show="!commentForm.email.$valid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 form-group">
-                                <span class="col-xs-4 no-padding english-font" type="text">Email : </span>
-                                <div class="col-xs-8">
-                                    <input type="text" ng-model="newComment.userEmail" class="english-font" style="width: 100%"/>
+                            <div class="form-group col-xs-12" ng-class="{false: 'has-error', true: ''}[contactForm.message.$valid]">
+                                <label class="col-xs-3 control-label no-padding-right english-font text-right">Comment</label>
+                                <div class="col-sm-7 col-xs-9">
+                                    <textarea style="resize: none;" ng-minlength="5" name="message" ng-model="newComment.content" class="form-control english-font" dir="ltr" rows="5" ng-required="true"></textarea>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xs-9 no-padding">
-                            <span class="col-xs-4 english-font" type="text">Leave a comment to post : </span>
-                            <div class="col-xs-8 ">
-                                <textarea ng-model="newComment.content" class="english-font" style="word-wrap: break-word; width: 100%"></textarea>
+                            <div class="form-group col-xs-12">
+                                <div class="col-xs-offset-3 col-sm-7 col-xs-9">
+                                    <button class="btn english-font btn-success pull-right" ng-click="addComment()">Send</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-xs-9">
-                            <button class="btn btn-success pull-right english-font" ng-click="addComment()">Send!</button>
                         </div>
                     </div>
-                </div>
+                </form>
 
                 <!-- comments panel -->
-                <div class="row">
+                <div class="row english-font">
                     <div class="col-xs-12">
                         <div class="col-xs-12 my-comment" ng-repeat="c in comments">
                             <div class="col-xs-11 text-right persian-rtl no-padding">
