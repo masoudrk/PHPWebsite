@@ -103,46 +103,47 @@
                 <div class="row english-font">
                     <div class="col-xs-12">
                         <div class="col-xs-12 my-comment" ng-repeat="c in comments">
-                            <div class="col-xs-11 text-right persian-rtl no-padding">
-                                <span class="col-md-12" style="font-size: 15px">{{(c.UserID)? (c.FirstName +" "+ c.LastName) : c.Identity}}</span>
-                                <span class="col-md-12" style="font-size: 13px; color: gray">{{c.Date | jalaliDate:'jYYYY/jMM/jDD hh:mm' }}</span>
-                                <div class="col-md-12" style="font-size: 15px; color: #555; padding: 10px 20px 0 0">
-                                    {{c.Content}}
-                                    <div class="col-md-12 no-padding">
-                                        <span class="my-comment-answer-text" ng-click="gotAnswer(c)">پاسخ دادن</span>
-                                    </div>
-
-                                    <div class="col-xs-12 my-comment-inner" ng-repeat="child in c.Childs">
-                                        <div class="col-xs-11 text-right persian-rtl no-padding">
-                                            <span class="col-md-12" style="font-size: 15px">{{(child.UserID)? (child.FirstName +" "+ child.LastName) : child.Identity}}</span>
-                                            <span class="col-md-12" style="font-size: 13px; color: gray">{{child.Date | jalaliDate:'jYYYY/jMM/jDD hh:mm' }}</span>
-                                            <span class="col-md-12" style="font-size: 15px; color: #555; padding: 10px 20px 0 0">{{child.Content}}</span>
-                                        </div>
-                                        <div class="col-xs-1 col-xs-12">
-                                            <div class="comment-avatar-cover pull-right">
-                                                <!--<img class="comment-avatar hvr-ripple-out" ng-src="content/img/1xxGE29rB40eB1z9RH.JPG"/>-->
-                                                <img class="comment-avatar hvr-ripple-out" ng-if="child.FullPath" ng-src="{{child.FullPath}}" />
-                                                <span class="fa-stack fa-lg" ng-if="!child.FullPath">
-                                                    <i class="comment-avatar fa fa-3x fa-circle fa-stack-1x" ng-if="!child.FullPath" style="width: 45px; height: 45px;font-size: 49px;color: #eee" />
-                                                    <i class="comment-avatar fa fa-2x fa-user my-white fa-stack-2x" ng-if="!child.FullPath" style="width: 45px; height: 45px;" />
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="col-xs-3 col-md-1 col-sm-2 no-padding" style="min-width:45px">
+                                <div class="comment-avatar-cover pull-left">
+                                    <img class="comment-avatar hvr-ripple-out" ng-if="c.FullPath" ng-src="{{c.FullPath}}" />
+                                    <img class="comment-avatar hvr-ripple-out" ng-if="!c.FullPath" ng-src="images/User.png" />
                                 </div>
                             </div>
-                            <div class="col-xs-1">
-                                <div class="comment-avatar-cover pull-right">
-                                    <img class="comment-avatar hvr-ripple-out" ng-if="c.FullPath" ng-src="{{c.FullPath}}" />
-                                    <span class="fa-stack fa-lg" ng-if="!c.FullPath">
-                                        <i class="comment-avatar fa fa-3x fa-circle my-gray fa-stack-1x" ng-if="!c.FullPath" style="width: 45px; height: 45px;font-size: 49px;" />
-                                        <i class="comment-avatar fa fa-2x fa-user my-white fa-stack-2x" ng-if="!c.FullPath" style="width: 45px; height: 45px;" />
-                                    </span>
-                                    <!--<img class="comment-avatar hvr-ripple-out" ng-src="content/img/1xxGE29rB40eB1z9RH.JPG"/>-->
+                            <div class="col-xs-9 col-md-11 col-sm-10 no-padding">
+                                <span class="col-xs-12" style="font-size: 15px">{{(c.UserID)? (c.FirstName +" "+ c.LastName) : c.Identity}}</span>
+                                <span class="col-xs-12" style="font-size: 13px; color: gray">{{c.Date |  moment:'M/D/YYYY' }}</span>
+                                <div class="col-xs-12" style="font-size: 15px; color: #555; padding: 10px 0 0 20px">
+                                    {{c.Content}}
+                                    <div class="col-xs-12 no-padding">
+                                        <span class="my-comment-answer-text" ng-click="gotAnswer(c)">Answer this</span>
+                                    </div>
+                                    <div class="col-xs-12 my-comment-inner-en pull-right" ng-repeat="child in c.Childs">
+                                        <div class="col-xs-3 col-md-1 col-sm-2 no-padding hidden-xs">
+                                            <div class="comment-avatar-cover pull-left">
+                                                <img class="comment-avatar hvr-ripple-out" ng-if="child.FullPath" ng-src="{{child.FullPath}}"/>
+                                                <img class="comment-avatar hvr-ripple-out" ng-if="!child.FullPath" ng-src="images/User.png"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-9 col-md-11 col-sm-10 no-padding hidden-xs">
+                                            <span class="col-xs-12" style="font-size: 15px">{{(child.UserID)? (child.FirstName +" "+ child.LastName) : child.Identity}}</span>
+                                            <span class="col-xs-12" style="font-size: 13px; color: gray">{{child.Date | moment:'M/D/YYYY' }}</span>
+                                            <span class="col-xs-12" style="font-size: 15px; color: #555; padding: 10px 0 0 20px">{{child.Content}}</span>
+                                        </div>
+                                        <div class="col-xs-12 no-padding hidden-md hidden-lg hidden-sm items-center">
+                                            <div>
+                                                <img class="comment-avatar hvr-ripple-out" ng-if="child.FullPath" ng-src="{{child.FullPath}}" />
+                                                <img class="comment-avatar hvr-ripple-out" ng-if="!child.FullPath" ng-src="images/User.png" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 no-padding hidden-md hidden-lg hidden-sm items-center">
+                                            <span class="col-xs-12" style="font-size: 15px">{{(child.UserID)? (child.FirstName +" "+ child.LastName) : child.Identity}}</span>
+                                            <span class="col-xs-12" style="font-size: 13px; color: gray">{{child.Date | moment:'M/D/YYYY' }}</span>
+                                            <span class="col-xs-12" style="font-size: 15px; color: #555; padding: 10px 0 0 20px">{{child.Content}}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
