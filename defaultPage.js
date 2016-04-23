@@ -57,5 +57,5 @@ var bsHelper = {};
 
     //stickyScroll();
 
-    window.addEventListener('scroll', stickyScroll, false);
+    //window.addEventListener('scroll', stickyScroll, false);
 })(jQuery,ResponsiveBootstrapToolkit);
