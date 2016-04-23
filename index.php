@@ -48,7 +48,6 @@
 <script src="Scripts/angular-animate.min.js" ></script>
 <script src="Scripts/angular-ui-router.js"></script>
 
-
 <script src="js/toaster.min.js"></script>
 <script src="js/ui-bootstrap-tpls-1.2.5.min.js"></script>
 
@@ -88,7 +87,12 @@
 
 <!-- jqurey libs -->
 <script src="js/jquery.js" type="text/javascript"></script>
+
+<script src="js/bootstrap-toolkit.js"></script>
+<!--<script src="js/bootstrap-toolkit-1.5.0.js"></script>-->
+
 <script src="defaultPage.js" ></script>
 <script src="js/menubar.js"></script>
+
 </html>
 

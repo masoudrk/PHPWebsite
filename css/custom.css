@@ -17,13 +17,21 @@ a:hover {
 }
 
 @font-face {
+  font-family: 'Vazir';
+  src: url('../fonts/Vazir.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/Vazir.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/Vazir.woff') format('woff'), /* Pretty Modern Browsers */
+       url('../fonts/Vazir.ttf')  format('truetype') /* Safari, Android, iOS */
+}
+
+@font-face {
   font-family: 'Segoe';
   src: url('../fonts/Segoe-UI.woff') format('woff'), /* Pretty Modern Browsers */
        url('../fonts/Segoe-UI.ttf')  format('truetype') /* Safari, Android, iOS */
 }
 
 .yekan-font {
-    font-family: 'Yekan', Tahoma;
+    font-family: 'Vazir', Tahoma;
     text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
@@ -726,6 +734,13 @@ padding-bottom: 10px;*/
     border-radius:6px;
 }
 
+.my-comment-inner-en {
+    background-color: #ddd;
+    padding: 10px 0px 10px 0px;
+    margin-top: 15px;
+    margin-right: 15px;
+    border-radius:6px;
+}
 .my-comment-answer-text {
     cursor: pointer;
     color: #008080
@@ -758,5 +773,9 @@ padding-bottom: 10px;*/
 }
 .comment-avatar:hover {
     border-radius: 5px;
+}
+
+.items-center {
+    text-align:center;
 }
 /************************************************************/

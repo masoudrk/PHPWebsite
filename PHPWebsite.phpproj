@@ -237,12 +237,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\hotkeys.css" />
+    <Content Include="js\bootstrap-toolkit-1.5.0.js" />
+    <Content Include="js\bootstrap-toolkit-1.5.0.min.js" />
+    <Content Include="js\bootstrap-toolkit.js" />
+    <Content Include="js\bootstrap-toolkit.min.js" />
     <Content Include="js\cache\uib\template\modal\window.html" />
     <Content Include="js\hotkeys.js" />
     <Content Include="css\hotkeys.min.css" />
     <Content Include="js\hotkeys.min.js" />
+    <Content Include="images\User.png" />
     <Content Include="css\imagehover.css" />
     <Content Include="css\imagehover.min.css" />
+    <Content Include="fonts\Vazir.eot" />
+    <Content Include="fonts\Vazir.ttf" />
+    <Content Include="fonts\Vazir.woff" />
     <Content Include="js\angular-masonry-directive.js" />
     <Content Include="app\directives\MenuEN\menu.js" />
     <Content Include="app\directives\MenuEN\MenuTemplate.html" />
