@@ -2,28 +2,52 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Expires" content="Sat, 10 May 2016 00:00:00 GMT">
 
+<style>
+    .nav > li > a:hover, .nav > li > a:focus {
+        text-decoration: none;
+        background-color: #b22222;
+    }
+</style>
+
 <div class="post">
-    <figure class="imghvr-shutter-in-out-horiz" style="height: 298px;background-color: white;border-radius: 4px 4px 0 0;">
+    <figure class="imghvr-blur" style="height: 298px; background-color: white; border-radius: 4px 4px 0 0;">
+        
+
         <div style="color: #555">
             <div class="thumbnail" style="border: none; margin-bottom: 5px; padding: 0">
-                <img ng-src="{{ngModel.Image}}" style="border-radius: 4px 4px 0px 0px;" />
+                <img ng-src="{{ngModel.Image}}" style="border-radius: 4px 4px 0px 0px;"/>
             </div>
             <div class="post-middle yekan-font text-center">
                 <div class="" style="max-height: 195px; overflow: hidden;">
-                    <div class="col-xs-12 top-buffer" style="font-size: 20px; max-height: 55px; overflow: hidden" ng-class="langClass">{{ngModel.Title}}</div>
+                    <div class="col-xs-12" style="margin-top: 10px; font-size: 20px; max-height: 55px; overflow: hidden" ng-class="langClass">{{ngModel.Title}}</div>
 
-                    <ul class="col-xs-12 nav nav-pills splitter " role="tablist" style="padding-top: 20px !important;z-index: 0;">
+                    <!--<ul class="col-xs-12 nav nav-pills splitter " role="tablist" style="padding-top: 20px !important;z-index: 0;">
                         <li role="presentation" ng-repeat="s in ngModel.Subjects track by $index" class="pull-right" ng-if="$index < 3">
                             <a ui-sref="home.cat({ id: '{{s.ID}}'})" class="my-darkgray" ng-class="langClass" style="padding: 5px">
-                                {{(lang=='en')? s.TitleEN:s.Title}}<span style="padding-left: 7px" class="fa fa-tag"></span>
+                                {{(lang=='en')? s.TitleEN : s.Title}}<span style="padding-left: 7px" class="fa fa-tag"></span>
                             </a>
                         </li>
-                    </ul>
+                    </ul>-->
                 </div>
             </div>
         </div>
         <figcaption class="post-back persian-rtl yekan-font">
-            <div ng-class="langClass" class="text-center" compile="ngModel.BriefContent" style="overflow: hidden; min-height: 30px; max-height: 80px; color: white;background-color: transparent !important"></div>
+            <div ng-class="langClass" class="text-center" compile="ngModel.BriefContent" style="overflow: hidden; min-height: 30px; max-height: 80px; color: white; background-color: transparent !important"></div>
+
+            <ul class="col-xs-12 nav nav-pills splitter " role="tablist" style="padding-top: 20px !important; z-index: 0;">
+                <li role="presentation" ng-repeat="s in ngModel.Subjects track by $index" class="pull-right" ng-if="$index < 3">
+                    <a ui-sref="home.cat({ id: '{{s.ID}}'})" class="my-white special-link" ng-class="langClass" style="padding: 5px;">
+                        <span ng-if="lang!='en'" style="padding-left: 5px" class="fa fa-tag"></span>
+                        {{(lang=='en')? s.TitleEN : s.Title}}
+                        <span ng-if="lang=='en'" style="padding-right: 7px" class="fa fa-tag"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <div ng-if="isAdmin" style="position: absolute; bottom: 38px;left: 38px">
+                <a class="fa fa-pencil fa-2x hvr-rotate my-green-sea my-link"
+                   ui-sref="admin_root.new_post({id:'{{ngModel.ID}}'})"></a>
+            </div>
         </figcaption>
     </figure>
     <div class="post-footer">

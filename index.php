@@ -72,7 +72,7 @@
 
 <script src="app/app.js"></script>
 <script src="js/angular-clipboard.js"></script>
-<script src="app/Extention.js"></script>
+<!--<script src="app/Extention.js"></script>-->
 <script src="app/authCtrl.js"></script>
 <script src="app/directives/auto-pagination.js"></script>
 

@@ -6,8 +6,13 @@
             onPostMore: '&',
             lang : '@'
         },
-        controller: ['$scope', 'Extention', '$element', '$attrs', '$window', function ($scope, Extention, $element, $attrs, $window) {
+        controller: ['$scope', '$rootScope', 'Extention', '$element', '$attrs', '$window', function ($scope, $rootScope, Extention, $element, $attrs, $window) {
             $scope.posting = false;
+            $scope.isAdmin = false;
+
+            $scope.$watch('$root.isAdmin', function () {
+                $scope.isAdmin = $rootScope.isAdmin;
+            });
 
             if ($scope.lang == 'en') {
                 $scope.langClass = 'english-font english-ltr';
