@@ -1,7 +1,8 @@
 ﻿angular.module('myApp').controller('NewPostCtrl', function ($scope, $rootScope, $routeParams, $state, $stateParams, $uibModal, hotkeys, Extention) {
 
     $scope.subjectButtonText = "انتخاب نشده";
-
+    $scope.isCollapsed = false;
+    $scope.isCollapsedEN = false;
     $scope.post = {};
 
     $scope.subjects = [];
@@ -34,18 +35,25 @@
             return;
         }
         if ($scope.editMode) {
-            Extention.post("getPostByID", { PostID: $scope.postID }).then(function (res) {
-                
+            Extention.post("getPostByIDAdmin", { PostID: $scope.postID }).then(function (res) {
+
+                var ReleaseDate = moment(res.ReleaseDate);
+                var WriteDate = moment(res.WriteDate);
+
                 $scope.post.obj = res;
                 $scope.post.postContent = res.Content;
-                $scope.post.title = res.Title;
                 $scope.post.postBrief = res.BriefContent;
+                $scope.post.title = res.Title;
+                $scope.post.postContentEN = res.ContentEN;
+                $scope.post.postBriefEN = res.BriefContentEN;
+                $scope.post.titleEN = res.TitleEN;
                 $scope.post.authors = res.Authors;
                 $scope.post.subjects = res.Subjects;
-                $scope.post.releaseDate = res.ReleaseDate;
-                $scope.post.writeDate = res.WriteDate;
+                $scope.releaseDateFull.gDate = ReleaseDate._d;
+                $scope.writeDate = "2015/12/15 16:40:00.000Z";
                 $scope.post.hidden = (res.Hidden == 1) ? true : false;
                 $scope.post.enableComment = (res.EnableComment == 1) ? true : false;
+                $scope.post.enableEnglish = (res.EnableEnglish == 1) ? true : false;
 
                 $scope.image = {};
                 $scope.image.FullPath = res.FullPath;
@@ -82,13 +90,17 @@
             title: $scope.post.title,
             postContent: ($scope.post.postContent) ? $scope.post.postContent : "",
             postBrief: ($scope.post.postBrief) ? $scope.post.postBrief : "",
+            titleEN: $scope.post.titleEN,
+            postContentEN: ($scope.post.postContentEN) ? $scope.post.postContentEN : "",
+            postBriefEN: ($scope.post.postBriefEN) ? $scope.post.postBriefEN : "",
             authors: $scope.selectAuthors,
             subjects: $scope.selectSubjects,
             releaseDate: $scope.releaseDateFull.gDate,
             writeDate: $scope.writeDateFull.gDate,
             imageID: $scope.image.ID,
             hidden: $scope.post.hidden,
-            enableComment: $scope.post.enableComment
+            enableComment: $scope.post.enableComment,
+            enableEnglish: $scope.post.enableEnglish
         };
 
         if ($scope.editMode)

@@ -37,19 +37,19 @@ jQuery(function ($) {
         $(".slider").each(slideHelper.resize);
     });
 
-    function stickyScroll(e) {
-        //var scroll_top = $(window).scrollTop();
-        //if (scroll_top < 5) {
-        //    $("#top-menubar").css('background-color', 'rgba(0,0,0,0)');
-        //} else {
-        //    var o = (scroll_top / 500);
-        //    if (o > 0.7)
-        //        o = 0.7;
-        //    $("#top-menubar").css('background-color', 'rgba(0, 0, 0, ' + o + ')');
-        //}
-    }
+    //function stickyScroll(e) {
+    //    //var scroll_top = $(window).scrollTop();
+    //    //if (scroll_top < 5) {
+    //    //    $("#top-menubar").css('background-color', 'rgba(0,0,0,0)');
+    //    //} else {
+    //    //    var o = (scroll_top / 500);
+    //    //    if (o > 0.7)
+    //    //        o = 0.7;
+    //    //    $("#top-menubar").css('background-color', 'rgba(0, 0, 0, ' + o + ')');
+    //    //}
+    //}
 
-    stickyScroll();
+    //stickyScroll();
 
-    window.addEventListener('scroll', stickyScroll, false);
+    //window.addEventListener('scroll', stickyScroll, false);
 });

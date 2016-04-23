@@ -12,13 +12,13 @@
             <i class="fa fa-list"></i>
         </a>
         <div id="subs" class="sub-list slideable sidebar-right" easing="linear" duration="0.35s">
-            <ul style="padding-left: 0px;">
+            <ul style="padding-left: 0px;padding-right: 0px;">
                 <li class="sub-list-li" ng-repeat="s in subjects">
                     <a class="yekan-font text-right sub-list-a" ui-sref="home.cat({ id: '{{s.ID}}'})">
                         <label class="sub-list-label">{{s.Title}}</label>
                         <div class="fa fa-angle-double-left"></div>
                     </a>
-                    <ul style="padding-left: 0px;">
+                    <ul style="padding-left: 0px;padding-right: 0px;">
                         <li class="sub-list-li" ng-repeat="c in s.childs">
                             <a class="yekan-font text-right sub-list-a sub-list-a-a" ui-sref="home.cat({ id: '{{c.ID}}'})">
                                 <label class="sub-list-label">{{c.Title}}</label>

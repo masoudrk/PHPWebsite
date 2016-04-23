@@ -54,6 +54,42 @@ $app->post('/getAllPostsAdmin', function() use ($app)  {
     echoResponse(200, $pageRes);
 });
 
+$app->post('/getPostByIDAdmin', function() use ($app)  {
+    $data = json_decode($app->request->getBody());
+
+    $db = new DbHandler();
+	
+    $r = $db->makeQuery("SELECT post.*, gallery.FullPath FROM `post` LEFT JOIN gallery on gallery.ID = post.ImageID where post.ID=".$data->PostID);
+
+    $res = $r->fetch_assoc();
+    if(!$res)
+    {
+    	echoResponse(201, "Error not found post!");
+    	return;
+	}
+    
+    $authorsQ = $db->makeQuery("SELECT gallery.FullPath,admin.ID as AdminID , concat(FirstName , ' ' ,LastName) as FullName FROM post_author 
+                                    Left Join admin on admin.ID = post_author.AdminID
+                                    Left Join user on user.ID = admin.UserID
+                                    Left Join gallery on gallery.ID = user.AvatarID
+                                    where PostID=".$res["ID"]);
+    $authors = array();
+    while($resAuthor = $authorsQ->fetch_assoc()){
+        $authors[] = $resAuthor;
+    }
+    $res["Authors"] = $authors;
+    
+    $subjectsQ = $db->makeQuery("SELECT * FROM post_subject 
+                                    Left Join subject on subject.ID = post_subject.SubjectID
+                                    where PostID=".$res["ID"]);
+    $subjects = array();
+    while($resSubject = $subjectsQ->fetch_assoc()){
+        $subjects[] = $resSubject;
+    }
+    $res["Subjects"] = $subjects;
+
+    echoResponse(200, $res);
+});
 $app->post('/savePost', function() use ($app) {
 	adminRequire();
 	
@@ -67,25 +103,29 @@ $app->post('/savePost', function() use ($app) {
         'Title' => $rObj->title,
         'Content' => $rObj -> postContent,
         'BriefContent' => $rObj -> postBrief,
+        'TitleEN' => $rObj->titleEN,
+        'ContentEN' => $rObj -> postContentEN,
+        'BriefContentEN' => $rObj -> postBriefEN,
         'ReleaseDate' => $rObj -> releaseDate,
         'WriteDate' => $rObj -> writeDate,
         'ImageID' => $rObj -> imageID,
         'Hidden' => $rObj -> hidden,
         'EnableComment' => $rObj -> enableComment,
+        'EnableEnglish' => $rObj -> enableEnglish
     ];
 
     try{
 
         $db->beginTransaction();
 
-        $column_names = array( 'Title','Content','BriefContent','ReleaseDate','WriteDate','ImageID','Hidden','EnableComment');
+        $column_names = array( 'Title','Content','BriefContent','TitleEN','ContentEN','BriefContentEN','ReleaseDate','WriteDate','ImageID','Hidden','EnableComment','EnableEnglish');
         $result = null;
 
         if(!$updateMode){
             $result = $db->insertIntoTable($object, $column_names, "post");
         }else{
                                         
-            $result = $db->updateRecord("post","`Title`='".$object->Title."' , `Content`='".$object->Content."' , `BriefContent`='".$object->BriefContent."' , `WriteDate`='".$object->WriteDate."' ,`ReleaseDate`='".$object->ReleaseDate."' , `ImageID`='".$object->ImageID."' , `Hidden`='".$object->Hidden."' , `EnableComment`='".$object->EnableComment."'"
+            $result = $db->updateRecord("post","`Title`='".$object->Title."' , `Content`='".$object->Content."' , `BriefContent`='".$object->BriefContent."' , `WriteDate`='".$object->WriteDate."' ,`ReleaseDate`='".$object->ReleaseDate."' , `ImageID`='".$object->ImageID."' , `Hidden`='".$object->Hidden."' , `EnableComment`='".$object->EnableComment."',TitleEN='".$object->TitleEN."',ContentEN='".$object->ContentEN."',BriefContentEN='".$object->BriefContentEN."',EnableEnglish='".$object->EnableEnglish."'"
                                         , "post.ID=".$rObj->postID );
 
             $resDelS = $db->deleteFromTable("post_subject","PostID=".$rObj->postID);
