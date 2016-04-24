@@ -1,8 +1,10 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar', 'treasure-overlay-spinner', 'cfp.hotkeys']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar', 'treasure-overlay-spinner', 'cfp.hotkeys', 'vcRecaptcha']);
 //, 'angular-imagefit'
 app.config([
-    '$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'tooltipsConfProvider', 'ADMdtpProvider',
-    function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, tooltipsConfProvider, ADMdtp) {
+    '$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'tooltipsConfProvider', 'ADMdtpProvider', 'vcRecaptchaServiceProvider',
+    function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, tooltipsConfProvider, ADMdtp, vcRecaptchaServiceProvider) {
+
+        vcRecaptchaServiceProvider.setSiteKey('6LdFLB4TAAAAAH1sOhBD0ew9SQEgq6XCDytD0Slv');
 
         tooltipsConfProvider.configure({
             'smart': true,
@@ -792,26 +794,22 @@ app.run(function ($rootScope, $templateCache, $state, $location, Extention) {
     $rootScope.$on("$stateChangeStart", function (event, next, current) {
         Extention.setBusy(true);
         $rootScope.authenticated = false;
+        $rootScope.recaptchaKey = false;
         Extention.get('session').then(function (results) {
-
-            //if (next.url == '/') {
-            //    $state.go("home.home");
-            //    return;
-            //}
+            
 
             if (next.url == '/admin') {
                 $state.go("admin_root.dashboard");
                 return;
             }
 
-            if (results.UserID) {
+            if (results && results.Status == 'success') {
                 $rootScope.authenticated = true;
                 $rootScope.user = {};
-                $rootScope.user.UserID = results.UserID;
                 $rootScope.user.lastName = results.LastName;
                 $rootScope.user.firstName = results.FirstName;
                 
-                if (results.AdminID)
+                if (results.IsAdmin)
                     $rootScope.isAdmin = true;
             }
 
@@ -822,11 +820,11 @@ app.run(function ($rootScope, $templateCache, $state, $location, Extention) {
             }
             
             if (next.name.indexOf("admin_root") > -1) {
-                if (!results.AdminID)
+                if (results && !results.IsAdmin)
                     $state.go("home.home");
 
             }else if (next.name.indexOf("user_root") > -1) {
-                if (!results.UserID)
+                if (results && !results.UserID)
                     $state.go("home.home");
             }
         });

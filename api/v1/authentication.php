@@ -2,11 +2,6 @@
 $app->get('/session', function() {
     $db = new DbHandler();
     $session = $db->getSession();
-    //$response["UserID"] = $session['UserID'];
-    //$response["Email"] = $session['Email'];
-    //$response["Username"] = $session['Username'];
-    //$response["LastName"] = $session['LastName'];
-    //$response["FirstName"] = $session['FirstName'];
     echoResponse(200, $session);
 });
 
@@ -19,34 +14,49 @@ $app->post('/login', function() use ($app) {
     $db = new DbHandler();
     $password = $r->customer->password;
     $email = $r->customer->email;
+    
     $user = $db->getOneRecord("select ID,LastName,FirstName,Email,Password,Username from user where Username='$email' or Email='$email'");
+    
     if ($user != NULL) {
         if(passwordHash::check_password($user['Password'],$password)){
-            $response['Status'] = "success";
-            $response['Message'] = 'Logged in successfully.';
-            $response['UserID'] = $user['ID'];
-            $response['LastName'] = $user['LastName'];
-            $response['FirstName'] = $user['FirstName'];
-            $response['Username'] = $user['Username'];
-            $response['Email'] = $user['Email'];
-
+        	
+        	$sessionID = generateSessionID(100);
+        	$resSessionIDQ = $db->updateRecord('user',"SessionID='".$sessionID."',SessionValid=1","ID='".$user['ID']."'");
+        	
             $IsAdmin=false;
-            $admin = $db->getOneRecord("select * from admin where UserID=".$response['UserID']);
+            $admin = $db->getOneRecord("select * from admin where UserID=".$user['ID']);
             if($admin){
-                $response['AdminID'] = $admin["ID"];
                 $IsAdmin=true;
             }
 
+            $response['Status'] = "success";
+            $response['Device'] = $user['FirstName'];
+            $response['SSN'] = $sessionID;
+            $response['LastName'] = $user['LastName'];
+            $response['FirstName'] = $user['FirstName'];
+            $response['Email'] = $user['Email'];
+            $response['IsAdmin'] = $IsAdmin;
+            $response['UserID'] = $user['ID'];
+            if($IsAdmin){
+            	$response['AdminID'] = $admin['ID'];
+            }
+            
             if (!isset($_SESSION)) {
                 session_start();
             }
-            if($IsAdmin){
-                $_SESSION['AdminID'] = $admin['ID'];
-            }
-            $_SESSION['UserID'] = $user['ID'];
-            $_SESSION['Email'] = $email;
+            
+            $_SESSION['Status'] = "success";
+            $_SESSION['SSN'] = $sessionID;
             $_SESSION['LastName'] = $user['LastName'];
             $_SESSION['FirstName'] = $user['FirstName'];
+            $_SESSION['IsAdmin'] = $IsAdmin;
+            $_SESSION['Email'] = $email;
+            $_SESSION['UserID'] = $user['ID'];
+            $_SESSION['AdminID'] = $admin['ID'];
+            
+            if($IsAdmin){
+            	$_SESSION['AdminID'] = $admin['ID'];
+            }
         } else {
             $response['Status'] = "error";
             $response['Message'] = 'Login failed. Incorrect credentials';
@@ -58,8 +68,40 @@ $app->post('/login', function() use ($app) {
     echoResponse(200, $response);
 });
 $app->post('/signUp', function() use ($app) {
-    $response = array();
+
     $r = json_decode($app->request->getBody());
+	
+	$url = 'https://www.google.com/recaptcha/api/siteverify';
+	$postfields = array('secret'=>'6LdFLB4TAAAAAGqRYQeB5dBPiLq-XeJJreomcQpA',
+						'response'=>$r->recaptchaResponse);
+
+	$ch = curl_init( $url );
+
+    if (FALSE === $ch)
+        throw new Exception('failed to initialize');
+        
+	curl_setopt( $ch, CURLOPT_POST, 1);
+	curl_setopt( $ch, CURLOPT_POSTFIELDS, $postfields);
+	curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+	curl_setopt( $ch, CURLOPT_HEADER, 0);
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false);
+	
+    $response = array();
+	$googleResponse = curl_exec( $ch );
+	if(!$googleResponse){
+        $response["Status"] = "error-captcha";
+        echoResponse(201, $response);
+	}else{
+		
+    	$resG = json_decode($googleResponse);
+    	if($resG->success == FALSE){
+        	$response["Status"] = "error-captcha";
+	        echoResponse(201, $response);
+	    	return ;
+		}
+	}
+	
     verifyRequiredParams(array('email', 'lastName' ,'firstName' , 'username', 'password'),$r->customer);
     require_once 'passwordHash.php';
     $db = new DbHandler();
@@ -73,7 +115,7 @@ $app->post('/signUp', function() use ($app) {
     if(!$isUserExists){
         $r->customer->password = passwordHash::hash($password);
         $tabble_name = "user";
-        $column_names = array( 'Email','LastName', 'FirstName', 'Username', 'Password');
+        $column_names = array( 'Email','LastName', 'FirstName', 'Username', 'Password','IP');
         
         $object = (object) [
             'Username' => $username,
@@ -81,11 +123,12 @@ $app->post('/signUp', function() use ($app) {
             'LastName' => $lastName,
             'FirstName' => $firstName,
             'Password' => $r->customer->password,
+            'IP' => getIPAddress()
           ];
 
         $result = $db->insertIntoTable($object, $column_names, $tabble_name);
         if ($result != NULL) {
-            $response["status"] = "success";
+            $response["Status"] = "success";
             $response["UserID"] = $result;
             if (!isset($_SESSION)) {
                 session_start();
@@ -97,19 +140,24 @@ $app->post('/signUp', function() use ($app) {
             $_SESSION['Email'] = $email;
             echoResponse(200, $response);
         } else {
-            $response["status"] = "error";
+            $response["Status"] = "error";
             echoResponse(201, $response);
         }            
     }else{
-        $response["status"] = "error-exists";
+        $response["Status"] = "error-exists";
         echoResponse(201, $response);
     }
 });
 $app->get('/logout', function() {
     $db = new DbHandler();
+    
+    $session = $db->getSession();
+    $resSessionIDQ = $db->updateRecord('user',"SessionValid=0","ID='".$session['UserID']."'");
+    
     $session = $db->destroySession();
-    $response["status"] = "info";
-    $response["message"] = "Logged out successfully";
+    
+    $response =[];
+    $response["Status"] = "success";
     echoResponse(200, $response);
 });
 

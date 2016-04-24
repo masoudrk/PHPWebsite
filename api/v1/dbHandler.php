@@ -147,25 +147,23 @@ class DbHandler {
 	
 	public function getSession(){
 	    if (!isset($_SESSION)) {
-	        session_start();
+	    	session_start();
 	    }
 	    $sess = [];
-	    if(isset($_SESSION['UserID']))
-	    {
-	        if(isset($_SESSION['AdminID']))
-	            $sess["AdminID"] = $_SESSION['AdminID'];
-
-	        $sess["UserID"] = $_SESSION['UserID'];
+        
+        if(isset($_SESSION['UserID'])){
+	        $sess['Status'] = "success";
 	        $sess["LastName"] = $_SESSION['LastName'];
 	        $sess["FirstName"] = $_SESSION['FirstName'];
 	        $sess["Email"] = $_SESSION['Email'];
-	    }
-	    else
-	    {
-	       // $sess["UserID"] = '';
-	        $sess["LastName"] = 'Guest';
-	        $sess["FirstName"] = '';
-	    }
+	        $sess["SSN"] = $_SESSION['SSN'];
+	        $sess["UserID"] = $_SESSION['UserID'];
+	        $sess["IsAdmin"] = $_SESSION['IsAdmin'];
+		}
+        
+        if (isset($_SESSION["AdminID"])) {
+         	$sess["AdminID"] = $_SESSION['AdminID'];
+        }
 	    return $sess;
 	}
 	

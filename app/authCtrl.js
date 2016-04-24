@@ -1,5 +1,6 @@
 ﻿app.controller('authCtrl', function ($scope, $rootScope,$state, $routeParams, $uibModalInstance, $location, $http, Extention) {
     //initially set those objects to null to avoid undefined error
+
     $scope.login = {};
     $scope.signup = {};
     $scope.doLogin = function (user) {
@@ -11,7 +12,7 @@
                 Extention.authUser(results);
                 $uibModalInstance.close(results);
 
-                if (results.AdminID) {
+                if (results.IsAdmin) {
                     Extention.toast({ status: "success", message: "ادمین گرامی به سایت خوش آمدید!" });
                     $state.go("admin_root.dashboard");
                 }
@@ -28,15 +29,19 @@
     };
     $scope.signup = {email:'',password:'',name:'',phone:'',address:''};
     $scope.signUp = function (customer) {
+
         Extention.post('signUp', {
-            customer: customer
+            customer: customer,
+            recaptchaResponse: $scope.myRecaptchaResponse
         }).then(function (results) {
-            if (results.status == "success") {
+            if (results.Status == "success") {
                 $uibModalInstance.close(results);
                 Extention.toast({ status: "success", message: "ثبت نام با موفقیت انجام شد! لطفا وارد سایت شوید." });
             } else {
-                if(results.status == "error-exists")
+                if (results.Status == "error-exists")
                     Extention.toast({ status: "error", message: "کاربری با این مشخصات ثبت نام کرده است!" });
+                else if (results.Status == "error-captcha")
+                    Extention.toast({ status: "error", message: "هویت شما شناخته نشد ، لطفا دوباره امتحان کنید." });
                 else
                     Extention.toast({ status: "error", message: "خطا ، لطفا دوباره تلاش کنید." });
             }
@@ -48,6 +53,7 @@
     };
 
     $scope.cancel = function () {
+        
         $uibModalInstance.dismiss('cancel');
     };
 });

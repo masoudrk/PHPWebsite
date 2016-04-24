@@ -50,6 +50,15 @@ function generateRandomString($length = 10) {
     }
     return $randomString;
 }
+function generateSessionID($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()/?>;,';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
 
 function echoResponse($status_code, $response) {
     $app = \Slim\Slim::getInstance();
@@ -79,14 +88,40 @@ function getIPAddress(){
 	}
 }
 
-function adminRequire(){
+function userRequire(){
 	$db = new DbHandler();
     $sess = $db->getSession();
-    $rq = $db->makeQuery("SELECT admin.ID FROM user JOIN admin on admin.UserID=user.ID where user.ID='".$sess["UserID"]."'");
+    $rq = $db->makeQuery("SELECT ID FROM user where user.SessionID='".$sess["SSN"]."' AND SessionValid=1");
     $r = $rq->fetch_assoc();
     if($r){
 		return TRUE;
 	} 
+	die('Encrypted media , Admininistrator auth has been failed.');
+}
+
+function adminRequire(){
+	$db = new DbHandler();
+    $sess = $db->getSession();
+    $rq = $db->makeQuery(
+    "SELECT admin.ID FROM user JOIN admin on admin.UserID=user.ID where user.SessionID='".$sess["SSN"]
+    ."' AND SessionValid=1");
+    
+    $r = $rq->fetch_assoc();
+    if($r){
+		return TRUE;
+	} 
+	die('Encrypted media , Admininistrator auth has been failed.');
+}
+
+function getCurrentUser(){
+	$db = new DbHandler();
+    $sess = $db->getSession();
+    $rq = $db->makeQuery(
+    "SELECT * ,user.ID as UserID,admin.ID as AdminID FROM user Left JOIN admin on admin.UserID=user.ID where user.SessionID='".$sess["SSN"]
+    ."' AND SessionValid=1");
+    
+    $r = $rq->fetch_assoc();
+	return $r;
 	die('Encrypted media , Admininistrator auth has been failed.');
 }
 

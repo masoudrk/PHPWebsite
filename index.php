@@ -43,10 +43,17 @@
 <!--  -->
 
 <!-- Libs -->
+<!--<script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
+<script
+  src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit&hl=en"
+  async defer
+></script>
+
 <script src="Scripts/angular.js"></script>
 <script src="Scripts/angular-route.min.js"></script>
 <script src="Scripts/angular-animate.min.js" ></script>
 <script src="Scripts/angular-ui-router.js"></script>
+
 
 <script src="js/toaster.min.js"></script>
 <script src="js/ui-bootstrap-tpls-1.2.5.min.js"></script>
@@ -69,6 +76,7 @@
 <script src="js/angular-masonry.js"></script>-->
 
 <script src="js/hotkeys.min.js"></script>
+<script src="js/angular-recaptcha.js" type="text/javascript"></script>
 
 <script src="app/app.js"></script>
 <script src="js/angular-clipboard.js"></script>
