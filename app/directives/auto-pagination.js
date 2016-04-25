@@ -92,7 +92,7 @@
     }
 
     function fieldTemplate(el, attrs) {
-        return '<ul data-ng-hide="Hide" data-ng-class="ulClass"> ' +
+        return '<ul class="english-text" data-ng-hide="Hide" data-ng-class="ulClass"> ' +
             '<li ' +
                 'title="{{Item.title}}" ' +
                 'data-ng-class="Item.liClass" ' +

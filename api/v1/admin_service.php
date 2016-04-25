@@ -90,6 +90,7 @@ $app->post('/getPostByIDAdmin', function() use ($app)  {
 
     echoResponse(200, $res);
 });
+
 $app->post('/savePost', function() use ($app) {
 	adminRequire();
 	
@@ -170,8 +171,8 @@ $app->post('/savePage', function() use ($app) {
 	$sess = $db->getSession();
 
     if(!$updateMode){
-         $result = $db->insertToTable('page','Name,NameEN,HtmlContent,HtmlContentEN,PageTypeID,AdminID'
-         ,"'".$rObj->Name."','".$rObj->NameEN."','".$rObj->HtmlContent."','".$rObj->HtmlContentEN."','".$rObj->PageTypeID."','".$sess['AdminID']."'");
+         $result = $db->insertToTable('page','Name,NameEN,HtmlContent,HtmlContentEN,AdminID'
+         ,"'".$rObj->Name."','".$rObj->NameEN."','".$rObj->HtmlContent."','".$rObj->HtmlContentEN."','".$sess['AdminID']."'");
          if($result)
          {
 			$httpRes['Status'] = "success";
@@ -180,7 +181,7 @@ $app->post('/savePage', function() use ($app) {
 		 }
     }else{
                                     
-        $result = $db->updateRecord("page","`Name`='".$rObj->Name."' , `NameEN`='".$rObj->NameEN."' , `HtmlContent`='".$rObj->HtmlContent."' , `HtmlContentEN`='".$rObj->HtmlContentEN."' ,`PageTypeID`='".$rObj->PageTypeID."',`AdminID`='".$sess['AdminID']."'" , "page.ID=".$rObj->PageID );
+        $result = $db->updateRecord("page","`Name`='".$rObj->Name."' , `NameEN`='".$rObj->NameEN."' , `HtmlContent`='".$rObj->HtmlContent."' , `HtmlContentEN`='".$rObj->HtmlContentEN."',`AdminID`='".$sess['AdminID']."'" , "page.ID=".$rObj->PageID );
          if($result)
          {
 			$httpRes['Status'] = "success";
@@ -448,14 +449,14 @@ $app->post('/getAllUsers', function() use ($app)  {
 $app->post('/getAllPages', function() use ($app)  {
 	adminRequire();
 	
-    $data = json_decode($app->request->getBody());
-    $pr = new Pagination($data);
-    
+	$data = json_decode($app->request->getBody());
     $db = new DbHandler();
-    $pageRes = $db->getPage('page',$pr->PageSize,$pr->PageIndex,
-		'page.* , TypeNameEN, TypeName , user.LastName ,user.FirstName','1=1','LEFT JOIN page_type on page_type.ID = page.PageTypeID LEFT JOIN admin on admin.ID=page.AdminID LEFT JOIN user on user.ID = admin.UserID ORDER BY ID DESC');
-		
-
+    $pr = new Pagination($data);
+	
+	$query = "SELECT page.ID, page.Name ,page.IsStatic , TypeNameEN, TypeName , user.LastName ,user.FirstName FROM page LEFT JOIN page_type on page_type.ID = page.PageTypeID LEFT JOIN admin on admin.ID=page.AdminID LEFT JOIN user on user.ID = admin.UserID 
+	WHERE IsStatic=0 ORDER BY page.ID DESC";
+	
+	$pageRes = $pr->getPage($db,$query);
     echoResponse(200, $pageRes);
 });
 
@@ -813,4 +814,15 @@ $app->post('/acceptComment', function() use ($app)  {
 	}
 });
  
+$app->post('/getAllContactsUs', function() use ($app)  {
+	adminRequire();
+	$data = json_decode($app->request->getBody());
+    $db = new DbHandler();
+    $pr = new Pagination($data);
+	
+	$query = "SELECT contact_us.* , concat(FirstName,' ', LastName) as FullName FROM contact_us LEFT JOIN user on user.ID=contact_us.UserID ORDER BY contact_us.Date Desc";
+	
+	$pageRes = $pr->getPage($db,$query);
+    echoResponse(200, $pageRes);
+});
 ?>

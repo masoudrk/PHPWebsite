@@ -75,6 +75,8 @@
 <!--<script src="js/masonry.js"></script>
 <script src="js/angular-masonry.js"></script>-->
 
+<script src="js/ng-map.min.js"></script>
+
 <script src="js/hotkeys.min.js"></script>
 <script src="js/angular-recaptcha.js" type="text/javascript"></script>
 

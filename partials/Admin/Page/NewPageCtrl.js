@@ -15,18 +15,68 @@
     });
 
 
-    $scope.savePage = function () {
-        if ($scope.selectedType.length < 1) {
-            Extention.popError('لطفا نوع صفحه را انتخاب کنید!');
-            return;
-        }
+    $scope.openGoogleMapModal = function (lang) {
 
+        var uibModalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'googleMapModal.html',
+            controller: function ($scope, $uibModalInstance, Extention, lang) {
+                $scope.zoom = 16;
+                $scope.insertMapScript = function () {
+                    var code =
+                    "\n<div map-lazy-load=\"https://maps.google.com/maps/api/js\">\n" +
+                        "\t<ng-map center=\"[" + $scope.longitude + ", " + $scope.latitude + "]\" zoom=\"" + $scope.zoom + "\">" +
+                        "\n\t\t<marker position=\"[" + $scope.mLongitude + ", " + $scope.mLatitude + "]\">" +
+                        "\n\t</ng-map>\n" +
+                    "</div>";
+
+                    $uibModalInstance.close({ htmlCodeEN: code, htmlCode: code, lang: lang });
+                }
+            },
+            size: 'md',
+            resolve: {
+                lang: function () {
+                    return lang;
+                }
+            }
+        });
+
+        uibModalInstance.result.then(function (html) {
+            if (lang == 'en') {
+                if (!$scope.page.HtmlContentEN)
+                    $scope.page.HtmlContentEN = html.htmlCodeEN;
+                else
+                    $scope.page.HtmlContentEN += html.htmlCodeEN;
+            }
+            else {
+                if (!$scope.page.HtmlContent)
+                    $scope.page.HtmlContent = html.htmlCode;
+                else
+                    $scope.page.HtmlContent += html.htmlCode;
+            }
+        });
+    }
+
+    $scope.insertWhitePanel = function (lang) {
+        if (lang == 'en') {
+            $scope.page.HtmlContentEN +=
+                "\n<div class=\"white-panel english-text\">" +
+                "\n\t<div class=\"col-xs-12 text-center top-padding-20 bottom-padding-20\">\n\t</div>" +
+                "\n</div>";
+        } else {
+            $scope.page.HtmlContent += "\n<div class=\"white-panel persian-rtl yekan-font\">" +
+                "\n\t<div class=\"col-xs-12 text-center top-padding-20 bottom-padding-20\">\n\t</div>" +
+                "\n</div>";
+        }
+    }
+
+
+    $scope.savePage = function () {
         var page = {
             Name: $scope.page.Name,
             HtmlContent: ($scope.page.HtmlContent) ? $scope.page.HtmlContent : "",
             NameEN: ($scope.page.NameEN) ? $scope.page.NameEN : "",
-            HtmlContentEN: ($scope.page.HtmlContentEN) ? $scope.page.HtmlContentEN : "",
-            PageTypeID: $scope.selectedType[0].ID
+            HtmlContentEN: ($scope.page.HtmlContentEN) ? $scope.page.HtmlContentEN : ""
         };
 
         if ($scope.editMode) {

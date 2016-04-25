@@ -2,12 +2,12 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Expires" content="Sat, 10 May 2016 00:00:00 GMT">
 
-<div class="center-content-container">
-    <div class="header content-header-red">
+<div class="center-content-container" style="margin-right: -10px;">
+    <div class="header content-header-red" style="margin-right: 10px; margin-left: 10px;">
         <div class="row">
             <div class="col-md-12 text-right fa-2x">
                 <span class="yekan-font">{{category.Title}}</span>
-                <i class="fa fa-random"></i>
+                <i class="fa fa-filter"></i>
             </div>
         </div>
     </div>
@@ -21,16 +21,17 @@
                 </div>
             </div>
         </div>
-    <div class="row">
-        <div class="span8 text-center">
+        <div class="row">
+            <div class="span8 text-center">
 
-            <auto-paging page="1"
-                         page-size="8"
-                         action-name="getAllPosts"
-                         data-params="pagingParams"
-                         items="posts">
-            </auto-paging>
+                <auto-paging page="1"
+                             page-size="8"
+                             action-name="getAllPosts"
+                             data-params="pagingParams"
+                             items="posts">
+                </auto-paging>
+            </div>
         </div>
     </div>
-</div>
 
+</div>

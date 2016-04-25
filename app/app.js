@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar', 'treasure-overlay-spinner', 'cfp.hotkeys', 'vcRecaptcha']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar', 'treasure-overlay-spinner', 'cfp.hotkeys', 'vcRecaptcha','ngMap']);
 //, 'angular-imagefit'
 app.config([
     '$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'tooltipsConfProvider', 'ADMdtpProvider', 'vcRecaptchaServiceProvider',
@@ -19,7 +19,7 @@ app.config([
         });
 
         $ocLazyLoadProvider.config({
-            debug: true,
+            debug: false,
             events: true
         });
         
@@ -437,6 +437,25 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Comment/CommentCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
+                }
+            })
+            .state("admin_root.contact_us", {
+                url: "/contacts",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/ContactUs/ContactUs.html",
+                        controller: 'ContactUs'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/ContactUs/ContactUsCtrl.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
                     }]
                 }

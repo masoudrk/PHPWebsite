@@ -201,6 +201,7 @@
     <Folder Include="images\" />
     <Folder Include="js\cache\" />
     <Folder Include="partials" />
+    <Folder Include="partials\Admin\ContactUs\" />
     <Folder Include="partials\Admin\Page\" />
     <Folder Include="partials\Admin\Comment\" />
     <Folder Include="partials\Admin\MenuTmpl\" />
@@ -666,6 +667,9 @@
     <Content Include="js\ng-file-upload-shim.min.js" />
     <Content Include="js\ng-file-upload.js" />
     <Content Include="js\ng-file-upload.min.js" />
+    <Content Include="js\ng-map.debug.js" />
+    <Content Include="js\ng-map.js" />
+    <Content Include="js\ng-map.min.js" />
     <Content Include="js\ng-sortable.js" />
     <Content Include="js\ng-sortable.min.js" />
     <Content Include="js\ngprogress.js" />
@@ -686,6 +690,8 @@
     <Content Include="js\ui-navbar.min.js" />
     <Content Include="js\unslider.js" />
     <Content Include="packages.config" />
+    <Content Include="partials\Admin\ContactUs\ContactUs.html" />
+    <Content Include="partials\Admin\ContactUs\ContactUsCtrl.js" />
     <Content Include="partials\Admin\Page\AllPages.html" />
     <Content Include="partials\Admin\Page\AllPagesCtrl.js" />
     <Content Include="partials\Admin\Page\NewPage.html" />
