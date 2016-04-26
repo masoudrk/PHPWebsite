@@ -1,4 +1,4 @@
-angular.module('ui.navbar', ['ui.bootstrap'])
+ï»¿angular.module('ui.navbar', ['ui.bootstrap'])
 
     .directive('tree', function () {
         return {
@@ -10,7 +10,7 @@ angular.module('ui.navbar', ['ui.bootstrap'])
             controller: function ($scope,Extention) {
 
                 $scope.markAsRead = function () {
-                    Extention.post("markAsReadComments").then(function(res) {
+                    Extention.postAsync("markAsReadComments").then(function(res) {
                          
                     });
                 }
@@ -20,7 +20,7 @@ angular.module('ui.navbar', ['ui.bootstrap'])
                                 '<leaf ng-repeat="leaf in tree" leaf="leaf"></leaf>'+
                             '</div>'+
                             '<div class="text-center" style="padding: 5px;background-color:#ddd" >'+
-                                '<button class="btn btn-success" style="font-weight: 700" ng-click="markAsRead()" >åãå Ñæ ÎæäÏã</button>'+
+                                '<button class="btn btn-success" style="font-weight: 700" ng-click="markAsRead()" >Ù‡Ù…Ù‡ Ø±Ùˆ Ø®ÙˆÙ†Ø¯Ù…</button>'+
                             '</div>'+
                         '</ul>'
         };

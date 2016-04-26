@@ -2,17 +2,17 @@
     function ($scope, $rootScope, $routeParams, $location, $timeout, $uibModal, Extention) {
         $scope.pagingController = {};
 
-        $scope.acceptComment = function (c,accept) {
+        $scope.deleteContact = function (c) {
 
-            Extention.post("acceptComment", { CommentID: c.ID, Accepted: accept }).then(function (res) {
+            Extention.post("deleteContact", { ID: c.ID}).then(function (res) {
                 if (res) {
                     if (res.Status == "success") {
-                        Extention.toast({ status: 'success', message: 'با موفقیت تغییر کرد!' });
+                        Extention.toast({ status: 'success', message: 'با موفقیت حذف شد!' });
                         $scope.pagingController.update();
                     } else {
                         Extention.toast({ status: 'error', message: 'خطا در سرور ، دوباره تلاش کنید' });
                     }
-                } 
+                }
             });
         }
 

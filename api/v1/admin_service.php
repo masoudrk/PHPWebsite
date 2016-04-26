@@ -754,7 +754,7 @@ $app->post('/getAdminHeaderData', function() use ($app)  {
     //$data = json_decode($app->request->getBody());
     $sess = $db->getSession();
     $AdminID = $sess['AdminID'];
-    $r = $db -> makeQuery("SELECT comment.*,post.Title,gallery.FullPath , concat(user.FirstName,'  ',user.LastName) as FullName FROM comment LEFT JOIN user on user.ID=comment.UserID LEFT JOIN post on post.ID=comment.PostID LEFT JOIN gallery on gallery.ID=user.AvatarID WHERE not exists(SELECT * FROM comment_read WHERE comment_read.CommentID=comment.ID AND comment_read.AdminID='".$AdminID."') ORDER BY Date DESC");
+    $r = $db -> makeQuery("SELECT comment.* , post.Title,gallery.FullPath , concat(user.FirstName,'  ',user.LastName) as FullName FROM comment_read LEFT JOIN comment on comment.ID=comment_read.CommentID LEFT JOIN user on user.ID=comment.UserID LEFT JOIN post on post.ID=comment.PostID LEFT JOIN gallery on gallery.ID=user.AvatarID WHERE comment_read.AdminID='".$AdminID."' ORDER BY Date DESC");
     
     $res = [];
     while($ty = $r->fetch_assoc()){
@@ -791,9 +791,45 @@ $app->post('/markAsReadComments', function() use ($app)  {
     $db = new DbHandler();
     $sess = $db->getSession();
     $AdminID = $sess['AdminID'];
-    $r = $db -> makeQuery("CALL `Proc_MarkAsRead`('".$AdminID."', @p1)");
+    $r = $db -> makeQuery("DELETE FROM comment_read where AdminID='".$AdminID."'");
     
     echoResponse(200, $r);
+});
+
+$app->post('/deleteContact', function() use ($app)  {
+	adminRequire();
+	$data = json_decode($app->request->getBody());
+	
+    $db = new DbHandler();
+    $r = $db -> makeQuery("DELETE FROM contact_us where ID='".$data->ID."'");
+    
+    $response =[];
+    if($r)
+    {
+		$response["Status"] = "success";
+    	echoResponse(200, $response);
+    	return;
+	}
+	$response["Status"] = "error";
+	echoResponse(201, $response);
+});
+
+$app->post('/deleteComment', function() use ($app)  {
+	adminRequire();
+	$data = json_decode($app->request->getBody());
+	
+    $db = new DbHandler();
+    $r = $db -> makeQuery("DELETE FROM comment where ID='".$data->ID."'");
+    
+    $response =[];
+    if($r)
+    {
+		$response["Status"] = "success";
+    	echoResponse(200, $response);
+    	return;
+	}
+	$response["Status"] = "error";
+	echoResponse(201, $response);
 });
 
 $app->post('/acceptComment', function() use ($app)  {

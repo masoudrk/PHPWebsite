@@ -37,7 +37,7 @@
                                     <a ng-if="c.Accepted == 1" class="fa fa-close fa-group-mid my-carrot pull-right" ng-click="acceptComment(c,false)"></a>
                                     <a ng-if="c.Accepted != 1" class="fa fa-check fa-group-mid my-green-sea pull-right" ng-click="acceptComment(c,true)"></a>
 
-                                    <span class="fa fa-trash-o fa-group-mid my-red pull-left" ng-click="deletePost(p)" confirm="آیا مطمئن هستید که می خواهید کامنت {{c.ID}} را حذف کنید؟"></span>
+                                    <span class="fa fa-trash-o fa-group-mid my-red pull-left" ng-click="deleteComment(c)" confirm="آیا مطمئن هستید که می خواهید کامنت {{c.ID}} را حذف کنید؟"></span>
 
                                 </div>
                             </td>
