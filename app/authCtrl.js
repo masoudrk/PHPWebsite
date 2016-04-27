@@ -29,14 +29,30 @@
     };
     $scope.signup = {email:'',password:'',name:'',phone:'',address:''};
     $scope.signUp = function (customer) {
-
+        if (!$scope.checkEmail(customer.email)) {
+            Extention.popError('ایمیل وارد شده معتبر نیست!');
+            return;
+        }
+        if (!customer.username || customer.username.length < 5) {
+            Extention.popError('نام کاربری بایستی حداقل 5 کارکتر باشد!');
+            return;
+        }
+        if (!customer.password || customer.password.length < 5) {
+            Extention.popError('رمز وارد شده بایستی حداقل 5 کاراکتر باشد!');
+            return;
+        }
+        if (customer.password != customer.password2) {
+            Extention.popError('رمز وارد شده با تایید آن یکسان نیست!');
+            return;
+        }
         Extention.post('signUp', {
             customer: customer,
             recaptchaResponse: $scope.myRecaptchaResponse
         }).then(function (results) {
-            if (results.Status == "success") {
+            if (results && results.Status == "success") {
                 $uibModalInstance.close(results);
-                Extention.toast({ status: "success", message: "ثبت نام با موفقیت انجام شد! لطفا وارد سایت شوید." });
+                Extention.authUser(results);
+                Extention.toast({ status: "success", message: "ثبت نام با موفقیت انجام شد!" });
             } else {
                 if (results.Status == "error-exists")
                     Extention.toast({ status: "error", message: "کاربری با این مشخصات ثبت نام کرده است!" });
@@ -48,6 +64,15 @@
         });
     };
 
+    $scope.checkEmail = function (value) {
+        if ($scope.EMAIL_REGEXP.test(value))
+            return true;
+        else
+            return false;
+    };
+
+    $scope.EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    
     $scope.ok = function () {
         $uibModalInstance.close($scope.selected.item);
     };

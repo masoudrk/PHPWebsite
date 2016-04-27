@@ -11,6 +11,8 @@
     $scope.editMode = $scope.postID !== "";
     $scope.asyncTasks = 2;
 
+    $scope.select = {};
+
     hotkeys.bindTo($scope).add({
         combo: 'ctrl+shift+s',
         allowIn: ['INPUT', 'SELECT', 'TEXTAREA'],
@@ -59,23 +61,8 @@
                 $scope.image.FullPath = res.FullPath;
                 $scope.image.ID = res.ImageID;
 
-                var i, j;
-                for (i = 0; i < $scope.post.authors.length; i++) {
-                    for (j = 0; j < $scope.authors.length; j++) {
-                        if ($scope.post.authors[i].AdminID === $scope.authors[j].AdminID) {
-                            $scope.selectAuthors.push($scope.authors[j]);
-                            $scope.authors[j].author = true;
-                        }
-                    }
-                }
-                for (i = 0; i < $scope.post.subjects.length; i++) {
-                    for (j = 0; j < $scope.subjects.length; j++) {
-                        if ($scope.post.subjects[i].ID === $scope.subjects[j].ID) {
-                            $scope.selectAuthors.push($scope.subjects[j]);
-                            $scope.subjects[j].subject = true;
-                        }
-                    }
-                }
+                $scope.select.selectSubjects = $scope.post.subjects;
+                $scope.select.selectAuthors = $scope.post.authors;
             });
 
         }
@@ -93,8 +80,8 @@
             titleEN: $scope.post.titleEN,
             postContentEN: ($scope.post.postContentEN) ? $scope.post.postContentEN : "",
             postBriefEN: ($scope.post.postBriefEN) ? $scope.post.postBriefEN : "",
-            authors: $scope.selectAuthors,
-            subjects: $scope.selectSubjects,
+            authors: $scope.select.selectAuthors,
+            subjects: $scope.select.selectSubjects,
             releaseDate: $scope.releaseDateFull.gDate,
             writeDate: $scope.writeDateFull.gDate,
             imageID: $scope.image.ID,
@@ -107,10 +94,10 @@
             post.postID = $scope.postID;
 
         Extention.post("savePost",post).then(function (res) {
-            if (res) {
+            if (res && res.Status == 'success') {
                 Extention.toast({ status: 'success', message: 'پست با موفقیت ثبت شد!' });
                 if(!$scope.editMode)
-                    $state.go("admin_root.new_post", { id: res }, { reload: true });
+                    $state.go("admin_root.new_post", { id: res.PostID }, { reload: true });
             } else {
                 Extention.toast({ status: 'error', message: 'مشکل در ثبت پست ، لطفا دوباره امتحان کنید.' });
             }

@@ -237,6 +237,7 @@
     <Folder Include="Scripts\lazyLoad\modules\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="db\db.sql" />
     <Content Include="css\hotkeys.css" />
     <Content Include="js\angular-recaptcha.js" />
     <Content Include="js\angular-recaptcha.min.js" />
@@ -282,7 +283,6 @@
     <Content Include="css\treasure-overlay-spinner.css" />
     <Content Include="css\ui-navbar.css" />
     <Content Include="css\ui-navbar.min.css" />
-    <Content Include="db\db.sql" />
     <Content Include="fonts\Segoe-UI.ttf" />
     <Content Include="fonts\Segoe-UI.woff" />
     <Content Include="images\flag_united_kingdom.png" />

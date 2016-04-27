@@ -104,15 +104,15 @@ $app->post('/savePost', function() use ($app) {
         'Title' => $rObj->title,
         'Content' => $rObj -> postContent,
         'BriefContent' => $rObj -> postBrief,
-        'TitleEN' => $rObj->titleEN,
-        'ContentEN' => $rObj -> postContentEN,
-        'BriefContentEN' => $rObj -> postBriefEN,
+        'TitleEN' => (isset($rObj->titleEN)?$rObj->titleEN:''),
+        'ContentEN' => (isset($rObj->postContentEN)?$rObj->postContentEN:''),
+        'BriefContentEN' => (isset($rObj->postBriefEN)?$rObj->postBriefEN:''),
         'ReleaseDate' => $rObj -> releaseDate,
         'WriteDate' => $rObj -> writeDate,
         'ImageID' => $rObj -> imageID,
-        'Hidden' => $rObj -> hidden,
-        'EnableComment' => $rObj -> enableComment,
-        'EnableEnglish' => $rObj -> enableEnglish
+        'Hidden' => (isset($rObj->hidden)?$rObj->hidden:'0') ,
+        'EnableComment' => (isset($rObj->enableComment)?$rObj->enableComment:'0') ,
+        'EnableEnglish' => (isset($rObj->enableEnglish)?$rObj->enableEnglish:'0') 
     ];
 
     try{
@@ -155,7 +155,11 @@ $app->post('/savePost', function() use ($app) {
         echoResponse(201, $e);
         return;
     }
-    echoResponse(200, $result);
+    $res = [];
+    $res['Status'] = 'success';
+    $res['PostID'] = $result;
+    
+    echoResponse(200, $res);
 });
 
 $app->post('/savePage', function() use ($app) {

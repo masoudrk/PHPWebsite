@@ -130,6 +130,8 @@ $app->post('/signUp', function() use ($app) {
         if ($result != NULL) {
             $response["Status"] = "success";
             $response["UserID"] = $result;
+            $response["FirstName"] = $firstName;
+            $response["LastName"] = $lastName;
             if (!isset($_SESSION)) {
                 session_start();
             }

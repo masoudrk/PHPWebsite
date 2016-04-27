@@ -12,69 +12,68 @@
 
         <div class="white-panel">
         <form name="loginForm" class="form-horizontal" role="form">
-            <div class="form-group text-right">
-                <label class="col-sm-11 control-label no-padding-right yekan-font">فعلا این مطلب رو نمایش نده</label>
-                <div class="col-sm-1 text-left no-padding">
-                    <input type="checkbox" ng-model="post.hidden"/>
+
+            <div class="col-xs-12 form-group text-right">
+                <div class="checkbox checkbox-success">
+                    <input type="checkbox" id="checkbox1" ng-model="post.hidden">
+                    <label for="checkbox1">
+                        فعلا این مطلب رو نمایش نده
+                    </label>
                 </div>
             </div>
-            <div class="form-group text-right">
-                <label class="col-sm-11 control-label no-padding-right yekan-font">نظر دادن برای این مطلب آزاد باشه</label>
-                <div class="col-sm-1 text-left no-padding">
-                    <input type="checkbox" ng-model="post.enableComment" />
+            <div class="col-xs-12 form-group text-right">
+                <div class="checkbox checkbox-success">
+                    <input type="checkbox" id="checkbox2" ng-model="post.enableComment">
+                    <label for="checkbox2">
+                        نظر دادن برای این مطلب آزاد باشه
+                    </label>
                 </div>
             </div>
-            <div class="form-group text-right">
-                <label class="col-sm-11 control-label no-padding-right yekan-font">زبان انگلیسی این مطلب فعال باشد</label>
-                <div class="col-sm-1 text-left no-padding">
-                    <input type="checkbox" ng-model="post.enableEnglish" />
+            <div class="col-xs-12 form-group text-right">
+                <div class="checkbox checkbox-success">
+                    <input type="checkbox" id="checkbox3" ng-model="post.enableEnglish">
+                    <label for="checkbox3">
+                        زبان انگلیسی این مطلب فعال باشه
+                    </label>
                 </div>
             </div>
-            <div class="form-group">
-                <multi-select-drop-down dir="rtl"
-                                        class="col-sm-5 col-md-offset-5"
-                                        items="subjects"
-                                        selected-list="selectSubjects"
-                                        ng-button-text="subjectButtonText"
-                                        multi-select-mode="true"
-                                        radio-button-behaviour="false"
-                                        max-button-titles-show="3"
-                                        check-feild-name="'subject'"
-                                        title-feild-name="'Title'"
-                                        close-on-select="false"
-                                        watch-on-items="true">
-                </multi-select-drop-down>
-                <label class="col-sm-2 control-label no-padding-right yekan-font" for="email">موضوع</label>
+            <div class="col-xs-12 no-padding form-group">
+                <div class="col-sm-5 col-sm-offset-5">
+                    <ui-select multiple ng-model="select.selectSubjects" theme="bootstrap"
+                               sortable="true" close-on-select="false" style="width:">
+                        <ui-select-match placeholder="انتخاب کنید ...">{{$item.Title}}</ui-select-match>
+                        <ui-select-choices repeat="s in subjects | filter: $select.search">
+                            <div ng-bind="s.Title | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <label class="col-sm-2 control-label no-paddin yekan-font" for="email">موضوع</label>
             </div>
-            <div class="form-group">
-                <multi-select-drop-down dir="rtl"
-                                        class="col-sm-5 col-md-offset-5"
-                                        items="authors"
-                                        selected-list="selectAuthors"
-                                        ng-button-text="subjectButtonText"
-                                        multi-select-mode="true"
-                                        radio-button-behaviour="false"
-                                        max-button-titles-show="2"
-                                        close-on-select="false"
-                                        check-feild-name="'author'"
-                                        title-feild-name="'FullName'"
-                                        watch-on-items="true">
-                </multi-select-drop-down>
+            <div class="col-xs-12 no-padding form-group">
+                <div class="col-sm-5 col-sm-offset-5">
+                    <ui-select multiple ng-model="select.selectAuthors" theme="bootstrap"
+                               sortable="true" close-on-select="false" style="width:">
+                        <ui-select-match placeholder="انتخاب کنید ...">{{$item.FullName}}</ui-select-match>
+                        <ui-select-choices repeat="a in authors | filter: $select.search">
+                            <div ng-bind="a.FullName | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
                 <label class="col-sm-2 control-label no-padding-right yekan-font" for="email">نویسندگان</label>
             </div>
-            <div class="form-group text-right">
-                <div class="col-sm-4 col-sm-offset-6" style="margin-top: 10px;">
+            <div class="col-xs-12 no-padding form-group text-right">
+                <div class="col-sm-5 col-sm-offset-5" style="margin-top: 10px;">
                     <adm-dtp ng-model='post.releaseDate' options='{calType: "gregorian",dtpType:"date&time", format: "YYYY/MM/DD hh:mm", default: "today",autoClose:true}' full-data="releaseDateFull" class="english-font"></adm-dtp>
                 </div>
                 <label class="col-sm-2 control-label no-padding-right yekan-font" for="email" style="margin-top: 10px;">تاریخ انتشار</label>
             </div>
-            <div class="form-group text-right">
-                <div class="col-sm-4 col-sm-offset-6" style="margin-top: 10px;">
+            <div class="col-xs-12 no-padding form-group text-right">
+                <div class="col-sm-5 col-sm-offset-5" style="margin-top: 10px;">
                     <adm-dtp ng-model='post.writeDate' options='{calType: "gregorian",dtpType:"date&time", format: "YYYY/MM/DD hh:mm", default: "today",autoClose:true}' full-data="writeDateFull" class="english-font"></adm-dtp>
                 </div>
                 <label class="col-sm-2 control-label no-padding-right yekan-font" style="margin-top: 10px;">تاریخ نوشته</label>
             </div>
-            <div class="form-group text-right">
+            <div class="col-xs-12 no-padding form-group text-right">
                 <div class="col-sm-4 col-sm-offset-6" style="margin-top: 10px;">
                     <button class="btn btn-success yekan-font" style="margin-left: 15px" ng-click="openGalleryModal()">
                         انتخاب تصویر
@@ -82,12 +81,12 @@
                 </div>
                 <label class="col-sm-2 control-label no-padding-right yekan-font" style="margin-top: 10px;">تصویر مطلب</label>
             </div>
-            <div class="form-group text-right" ng-if="image.FullPath">
+            <div class="col-xs-12 no-padding form-group text-right" ng-if="image.FullPath">
                 <div class="col-md-12 gallery" style="margin-top: 10px;">
                     <img ng-src="{{image.FullPath}}" class="media col-sm-3 col-sm-offset-7"/>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="col-xs-12 no-padding form-group">
                 <button class="btn btn-success yekan-font" style="margin-left: 15px" ng-click="saveNewPost()">
                     {{(editMode)?'ویرایش پست':'ثبت پست جدید'}}
                 </button>
