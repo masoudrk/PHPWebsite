@@ -1,4 +1,4 @@
-﻿angular.module('myApp').controller('NewPostCtrl', function ($scope, $rootScope, $routeParams, $state, $stateParams, $uibModal, hotkeys, Extention) {
+﻿angular.module('myApp').controller('NewPostCtrl', function ($scope, $rootScope, $routeParams, $state, $stateParams, $uibModal, hotkeys, Extention,ADMdtpConvertor) {
 
     $scope.subjectButtonText = "انتخاب نشده";
     $scope.isCollapsed = false;
@@ -36,11 +36,17 @@
         if ($scope.asyncTasks !== 0) {
             return;
         }
+
+        //var getPersianDate = function (inputDate) {
+        //    var date = moment(inputDate);
+        //    jDate = ADMdtpConvertor.toJalali(date);
+        //    return jDate.jYear() + '/' + jDate.jMonths() + '/' + jDate.jDates();
+        //}
+
         if ($scope.editMode) {
             Extention.post("getPostByIDAdmin", { PostID: $scope.postID }).then(function (res) {
 
-                var ReleaseDate = moment(res.ReleaseDate);
-                var WriteDate = moment(res.WriteDate);
+                //var date = getPersianDate(res.ReleaseDate);
 
                 $scope.post.obj = res;
                 $scope.post.postContent = res.Content;
@@ -51,8 +57,8 @@
                 $scope.post.titleEN = res.TitleEN;
                 $scope.post.authors = res.Authors;
                 $scope.post.subjects = res.Subjects;
-                $scope.releaseDateFull.gDate = ReleaseDate._d;
-                $scope.writeDate = "2015/12/15 16:40:00.000Z";
+                $scope.post.releaseDate = res.ReleaseDate.replace(/-/g, "/");
+                $scope.post.writeDate = res.WriteDate.replace(/-/g, "/");
                 $scope.post.hidden = (res.Hidden == 1) ? true : false;
                 $scope.post.enableComment = (res.EnableComment == 1) ? true : false;
                 $scope.post.enableEnglish = (res.EnableEnglish == 1) ? true : false;
@@ -69,6 +75,27 @@
     }
 
     $scope.saveNewPost = function () {
+
+        var format = function (input) {
+            return ((input < 10) ? '0' + input : input);
+        }
+
+        var convertDateToISO = function (inputFullDate) {
+            if (inputFullDate.calType == "jalali") {
+                var t = ADMdtpConvertor.toGregorian(inputFullDate.year, inputFullDate.month, inputFullDate.day);
+
+                return t.year + '-' + format(t.month) + '-' + format(t.day) + ' ' +
+                    format(inputFullDate.hour) + ':' + format(inputFullDate.minute);
+            } else {
+                return inputFullDate.year + '-' + format(inputFullDate.month) + '-' + format(inputFullDate.day) + ' ' +
+                    format(inputFullDate.hour) + ':' + format(inputFullDate.minute);
+            }
+        }
+
+        var releaseDate, writeDate;
+        releaseDate = convertDateToISO($scope.releaseDateFull);
+        writeDate = convertDateToISO($scope.writeDateFull);
+        
         if (!$scope.image || !$scope.image.ID) {
             Extention.toast({ status: 'error', message: 'خطا ! لطفا یک تصویر انتخاب کنید.' });
         }
@@ -82,8 +109,8 @@
             postBriefEN: ($scope.post.postBriefEN) ? $scope.post.postBriefEN : "",
             authors: $scope.select.selectAuthors,
             subjects: $scope.select.selectSubjects,
-            releaseDate: $scope.releaseDateFull.gDate,
-            writeDate: $scope.writeDateFull.gDate,
+            releaseDate: releaseDate,
+            writeDate: writeDate,
             imageID: $scope.image.ID,
             hidden: $scope.post.hidden,
             enableComment: $scope.post.enableComment,
