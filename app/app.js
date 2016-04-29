@@ -1,4 +1,4 @@
-﻿var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar', 'treasure-overlay-spinner', 'cfp.hotkeys', 'vcRecaptcha', 'ngMap', 'ui.router.title']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar', 'treasure-overlay-spinner', 'cfp.hotkeys', 'vcRecaptcha','ngMap']);
 //, 'angular-imagefit'
 app.config([
     '$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'tooltipsConfProvider', 'ADMdtpProvider', 'vcRecaptchaServiceProvider',
@@ -38,9 +38,7 @@ app.config([
                                     'partials/Home/Main/MainService.js'
                             ]);
                         }
-                    ],
-                    $title: function () { return 'getSiteName'; },
-                    $isAsyncTitle: function () { return true; }
+                    ]
                 }
             })
             .state("home.home", {
@@ -53,13 +51,13 @@ app.config([
                 },
                 resolve: {
                     deps: [
-                        '$ocLazyLoad', function ($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'partials/Home/Main/MainCtrl.js',
-                                'app/directives/Post/post.js'
-                            ]);
-                        }
-                    ],
+                        '$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Home/Main/MainCtrl.js',
+                            'app/directives/Post/post.js'
+                        ]);
+                }
+                    ]
                 }
             })
             .state("home.about", {
@@ -141,14 +139,12 @@ app.config([
                 controller: 'DefaultCtrlEN',
                 resolve: {
                     deps: [
-                        '$ocLazyLoad', function ($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                    'partials/HomeEN/DefaultCtrl.js', 'app/directives/MenuEN/menu.js'
+                        '$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                                'partials/HomeEN/DefaultCtrl.js', 'app/directives/MenuEN/menu.js'
                             ]);
-                        }
-                    ],
-                    $title: function () { return 'getSiteNameEN'; },
-                    $isAsyncTitle: function () { return true; }
+                }
+                    ]
                 }
             })
             .state("homeEN.home", {
@@ -306,8 +302,7 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/AdminCtrl.js']);
-                    }],
-                    $title: function () {return 'داشبورد';}
+                    }]
                 }
             })
             .state("admin_root.new_post", {
@@ -327,8 +322,7 @@ app.config([
                             'partials/Admin/Post/NewPostCtrl.js',
                             'partials/Admin/Modals/Gallery/GalleryModalCtrl.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
-                    }],
-                    $title: function () { return 'مدیریت پست'; }
+                    }]
                 }
             })
             .state("admin_root.all_posts", {
@@ -346,8 +340,7 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Post/AllPostsCtrl.js']);
-                    }],
-                    $title: function () { return 'تمام پست ها'; }
+                    }]
                 }
             })
             .state("admin_root.new_page", {
@@ -367,8 +360,7 @@ app.config([
                             'partials/Admin/Page/NewPageCtrl.js',
                             'partials/Admin/Modals/Gallery/GalleryModalCtrl.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
-                    }],
-                    $title: function () { return 'مدیریت صفحه'; }
+                    }]
                 }
             })
             .state("admin_root.all_pages", {
@@ -387,8 +379,7 @@ app.config([
                         return $ocLazyLoad.load([
                             'partials/Admin/Page/AllPagesCtrl.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
-                    }],
-                    $title: function () { return 'تمام صفحات'; }
+                    }]
                 }
             })
             .state("admin_root.gallery", {
@@ -409,8 +400,7 @@ app.config([
                             //'js/ng-file-upload.min.js',
                             'js/angular-clipboard.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
-                    }],
-                    $title: function () { return 'گالری سایت'; }
+                    }]
                 }
             })
             .state("admin_root.subjects", {
@@ -429,8 +419,7 @@ app.config([
                         return $ocLazyLoad.load([
                             'partials/Admin/Subject/SubjectCtrl.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
-                    }],
-                    $title: function () { return 'مدیریت موضوعات'; }
+                    }]
                 }
             })
             .state("admin_root.comment", {
@@ -449,8 +438,7 @@ app.config([
                         return $ocLazyLoad.load([
                             'partials/Admin/Comment/CommentCtrl.js',
                             'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
-                    }],
-                    $title: function () { return 'مدیریت نظرات'; }
+                    }]
                 }
             })
             .state("admin_root.contact_us", {
@@ -467,9 +455,9 @@ app.config([
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/Admin/ContactUs/ContactUsCtrl.js']);
-                    }],
-                    $title: function () { return 'مدیریت پیام ها'; }
+                            'partials/Admin/ContactUs/ContactUsCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.users", {
@@ -486,9 +474,9 @@ app.config([
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/Admin/Users/UsersCtrl.js']);
-                    }],
-                    $title: function () { return 'مدیریت کاربران'; }
+                            'partials/Admin/Users/UsersCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.setting", {
@@ -505,9 +493,9 @@ app.config([
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/Admin/Setting/SettingCtrl.js']);
-                    }],
-                    $title: function () { return 'تنظیمات سایت'; }
+                            'partials/Admin/Setting/SettingCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.slider", {
@@ -525,9 +513,9 @@ app.config([
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             'partials/Admin/Slider/SliderCtrl.js',
-                            'partials/Admin/Modals/Gallery/GalleryModalCtrl.js']);
-                    }],
-                    $title: function () { return 'مدیریت اسلایدر'; }
+                            'partials/Admin/Modals/Gallery/GalleryModalCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             })
             .state("admin_root.profile", {
@@ -544,9 +532,9 @@ app.config([
                 resolve: {
                     deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
-                            'partials/Admin/Profile/ProfileCtrl.js']);
-                    }],
-                    $title: function () { return 'پروفایل'; }
+                            'partials/Admin/Profile/ProfileCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
                 }
             });
 
@@ -812,20 +800,17 @@ app.factory("Extention", ['$http', '$timeout', '$rootScope', '$state', '$statePa
 
 app.run(function ($rootScope, $templateCache, $state, $location, Extention) {
 
+    //$templateCache.removeAll();
 
     $rootScope.spinner = { active: false };
 
     $rootScope.$on("$stateChangeSuccess", function() {
         Extention.setBusy(false);
+        //$templateCache.remove('partials/Home/Main/Main.html');
+       // $templateCache.remove('partials/Home/Post/Post.html');
     });
 
     $rootScope.$on("$stateChangeStart", function (event, next, current) {
-
-        if (typeof (next.views.viewContent) !== 'undefined') {
-            
-            $templateCache.remove(next.views.viewContent.templateUrl);
-        }
-
         Extention.setBusy(true);
         $rootScope.authenticated = false;
         $rootScope.recaptchaKey = false;
@@ -862,11 +847,6 @@ app.run(function ($rootScope, $templateCache, $state, $location, Extention) {
                     $state.go("home.home");
             }
         });
-    });
-
-
-    Extention.post('getSiteTitleIcon').then(function (res) {
-        $rootScope.titleIcon = res.SiteTitleIcon;
     });
 });
 
@@ -952,89 +932,35 @@ app.directive('slideable', function () {
     }
 });
 
-app.directive('compile', [
-    '$compile', function($compile) {
-        return function(scope, element, attrs) {
-            scope.$watch(
-                function(scope) {
-                    // watch the 'compile' expression for changes
-                    return scope.$eval(attrs.compile);
-                },
-                function(value) {
-                    // when the 'compile' expression changes
-                    // assign it into the current DOM
-                    element.html(value);
+app.directive('compile', ['$compile', function ($compile) {
+    return function(scope, element, attrs) {
+        scope.$watch(
+            function(scope) {
+                // watch the 'compile' expression for changes
+                return scope.$eval(attrs.compile);
+            },
+            function(value) {
+                // when the 'compile' expression changes
+                // assign it into the current DOM
+                element.html(value);
 
-                    // compile the new DOM and link it to the current
-                    // scope.
-                    // NOTE: we only compile .childNodes so that
-                    // we don't get into infinite loop compiling ourselves
-                    $compile(element.contents())(scope);
-                }
-            );
-        };
-    }
-]);
-
-app.directive('errHandle', function () {
-    return {
-        link: function (scope, element, attrs) {
-            element.bind('error', function () {
-                attrs.$set('src', 'no');
-            });
-        }
-    }
-});
-
-
-angular.module("ui.router.title", ["ui.router"])
-	.run(["$rootScope", "$timeout", "$state", "Extention", function ($rootScope, $timeout, $state, Extention) {
-
-	    $rootScope.$on("$stateChangeSuccess", function () {
-	        var title = $state.$current.locals.globals.$title; 
-	        var isAsync = $state.$current.locals.globals.$isAsyncTitle;
-	        if (isAsync) {
-	            Extention.post(title).then(function (res) {
-	                $timeout(function () {
-	                    $rootScope.$title = res.SiteName;
-	                });
-
-	                $rootScope.$breadcrumbs = [];
-	                var state = $state.$current;
-	                while (state) {
-	                    if (state.resolve && state.resolve.$title) {
-	                        $rootScope.$breadcrumbs.unshift({
-	                            title: getTitleValue(state.locals.globals.$title),
-	                            state: state.self.name,
-	                            stateParams: state.locals.globals.$stateParams
-	                        });
-	                    }
-	                    state = state.parent;
-	                }
-	            });
-	        } else {
-                var t = getTitleValue(title);
-                $timeout(function () {
-                    $rootScope.$title = t;
-                });
-
-                $rootScope.$breadcrumbs = [];
-                var state = $state.$current;
-                while (state) {
-                    if (state.resolve && state.resolve.$title) {
-                        $rootScope.$breadcrumbs.unshift({
-                            title: getTitleValue(state.locals.globals.$title),
-                            state: state.self.name,
-                            stateParams: state.locals.globals.$stateParams
-                        });
-                    }
-                    state = state.parent;
-                }
+                // compile the new DOM and link it to the current
+                // scope.
+                // NOTE: we only compile .childNodes so that
+                // we don't get into infinite loop compiling ourselves
+                $compile(element.contents())(scope);
             }
-	    });
+        );
+    };
+}])
+function getFile() {
+    document.getElementById("upfile").click();
+}
 
-	    function getTitleValue(title) {
-	        return angular.isFunction(title) ? title() : title;
-	    }
-
-	}]);
+function sub(obj) {
+    var file = obj.value;
+    var fileName = file.split("\\");
+    document.getElementById("yourBtn").innerHTML = fileName[fileName.length - 1];
+    document.myForm.submit();
+    event.preventDefault();
+}

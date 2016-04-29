@@ -669,10 +669,7 @@ $app->post('/saveSiteSettings', function() use ($app)  {
 	
     $data = json_decode($app->request->getBody());
     $db = new DbHandler();
-    $res = $db->insertToTable('global_settings',"AboutPageID,FooterPageID,SiteName,SiteNameEN,SiteTitleIcon",
-                                "'".$data->AboutPageID."','".$data->FooterPageID."','"
-                                .((isset($data->SiteName))?$data->SiteName:'')."','".((isset($data->SiteNameEN))?$data->SiteNameEN:'')
-                                ."','".((isset($data->SiteTitleIcon))?$data->SiteTitleIcon:'')."'");
+    $res = $db->insertToTable('global_settings',"AboutPageID,FooterPageID","'".$data->AboutPageID."','".$data->FooterPageID."'");
     
     $db->deleteFromTable('site_module','1=1');
 	foreach($data->Modules as &$d){
@@ -729,7 +726,7 @@ $app->post('/getAllModulesSorted', function() use ($app)  {
 	
     $db = new DbHandler();
     //$data = json_decode($app->request->getBody());
-    $r = $db -> makeQuery("SELECT site_module.*,page.ID as PageID,page.HtmlContent,module_position.Position FROM `site_module` LEFT JOIN module_position on module_position.ID=site_module.ModulePositionID LEFT JOIN page on page.ID = site_module.PageID ORDER BY SortOrder ASC");
+    $r = $db -> makeQuery("SELECT site_module.*,page.ID as PageID,page.HtmlContent,module_position.Position FROM `site_module` LEFT JOIN module_position on module_position.ID=site_module.ModulePositionID LEFT JOIN page on page.ID = site_module.PageID ORDER BY SortOrder DESC");
     
     $rightbarModules = [];
     $headerModules = [];

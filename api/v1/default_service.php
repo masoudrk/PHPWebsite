@@ -397,28 +397,6 @@ $app->post('/getSiteSettings', function() use ($app)  {
     echoResponse(200, $res);
 });
 
-$app->post('/getSiteTitleIcon', function() use ($app)  {
-    $db = new DbHandler();
-    //$data = json_decode($app->request->getBody());
-    $r = $db -> makeQuery("SELECT SiteTitleIcon FROM `global_settings` ORDER BY ID DESC LIMIT 1");
-    $res = $r->fetch_assoc();
-    echoResponse(200, $res);
-});
-$app->post('/getSiteName', function() use ($app)  {
-    $db = new DbHandler();
-    //$data = json_decode($app->request->getBody());
-    $r = $db -> makeQuery("SELECT SiteName FROM `global_settings` ORDER BY ID DESC LIMIT 1");
-    $res = $r->fetch_assoc();
-    echoResponse(200, $res);
-});
-$app->post('/getSiteNameEN', function() use ($app)  {
-    $db = new DbHandler();
-    //$data = json_decode($app->request->getBody());
-    $r = $db -> makeQuery("SELECT SiteNameEN as SiteName FROM `global_settings` ORDER BY ID DESC LIMIT 1");
-    $res = $r->fetch_assoc();
-    echoResponse(200, $res);
-});
-
 $app->post('/getAboutPage', function() use ($app)  {
     $db = new DbHandler();
     //$data = json_decode($app->request->getBody());

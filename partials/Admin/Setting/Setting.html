@@ -27,176 +27,153 @@
         </div>
     </div>
     <div class="white-panel">
-        <form class="form form-horizontal">
-
-            <div class="row">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="col-xs-12 no-padding-right white-panel-header">
+                    تنظیمات صفحات سایت
+                </div>
                 <div class="col-xs-12">
+                    <multi-select-drop-down dir="rtl"
+                                            class="col-xs-7 col-xs-offset-2"
+                                            items="allPages"
+                                            selected-list="selectedAboutPage"
+                                            ng-button-text="'انتخاب نشده'"
+                                            multi-select-mode="false"
+                                            radio-button-behaviour="true"
+                                            max-button-titles-show="3"
+                                            check-feild-name="'aboutCheck'"
+                                            title-feild-name="'Name'"
+                                            close-on-select="true"
+                                            watch-on-items="true">
+                    </multi-select-drop-down>
+                    <label class="col-xs-3 control-label no-padding-right yekan-font text-right" style="margin-top: 5px">صفحه درباره ما</label>
+                </div>
+                <div class="col-xs-12">
+                    <multi-select-drop-down dir="rtl"
+                                            class="col-xs-7 col-xs-offset-2"
+                                            items="allPages"
+                                            selected-list="selectedFooterPage"
+                                            ng-button-text="'انتخاب نشده'"
+                                            multi-select-mode="false"
+                                            radio-button-behaviour="true"
+                                            max-button-titles-show="3"
+                                            check-feild-name="'footerCheck'"
+                                            title-feild-name="'Name'"
+                                            close-on-select="false"
+                                            watch-on-items="true">
+                    </multi-select-drop-down>
+                    <label class="col-xs-3 control-label no-padding-right yekan-font text-right" style="margin-top: 5px">فوتر سایت</label>
+                </div>
 
-
-                    <div class="col-xs-12 no-padding-right white-panel-header">
-                        تنظیمات صفحات سایت
+                <div class="col-xs-12 no-padding-right white-panel-header">
+                    ماژول های سایت
+                </div>
+                <div class="col-xs-12 form-group">
+                    <div class="col-xs-2 ">
+                        <button class="btn btn-success" ng-click="insertModule()">افزودن</button>
                     </div>
-
-                    <div class="form-group col-xs-12" ng-class="nameError ? 'has-error has-feedback' : ''">
-                        <div class="col-sm-7 col-sm-offset-2 col-xs-9">
-                            <input ng-readonly="readOnly" type="text" dir="rtl" ng-model="settings.SiteName" class="form-control yekan-font" id="name" placeholder="نام سایت را وارد کنید..." />
-                        </div>
-                        <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="name">نام سایت</label>
-                    </div>
-                    <div class="form-group col-xs-12" ng-class="nameError ? 'has-error has-feedback' : ''">
-                        <div class="col-sm-7 col-sm-offset-2 col-xs-9">
-                            <input ng-readonly="readOnly" type="text" dir="rtl" ng-model="settings.SiteNameEN" class="form-control english-text" id="name" placeholder="Type english name of website ...">
-                        </div>
-                        <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="name">نام سایت انگلیسی</label>
-                    </div>
-                    <div class="form-group col-xs-12" ng-class="nameError ? 'has-error has-feedback' : ''">
-                        <div class="col-sm-7 col-sm-offset-2 col-xs-9">
-                            <input ng-readonly="readOnly" type="text" dir="rtl" ng-model="settings.SiteTitleIcon" class="form-control english-text" id="name" placeholder="Enter image url ..." ng-model-options='{ debounce: 600 }' style="padding-right: 35px;">
-                            <img ng-show="settings.SiteTitleIcon" ng-src="{{settings.SiteTitleIcon}}" class="" style="height: 30px; width: 30px; position: absolute; top: 2px; right: 17px;" />
-                        </div>
-                        <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="name">لینک تصویر سربرگ سایت</label>
-                    </div>
-
-                    <div class="col-xs-12 form-group">
-                        <ui-select dir="ltr" ng-model="select.selectedAboutPage"
-                                   class="col-sm-7 col-sm-offset-2 col-xs-9 "
+                    <div class="col-xs-5 no-padding">
+                        <ui-select dir="ltr" ng-model="module.selectedPosition"
+                                   class="col-xs-7 no-padding"
                                    theme="bootstrap"
                                    ng-disabled="disabled"
                                    reset-search-input="false">
-                            <ui-select-match placeholder="صفحه درباره ما" class="text-center">{{$select.selected.Name}}</ui-select-match>
-                            <ui-select-choices repeat="p in allPages track by $index"
+                            <ui-select-match placeholder="محل قرار گیری" class="text-center">{{$select.selected.Position}}</ui-select-match>
+                            <ui-select-choices repeat="p in allPositions track by $index"
+                                               refresh="refreshAddresses($select.search)"
                                                refresh-delay="100">
-                                <div ng-bind="p.Name | highlight: $select.search"></div>
+                                <div ng-bind="p.Position | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
-                        <label class="col-xs-3 control-label no-padding-right yekan-font text-right">صفحه درباره ما</label>
+                        <label class="col-xs-5 control-label no-padding-right yekan-font text-right" style="margin-top: 5px">افزودن ماژول به</label>
                     </div>
-                    <div class="col-xs-12 form-group">
-                        <ui-select dir="ltr" ng-model="select.selectedFooterPage"
-                                   class="col-sm-7 col-sm-offset-2 col-xs-9 "
+                    <div class="col-xs-5 no-padding">
+                        <ui-select dir="ltr" ng-model="module.selectedPage"
+                                   class="col-xs-7 no-padding"
                                    theme="bootstrap"
                                    ng-disabled="disabled"
                                    reset-search-input="false">
-                            <ui-select-match placeholder="فوتر سایت" class="text-center">{{$select.selected.Name}}</ui-select-match>
+                            <ui-select-match placeholder="انتخاب کنید" class="text-center">{{$select.selected.Name}}</ui-select-match>
                             <ui-select-choices repeat="p in allPages track by $index"
+                                               refresh="refreshAddresses($select.search)"
                                                refresh-delay="100">
-                                <div ng-bind="p.Name | highlight: $select.search"></div>
+                                <div ng-bind="p.Name | highlight: $select.search" class="text-right"></div>
+                                <small>
+                                    Name : {{p.NameEN}}
+                                </small>
                             </ui-select-choices>
                         </ui-select>
-                        <label class="col-xs-3 control-label no-padding-right yekan-font text-right">فوتر سایت</label>
-                    </div>
-
-                    <div class="col-xs-12 no-padding-right white-panel-header">
-                        ماژول های سایت
-                    </div>
-                    <div class="col-xs-12 form-group">
-                        <div class="col-xs-2 ">
-                            <button class="btn btn-success" ng-click="insertModule()">افزودن</button>
-                        </div>
-                        <div class="col-xs-5 no-padding">
-                            <ui-select dir="ltr" ng-model="module.selectedPosition"
-                                       class="col-xs-7 no-padding"
-                                       theme="bootstrap"
-                                       ng-disabled="disabled"
-                                       reset-search-input="false">
-                                <ui-select-match placeholder="محل قرار گیری" class="text-center">{{$select.selected.Position}}</ui-select-match>
-                                <ui-select-choices repeat="p in allPositions track by $index"
-                                                   refresh="refreshAddresses($select.search)"
-                                                   refresh-delay="100">
-                                    <div ng-bind="p.Position | highlight: $select.search"></div>
-                                </ui-select-choices>
-                            </ui-select>
-                            <label class="col-xs-5 control-label no-padding-right yekan-font text-right" style="margin-top: 5px">افزودن ماژول به</label>
-                        </div>
-                        <div class="col-xs-5 no-padding">
-                            <ui-select dir="ltr" ng-model="module.selectedPage"
-                                       class="col-xs-7 no-padding"
-                                       theme="bootstrap"
-                                       ng-disabled="disabled"
-                                       reset-search-input="false">
-                                <ui-select-match placeholder="انتخاب کنید" class="text-center">{{$select.selected.Name}}</ui-select-match>
-                                <ui-select-choices repeat="p in allPages track by $index"
-                                                   refresh="refreshAddresses($select.search)"
-                                                   refresh-delay="100">
-                                    <div ng-bind="p.Name | highlight: $select.search" class="text-right"></div>
-                                    <small>
-                                        Name : {{p.NameEN}}
-                                    </small>
-                                </ui-select-choices>
-                            </ui-select>
-                            <label class="col-xs-5 control-label no-padding-right yekan-font text-right" style="margin-top: 5px">نام صفحه</label>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12">
-                        <div class="col-xs-12 no-padding">
-                            <div class=" bordered-panel" style="margin: 5px; min-height: 150px">
-                                <ul class="cards card-list" as-sortable="dragControlListeners" data-ng-model="headerModules">
-                                    <li class="card" ng-repeat="card in headerModules" as-sortable-item>
-                                        <div as-sortable-item-handle>
-                                            <i class="fa fa-times-circle card-close-btn my-red my-link pull-right hvr-bounce-in"
-                                               ng-click="removeHeader(card)"></i>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <span class="card-title" compile="card.HtmlContent"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 no-padding">
-                            <div class="col-xs-8 no-padding">
-                                <div class="text-cetner bordered-panel" style="margin: 5px; min-height: 250px; font-size: 20px; text-align: center;">
-                                    <span class="col-xs-12 text-cetner my-green-sea top-buffer">محتوای اصلی سایت</span>
-                                </div>
-                            </div>
-                            <div class="col-xs-4 no-padding">
-                                <div class=" bordered-panel" style="margin: 5px; min-height: 250px;">
-                                    <ul class="cards card-list" as-sortable="dragControlListeners" data-ng-model="rightBarModules">
-                                        <li class="card" ng-repeat="card in rightBarModules" as-sortable-item>
-                                            <div as-sortable-item-handle>
-                                                <i class="fa fa-times-circle card-close-btn my-red my-link pull-right hvr-bounce-in"
-                                                   ng-click="removeSidebar(card)"></i>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <span class="card-title" compile="card.HtmlContent"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 no-padding">
-                            <div class=" bordered-panel" style="margin: 5px; min-height: 150px">
-                                <ul class="cards card-list" as-sortable="dragControlListeners" data-ng-model="footerModules">
-                                    <li class="card" ng-repeat="card in footerModules" as-sortable-item>
-                                        <div as-sortable-item-handle>
-                                            <i class="fa fa-times-circle card-close-btn my-red my-link pull-right hvr-bounce-in"
-                                               ng-click="removeFooter(card)"></i>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <span class="card-title" compile="card.HtmlContent"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12">
-                        <button class="btn btn-success yekan-font" ng-click="saveSettings()">
-                            ثبت تغییرات
-                        </button>
+                        <label class="col-xs-5 control-label no-padding-right yekan-font text-right" style="margin-top: 5px">نام صفحه</label>
                     </div>
                 </div>
+                
+                <div class="col-xs-12">
+                    <div class="col-xs-12 no-padding" >
+                        <div class=" bordered-panel" style="margin: 5px;min-height: 150px">
+                            <ul class="cards card-list" as-sortable="dragControlListeners" data-ng-model="headerModules">
+                                <li class="card" ng-repeat="card in headerModules" as-sortable-item>
+                                    <div as-sortable-item-handle>
+                                        <i class="fa fa-times-circle card-close-btn my-red my-link pull-right hvr-bounce-in"
+                                           ng-click="removeHeader(card)"></i>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <span class="card-title" compile="card.HtmlContent"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 no-padding">
+                        <div class="col-xs-8 no-padding">
+                            <div class="text-cetner bordered-panel" style="margin: 5px; min-height: 250px; font-size: 20px; text-align: center;">
+                                <span class="col-xs-12 text-cetner my-green-sea top-buffer">محتوای اصلی سایت</span> 
+                            </div>
+                        </div>
+                        <div class="col-xs-4 no-padding">
+                            <div class=" bordered-panel" style="margin: 5px; min-height: 250px;">
+                                <ul class="cards card-list" as-sortable="dragControlListeners" data-ng-model="rightBarModules">
+                                    <li class="card" ng-repeat="card in rightBarModules" as-sortable-item>
+                                        <div as-sortable-item-handle>
+                                            <i class="fa fa-times-circle card-close-btn my-red my-link pull-right hvr-bounce-in" 
+                                               ng-click="removeSidebar(card)"></i>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <span class="card-title" compile="card.HtmlContent"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 no-padding" >
+                        <div class=" bordered-panel" style="margin: 5px;min-height: 150px">
+                            <ul class="cards card-list" as-sortable="dragControlListeners" data-ng-model="footerModules">
+                                <li class="card" ng-repeat="card in footerModules" as-sortable-item>
+                                    <div as-sortable-item-handle>
+                                        <i class="fa fa-times-circle card-close-btn my-red my-link pull-right hvr-bounce-in"
+                                           ng-click="removeFooter(card)"></i>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <span class="card-title" compile="card.HtmlContent"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xs-12">
+                    <button class="btn btn-success yekan-font" ng-click="saveSettings()">
+                        ثبت تغییرات
+                    </button>
+                </div>
             </div>
-
-        </form>
+        </div>
     </div>
 </div>
