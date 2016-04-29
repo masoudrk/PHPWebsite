@@ -1,0 +1,4 @@
+﻿database : 
+1- add SiteNameEN + SiteName column to global_setting
+2- add PageSize column to global_setting
+3- add SiteTitleIcon column to global_setting

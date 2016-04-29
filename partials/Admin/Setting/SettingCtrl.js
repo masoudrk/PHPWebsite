@@ -1,6 +1,7 @@
 ﻿angular.module('myApp').controller('SettingCtrl',
     function ($scope, $rootScope, $routeParams, $location, hotkeys, Extention) {
 
+        $scope.select = {};
         $scope.module = {};
 
         hotkeys.bindTo($scope).add({
@@ -22,33 +23,11 @@
             $scope.allPositions = res;
         });
 
-        //// callbacks for third party ng-sortable used to reorder the categories
-        //$scope.dragControlListeners = {
-        //    //optional param
-        //    containment: '#blocks'
-        //};
 
         $scope.allPages = [];
-        $scope.selectedFooterPage = [];
-        $scope.selectedAboutPage = [];
+        $scope.select.selectedFooterPage = [];
+        $scope.select.selectedAboutPage = [];
         
-        //$scope.sortingLog = [];
-        //$scope.sortableOptions = {
-        //    update: function(e, ui) {
-        //        var logEntry = tmpList.map(function(i) {
-        //            return i.value;
-        //        }).join(', ');
-        //        $scope.sortingLog.push('Update: ' + logEntry);
-        //    },
-        //    stop: function(e, ui) {
-        //        // this callback has the changed model
-        //        var logEntry = tmpList.map(function(i) {
-        //            return i.value;
-        //        }).join(', ');
-        //        $scope.sortingLog.push('Stop: ' + logEntry);
-        //    }
-        //};
-
         $scope.removeSidebar = function (item) {
             $scope.rightBarModules.splice(item, 1);
         }
@@ -102,17 +81,14 @@
 
             Extention.post('getSiteSettings').then(function (res1) {
                 $scope.settings = res1;
-
                 var p;
                 for (var i = 0; i < $scope.allPages.length; i++) {
                     p = $scope.allPages[i];
                     if (p.ID == res1.AboutPageID) {
-                        $scope.selectedAboutPage.push(p);
-                        p.aboutCheck = true;
+                        $scope.select.selectedAboutPage = p;
                     }
                     else if (p.ID == res1.FooterPageID) {
-                        $scope.selectedFooterPage.push(p);
-                        p.footerCheck = true;
+                        $scope.select.selectedFooterPage = p;
                     }
                 }
             });
@@ -126,9 +102,12 @@
             $scope.createModulesArray(allModulesArray, $scope.footerModules, 1);
 
             var obj = {
-                FooterPageID: $scope.selectedFooterPage[0].ID,
-                AboutPageID: $scope.selectedAboutPage[0].ID,
-                Modules: allModulesArray
+                FooterPageID: $scope.select.selectedFooterPage.ID,
+                AboutPageID: $scope.select.selectedAboutPage.ID,
+                Modules: allModulesArray,
+                SiteName : $scope.settings.SiteName,
+                SiteNameEN: $scope.settings.SiteNameEN,
+                SiteTitleIcon: $scope.settings.SiteTitleIcon
             };
 
             Extention.post('saveSiteSettings', obj).then(function (res) {

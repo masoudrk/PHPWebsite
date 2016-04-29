@@ -97,7 +97,7 @@
             if (res && res.Status == 'success') {
                 Extention.toast({ status: 'success', message: 'پست با موفقیت ثبت شد!' });
                 if(!$scope.editMode)
-                    $state.go("admin_root.new_post", { id: res.PostID }, { reload: true });
+                    $state.go("admin_root.all_posts");
             } else {
                 Extention.toast({ status: 'error', message: 'مشکل در ثبت پست ، لطفا دوباره امتحان کنید.' });
             }

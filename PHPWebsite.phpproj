@@ -237,6 +237,7 @@
     <Folder Include="Scripts\lazyLoad\modules\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="changes.txt" />
     <Content Include="db\db.sql" />
     <Content Include="css\hotkeys.css" />
     <Content Include="js\angular-recaptcha.js" />
