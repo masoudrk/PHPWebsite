@@ -1,125 +1,4 @@
-﻿<style>
-    
-    .navbar-default {
-        background-color: transparent;
-    }
-
-    #top-menubar {
-
-        margin-bottom: 0px;
-        border-bottom-width: 0px;
-        padding-right: 20px;
-        padding-left: 20px;
-    }
-
-    .dropdown-menu {
-        border-bottom-right-radius: 7px;
-        border-bottom-left-radius: 7px;
-    }
-</style>
-<nav id="top-menubar" class="navbar navbar-inverse navbar-fixed-top" role="navigation" 
-     style="border: none; margin-bottom: 0;background-color: rgba(0, 0, 0, 0.91);">
-    <div class="container">
-
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" ng-init="navCollapsed = true"
-                    ng-click="navCollapsed = !navCollapsed">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse yekan-font" ng-class="!navCollapsed && 'in'">
-
-            <ul class="nav navbar-nav">
-                <li style="float: left">
-                    <a ui-sref1="homeEN.home" ng-click="switchLanguage()" style="padding: 5px;padding-top: 11px;">
-                        <img src="images/flag_united_kingdom.png" style=" height: 30px;width:30px" />
-                    </a>
-                </li>
-                <li ng-if="!authenticated" style="float: left">
-                    <a ng-click="openModal('signup')">
-                        ثبت نام
-                        <div class="fa fa-user" style="margin-left: 8px; line-height: 0"></div>
-                    </a>
-                </li>
-                <li ng-if="!authenticated" style="float: left">
-                    <a ng-click="openModal('signin')">
-                        ورود
-                        <div class="fa fa-lock" style="margin-left: 8px; line-height: 0"></div>
-                    </a>
-                </li>
-                <li ng-if="authenticated" style="float: left">
-                    <a ng-click="logout()">
-                        خروج
-                        <div class="fa fa-sign-out" style="margin-left: 8px; line-height: 0"></div>
-                    </a>
-                </li>
-                <li ng-if="authenticated && isAdmin" style="float: left">
-                    <a ui-sref="admin_root.dashboard">
-                        پنل کاربری
-                        <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
-                    </a>
-                </li>
-                <li ng-if="authenticated && !isAdmin" style="float: left">
-                    <a ui-sref="user_root.dashboard">
-                        پنل کاربری
-                        <div class="glyphicon glyphicon-user" style="margin-left: 8px; line-height: 0"></div>
-                    </a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a ui-sref='home.contact_us'>
-                        تماس با ما
-                        <div class="glyphicon glyphicon-earphone" style="margin-left: 8px; line-height: 0"></div>
-                    </a>
-                </li>
-                <li>
-                    <a ui-sref='home.about'>
-                        درباره ما
-                        <div class="glyphicon glyphicon-globe" style="margin-left: 8px; line-height: 0"></div>
-                    </a>
-                </li>
-                <style>
-                    .nested-ul {
-                        display: none;
-                        position: relative;
-                        clear: both;
-                    }
-                    .has-sub1:hover + .nested-ul {
-                        display: block;
-                    }
-                </style>
-                <li uib-dropdown>
-                    <a uib-dropdown-toggle>
-                        موضوعات
-                        <div class="fa fa-angle-down" style="margin-left: 8px; line-height: 0"></div>
-                    </a>
-                    <ul class='dropdown-menu'>
-                        <li ng-repeat="s in subjects">
-                            <a ui-sref="home.cat({ id: '{{s.ID}}'})" class="text-right has-sub1" style="padding:10px">{{s.Title}}</a>
-                            <ul  class="nested-ul">
-                                <li><a ui-sref="home.cat({ id: '{{child.ID}}'})" ng-repeat="child in s.childs">{{child.Title}}</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a ui-sref="home.home">
-                        خانه
-                        <div class="glyphicon glyphicon-home" style="margin-left: 8px; line-height: 0"></div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!--<div id="top-menubar" class="navbar navbar-inverse navbar-fixed-top  hidden-xs" role="navigation"
+﻿<nav id="top-menubar" class="navbar navbar-inverse navbar-fixed-top" role="navigation"
      style="background-color: rgba(0, 0, 0, 0.9); border: none">
 
     <div class="container">
@@ -132,7 +11,7 @@
                     </a>
                 </li>
                 <li class='has-sub'>
-                    <a >موضوعات</a>
+                    <a>موضوعات</a>
                     <ul>
                         <li class='has-sub' ng-repeat="s in subjects">
                             <a ui-sref="home.cat({ id: '{{s.ID}}'})">{{s.Title}}</a>
@@ -156,8 +35,8 @@
                 </li>
 
                 <li style="float: left">
-                    <a ui-sref1="homeEN.home" ng-click="switchLanguage()" style="padding: 5px;padding-top: 12px;">
-                        <img src="images/flag_united_kingdom.png" style="margin-left: 8px; height: 30px;width:30px" />
+                    <a ui-sref1="homeEN.home" ng-click="switchLanguage()" style="padding: 5px; padding-top: 12px;">
+                        <img src="images/flag_united_kingdom.png" style="margin-left: 8px; height: 30px; width: 30px"/>
                     </a>
                 </li>
                 <li ng-if="!authenticated" style="float: left">
@@ -192,8 +71,13 @@
                 </li>
             </ul>
         </div>
+        <!--<div class="row">
+            <div class="col-xs-12 no-padding">
+
+            </div>
+        </div>-->
     </div>
-</div>-->
+</nav>
 <div style="margin-top: 0px;min-height: 500px">
     <slide-show id="main-slider" class="col-md-12 slider no-padding" slides="slides" ng-control="sliderController"></slide-show>
     <div class="container">

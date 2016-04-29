@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar', 'treasure-overlay-spinner', 'cfp.hotkeys', 'vcRecaptcha','ngMap']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'angular-confirm', 'ADM-dateTimePicker', 'ngFileUpload', 'ui.select', '720kb.tooltips', 'ngCkeditor', 'as.sortable', 'ui.navbar', 'treasure-overlay-spinner', 'cfp.hotkeys', 'vcRecaptcha', 'ngMap']);
 //, 'angular-imagefit'
 app.config([
     '$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'tooltipsConfProvider', 'ADMdtpProvider', 'vcRecaptchaServiceProvider',
@@ -605,6 +605,16 @@ app.factory("Extention", ['$http', '$timeout', '$rootScope', '$state', '$statePa
         obj.get = function (q) {
             obj.setBusy(true);
             return $http.get(serviceBase + q).then(function (results) {
+                obj.setBusy(false);
+                return results.data;
+            }, function (err) {
+                obj.setBusy(false);
+                return err;
+            });
+        };
+        obj.getExternal = function (q) {
+            obj.setBusy(true);
+            return $http.get(q).then(function (results) {
                 obj.setBusy(false);
                 return results.data;
             }, function (err) {

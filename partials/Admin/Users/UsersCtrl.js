@@ -1,5 +1,5 @@
 ﻿angular.module('myApp').controller('UsersCtrl',
-function ($scope, $rootScope, $routeParams, $location, Extention) {
+function ($scope, $rootScope, $routeParams, $uibModal,$location, Extention) {
     $scope.pagingController = {};
 
     Extention.post("getAllPrivileges").then(function (res) {
@@ -28,6 +28,34 @@ function ($scope, $rootScope, $routeParams, $location, Extention) {
                 }
             }
         });
+    }
+    $scope.showLocation = function (c) {
+        //'http://freegeoip.net/json/'
+        //'http://www.ip2location.com/'
+        //'http://www.telize.com/'
+        Extention.getExternal('http://geoip.nekudo.com/api/' + c.IP).then(function (resLocation) {
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'myModalContent.html',
+                controller: function ($scope, $uibModalInstance, user, location) {
+                    $scope.user = user;
+                    $scope.location = location;
+                    $scope.close = function () {
+                        $uibModalInstance.close();
+                    }
+                },
+                size: 'md',
+                resolve: {
+                    user: function () {
+                        return c;
+                    },
+                    location : function() {
+                        return resLocation.location;
+                    }
+                }
+            });
+        });
+
     }
 
     $scope.deleteUser = function(item) {

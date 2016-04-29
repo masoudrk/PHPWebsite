@@ -30,6 +30,9 @@
     <link href="css/angular-tooltips.css" rel="stylesheet" type="text/css" />
 
     <link href="css/ui-navbar.css" rel="stylesheet">
+    
+    <link href="css/angular-hamburger-toggle.min.css" rel="stylesheet"></script>
+
 </head>
 
 <body ng-app="myApp">
@@ -79,6 +82,8 @@
 
 <script src="js/hotkeys.min.js"></script>
 <script src="js/angular-recaptcha.js" type="text/javascript"></script>
+
+<script src="js/angular-hamburger-toggle.js" type="text/javascript"></script>
 
 <script src="app/app.js"></script>
 <script src="js/angular-clipboard.js"></script>
