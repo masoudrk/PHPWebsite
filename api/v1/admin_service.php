@@ -387,42 +387,27 @@ $app->post('/getAllUsers', function() use ($app)  {
 	adminRequire();
 	
     $data = json_decode($app->request->getBody());
-    $pageSize = 20;
-    $pageIndex = 0;
-    
-    if(isset($data->pageSize) && isset($data->pageIndex)){
-        $pageSize = $data->pageSize;
-        $pageIndex = $data->pageIndex;
-    }
-    $hasCat = isset($data->catID);
-    
     $db = new DbHandler();
-
-    $offset = ($pageIndex-1) * $pageSize;
-    if($offset < 0)
-    	$offset = 0;
-    $total = 0;
-    $resCount=null;
-
-    if(!$hasCat)
-        $resCount = $db->makeQuery("SELECT count(*) as Total FROM user");
-    else
-        $resCount = $db->makeQuery("SELECT DISTINCT count(*) as Total FROM `post` JOIN post_subject on post_subject.PostID=post.ID 
-                                    WHERE post_subject.SubjectID=".$data->catID);
-
-    while($res = $resCount->fetch_assoc()){
-        $total = $res["Total"];
-    }
-    
-    $r = null;
-    if(!$hasCat)
-        $r = $db->makeQuery("SELECT user.* ,admin_privilege.Privilege,admin_privilege.ID as PrivilegeID ,admin.ID as AdminID FROM user LEFT JOIN admin on admin.UserID = user.ID LEFT JOIN admin_privilege on admin_privilege.ID = admin.PrivilegeID ORDER BY user.ID LIMIT $offset, $pageSize");
-    else
-        $r = $db->makeQuery("SELECT DISTINCT post.* , gallery.FullPath as Image FROM `post` JOIN post_subject on post_subject.PostID=post.ID LEFT JOIN gallery on post.ImageID = gallery.ID 
-                             WHERE post_subject.SubjectID=".$data->catID." LIMIT $offset, $pageSize");
- 
-    $result = array();
-    while($res = $r->fetch_assoc()){
+    $pr = new Pagination($data);
+	
+	/*$where = (isset($data->searchValue))? "WHERE MATCH(`FirstName`, `FirstNameEN`, `LastName`, `LastNameEN`, `Username`, `Email`, `IP`) AGAINST('".$data->searchValue."' IN BOOLEAN MODE)" : "";*/
+	$where = "";
+	$hasWhere = FALSE;
+	if(isset($data->searchValue) && strlen($data->searchValue) > 0){
+		$s = mb_convert_encoding($data->searchValue, "UTF-8", "auto");
+		$where = "WHERE (Username LIKE '%".$s."%' OR FirstName LIKE '%".$s."%' OR Email LIKE '%".$s."%')";
+		$hasWhere = TRUE;
+	}
+	if(isset($data->PrivilegeID)){
+		if($hasWhere)
+			$where = $where." AND admin_privilege.ID='".$data->PrivilegeID."'";
+		else
+			$where = "WHERE admin_privilege.ID='".$data->PrivilegeID."'";
+	}
+	
+	$pageRes = $pr->getPage($db,"SELECT user.`ID`, `FirstName`, `FirstNameEN`, `LastName`, `LastNameEN`, `Username`, `Email`, `IP` ,admin_privilege.Privilege,admin_privilege.ID as PrivilegeID ,admin.ID as AdminID FROM user LEFT JOIN admin on admin.UserID = user.ID LEFT JOIN admin_privilege on admin_privilege.ID = admin.PrivilegeID ".$where." ORDER BY user.ID ASC");
+	
+    foreach($pageRes['Items'] as &$res){
     	if(isset($res["PrivilegeID"])){
 			$rpQ = $db->makeQuery("SELECT * FROM admin_privilege WHERE ID=".$res["PrivilegeID"]);
 			$rp = $rpQ->fetch_assoc();
@@ -438,16 +423,9 @@ $app->post('/getAllUsers', function() use ($app)  {
 			}
 			$res["Privilege"] = $pr;
 		}
-        $result[] = $res;
     }
-    $data = (object)[
-            'Items' => $result,
-            'PageIndex' => $pageIndex,
-            'PageSize' => $pageSize,
-            'Total' => $total
-    ];
-
-    echoResponse(200, $data);
+	
+    echoResponse(200, $pageRes);
 });
 
 $app->post('/getAllPages', function() use ($app)  {

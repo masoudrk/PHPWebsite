@@ -200,6 +200,7 @@
     <Folder Include="db\" />
     <Folder Include="images\" />
     <Folder Include="js\cache\" />
+    <Folder Include="jquery\" />
     <Folder Include="partials" />
     <Folder Include="partials\Admin\ContactUs\" />
     <Folder Include="partials\Admin\Page\" />
@@ -237,7 +238,11 @@
     <Folder Include="Scripts\lazyLoad\modules\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="changes.txt" />
     <Content Include="css\angular-hamburger-toggle.css" />
+    <Content Include="css\pushy.css" />
+    <Content Include="jquery\pushy.js" />
+    <Content Include="jquery\pushy.min.js" />
     <Content Include="js\angular-hamburger-toggle.js" />
     <Content Include="css\angular-hamburger-toggle.min.css" />
     <Content Include="js\angular-hamburger-toggle.min.js" />

@@ -36,8 +36,33 @@
             </div>
         </div>
     </div>
-    <div class="white-panel">
-        <div class="col-sm-12 no-padding">
+    <div class="white-panel form-horizontal row">
+        <div class="col-xs-12">
+            <div class="form-group col-xs-6 pull-right">
+                <div class="col-xs-9">
+                    <input ng-readonly="readOnly" type="text" ng-model="pagingParams.searchValue" ng-change="getSearchResult()" dir="rtl" class="form-control yekan-font" id="search" placeholder="عبارت خود را تایپ کنید ..." ng-model-options="{debounce : 500}">
+                </div>
+                <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="search">جستجو</label>
+            </div>
+            <div class="form-group col-xs-6">
+                <div class="col-xs-9 no-padding">
+                    <ui-select dir="ltr" ng-model="search.searchPrivilege"
+                               theme="bootstrap"
+                               ng-disabled="disabled"
+                               reset-search-input="false"
+                               on-select="getPrivilageResult()">
+                        <ui-select-match placeholder="Select an Privilege">{{$select.selected.Privilege}}</ui-select-match>
+                        <ui-select-choices repeat="p in searchPrivileges track by $index"
+                                           refresh="refreshAddresses($select.search)"
+                                           refresh-delay="100">
+                            <div class="text-right" ng-bind="p.Privilege"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="search">نوع کاربر</label>
+            </div>
+        </div>
+        <div class="col-xs-12">
             <table dir="rtl" class="table table-striped">
                 <thead>
                 <tr>
@@ -54,7 +79,7 @@
                     <td>{{u.Username}}</td>
                     <td>{{u.Email}}</td>
                     <td>
-                        <ui-select dir="ltr" ng-model="u.Privilege" 
+                        <ui-select dir="ltr" ng-model="u.Privilege"
                                    theme="bootstrap"
                                    ng-disabled="disabled"
                                    reset-search-input="false">
@@ -62,7 +87,7 @@
                             <ui-select-choices repeat="p in privileges track by $index"
                                                refresh="refreshAddresses($select.search)"
                                                refresh-delay="100">
-                                <div ng-bind-html="p.Privilege | highlight: $select.search"></div>
+                                <div ng-bind="p.Privilege"></div>
                                 <small>
                                     Actions : {{p.Description}}
                                 </small>
@@ -81,7 +106,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="row">
+        <div class="col-xs-12">
             <div class="span8 text-center">
 
                 <auto-paging page="1"

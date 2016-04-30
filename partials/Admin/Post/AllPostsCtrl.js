@@ -1,5 +1,9 @@
 ﻿angular.module('myApp').controller('AllPostsCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Extention) {
 
+    Extention.post("getAllSubjects", { arrenged: true }).then(function (res) {
+        $scope.subjects = res;
+    });
+
     $scope.subjectButtonText = "انتخاب نشده";
     $scope.pagingController = {};
     $scope.posts = [];

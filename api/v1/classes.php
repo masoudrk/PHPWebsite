@@ -13,12 +13,6 @@ class Pagination {
     }
     
     public function getPage($db,$query){
-		//require_once('src/PHPSQLParser.php');
-		//$parser=new PHPSQLParser($query, true);
-		//$from = $parser->parsed['FROM'];
-		//$startfromPos = $from[0]['position'];
-		//$startFromStr = substr($query,$startfromPos);
-		
 		$startFromStr = strstr($query, 'FROM');
 		$countQ = $db->makeQuery("SELECT count(*) as Total ".$startFromStr);
 		$countRes = $countQ->fetch_assoc();
@@ -41,25 +35,6 @@ class Pagination {
 		
 		return $res;
 		
-		/*
-    	$offset = ($pageIndex-1) * $pageSize;
-    	
-		$total = $this->getCount($table_name,$where);
-		$total = $this->getCount($table_name,$where);
-		
-		$q = $this->makeQuery($query." LIMIT $offset, $pageSize");
-		
-		$items = [];
-		while($r = $q->fetch_assoc()){
-            $items[] = $r;
-        }
-        
-		$res = [];
-		$res['Items'] = $items;
-		$res['PageSize'] = $pageSize;
-		$res['PageIndex'] = $pageIndex;
-		$res['Total'] = $total;
-		return $res;*/
 	}
 
 }

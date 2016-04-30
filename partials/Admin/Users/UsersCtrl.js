@@ -1,11 +1,32 @@
 ﻿angular.module('myApp').controller('UsersCtrl',
-function ($scope, $rootScope, $routeParams, $uibModal,$location, Extention) {
+function ($scope, $rootScope, $timeout,$routeParams, $uibModal, $location, Extention) {
     $scope.pagingController = {};
+    $scope.search = {};
+    $scope.pagingParams = { searchValue: undefined };
+    $scope.searchValue = "";
 
     Extention.post("getAllPrivileges").then(function (res) {
-        res.push({ PrivilegeID: "-1", Privilege: "None" ,Description:"Remove from Admins and stay only normal user." });
+        res.push({ PrivilegeID: "-1", Privilege: "None", Description: "Remove from Admins and stay only normal user." });
         $scope.privileges = res;
+
+        $scope.searchPrivileges = angular.copy(res);
+        $scope.searchPrivileges.unshift({ Privilege: 'همه' });
     });
+
+    $scope.getSearchResult = function () {
+        $scope.pagingController.update();
+    }
+
+    $scope.getPrivilageResult = function () {
+        $timeout(function () {
+            if ($scope.search.searchPrivilege) {
+                $scope.pagingParams.PrivilegeID = $scope.search.searchPrivilege.PrivilegeID;
+            } else {
+                $scope.pagingParams.PrivilegeID = undefined;
+            }
+            $scope.pagingController.update();
+        },400);
+    }
 
     $scope.changePrivilege = function (item) {
         Extention.post("saveAdminPrivilege",

@@ -8,6 +8,38 @@
             </div>
         </div>
     </div>
+    <div class="header content-header-red">
+        <div class="row">
+            <div class="col-xs-12 text-right content-header-mid">
+                <span>جستجو</span>
+                <i class="fa fa-search"></i>
+            </div>
+            <div class="form-horizontal">
+                <div class="col-xs-12 top-buffer">
+                    <div class="form-group col-xs-6 pull-right">
+                        <div class="col-xs-9">
+                            <input ng-readonly="readOnly" type="text" ng-model="pagingParams.searchValue" ng-change="getSearchResult()" dir="rtl" class="form-control yekan-font" id="search" placeholder="عبارت خود را تایپ کنید ..." ng-model-options="{debounce : 500}">
+                        </div>
+                        <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="search">سر تیتر</label>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <div class="col-xs-9 no-padding">
+                            <ui-select dir="ltr" ng-model="search.searchPrivilege" multiple
+                                       theme="bootstrap"
+                                       on-select="getTagsSearchResult()"
+                                       sortable="true" close-on-select="false">
+                                <ui-select-match placeholder="موضوعات جستجو...">{{$item.Title}}</ui-select-match>
+                                <ui-select-choices repeat="s in subjects | filter : $select.search">
+                                    <div ng-bind="s.Title "></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="search">موضوع</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="white-panel">
         <div class="col-sm-12 no-padding">
             <table dir="rtl" class="table table-striped">
