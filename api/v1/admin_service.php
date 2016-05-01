@@ -7,25 +7,31 @@ $app->post('/getAllPostsAdmin', function() use ($app)  {
     $db = new DbHandler();
     $pr = new Pagination($data);
 	
-    $hasCat = isset($data->catID);
+	$where = "";
+	$hasWhere = FALSE;
+	
+    if(isset($data->searchValue)){
+    	$hasWhere = TRUE;
+		$where = " AND post.Title LIKE '%".$data->searchValue."%'";
+	}
+	if(isset($data->fromDate)){
+    	$hasWhere = TRUE;
+		$where = $where." AND post.WriteDate >= '".$data->fromDate."'";
+	}
+	if(isset($data->toDate)){
+    	$hasWhere = TRUE;
+		$where = $where." AND post.WriteDate <= '".$data->toDate."'";
+	}
+	
     $pageRes = null;
-    if(!$hasCat){
-		$pageRes = $pr->getPage($db,'SELECT post.* , gallery.FullPath as Image FROM post LEFT JOIN gallery on post.ImageID = gallery.ID ORDER BY post.ID DESC');
+    
+	if(!isset($data->searchTags)){
+		$pageRes = $pr->getPage($db,'SELECT post.* , gallery.FullPath as Image FROM post LEFT JOIN gallery on post.ImageID = gallery.ID WHERE 1=1 '.$where.' ORDER BY post.ID DESC');
+	}else{
+		$pageRes = $pr->getPage($db,'SELECT DISTINCT post.* , gallery.FullPath as Image FROM subject JOIN post_subject on post_subject.SubjectID=subject.ID JOIN post on post.ID=post_subject.PostID LEFT JOIN gallery on post.ImageID = gallery.ID WHERE  subject.ID IN ('.$data->searchTags.')'.$where.' ORDER BY post.ID DESC');
 	}
-    else{
-		$pageRes = $pr->getPage($db,'SELECT post.* , gallery.FullPath as Image FROM post LEFT JOIN post_subject on post_subject.PostID=post.ID LEFT JOIN gallery on post.ImageID = gallery.ID WHERE post_subject.SubjectID='.$data->catID.' ORDER BY post.ID DESC');
-	}
-	
-	$sess = $db->getSession();
-	$isUser=isset($sess["IsUser"]);
-	$ip = getIPAddress();
-	
+		
     foreach($pageRes['Items'] as &$res){
-    	if($isUser){
-			$res["Liked"]=$db->existsRecord("post_like","UserID='".$sess["UserID"]."' AND PostID='".$res["ID"]."'");	
-		}else{
-			$res["Liked"]=$db->existsRecord("post_like","PostID='".$res["ID"]."' AND Identity='".$ip."'");	
-		}
 		
 		$res["LikesCount"] = $db->getCount('post_like','PostID='.$res["ID"]);
 		
