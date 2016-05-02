@@ -15,6 +15,7 @@ require_once 'classes.php';
 require_once 'authentication.php';
 require_once 'default_service.php';
 require_once 'admin_service.php';
+require_once 'update_service.php';
 
 /**
  * Verifying required params posted or not

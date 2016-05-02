@@ -1,5 +1,4 @@
 <?php
-
 $app->post('/getAllPostsAdmin', function() use ($app)  {
 	adminRequire();
 	

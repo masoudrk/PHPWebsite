@@ -48,6 +48,19 @@ class DbHandler {
         return $r;
     }
     /**
+     * Fetching records
+     */
+    public function prepare($query) {
+        $r = $this->conn->prepare($query) or die($this->conn->error.__LINE__);
+        return $r;
+    }
+    /**
+     * Fetching records
+     */
+    public function getConnection() {
+        return $this->conn;
+    }
+    /**
      * Creating new record
      */
     public function insertIntoTable($obj, $column_names, $table_name) {

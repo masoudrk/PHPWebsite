@@ -1,0 +1,52 @@
+﻿
+
+<div class="center-content-container yekan-font">
+    <div class="header content-header-yellow">
+        <div class="row">
+            <div class="col-md-12 text-right content-header-mid">
+                <span>آپدیت وبسایت</span>
+                <i class="fa fa-flag"></i>
+            </div>
+        </div>
+    </div>
+    <div class="white-panel">
+        <form name="myForm">
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-12 pull-right">
+
+                        <div class="fileUpload">
+                            <input class="upload-button upload col-md-12" type="file" ngf-select ng-model="picFile" name="file"
+                                    ngf-max-size="2000MB" required
+                                   ngf-model-invalid="errorFile">
+                            <span style="line-height: 100px; width: 100%; color: gray" class="yekan-font text-center">یا کلیک کنید یا فایل آپدیت را در اینجا رها کنید </span>
+                        </div>
+                    </div>
+                </div>
+                <i ng-show="myForm.file.$error.maxSize">
+                    File too large
+                    {{errorFile.size / 1000000000|number:1}}MB: max 2000MB
+                </i>
+                <div class="col-md-12 gallery ">
+                    <div class="col-md-6 no-padding">
+                        <button class="btn btn-primary" ng-disabled="!myForm.$valid"
+                                ng-click="uploadPic(picFile)">
+                            شروع آپدیت
+                        </button>
+                        <button class="btn btn-danger" ng-click="picFile = null" ng-show="picFile">حذف</button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+
+                    <span class="progress" ng-show="picFile.progress >= 0">
+                        <div style="width: {{picFile.progress}}% "
+                             ng-bind="picFile.progress + '%'"></div>
+                    </span>
+                    <span ng-show="picFile.result">Upload Successful</span>
+                    <span class="err" ng-bind-html="errorMsg" ng-show="errorMsg"></span>
+                </div>
+            </fieldset>
+            <br>
+        </form>
+    </div>
+</div>

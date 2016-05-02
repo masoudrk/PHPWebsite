@@ -325,6 +325,25 @@ app.config([
                     }]
                 }
             })
+            .state("admin_root.updater", {
+                url: "/updater",
+                views: {
+                    "viewContent": {
+                        templateUrl: "partials/Admin/Updater/Updater.html",
+                        controller: 'UpdaterCtrl'
+                    },
+                    "viewSidebar": {
+                        templateUrl: "partials/Admin/Sidebar.html"
+                    }
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'partials/Admin/Updater/UpdaterCtrl.js',
+                            'app/directives/MultiSelectDropDown/checkbox-drop-down.js']);
+                    }]
+                }
+            })
             .state("admin_root.all_posts", {
                 url: "/all_posts",
                 views: {
