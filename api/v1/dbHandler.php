@@ -20,14 +20,14 @@ class DbHandler {
         return $result = $r->fetch_assoc();    
     }
     
-    public function beginTransaction() {
-        //$this->conn->beginTransaction();
+    public function startTransaction() {
+        $this->conn->autocommit(FALSE);
     }
     public function rollbackTransaction() {
-       // $this->conn->rollback();
+        $this->conn->autocommit(TRUE);
     }
     public function commitTransaction() {
-       // $this->conn->commit();
+        $this->conn->commit();
     }
     /**
      * Fetching records

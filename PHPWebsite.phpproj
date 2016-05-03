@@ -53,6 +53,7 @@
     <Compile Include="api\libs\Slim\Slim.php" />
     <Compile Include="api\libs\Slim\View.php" />
     <Compile Include="api\v1\.htaccess" />
+    <Compile Include="api\v1\classes.php" />
     <Compile Include="api\v1\update_service.php" />
     <Compile Include="api\v1\authentication.php" />
     <Compile Include="api\v1\dbConnect.php" />
