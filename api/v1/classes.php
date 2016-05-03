@@ -38,4 +38,23 @@ class Pagination {
 	}
 
 }
+
+class SiteInfo{
+	
+    public $version;
+
+    function __construct() {  
+    }
+    
+    function getFromFile($filePath){
+		
+		$myfile = fopen($filePath, "r") or die("Unable to open '".$filePath."' version file!");
+			
+		while (($line = fgets($myfile)) !== false) {
+			$this->version = $line;
+    	}
+    	
+		fclose($myfile);
+	}
+}
 ?>

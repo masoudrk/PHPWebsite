@@ -13,8 +13,8 @@
             Extention.setBusy(true);
             Extention.popInfo('لطفا تا پایان آپدیت صبر کنید.');
             file.upload.then(function (response) {
+                Extention.setBusy(false);
                 $timeout(function () {
-                    Extention.setBusy(true);
                     file.result = response.data;
                     Extention.toast({ message: 'فایل با موفقیت آپلود شد!', status: 'success' });
                 });

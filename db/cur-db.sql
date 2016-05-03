@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2016 at 07:32 PM
+-- Generation Time: May 03, 2016 at 09:41 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `UserID` bigint(20) NOT NULL,
   `PrivilegeID` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -45,6 +45,20 @@ CREATE TABLE IF NOT EXISTS `admin_privilege` (
   `Description` text COLLATE utf8_persian_ci,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `backup`
+--
+
+CREATE TABLE IF NOT EXISTS `backup` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `FullPath` varchar(200) COLLATE utf8_persian_ci NOT NULL,
+  `Date` datetime NOT NULL,
+  `UserID` bigint(20) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=44 ;
 
 -- --------------------------------------------------------
 
@@ -63,34 +77,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `Date` datetime NOT NULL,
   `Accepted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=33 ;
-
---
--- Triggers `comment`
---
-DROP TRIGGER IF EXISTS `MentionComment`;
-DELIMITER //
-CREATE TRIGGER `MentionComment` AFTER INSERT ON `comment`
- FOR EACH ROW Begin
-  DECLARE cursor_ID INT;
-  DECLARE AdminID Bigint;
-  DECLARE done INT DEFAULT FALSE;
-  DECLARE cursor_i CURSOR FOR SELECT ID FROM admin;
-  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-  
-  OPEN cursor_i;
-  read_loop: LOOP
-    FETCH cursor_i INTO AdminID;
-    IF done THEN
-      LEAVE read_loop;
-    END IF;
-    INSERT INTO comment_read(AdminID, CommentID) VALUES(AdminID, New.ID);
-  END LOOP;
-  CLOSE cursor_i;
-  
-End
-//
-DELIMITER ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=21 ;
 
 -- --------------------------------------------------------
 
@@ -121,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `contact_us` (
   `Message` varchar(4000) COLLATE utf8_persian_ci DEFAULT NULL,
   `Date` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -168,8 +155,12 @@ CREATE TABLE IF NOT EXISTS `global_settings` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `AboutPageID` bigint(20) NOT NULL,
   `FooterPageID` bigint(20) NOT NULL,
+  `SiteNameEN` text COLLATE utf8_persian_ci NOT NULL,
+  `SiteName` text COLLATE utf8_persian_ci NOT NULL,
+  `PageSize` int(11) NOT NULL DEFAULT '12',
+  `SiteTitleIcon` varchar(150) COLLATE utf8_persian_ci NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=40 ;
 
 -- --------------------------------------------------------
 
@@ -236,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `EnableComment` tinyint(1) NOT NULL DEFAULT '1',
   `EnableEnglish` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=124 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=129 ;
 
 -- --------------------------------------------------------
 
@@ -249,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `post_author` (
   `AdminID` bigint(20) NOT NULL,
   `PostID` bigint(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=207 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=230 ;
 
 -- --------------------------------------------------------
 
@@ -264,7 +255,7 @@ CREATE TABLE IF NOT EXISTS `post_like` (
   `Identity` varchar(60) COLLATE utf8_persian_ci NOT NULL,
   `UserID` bigint(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=34 ;
 
 -- --------------------------------------------------------
 
@@ -277,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `post_subject` (
   `PostID` bigint(20) NOT NULL,
   `SubjectID` bigint(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=461 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=490 ;
 
 -- --------------------------------------------------------
 
@@ -293,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `site_module` (
   `ModulePositionID` bigint(20) NOT NULL,
   `SortOrder` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=66 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=82 ;
 
 -- --------------------------------------------------------
 
@@ -359,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `SessionID` varchar(100) NOT NULL,
   `SessionValid` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
