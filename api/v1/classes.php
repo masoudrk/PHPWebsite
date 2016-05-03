@@ -42,18 +42,21 @@ class Pagination {
 class SiteInfo{
 	
     public $version;
-
+	public $forceUpdateDB;
+	
     function __construct() {  
+    	$forceUpdateDB = FALSE;
     }
     
     function getFromFile($filePath){
 		
 		$myfile = fopen($filePath, "r") or die("Unable to open '".$filePath."' version file!");
-			
-		while (($line = fgets($myfile)) !== false) {
-			$this->version = $line;
-    	}
-    	
+		$content = fgets($myfile);
+		
+		//$this->version = $line;
+    	$splits = split(',', $content);
+    	$this->version = $splits[0];
+    	$this->forceUpdateDB = ($splits[1]=='0')?FALSE:TRUE;
 		fclose($myfile);
 	}
 }

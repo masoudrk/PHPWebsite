@@ -47,6 +47,10 @@ class DbHandler {
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
         return $r;
     }
+    public function multiQuery($queries) {
+        $r = $this->conn->multi_query($queries) or die($this->conn->error.__LINE__);
+        return $r;
+    }
     /**
      * Fetching records
      */
