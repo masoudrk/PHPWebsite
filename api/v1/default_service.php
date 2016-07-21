@@ -12,10 +12,6 @@ $app->post('/getSiteName', function() use ($app)  {
     $r = $db -> makeQuery("SELECT SiteName FROM `global_settings` ORDER BY ID DESC LIMIT 1");
     $res = $r->fetch_assoc();
     
-    $db->startTransaction();
-    $r = $db -> makeQuery("insert into admin (`UserID`, `PrivilegeID`)values(1,1)");
-    $db->commitTransaction();
-    
     echoResponse(200, $res);
 });
 $app->post('/getSiteNameEN', function() use ($app)  {

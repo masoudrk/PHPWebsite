@@ -1,0 +1,104 @@
+
+<!--Header-->
+<!--Set your own background color to the header-->
+<header class="semi-transparent-header" data-bg-color="rgba(35, 35, 35, 0.61)" data-font-color="#fff">
+    <div class="container">
+        <!--<li style="float: left">-->
+        <!--<a ui-sref1="homeEN.home" ng-click="switchLanguage()" style="padding: 5px; padding-top: 12px;">-->
+        <!--<img src="images/flag_united_kingdom.png" style="margin-left: 8px; height: 30px; width: 30px"/>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--Site Logo-->
+        <div class="logo" data-sticky-logo="images/flag_united_kingdom.png" data-normal-logo="images/flag_united_kingdom.png">
+            <a ng-click="switchLanguage()">
+                <img alt="Venue" src="images/flag_united_kingdom.png" data-logo-height="35"
+                >
+            </a>
+            <!--<a href="index.php">-->
+            <!--<img alt="Venue" src="images/logo.png" data-logo-height="35">-->
+            <!--</a>-->
+        </div>
+        <!--End Site Logo-->
+
+        <div class="navbar-collapse nav-main-collapse collapse">
+
+            <!--Header Search-->
+            <div class="search" id="headerSearch">
+                <a href="#" id="headerSearchOpen"><i class="fa fa-search"></i></a>
+                <div class="search-input">
+                    <form id="headerSearchForm" action="#" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control search" name="q" id="q" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                                </span>
+                        </div>
+                    </form>
+                    <span class="v-arrow-wrap"><span class="v-arrow-inner"></span></span>
+                </div>
+            </div>
+            <!--End Header Search-->
+
+            <!--Main Menu-->
+            <nav class="nav-main mega-menu one-page-menu">
+                <ul class="nav nav-pills nav-main yekan-font" id="mainMenu">
+                    <li class="active">
+                        <a ui-sref='home.home'><i class="fa fa-home"></i>خانه</a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle menu-icon" ><i class="fa fa-umbrella"></i>موضوعات <i
+                                class="fa fa-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-submenu" ng-repeat="s in subjects">
+                                <a ui-sref="home.cat({ id: '{{s.ID}}'})">{{s.Title}}</a>
+                                <ul class="dropdown-menu">
+                                    <li ng-repeat="child in s.childs">
+                                        <a ui-sref="home.cat({ id: '{{child.ID}}'})">{{child.Title}}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a ui-sref='home.about'><i class="fa fa-info"></i>درباره ما</a>
+                    </li>
+                    <li>
+                        <a ui-sref='home.about'><i class="fa fa-phone"></i>تماس با ما</a>
+                    </li>
+                    <li ng-if="!authenticated">
+                        <a ng-click="openModal('signup')"><i class="fa fa-flash"></i>ثبت نام</a>
+                    </li>
+                    <li ng-if="!authenticated" >
+                        <a ng-click="openModal('signin')">
+                            <div class="fa fa-lock" style="margin-left: 8px; line-height: 0"></div>
+                            ورود
+                        </a>
+                    </li>
+                    <li ng-if="authenticated && isAdmin" >
+                        <a ui-sref="admin_root.dashboard">
+                            <div class="fa fa-user" style="margin-left: 8px; line-height: 0"></div>
+                            پنل کاربری
+                        </a>
+                    </li>
+                    <li ng-if="authenticated && !isAdmin" >
+                        <a ui-sref="user_root.dashboard">
+                            <div class="fa fa-user" style="margin-left: 8px; line-height: 0"></div>
+                            پنل کاربری
+                        </a>
+                    </li>
+                    <li ng-if="authenticated">
+                        <a ng-click="logout()">
+                            <div class="fa fa-sign-out" style="margin-left: 8px; line-height: 0"></div>
+                            خروج
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!--End Main Menu-->
+        </div>
+        <button class="btn btn-responsive-nav btn-inverse" data-toggle="collapse" data-target=".nav-main-collapse">
+            <i class="fa fa-bars"></i>
+        </button>
+    </div>
+</header>
+<!--End Header-->

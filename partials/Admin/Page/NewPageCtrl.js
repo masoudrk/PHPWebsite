@@ -70,6 +70,67 @@
         }
     }
 
+    $scope.insert4SectionHeader = function (lang) {
+
+        var uibModalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'headerModal.html',
+            controller: function ($scope, $uibModalInstance, Extention, lang) {
+                $scope.sections = [];
+                for (var i = 0; i < 4; i++) {
+                    var item = {};
+                    item.link = '#';
+                    $scope.sections.push(item);
+                }
+
+                $scope.insertHeaderScript = function () {
+
+                    var str = "<div class=\"white-panel persian-rtl yekan-font\">" +
+                        "\n\t<div class=\"col-xs-12 text-center bottom-padding-20\">";
+
+                    for (var i = 0; i < 4; i++) {
+                        var iconStyle = "font-size:100px;" + (($scope.sections[i].iconColor) ? 'color:' + $scope.sections[i].iconColor : '');
+                        var iconCssClass = "bottom-buffer fa " + $scope.sections[i].icon;
+
+                        str += "\n\t\t<div class=\"col-md-3 col-sm-6 col-xs-12 top-padding-20\">" +
+                            "\n\t\t\t<i class=\"" + iconCssClass + "\" style=\"" + iconStyle + "\"></i>" +
+                            "\n\t\t\t<div class=\"col-xs-12\" style=\"height:100px\">" + $scope.sections[i].text +
+                            "\n\t\t\t</div>" +
+                            "\n\t\t\t<div class=\"col-xs-12 top-buffer\">" + (($scope.sections[i].link) ?
+                            "\n\t\t\t\t<button class=\"btn btn-success\" ><a class=\"my-white special-link\" href=\"" + $scope.sections[i].link+ "\">ادامه</a></button>" : "") +
+                            "\n\t\t\t</div>" +
+                            "\n\t\t</div>";
+                    }
+                    str +=  "\n\t</div>" +
+                            "\n</div>";
+
+                    $uibModalInstance.close({ htmlCodeEN: str, htmlCode: str, lang: lang });
+                }
+            },
+            size: 'md',
+            resolve: {
+                lang: function () {
+                    return lang;
+                }
+            }
+        });
+
+        uibModalInstance.result.then(function (html) {
+            if (lang == 'en') {
+                if (!$scope.page.HtmlContentEN)
+                    $scope.page.HtmlContentEN = html.htmlCodeEN;
+                else
+                    $scope.page.HtmlContentEN += html.htmlCodeEN;
+            }
+            else {
+                if (!$scope.page.HtmlContent)
+                    $scope.page.HtmlContent = html.htmlCode;
+                else
+                    $scope.page.HtmlContent += html.htmlCode;
+            }
+        });
+    }
+
 
     $scope.savePage = function () {
         var page = {

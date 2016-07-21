@@ -94,8 +94,8 @@
     <Folder Include="app\directives\Post\" />
     <Folder Include="app\directives\SlideShow\" />
     <Folder Include="app\directives\MultiSelectDropDown\" />
-    <Folder Include="content\img\" />
     <Folder Include="content\files\" />
+    <Folder Include="content\img\" />
     <Folder Include="content\static\" />
     <Folder Include="css" />
     <Folder Include="css\sortable\" />

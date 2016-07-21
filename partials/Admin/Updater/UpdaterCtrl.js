@@ -14,10 +14,11 @@
             Extention.popInfo('لطفا تا پایان آپدیت صبر کنید.');
             file.upload.then(function (response) {
                 Extention.setBusy(false);
-                $timeout(function () {
-                    file.result = response.data;
-                    Extention.toast({ message: 'فایل با موفقیت آپلود شد!', status: 'success' });
-                });
+                if (response.data) {
+                    Extention.popSuccess('سایت با موفقیت آپدیت شد!');
+                } else {
+                    Extention.popError('مشکل در آپدیت سایت!');
+                }
             }, function (response) {
                 Extention.setBusy(false);
                 if (response.status > 0) {

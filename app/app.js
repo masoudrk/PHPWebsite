@@ -719,9 +719,9 @@ app.factory("Extention", ['$http', '$timeout', '$rootScope', '$state', '$statePa
         obj.openSignupPanel = function (lang) {
             var template;
             if (lang == 'en')
-                template = 'partials/HomeEN/SignupTemplate.html';
+                template = 'SignupTemplateEN.html';
             else
-                template = 'partials/Home/SignupTemplate.html';
+                template = 'SignupTemplate.html';
 
             $uibModal.open({
                 animation: true,
@@ -734,9 +734,9 @@ app.factory("Extention", ['$http', '$timeout', '$rootScope', '$state', '$statePa
         obj.openSigninPanel = function (lang) {
             var template;
             if (lang == 'en')
-                template = 'partials/HomeEN/LoginTemplate.html';
+                template = 'LoginTemplateEN.html';
             else
-                template = 'partials/Home/LoginTemplate.html';
+                template = 'LoginTemplate.html';
 
             $uibModal.open({
                 animation: true,
@@ -851,10 +851,15 @@ app.run(function ($rootScope, $templateCache, $state, $location, Extention) {
 
     $rootScope.spinner = { active: false };
 
-    $rootScope.$on("$stateChangeSuccess", function() {
+    $rootScope.$on("$stateChangeSuccess", function(event, to,per,from ) {
         Extention.setBusy(false);
         //$templateCache.remove('partials/Home/Main/Main.html');
        // $templateCache.remove('partials/Home/Post/Post.html');
+
+        var subTo = to.name.split(".");
+        var subFrom = from.name.split(".");
+        if(subTo[0] != subFrom[0])
+            fixMenuBar();
     });
 
     $rootScope.$on("$stateChangeStart", function (event, next, current) {

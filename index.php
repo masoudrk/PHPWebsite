@@ -27,10 +27,23 @@
 
     <link href="css/angular-tooltips.css" rel="stylesheet" type="text/css" />
 
-    <link href="css/ui-navbar.css" rel="stylesheet">
+<!--    <link href="css/ui-navbar.css" rel="stylesheet">-->
     
-    <link href="css/angular-hamburger-toggle.min.css" rel="stylesheet"></link>
-    
+    <link href="css/angular-hamburger-toggle.min.css" rel="stylesheet"/>
+
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/animate.css">
+<!---->
+<!--    <link rel="stylesheet" href="css/v-nav-menu.css">-->
+<!--    <link href="css/v-animation.css" rel="stylesheet" />-->
+<!--    <link href="css/v-bg-stylish.css" rel="stylesheet" />-->
+<!--    <link href="css/v-shortcodes.css" rel="stylesheet" />-->
+<!--    <link rel="stylesheet" href="css/v-nav-menu-fa-fix.css">-->
+
     <title ng-bind="($title || 'Loading ...')">Loading ...</title>
     <link rel="icon" href="{{titleIcon}}">
 </head>
@@ -51,6 +64,9 @@
   src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit&hl=en"
   async defer
 ></script>
+
+<!-- jqurey libs -->
+<script src="js/jquery.js" type="text/javascript"></script>
 
 <script src="Scripts/angular.js"></script>
 <script src="Scripts/angular-route.min.js"></script>
@@ -92,7 +108,7 @@
 <script src="app/directives/auto-pagination.js"></script>
 
 <script src="app/directives/directives.js"></script>
-<script src="app/directives/SlideShow/SlideShow.js"></script>
+<script src="app/directives/owl-slider/SlideShow.js"></script>
 <script src="app/directives/Menu/menu.js"></script>
 
 <script type="text/javascript" src="js/moment.js"></script>
@@ -100,14 +116,16 @@
 <script type="text/javascript" src="js/angular-confirm.min.js"></script>
 <script type="text/javascript" src="js/ADM-dateTimePicker.min.js"></script>
 
-<!-- jqurey libs -->
-<script src="js/jquery.js" type="text/javascript"></script>
 
 <script src="js/bootstrap-toolkit.js"></script>
 <!--<script src="js/bootstrap-toolkit-1.5.0.js"></script>-->
 
 <script src="defaultPage.js" ></script>
 <script src="js/menubar.js"></script>
+
+<!-- Owl Carousel -->
+<script src="js/owl.carousel.min.js"></script>
+
 <!--
 <link href="css/pushy.css" rel="stylesheet" />
 <script src="jquery/pushy.js"></script>-->

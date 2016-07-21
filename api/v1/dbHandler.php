@@ -21,10 +21,11 @@ class DbHandler {
     }
     
     public function startTransaction() {
-        $this->conn->autocommit(FALSE);
+	$this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, 0);
+       // $this->conn->autocommit(FALSE);
     }
     public function rollbackTransaction() {
-        $this->conn->autocommit(TRUE);
+        $this->conn->rollBack();
     }
     public function commitTransaction() {
         $this->conn->commit();
@@ -44,6 +45,10 @@ class DbHandler {
      * Fetching records
      */
     public function makeQuery($query) {
+        $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+        return $r;
+    }
+    public function execute($query) {
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
         return $r;
     }

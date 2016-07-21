@@ -1,4 +1,48 @@
 ﻿
+<script type="text/ng-template" id="headerModal.html">
+    <form class="form-horizontal" role="form">
+        <div class="modal-header">
+            <h3 class="modal-title yekan-font text-right">درج پنل چند تکه</h3>
+        </div>
+        <div class="modal-body yekan-font" style="max-height:400px;overflow:auto;">
+            <div class="row" ng-repeat="p in sections">
+                <div class="col-xs-12 no-padding-right white-panel-header my-green-sea" style="border-bottom :none">
+                    تکه {{$index + 1}}
+                </div>
+                <div class="form-group col-xs-12" ng-class="nameError ? 'has-error has-feedback' : ''">
+                    <div class="col-xs-9">
+                        <textarea rows="4" type="text" ng-model="p.text" class="form-control persian-rtl yekan-font" id="latitude" placeholder="{{' نوشته '+($index + 1)}}" ></textarea>
+                    </div>
+                    <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="latitude">نوشته</label>
+                </div>
+                <div class="form-group col-xs-12" ng-class="nameError ? 'has-error has-feedback' : ''">
+                    <div class="col-xs-9">
+                        <input type="text" ng-model="p.icon" class="form-control english-text text-center" id="latitude" placeholder="{{'نام کلاس فونت آیکون '+($index + 1)}}">
+                        <i class="fa fa-2x {{p.icon}}" style="top: 2px;right: 20px;position: absolute; color:{{p.iconColor}}"></i>
+                    </div>
+                    <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="latitude">آیکون</label>
+                </div>
+                <div class="form-group col-xs-12" ng-class="nameError ? 'has-error has-feedback' : ''">
+                    <div class="col-xs-9">
+                        <input type="text" ng-model="p.iconColor" class="form-control english-text text-center" id="latitude" placeholder="{{'رنگ آیکون'+($index + 1)}}">
+                    </div>
+                    <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="latitude">رنگ آیکون</label>
+                </div>
+                <div class="form-group col-xs-12" ng-class="nameError ? 'has-error has-feedback' : ''">
+                    <div class="col-xs-9">
+                        <input type="text" ng-model="p.link" class="form-control english-text text-center" id="latitude" placeholder="{{'لینک ادامه'+($index + 1)}}">
+                    </div>
+                    <label class="col-xs-3 control-label no-padding-right yekan-font text-right" for="latitude">لینک ادامه</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary pull-right yekan-font" type="button" ng-click="close()" style="margin-left: 5px">بازگشت</button>
+            <button type="submit" class="btn btn-success yekan-font pull-left" ng-click="insertHeaderScript()">درج</button>
+        </div>
+    </form>
+</script>
 <script type="text/ng-template" id="googleMapModal.html">
     <form class="form-horizontal" role="form">
         <div class="modal-header">
@@ -82,6 +126,7 @@
                         <div class="form-group col-xs-12">
                             <button ng-click="openGoogleMapModal('fa')" class="btn btn-warning yekan-font">درج نقشه گوگل</button>
                             <button ng-click="insertWhitePanel('fa')" class="btn btn-info yekan-font">درج پنل سفید</button>
+                            <button ng-click="insert4SectionHeader('fa')" class="btn btn-info yekan-font">درج هدر</button>
                         </div>
                         <div class="form-group col-xs-12">
                             <span class="col-xs-12 control-label no-padding-right yekan-font">: محتوا صفحه</span>
@@ -94,6 +139,7 @@
                         <div class="form-group col-xs-12">
                             <button ng-click="openGoogleMapModal('en')" class="btn btn-warning yekan-font">درج نقشه گوگل انگلیسی</button>
                             <button ng-click="insertWhitePanel('en')" class="btn btn-info yekan-font">درج پنل سفید انگلیسی</button>
+                            <button ng-click="insert4SectionHeader('en')" class="btn btn-info yekan-font">درج هدر</button>
                         </div>
                         <div class="form-group col-xs-12">
                             <span class="col-xs-12 control-label no-padding-right yekan-font" >: محتوا صفحه انگلیسی</span>
