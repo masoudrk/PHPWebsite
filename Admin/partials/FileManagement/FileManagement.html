@@ -1,0 +1,160 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1 class="content-header vazir-font">
+        <button class="btn btn-success persian-rtl" ng-click="openUploadModal()">آپلود فایل</button>
+        <small> گالری</small>
+        مدیریت فایل ها
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#/dashboard"><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li class="active">مدیریت فایل ها</li>
+    </ol>
+</section>
+<style>
+    .grid-item{
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+
+    }
+
+    .overlay{
+        background-color: rgba(0,0,0,0.8);
+        position: absolute;
+        top:0;
+        left: 0;
+        height: 70px;
+        width:100%;
+        display: none;
+        /opacity: 0;
+    }
+
+    .grid-item :hover .overlay{
+        display: block !important;
+    /transition: opacity 1 0.1s;
+        text-align: center;
+    }
+</style>
+<section class="row">
+    <div class="col-xs-12">
+        <div class="col-xs-12">
+
+            <div class="items" masonry>
+                <div class="item col-xs-12 col-sm-6 col-md-3 grid-item link" ng-repeat="data in files" >
+                    <div style="margin-right: 8px; margin-left: 8px;">
+                        <div style="background-color:#fff
+                        ;margin-bottom: 10px;border-radius: 6px;position: relative;overflow: hidden">
+                            <div class="text-center" style="overflow: hidden;">
+                                <img class="img-responsive grow" ng-src="{{ '../../' + data.AbsolutePath}}"
+                                     style="margin: auto;border-radius: 6px;"/>
+                            </div>
+                            <div class="overlay" >
+
+                                <i class="fa fa-trash fa-3x link"
+                                   style="padding: 5px;z-index: 10 ;color: #fff;"></i>
+                            </div>
+                            <!--<div style="height: 40px;text-align: center;border-top: solid 1px #ddd">-->
+                            <!--<i class="fa fa-trash fa-2x link faa-flash animated-hover palette-alizarin"-->
+                            <!--style=" padding: 5px"-->
+                            <!--confirm="آیا مطمئن هستید که میخواهید این تصویر را حذف کنید؟"></i>-->
+                            <!--<i class="fa fa-share fa-2x link faa-flash animated-hover palette-peter-river "-->
+                            <!--style="padding: 5px"></i>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-show="files.length > 0">
+                <div class="col-xs-12 text-center">
+                    <auto-paging page="1"
+                                 page-size="9"
+                                 ul-class="pagination pagination-sm no-margin"
+                                 action-name="getAllStoredFiles"
+                                 data-params="pagingParams"
+                                 items="files"
+                                 total-items="filesTotal">
+                    </auto-paging>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .demo-3 {
+        position:relative;
+       / width:300px;
+        height:200px;
+        overflow:hidden;
+        float:left;
+        margin-right:20px
+    }
+    .demo-3 figure {
+        margin:0;
+        padding:0;
+        position:relative;
+        cursor:pointer;
+        margin-left:-50px
+    }
+    .demo-3 figure img {
+        display:block;
+        position:relative;
+        z-index:10;
+        margin:-15px 0
+    }
+    .demo-3 figure figcaption {
+        display:block;
+        position:absolute;
+        z-index:5;
+        -webkit-box-sizing:border-box;
+        -moz-box-sizing:border-box;
+        box-sizing:border-box
+    }
+    .demo-3 figure h2 {
+        font-family:'Lato';
+        color:#fff;
+        font-size:20px;
+        text-align:left
+    }
+    .demo-3 figure p {
+        display:block;
+        font-family:'Lato';
+        font-size:12px;
+        line-height:18px;
+        margin:0;
+        color:#fff;
+        text-align:left
+    }
+    .demo-3 figure figcaption {
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        padding:29px 44px;
+        background-color:rgba(26,76,110,0.5);
+        text-align:center;
+        backface-visibility:hidden;
+        -webkit-transform:rotateY(-180deg);
+        -moz-transform:rotateY(-180deg);
+        transform:rotateY(-180deg);
+        -webkit-transition:all .5s;
+        -moz-transition:all .5s;
+        transition:all .5s
+    }
+    .demo-3 figure img {
+        backface-visibility:hidden;
+        -webkit-transition:all .5s;
+        -moz-transition:all .5s;
+        transition:all .5s
+    }
+    .demo-3 figure:hover img,figure.hover img {
+        -webkit-transform:rotateY(180deg);
+        -moz-transform:rotateY(180deg);
+        transform:rotateY(180deg)
+    }
+    .demo-3 figure:hover figcaption,figure.hover figcaption {
+        -webkit-transform:rotateY(0deg);
+        -moz-transform:rotateY(0deg);
+        transform:rotateY(0deg);
+    }
+</style>

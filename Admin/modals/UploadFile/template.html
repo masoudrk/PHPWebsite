@@ -1,0 +1,87 @@
+<div class="modal-header">
+    <h3 class="modal-title persian-rtl">آپلود فایل</h3>
+</div>
+<div class="modal-body">
+
+    <div class= "row" dir="rtl">
+        <div class="col-xs-12 text-center form-group" style="margin-top: 10px">
+                        <span class="btn btn-primary btn-file" >
+            انتخاب فایل (ها)  <input type="file" id="inputFile" ngf-select name="file"
+                                     ngf-max-size="800MB"
+                                     ngf-model-invalid="errorFile" ngf-multiple="true" ngf-keep="'distinct'"
+                                     ng-model="myFiles"
+                                     ngf-change="filesChanged($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)">
+                        </span>
+            <button class="btn btn-success" ng-click="startUploadAll()">شروع آپلود فایل (ها)</button>
+        </div>
+        <div class="col-xs-12 text-center no-padding">
+            <h3 ng-show="!myFiles" class="text-muted">
+                هیچ فایلی برای آپلود انتخاب نشده است.
+            </h3>
+            <div class="table-responsive">
+                <table class="table table-hover" dir="rtl" ng-show="myFiles">
+                    <tbody>
+                    <tr ng-repeat="f in myFiles">
+                        <th style="width: 74px" ng-show="f.uploadState != 1">
+                            <i class="fa fa-stop fa-2x palette-alizarin link"
+                               ng-click="removeFile(f)"></i>
+                            <i class="fa fa-play fa-2x palette-nephritis link"
+                               ng-click="startUploadFile(f)"
+                               style="margin-right: 5px"
+                               ng-hide="f.uploadState == 0 || f.uploadState == 1"></i>
+                        </th>
+                        <th style="text-align: left;width: 20px" ng-show="f.uploadState != 1">
+                            {{f.percent || '0' | pNumber}}<span class="english-font">%</span>
+                        </th>
+                        <th ng-show="f.uploadState == 1" style="text-align: center" colspan="3">
+                            با موفقیت آپلود شد!
+                        </th>
+                        <th style="width:100px ;text-align: left;"   ng-show="f.uploadState != 1">
+                            <div class="progress progress-sm" style="width:100% ;"
+                                 ng-class="(f.uploadState == 0)? 'active':''">
+                                <div class="progress-bar"
+                                     role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: {{f.percent}}%"
+                                     ng-class="(f.uploadState == 0)?'progress-bar-striped progress-bar-warning'
+                                                :' progress-bar-success'">
+                                </div>
+                            </div>
+                        </th>
+                        <th style="min-width:150px ;">
+                            <input class="form-control"  placeholder="توضیحات ..."
+                                   ng-disabled="f.uploadState == 0 || f.uploadState == 1"
+                                   ng-model="f.Description"/>
+                        </th>
+                        <th style="text-align: center">
+                            <span class="palette-pumpkin">{{f.size |fileSizeFilter | pNumber}}</span>
+                        </th>
+                        <th class="english-font text-right" style="text-align: center;">
+                            {{f.name | subString : 20}}
+                        </th>
+                        <th ng-switch="f.type" class="text-center" style="text-align: center;">
+                            <img ng-switch-when="image/jpeg" ngf-thumbnail="f"
+                                 style="height: 40px;width: 40px;"
+                                 class="img-circle" >
+                            <img ng-switch-when="image/png" ngf-thumbnail="f"
+                                 style="height: 40px;width: 40px;"
+                                 class="img-circle" >
+                            <i ng-switch-when="video/mp4"
+                               class="fa fa-video-camera fa-3x file-extension-thum text-muted" ></i>
+                            <i ng-switch-when="video/avi"
+                               class="fa fa-video-camera fa-3x file-extension-thum text-muted" ></i>
+                            <i ng-switch-when="video/mkv"
+                               class="fa fa-video-camera fa-3x file-extension-thum text-muted" ></i>
+                            <i ng-switch-when="archive/rar"
+                               class="fa fa-file-zip-o fa-3x file-extension-thum text-muted" ></i>
+                            <i ng-switch-when="archive/zip"
+                               class="fa fa-file-zip-o fa-3x file-extension-thum text-muted" ></i>
+                            <i ng-switch-default
+                               class="fa fa-file fa-3x file-extension-thum text-muted" ></i>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!-- /.box-body -->
+</div>

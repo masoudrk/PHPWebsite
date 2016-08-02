@@ -1,0 +1,88 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1 class="content-header vazir-font">
+        <small>مدیریت</small>
+        داشبورد
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#/dashboard"><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li class="active">داشبورد</li>
+    </ol>
+</section>
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="col-xs-12 col-lg-4">
+            <div class="box box-success" >
+                <div class="box-header  ">
+                    <h3 class="box-title vazir-font">
+                        <span class="label-buffer"> اسلاید جدید </span>
+                    </h3>
+                </div><!-- /.box-header -->
+                <div class="box-body persian-rtl">
+                    <div class="panel panel-success" style="margin-bottom:8px;">
+                        <div class="panel-body">
+                            <div class="col-xs-12 no-padding" style="margin-bottom: 8px">
+
+                                <div class="pull-left">
+                                <span class="btn btn-primary btn-file pull-left ">
+                    انتخاب تصویر    <input type="file" id="inputFile1" ngf-select name="file"
+                                       ngf-max-size="2MB"
+                                       ngf-model-invalid="errorFile" ngf-multiple="false"
+                                       ng-model="image.newSlideBgFile" ngf-accept="'image/*'"
+                                       ngf-change="bgImageChanged($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)">
+                                </span>
+                                </div>
+                                <span class="pull-right label-buffer" >تصویر پس زمینه</span>
+                            </div>
+                            <div class="text-center" ng-show="image.ValidBg">
+                                <img ngf-thumbnail="image.newSlideBgFile"
+                                     style="width:100px;margin: auto;margin-top: 5px "
+                                     class="img-rounded text-center" >
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel panel-success" style="margin-bottom:8px;">
+                        <div class="panel-body">
+                            <div class="col-xs-12 no-padding" style="margin-bottom: 8px">
+
+                                <div class="pull-left">
+                                <span class="btn btn-primary btn-file pull-left ">
+                انتخاب تصویر    <input type="file" id="inputFile2" ngf-select name="file"
+                                       ngf-max-size="2MB"
+                                       ngf-model-invalid="errorFile" ngf-multiple="false"
+                                       ng-model="image.newSlideFrontFile" ngf-accept="'image/*'"
+                                       ngf-change="frontImageChanged($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)">
+                                </span>
+                                </div>
+                                <span class="pull-right label-buffer">تصویر رو به رو</span>
+                            </div>
+                            <div class="text-center" style="margin-top: 5px" ng-show="image.ValidFront">
+                                <img ngf-thumbnail="image.newSlideFrontFile"
+                                     style="width:100px;margin: auto; "
+                                     class="img-rounded text-center" >
+                            </div>
+
+                        </div>
+                    </div>
+                    <input class="form-control control-buffer" placeholder="سر تیتر ...">
+                    <textarea class="form-control control-buffer" placeholder="توضیحات ..." rows="3"
+                            style="resize: none;"></textarea>
+                    <button class="btn btn-success pull-left">افزودن اسلاید</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-lg-8">
+            <div class="box box-danger" >
+                <div class="box-header  ">
+                    <h3 class="box-title vazir-font">
+                        <span> همه اسلایدها </span>
+                    </h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
